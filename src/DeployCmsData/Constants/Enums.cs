@@ -1,0 +1,34 @@
+﻿namespace DeployCmsData.Constants
+{
+    public enum CmsDataType
+    {
+        Label,
+        Upload,
+        TextBoxMultiple,
+        TextString,
+        RichTextEditor,
+        Numeric,
+        TrueFalse,
+        CheckBoxList,
+        DropDown,
+        DatePicker,
+        RadioBox,
+        DropDownMultiple,
+        FolderBrowser,
+        ApprovedColor,
+        DatePickerWithTime,
+        ListViewContent,
+        ListViewMedia,
+        ListViewMembers,
+        ContentPicker,
+        MediaPicker,
+        MemberPicker,
+        RelatedLinks,
+        Tags,
+        ImageCropper,
+        MultipleMediaPicker,
+        MultipleNodeTreePicker,
+        SmallRichTextEditor,
+        Accordian
+    }
+}
