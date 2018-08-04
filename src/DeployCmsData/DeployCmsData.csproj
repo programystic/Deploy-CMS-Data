@@ -232,7 +232,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants\CmsContentValues.cs" />
+    <Compile Include="Constants\ValueConstants..cs" />
     <Compile Include="Constants\Enums.cs" />
     <Compile Include="Constants\ExceptionMessages.cs" />
     <Compile Include="Constants\Icons.cs" />

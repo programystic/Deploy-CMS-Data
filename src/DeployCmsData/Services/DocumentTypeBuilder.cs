@@ -5,6 +5,7 @@ using DeployCmsData.Constants;
 using DeployCmsData.Interfaces;
 using Umbraco.Core;
 using Umbraco.Core.Models;
+using Umbraco.Core.Models.EntityBase;
 using Umbraco.Core.Services;
 
 namespace DeployCmsData.Services
@@ -46,7 +47,6 @@ namespace DeployCmsData.Services
             return BuildDocumentType(parent.Id);
         }
 
-        /// <param name="folderLevel">The top-level 'Document Types' folder is level 0</param>
         public IContentType BuildInFolder(string folderName, int folderLevel)
         {
             if (string.IsNullOrEmpty(folderName))
@@ -59,9 +59,29 @@ namespace DeployCmsData.Services
             return BuildDocumentType(parentFolder.Id);
         }
 
+        public IContentType BuildInFolder(string folderName)
+        {            
+            var folderLevel = 1;
+            IUmbracoEntity parentFolder = null;
+
+            if (string.IsNullOrEmpty(folderName))
+                throw new ArgumentException(ExceptionMessages.ParentFolderNameNotDefined);
+
+            while (folderLevel <= ValueConstants.MaximumFolderLevel && parentFolder == null)
+            {
+                parentFolder = _factory.GetContainer(folderName, folderLevel);
+                folderLevel++;
+            }
+            
+            if (parentFolder == null)
+                throw new ArgumentException(ExceptionMessages.ParentFolderNotFound, folderName);
+
+            return BuildDocumentType(parentFolder.Id);
+        }
+        
         public IContentType BuildAtRoot()
         {
-            return BuildDocumentType(FolderConstants.RootFolder);
+            return BuildDocumentType(ValueConstants.RootFolder);
         }
 
         private IContentType BuildDocumentType(int parentId)
@@ -80,7 +100,7 @@ namespace DeployCmsData.Services
             documentType.Icon = _icon;
             documentType.Name = _name;
             documentType.Description = _description;
-            documentType.AllowedAsRoot = (parentId == FolderConstants.RootFolder);
+            documentType.AllowedAsRoot = (parentId == ValueConstants.RootFolder);
             documentType.IsContainer = false;
 
             //foreach (var field in FieldList)

@@ -1,6 +1,7 @@
 ﻿using System;
 using DeployCmsData.Constants;
 using DeployCmsData.Test.Services;
+using Moq;
 using NUnit.Framework;
 
 namespace DeployCmsData.Test.Tests
@@ -15,13 +16,13 @@ namespace DeployCmsData.Test.Tests
         private const string ParentAlias = "myParentAlias";
         private const int ParentId = 101;
         private const string ParentFolderName = "parentFolderName";
-        private const int ParentFolderLevel = 25;
+        private const int ParentFolderLevel = 7;
         private const int ParentFolderId = 78;
 
         [Test]
-        public void DocumentTypeCreateWithInvalidParent()
+        public void CreateWithInvalidParent()
         {
-            var builder = new DocumentTypeBuilderBuilder().Build();
+            var builder = new DocumentTypeBuilderSetup().Build();
 
             Assert.Throws<ArgumentException>(
                 () => builder
@@ -33,9 +34,9 @@ namespace DeployCmsData.Test.Tests
         }
 
         [Test]
-        public void DocumentTypeCreateWithParent()
+        public void CreateWithParent()
         {
-            var builder = new DocumentTypeBuilderBuilder()
+            var builder = new DocumentTypeBuilderSetup()
                 .ReturnsNewContentType(ParentId, ParentAlias)
                 .Build();
 
@@ -57,10 +58,10 @@ namespace DeployCmsData.Test.Tests
         }
 
         [Test]
-        public void DocumentTypeCreateAtRoot()
+        public void CreateAtRoot()
         {
-            var builder = new DocumentTypeBuilderBuilder()
-                .ReturnsNewContentType(FolderConstants.RootFolder, ParentAlias)
+            var builder = new DocumentTypeBuilderSetup()
+                .ReturnsNewContentType(ValueConstants.RootFolder, ParentAlias)
                 .Build();
 
             var documentType = builder
@@ -74,15 +75,15 @@ namespace DeployCmsData.Test.Tests
             Assert.AreEqual(Name, documentType.Name);
             Assert.AreEqual(Description, documentType.Description);
             Assert.AreEqual(Icon, documentType.Icon);
-            Assert.AreEqual(FolderConstants.RootFolder, documentType.ParentId);
+            Assert.AreEqual(ValueConstants.RootFolder, documentType.ParentId);
             Assert.IsTrue(documentType.AllowedAsRoot);
             Assert.IsFalse(documentType.IsContainer);
         }
 
         [Test]
-        public void DocumentTypeCreateInFolder()
+        public void CreateInFolderWithLevel()
         {
-            var builder = new DocumentTypeBuilderBuilder()
+            var builder = new DocumentTypeBuilderSetup()
                 .ReturnsNewContentType(ParentFolderId, ParentAlias)
                 .ReturnsFolder(ParentFolderName, ParentFolderLevel, ParentFolderId)
                 .Build();
@@ -101,6 +102,38 @@ namespace DeployCmsData.Test.Tests
             Assert.AreEqual(Icon, documentType.Icon);
             Assert.IsFalse(documentType.AllowedAsRoot);
             Assert.IsFalse(documentType.IsContainer);
+        }
+
+        [Test]
+        public void CreateInFolderWithNoLevel()
+        {
+            var setup = new DocumentTypeBuilderSetup();
+
+            var builder = setup
+                .ReturnsNewContentType(ParentFolderId, ParentAlias)
+                .ReturnsFolder(ParentFolderName, ParentFolderLevel, ParentFolderId)
+                .Build();
+
+            var folder = builder
+                .Alias(Alias)
+                .Icon(Icon)
+                .Name(Name)
+                .Description(Description)
+                .BuildInFolder(ParentFolderName);
+            
+            Assert.AreEqual(ParentFolderId, folder.ParentId);
+            Assert.AreEqual(Alias, folder.Alias);
+            Assert.AreEqual(Name, folder.Name);
+            Assert.AreEqual(Description, folder.Description);
+            Assert.AreEqual(Icon, folder.Icon);
+            Assert.IsFalse(folder.AllowedAsRoot);
+            Assert.IsFalse(folder.IsContainer);
+
+            setup.UmbracoFactory.Verify(x =>
+                    x.GetContainer(
+                        ParentFolderName,
+                        It.IsAny<int>()),
+                Times.Exactly(ParentFolderLevel));
         }
     }
 }

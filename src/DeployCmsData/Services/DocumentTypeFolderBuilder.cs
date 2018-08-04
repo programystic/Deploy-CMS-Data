@@ -43,7 +43,7 @@ namespace DeployCmsData.Services
             var container = _factory.GetContainer(_name, 1);
             if (container != null) return container;
 
-            var newContainer = _factory.NewContainer(FolderConstants.RootFolder, _name, 1);
+            var newContainer = _factory.NewContainer(ValueConstants.RootFolder, _name, 1);
             return newContainer;
         }
 

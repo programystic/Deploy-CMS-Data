@@ -9,20 +9,20 @@ using Umbraco.Core.Services;
 
 namespace DeployCmsData.Test.Services
 {
-    internal class DocumentTypeBuilderBuilder
+    internal class DocumentTypeBuilderSetup
     {
         private readonly DocumentTypeBuilder _documentTypeBuilder;
         private readonly Mock<IContentTypeService> _contentTypeService;      
         public Mock<IUmbracoFactory> UmbracoFactory { get; }
 
-        public DocumentTypeBuilderBuilder()
+        public DocumentTypeBuilderSetup()
         {
             UmbracoFactory = new Mock<IUmbracoFactory>();
             _contentTypeService = new Mock<IContentTypeService>();
             _documentTypeBuilder = new DocumentTypeBuilder(_contentTypeService.Object, UmbracoFactory.Object);
         }
 
-        public DocumentTypeBuilderBuilder ReturnsNewContentType(int parentId, string parentAlias)
+        public DocumentTypeBuilderSetup ReturnsNewContentType(int parentId, string parentAlias)
         {
             var contentType = new Mock<IContentType>();
             contentType.SetupAllProperties();
@@ -40,7 +40,7 @@ namespace DeployCmsData.Test.Services
             return this;
         }
 
-        public DocumentTypeBuilderBuilder ReturnsFolder(string folderName, int folderLevel, int folderId)
+        public DocumentTypeBuilderSetup ReturnsFolder(string folderName, int folderLevel, int folderId)
         {
             var folder = new Mock<IUmbracoEntity>();
             folder.SetupAllProperties();
