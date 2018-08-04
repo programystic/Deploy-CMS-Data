@@ -72,7 +72,7 @@ namespace DeployCmsData.Test.Tests
             var scriptName = upgradeScript.GetType().Name;
             var logRepository = new Mock<IUpgradeLogRepository>();
             var scriptManager = new UpgradeScriptManager(logRepository.Object);
-            logRepository.Setup(x => x.GetLog(scriptName)).Returns((UpgradeLog) null);
+            logRepository.Setup(x => x.GetLog(scriptName)).Returns((UpgradeLog)null);
 
             scriptManager.RunScript(upgradeScript.Object);
 

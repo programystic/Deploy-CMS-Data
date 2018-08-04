@@ -6,98 +6,101 @@ using NUnit.Framework;
 namespace DeployCmsData.Test.Tests
 {
     [TestFixture]
-    public static class DocumentTypeTests
+    public class DocumentTypeTests
     {
-        [Test]
-        public static void DocumentTypeCreateWithInvalidParent()
-        {
-            const string parentAlias = "myParentAlias";
-            const string alias = "myAlias";
-            const string name = "myName";
-            const string description = "myDescription";
-            const string icon = "myIcon";
-            const bool isAllowedAtRoot = true;
+        private const string Alias = "myAlias";
+        private const string Name = "myName";
+        private const string Description = "myDescription";
+        private const string Icon = "myIcon";
+        private const string ParentAlias = "myParentAlias";
+        private const int ParentId = 101;
+        private const string ParentFolderName = "parentFolderName";
+        private const int ParentFolderLevel = 25;
+        private const int ParentFolderId = 78;
 
-            var builder = new DocumentTypeTestBuilder().Build();
+        [Test]
+        public void DocumentTypeCreateWithInvalidParent()
+        {
+            var builder = new DocumentTypeBuilderBuilder().Build();
 
             Assert.Throws<ArgumentException>(
-                () => builder.CreateDocumentType(parentAlias, alias, icon, name, description, isAllowedAtRoot));
+                () => builder
+                    .Alias(Alias)
+                    .Icon(Icon)
+                    .Name(Name)
+                    .Description(Description)
+                    .Build());
         }
 
         [Test]
-        public static void DocumentTypeCreate()
+        public void DocumentTypeCreateWithParent()
         {
-            const string parentAlias = "myParentAlias";
-            const int parentId = 101;
-            const string alias = "myAlias";
-            const string name = "myName";
-            const string description = "myDescription";
-            const string icon = "myIcon";
-            const bool isAllowedAtRoot = true;
-
-            var builder = new DocumentTypeTestBuilder()
-                .ReturnsNewContentType(parentId, parentAlias)
-                .Build();            
-
-            var documentType = builder.CreateDocumentType(parentAlias, alias, icon, name, description, isAllowedAtRoot);
-
-            Assert.AreEqual(alias, documentType.Alias);
-            Assert.AreEqual(name, documentType.Name);
-            Assert.AreEqual(description, documentType.Description);
-            Assert.AreEqual(icon, documentType.Icon);
-            Assert.AreEqual(parentId, documentType.ParentId);
-            Assert.AreEqual(isAllowedAtRoot, documentType.AllowedAsRoot);
-            Assert.AreEqual(false, documentType.IsContainer);
-        }
-
-        [Test]
-        public static void DocumentTypeCreateAtRoot()
-        {
-            const string alias = "myAlias";
-            const string parentAlias = "myParentAlias";
-            const string name = "myName";
-            const string description = "myDescription";
-            const string icon = "myIcon";
-            const bool isAllowedAtRoot = true;
-
-            var builder = new DocumentTypeTestBuilder()
-                .ReturnsNewContentType(CmsContentValues.RootFolder, parentAlias)
+            var builder = new DocumentTypeBuilderBuilder()
+                .ReturnsNewContentType(ParentId, ParentAlias)
                 .Build();
 
-            var documentType = builder.CreateDocumentTypeAtRoot(alias, icon, name, description, isAllowedAtRoot);
+            var documentType = builder
+                .Alias(Alias)
+                .ParentAlias(ParentAlias)
+                .Icon(Icon)
+                .Name(Name)
+                .Description(Description)
+                .Build();
 
-            Assert.AreEqual(alias, documentType.Alias);
-            Assert.AreEqual(name, documentType.Name);
-            Assert.AreEqual(description, documentType.Description);
-            Assert.AreEqual(icon, documentType.Icon);
-            Assert.AreEqual(CmsContentValues.RootFolder, documentType.ParentId);
-            Assert.AreEqual(isAllowedAtRoot, documentType.AllowedAsRoot);
-            Assert.AreEqual(false, documentType.IsContainer);
+            Assert.AreEqual(Alias, documentType.Alias);
+            Assert.AreEqual(Name, documentType.Name);
+            Assert.AreEqual(Description, documentType.Description);
+            Assert.AreEqual(Icon, documentType.Icon);
+            Assert.AreEqual(ParentId, documentType.ParentId);
+            Assert.IsFalse(documentType.AllowedAsRoot);
+            Assert.IsFalse(documentType.IsContainer);
         }
 
         [Test]
-        public static void DocumentTypeCreateInFolder()
+        public void DocumentTypeCreateAtRoot()
         {
-            const int folderId = 101;
-            const string alias = "myAlias";
-            const string parentAlias = "myParentAlias";
-            const string name = "myName";
-            const string description = "myDescription";
-            const string icon = "myIcon";
-            const bool isAllowedAtRoot = true;
-
-            var builder = new DocumentTypeTestBuilder()
-                .ReturnsNewContentType(folderId, parentAlias)              
+            var builder = new DocumentTypeBuilderBuilder()
+                .ReturnsNewContentType(FolderConstants.RootFolder, ParentAlias)
                 .Build();
 
-            var documentType = builder.CreateDocumentType(folderId, alias, icon, name, description, isAllowedAtRoot);
+            var documentType = builder
+                .Alias(Alias)
+                .Icon(Icon)
+                .Name(Name)
+                .Description(Description)
+                .BuildAtRoot();
 
-            Assert.AreEqual(alias, documentType.Alias);
-            Assert.AreEqual(name, documentType.Name);
-            Assert.AreEqual(description, documentType.Description);
-            Assert.AreEqual(icon, documentType.Icon);
-            Assert.AreEqual(isAllowedAtRoot, documentType.AllowedAsRoot);
-            Assert.AreEqual(false, documentType.IsContainer);
+            Assert.AreEqual(Alias, documentType.Alias);
+            Assert.AreEqual(Name, documentType.Name);
+            Assert.AreEqual(Description, documentType.Description);
+            Assert.AreEqual(Icon, documentType.Icon);
+            Assert.AreEqual(FolderConstants.RootFolder, documentType.ParentId);
+            Assert.IsTrue(documentType.AllowedAsRoot);
+            Assert.IsFalse(documentType.IsContainer);
+        }
+
+        [Test]
+        public void DocumentTypeCreateInFolder()
+        {
+            var builder = new DocumentTypeBuilderBuilder()
+                .ReturnsNewContentType(ParentFolderId, ParentAlias)
+                .ReturnsFolder(ParentFolderName, ParentFolderLevel, ParentFolderId)
+                .Build();
+
+            var documentType = builder
+                .Alias(Alias)
+                .Icon(Icon)
+                .Name(Name)
+                .Description(Description)
+                .BuildInFolder(ParentFolderName, ParentFolderLevel);
+
+            Assert.AreEqual(ParentFolderId, documentType.ParentId);
+            Assert.AreEqual(Alias, documentType.Alias);
+            Assert.AreEqual(Name, documentType.Name);
+            Assert.AreEqual(Description, documentType.Description);
+            Assert.AreEqual(Icon, documentType.Icon);
+            Assert.IsFalse(documentType.AllowedAsRoot);
+            Assert.IsFalse(documentType.IsContainer);
         }
     }
 }

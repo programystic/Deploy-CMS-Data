@@ -1,5 +1,6 @@
 ﻿using System;
 using DeployCmsData.Constants;
+using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
 namespace DeployCmsData.Services
@@ -7,11 +8,23 @@ namespace DeployCmsData.Services
     public sealed class PropertyTypeBuilder
     {
         private readonly IContentTypeService _contentTypeService;
+        private string _docTypeAlias;
 
         public PropertyTypeBuilder(IContentTypeService contentTypeService)
         {
             _contentTypeService = contentTypeService;
         }
+
+        public PropertyTypeBuilder DocTypeAlias(string docTypeAlias)
+        {
+            _docTypeAlias = docTypeAlias;
+            return this;
+        }
+
+        //public PropertyType Build()
+        //{
+
+        //}
 
         public void CreateNewProperty(
             string alias, 

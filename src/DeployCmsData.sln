@@ -5,17 +5,25 @@ VisualStudioVersion = 15.0.26228.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeployCmsData", "DeployCmsData\DeployCmsData.csproj", "{0E6ECC8F-E095-48BF-B5A4-F2BCD53FC747}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeployCmsData.7.6.3.Test", "DeployCmsData.Test\DeployCmsData.7.6.3.Test.csproj", "{86E6EBB1-D436-48E0-A072-7021A39734DE}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DE56C4BC-F6EC-4497-8CF6-7C36CEF0C12A}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
 		DeployCmsData.ruleset = DeployCmsData.ruleset
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeployCmsData.7.6..3.Web", "DeployCmsData.Web\DeployCmsData.7.6..3.Web.csproj", "{107B81B0-4045-4BA1-A61C-A4DA9609E9FB}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Umbraco 7.6.3", "Umbraco 7.6.3", "{2A204B67-8CC9-4584-9451-9ED30A2722F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Umbraco 7.11.1", "Umbraco 7.11.1", "{97FF111C-D917-4F18-9A78-6A113AA79D40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeployCmsData.7.11.1.UnitTest", "DeployCmsData.7.11.1.Test\DeployCmsData.7.11.1.UnitTest.csproj", "{7FE09143-8F31-4DC7-BA21-B8D7CEC76A10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeployCmsData.7.6.3.Web", "DeployCmsData.7.6.3.Web\DeployCmsData.7.6.3.Web.csproj", "{107B81B0-4045-4BA1-A61C-A4DA9609E9FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeployCmsData.7.6.3.UnitTest", "DeployCmsData.7.6.3.Test\DeployCmsData.7.6.3.UnitTest.csproj", "{86E6EBB1-D436-48E0-A072-7021A39734DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeployCmsData.UnitTest", "DeployCmsData.Test\DeployCmsData.UnitTest.csproj", "{5C9331F0-39C3-46BB-B75E-2E2C24486E5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeployCmsData.7.11.1.Web", "DeployCmsData.7.11.1.Web\DeployCmsData.7.11.1.Web.csproj", "{DB13E11E-DC40-416E-A908-F56035639CBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,21 +35,35 @@ Global
 		{0E6ECC8F-E095-48BF-B5A4-F2BCD53FC747}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E6ECC8F-E095-48BF-B5A4-F2BCD53FC747}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E6ECC8F-E095-48BF-B5A4-F2BCD53FC747}.Release|Any CPU.Build.0 = Release|Any CPU
-		{86E6EBB1-D436-48E0-A072-7021A39734DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{86E6EBB1-D436-48E0-A072-7021A39734DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{86E6EBB1-D436-48E0-A072-7021A39734DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{86E6EBB1-D436-48E0-A072-7021A39734DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FE09143-8F31-4DC7-BA21-B8D7CEC76A10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FE09143-8F31-4DC7-BA21-B8D7CEC76A10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FE09143-8F31-4DC7-BA21-B8D7CEC76A10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FE09143-8F31-4DC7-BA21-B8D7CEC76A10}.Release|Any CPU.Build.0 = Release|Any CPU
 		{107B81B0-4045-4BA1-A61C-A4DA9609E9FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{107B81B0-4045-4BA1-A61C-A4DA9609E9FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{107B81B0-4045-4BA1-A61C-A4DA9609E9FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{107B81B0-4045-4BA1-A61C-A4DA9609E9FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86E6EBB1-D436-48E0-A072-7021A39734DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86E6EBB1-D436-48E0-A072-7021A39734DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86E6EBB1-D436-48E0-A072-7021A39734DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86E6EBB1-D436-48E0-A072-7021A39734DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C9331F0-39C3-46BB-B75E-2E2C24486E5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C9331F0-39C3-46BB-B75E-2E2C24486E5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C9331F0-39C3-46BB-B75E-2E2C24486E5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C9331F0-39C3-46BB-B75E-2E2C24486E5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB13E11E-DC40-416E-A908-F56035639CBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB13E11E-DC40-416E-A908-F56035639CBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB13E11E-DC40-416E-A908-F56035639CBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB13E11E-DC40-416E-A908-F56035639CBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{86E6EBB1-D436-48E0-A072-7021A39734DE} = {2A204B67-8CC9-4584-9451-9ED30A2722F4}
+		{7FE09143-8F31-4DC7-BA21-B8D7CEC76A10} = {97FF111C-D917-4F18-9A78-6A113AA79D40}
 		{107B81B0-4045-4BA1-A61C-A4DA9609E9FB} = {2A204B67-8CC9-4584-9451-9ED30A2722F4}
+		{86E6EBB1-D436-48E0-A072-7021A39734DE} = {2A204B67-8CC9-4584-9451-9ED30A2722F4}
+		{DB13E11E-DC40-416E-A908-F56035639CBA} = {97FF111C-D917-4F18-9A78-6A113AA79D40}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9C10E01A-07E7-4D5D-BEB8-6E1B4E12AD0C}
