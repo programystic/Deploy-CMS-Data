@@ -30,7 +30,7 @@ namespace DeployCmsData.Test.Tests
                     .Icon(Icon)
                     .Name(Name)
                     .Description(Description)
-                    .Build());
+                    .BuildWithParent(ParentAlias));
         }
 
         [Test]
@@ -42,11 +42,10 @@ namespace DeployCmsData.Test.Tests
 
             var documentType = builder
                 .Alias(Alias)
-                .ParentAlias(ParentAlias)
                 .Icon(Icon)
                 .Name(Name)
                 .Description(Description)
-                .Build();
+                .BuildWithParent(ParentAlias);
 
             Assert.AreEqual(Alias, documentType.Alias);
             Assert.AreEqual(Name, documentType.Name);

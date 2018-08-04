@@ -38,7 +38,7 @@ namespace DeployCmsData._7_11_1.Web
     {
         public bool RunScript(IUpgradeLogRepository upgradeLog)
         {
-            var builder = new DocumentTypeBuilder(UmbracoContext.Current.Application);
+            var builder = new DocumentTypeBuilder();
 
             var newDocType1 =
                 builder
@@ -50,10 +50,9 @@ namespace DeployCmsData._7_11_1.Web
             var newDocType2 =
                 builder
                     .Alias("AWholeNewWorld 2")
-                    .ParentAlias(newDocType1.Alias)
                     .Icon(Icons.Factory)
                     .Name("Woooooooooooooo")
-                    .Build();
+                    .BuildWithParent(newDocType1.Alias);
 
             //var builder = new CreateDocumentTypeBuilder(UmbracoContext.Current.Application);
             //builder.CreateDocumentTypeAtRoot("HelloWorld", Icons.Ball, "Hello World", "Hello World", true);

@@ -7,6 +7,7 @@ using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.EntityBase;
 using Umbraco.Core.Services;
+using Umbraco.Web;
 
 namespace DeployCmsData.Services
 {
@@ -18,9 +19,15 @@ namespace DeployCmsData.Services
         private string _name;
         private string _icon;
         private string _description;
-        private string _parentAlias;
 
         //internal readonly IList<FieldBuilder> FieldList;
+
+        public DocumentTypeBuilder()
+        {
+            var applicationContext = UmbracoContext.Current.Application;
+            _contentTypeService = applicationContext.Services.ContentTypeService;
+            _factory = new UmbracoFactory(_contentTypeService);
+        }
 
         public DocumentTypeBuilder(ApplicationContext applicationContext)
         {
@@ -38,11 +45,11 @@ namespace DeployCmsData.Services
             //FieldList = new List<FieldBuilder>();
         }
 
-        public IContentType Build()
+        public IContentType BuildWithParent(string parentAlias)
         {
-            var parent = _contentTypeService.GetContentType(_parentAlias);
+            var parent = _contentTypeService.GetContentType(parentAlias);
             if (parent == null)
-                throw new ArgumentException(ExceptionMessages.ParentAliasNotFound, _parentAlias);
+                throw new ArgumentException(ExceptionMessages.ParentAliasNotFound, parentAlias);
 
             return BuildDocumentType(parent.Id);
         }
@@ -115,12 +122,6 @@ namespace DeployCmsData.Services
         public DocumentTypeBuilder Alias(string alias)
         {
             _alias = alias;
-            return this;
-        }
-
-        public DocumentTypeBuilder ParentAlias(string alias)
-        {
-            _parentAlias = alias;
             return this;
         }
 
