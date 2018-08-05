@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using DeployCmsData.Constants;
 using DeployCmsData.Interfaces;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.EntityBase;
@@ -9,10 +10,12 @@ namespace DeployCmsData.Services
     internal class UmbracoFactory : IUmbracoFactory
     {
         private readonly IContentTypeService _contentTypeService;
+        private readonly IDataTypeService _dataTypeService;
 
-        public UmbracoFactory(IContentTypeService contentTypeService)
+        public UmbracoFactory(IContentTypeService contentTypeService, IDataTypeService dataTypeService)
         {
             _contentTypeService = contentTypeService;
+            _dataTypeService = dataTypeService;
         }
 
         public IUmbracoEntity NewContainer(int parentId, string name, int parentLevel)
@@ -43,8 +46,16 @@ namespace DeployCmsData.Services
         }
 
         public PropertyType NewPropertyType(IDataTypeDefinition dataTypeDefinition, string propertyAlias)
-        {
+        {            
+            
             return new PropertyType(dataTypeDefinition, propertyAlias);
+        }
+
+        public PropertyType NewPropertyType(CmsDataType dataTypeName, string propertyAlias)
+        {            
+            var dataType = _dataTypeService.GetDataTypeDefinitionByName(dataTypeName.ToString());
+
+            return new PropertyType(dataType, propertyAlias);
         }
     }
 }

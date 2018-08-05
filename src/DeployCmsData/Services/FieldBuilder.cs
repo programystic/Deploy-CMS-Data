@@ -1,51 +1,63 @@
-﻿//using System.Collections.Generic;
-//using Umbraco.Core.Models;
+﻿using DeployCmsData.Constants;
 
-//namespace DeployCmsData.Services
-//{
-//    public class FieldBuilder
-//    {
-//        private string _alias;
-//        private string _tab;
-//        private string _type;
-//        private string _help;
-//        private string _description;
-//        private readonly DocumentTypeBuilder _documentTypeBuilder;
+namespace DeployCmsData.Services
+{
+    public class FieldBuilder
+    {
+        internal string AliasValue;
+        internal string NameValue;
+        internal string TabValue;
+        internal string DataTypeValue;
+        internal string DescriptionValue;
+        internal string RegularExpressionValue;
+        internal bool MandatoryValue;
 
-//        public FieldBuilder(string alias, string tab, string type, DocumentTypeBuilder documentTypeBuilder)
-//        {
-//            _alias = alias;
-//            _tab = tab;
-//            _type = type;
-//            _documentTypeBuilder = documentTypeBuilder;
-//            _documentTypeBuilder.FieldList.Add(this);
-//        }
+        public FieldBuilder DataType(CmsDataType dataType)
+        {
+            DataTypeValue = dataType.ToString();
+            return this;
+        }
 
-//        public FieldBuilder FieldDescription(string description)
-//        {
-//            _description = description;
-//            return this;
-//        }
+        public FieldBuilder DataType(string dataType)
+        {
+            DataTypeValue = dataType;
+            return this;
+        }
 
-//        public FieldBuilder FieldHelp(string help)
-//        {
-//            _help = help;
-//            return this;
-//        }
+        public FieldBuilder Alias(string alias)
+        {
+            AliasValue = alias;
+            return this;
+        }
 
-//        public FieldBuilder AddField(string alias, string tab, string type)
-//        {
-//            return new FieldBuilder(alias, tab, type, _documentTypeBuilder);
-//        }
+        public FieldBuilder Name(string name)
+        {
+            NameValue = name;
+            return this;
+        }
 
-//        public FieldBuilder UpdateField(string alias, string tab, string type)
-//        {
-//            return new FieldBuilder(alias, tab, type, _documentTypeBuilder);
-//        }
+        public FieldBuilder Description(string description)
+        {
+            DescriptionValue = description;
+            return this;
+        }
 
-//        public IContentType Build()
-//        {
-//            return _documentTypeBuilder.Build();
-//        }
-//    }
-//}
+        public FieldBuilder RegularExpression(string regularExpression)
+        {
+            RegularExpressionValue = regularExpression;
+            return this;
+        }
+
+        public FieldBuilder Tab(string tab)
+        {
+            TabValue = tab;
+            return this;
+        }
+
+        public FieldBuilder IsMandatory()
+        {
+            MandatoryValue = true;
+            return this;
+        }
+    }
+}

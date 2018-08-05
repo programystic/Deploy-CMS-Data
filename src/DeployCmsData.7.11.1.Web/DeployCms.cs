@@ -11,24 +11,30 @@ namespace DeployCmsData._7_11_1.Web
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
             var manager = new UpgradeScriptManager();
-            manager.RunScript(new Script05());
+            manager.RunScript(new Script06());
             //manager.RunScript(new Script02());
             //manager.RunScript(new Script03());
         }
     }
 
-    public class Script05 : IUpgradeScript
+    public class Script06 : IUpgradeScript
     {
         public bool RunScript(IUpgradeLogRepository upgradeLog)
         {
             var builder = new DocumentTypeBuilder(UmbracoContext.Current.Application);
 
-            var newDocType1 =
-                builder
-                    .Alias("AWholeNewWorld101")
-                    .Icon(Icons.Clubs)
-                    .Name("This is cool")
-                    .BuildInFolder("Another Folder 2", 3);
+            builder
+                .Alias("AWholeNewWorld102")
+                .Icon(Icons.Clubs)
+                .Name("This is cool 2");
+
+            builder.AddField()
+                .Alias("Field 1")
+                .Name("Field 1")
+                .Tab("Nope")
+                .DataType(CmsDataType.TextString);
+
+            builder.BuildAtRoot();
 
             return true;
         }

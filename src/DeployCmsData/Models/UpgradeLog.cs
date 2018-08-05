@@ -9,5 +9,6 @@ namespace DeployCmsData.Models
         public string UpgradeScriptName { get; set; }
         public bool Success { get; set; }
         public int RuntTimeMilliseconds { get; set; }
+        public string Exception { get; set; }
     }
 }

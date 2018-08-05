@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using DeployCmsData.Constants;
 using DeployCmsData.Interfaces;
 using Umbraco.Core;
@@ -13,36 +14,47 @@ namespace DeployCmsData.Services
 {
     public class DocumentTypeBuilder
     {
-        private readonly IContentTypeService _contentTypeService;
-        private readonly IUmbracoFactory _factory;
+        private IContentTypeService _contentTypeService;
+        private IDataTypeService _dataTypeService;
+        private IUmbracoFactory _factory;
         private string _alias;
         private string _name;
         private string _icon;
         private string _description;
-
-        //internal readonly IList<FieldBuilder> FieldList;
+        internal readonly IList<FieldBuilder> AddFieldList = new List<FieldBuilder>();
+        internal readonly IList<FieldBuilder> UpdateFieldList = new List<FieldBuilder>();
+        internal readonly IList<FieldBuilder> RemoveFieldList = new List<FieldBuilder>();
+        internal readonly IList<string> TabListAdd = new List<string>();
+        internal readonly IList<string> TabListRemove = new List<string>();
 
         public DocumentTypeBuilder()
         {
-            var applicationContext = UmbracoContext.Current.Application;
-            _contentTypeService = applicationContext.Services.ContentTypeService;
-            _factory = new UmbracoFactory(_contentTypeService);
+            Initialise(UmbracoContext.Current.Application);
         }
 
         public DocumentTypeBuilder(ApplicationContext applicationContext)
         {
+            Initialise(applicationContext);
+        }
+
+        private void Initialise(ApplicationContext applicationContext)
+        {
             if (applicationContext == null)
                 throw new ArgumentNullException(nameof(applicationContext));
 
-            _contentTypeService = applicationContext.Services.ContentTypeService;
-            _factory = new UmbracoFactory(_contentTypeService);
+            _dataTypeService = applicationContext.Services.DataTypeService;
+            _contentTypeService = applicationContext.Services.ContentTypeService;            
+            _factory = new UmbracoFactory(_contentTypeService, _dataTypeService);
         }
 
-        public DocumentTypeBuilder(IContentTypeService contentTypeService, IUmbracoFactory factory)
+        public DocumentTypeBuilder(
+            IContentTypeService contentTypeService, 
+            IUmbracoFactory factory,
+            IDataTypeService dataTypeService)
         {
+            _dataTypeService = dataTypeService;
             _contentTypeService = contentTypeService;
             _factory = factory;
-            //FieldList = new List<FieldBuilder>();
         }
 
         public IContentType BuildWithParent(string parentAlias)
@@ -93,6 +105,16 @@ namespace DeployCmsData.Services
 
         private IContentType BuildDocumentType(int parentId)
         {
+            var documentType = CreateDocumentType(parentId);
+            SetDocumentTypeProperties(documentType, parentId);
+            AddNewFields(documentType);
+            _contentTypeService.Save(documentType);
+
+            return documentType;
+        }
+
+        private IContentType CreateDocumentType(int parentId)
+        {
             var documentType = _contentTypeService.GetContentType(_alias);
             if (documentType != null) return documentType;
 
@@ -103,20 +125,39 @@ namespace DeployCmsData.Services
             if (string.IsNullOrEmpty(_alias))
                 throw new ArgumentException(ExceptionMessages.AliasNotDefined);
 
+            return documentType;
+        }
+
+        private void SetDocumentTypeProperties(IContentType documentType, int parentId)
+        {
             documentType.Alias = _alias;
             documentType.Icon = _icon;
             documentType.Name = _name;
             documentType.Description = _description;
             documentType.AllowedAsRoot = (parentId == ValueConstants.RootFolder);
             documentType.IsContainer = false;
+        }
 
-            //foreach (var field in FieldList)
-            //{
-            //    // Add / Update fields
-            //}
+        private void AddNewFields(IContentType documentType)
+        {
+            foreach (var field in AddFieldList)
+            {
+                var propertyType = documentType.PropertyTypes.FirstOrDefault(x => x.Alias == field.AliasValue);
+                if (propertyType != null) continue;
 
-            _contentTypeService.Save(documentType);
-            return documentType;
+                var dataType = _dataTypeService.GetDataTypeDefinitionByName(field.DataTypeValue);
+                if (dataType == null)
+                    throw new ArgumentException(ExceptionMessages.CantFindDataType + field.DataTypeValue);
+                
+                propertyType = _factory.NewPropertyType(dataType, field.AliasValue);
+
+                propertyType.Name = field.NameValue;
+                propertyType.Description = field.DescriptionValue;
+                propertyType.ValidationRegExp = field.RegularExpressionValue;
+                propertyType.Mandatory = field.MandatoryValue;
+
+                documentType.AddPropertyType(propertyType, field.TabValue);
+            }
         }
 
         public DocumentTypeBuilder Alias(string alias)
@@ -143,14 +184,37 @@ namespace DeployCmsData.Services
             return this;
         }
 
-        //public FieldBuilder AddField(string alias, string tab, string type)
-        //{
-        //    return new FieldBuilder(alias, tab, type, this);
-        //}
+        public DocumentTypeBuilder AddTab(string tab)
+        {
+            TabListAdd.Add(tab);
+            return this;
+        }
 
-        //public FieldBuilder UpdateField(string alias, string tab, string type)
-        //{
-        //    return new FieldBuilder(alias, tab, type, this);
-        //}
+        public DocumentTypeBuilder RemoveTab(string tab)
+        {
+            TabListRemove.Add(tab);
+            return this;
+        }
+
+        public FieldBuilder AddField()
+        {
+            var fieldBuilder = new FieldBuilder();
+            AddFieldList.Add(fieldBuilder);
+            return fieldBuilder;
+        }
+
+        public FieldBuilder RemoveField()
+        {
+            var fieldBuilder = new FieldBuilder();
+            RemoveFieldList.Add(fieldBuilder);
+            return fieldBuilder;
+        }
+
+        public FieldBuilder UpdateField()
+        {
+            var fieldBuilder = new FieldBuilder();
+            UpdateFieldList.Add(fieldBuilder);
+            return fieldBuilder;
+        }
     }
 }

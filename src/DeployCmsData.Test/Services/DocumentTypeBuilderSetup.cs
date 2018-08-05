@@ -1,8 +1,10 @@
-﻿using Castle.DynamicProxy.Contributors;
+﻿using System.Collections.Generic;
+using Castle.DynamicProxy.Contributors;
 using DeployCmsData.Constants;
 using DeployCmsData.Interfaces;
 using DeployCmsData.Services;
 using Moq;
+using NUnit.Framework;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.EntityBase;
 using Umbraco.Core.Services;
@@ -12,14 +14,25 @@ namespace DeployCmsData.Test.Services
     internal class DocumentTypeBuilderSetup
     {
         private readonly DocumentTypeBuilder _documentTypeBuilder;
-        private readonly Mock<IContentTypeService> _contentTypeService;      
+        private readonly Mock<IContentTypeService> _contentTypeService;
+        private readonly Mock<IDataTypeService> _dataTypeService;
         public Mock<IUmbracoFactory> UmbracoFactory { get; }
 
         public DocumentTypeBuilderSetup()
         {
             UmbracoFactory = new Mock<IUmbracoFactory>();
-            _contentTypeService = new Mock<IContentTypeService>();
-            _documentTypeBuilder = new DocumentTypeBuilder(_contentTypeService.Object, UmbracoFactory.Object);
+            _contentTypeService = new Mock<IContentTypeService>();   
+            _dataTypeService = new Mock<IDataTypeService>();
+
+            _documentTypeBuilder = new DocumentTypeBuilder(
+                _contentTypeService.Object, 
+                UmbracoFactory.Object,
+                _dataTypeService.Object);
+
+            var dataTypeDefinition = new Mock<IDataTypeDefinition>();
+            var propertyType = new Mock<PropertyType>(dataTypeDefinition.Object);
+            UmbracoFactory.Setup(x => x.NewPropertyType(It.IsAny<IDataTypeDefinition>(), It.IsAny<string>()))
+                .Returns(propertyType.Object);            
         }
 
         public DocumentTypeBuilderSetup ReturnsNewContentType(int parentId, string parentAlias)
@@ -33,7 +46,10 @@ namespace DeployCmsData.Test.Services
 
             var parentContentType = new Mock<IContentType>();
             parentContentType.SetupGet(x => x.Alias).Returns(parentAlias);
-            parentContentType.SetupGet(x => x.Id).Returns(parentId);            
+            parentContentType.SetupGet(x => x.Id).Returns(parentId);
+
+            var groups = new List<PropertyGroup>();
+            parentContentType.Setup(x => x.PropertyGroups).Returns(new PropertyGroupCollection(groups));
 
             _contentTypeService.Setup(x => x.GetContentType(parentAlias)).Returns(parentContentType.Object);
 
@@ -53,19 +69,14 @@ namespace DeployCmsData.Test.Services
             return this;
         }
 
-        //public DocumentTypeBuilderBuilder CreateDocumentTypeFolderAtRoot(int id, string name)
-        //{
-        //    var newEntity = new Mock<IUmbracoEntity>();
-        //    newEntity.SetupAllProperties();
-        //    newEntity.Setup(x => x.Id).Returns(id);
+        public DocumentTypeBuilderSetup ReturnsDataType(CmsDataType dataType)
+        {
+            var dataTypeDefinition = new Mock<IDataTypeDefinition>();
+            _dataTypeService.Setup(x => x.GetDataTypeDefinitionByName(dataType.ToString()))
+                .Returns(dataTypeDefinition.Object);
 
-        //    UmbracoFactory.Setup(x => x.NewContainer(FolderConstants.RootFolder, name, 1)).Returns(newEntity.Object);
-
-        //    var parentContentType = new Mock<IContentType>();
-        //    parentContentType.Setup(x => x.Id).Returns(FolderConstants.RootFolder);
-
-        //    return this;
-        //}
+            return this;
+        }
 
         public DocumentTypeBuilder Build()
         {

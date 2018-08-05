@@ -1,4 +1,5 @@
 ﻿using System;
+using DeployCmsData.Constants;
 using DeployCmsData.Interfaces;
 using DeployCmsData.Models;
 using Umbraco.Core;
@@ -37,23 +38,31 @@ namespace DeployCmsData.Services
         public UpgradeLog RunScript(IUpgradeScript upgradeScript)
         {
             if (upgradeScript == null)
-                throw new ArgumentNullException(nameof(upgradeScript));
+                return new UpgradeLog() {Exception = ExceptionMessages.UpgradeScriptIsNull};
 
             if (ScriptAlreadyRun(upgradeScript))
                 return null;
-
-            var start = DateTime.Now;
-            var result = upgradeScript.RunScript(_logDatastore);
 
             var upgradeLog = new UpgradeLog
             {
                 UpgradeScriptName = upgradeScript.GetType().FullName,
                 Id = Guid.NewGuid(),
-                Timestamp = DateTime.Now,
-                Success = result,
-                RuntTimeMilliseconds = (DateTime.Now - start).Milliseconds
+                Timestamp = DateTime.Now                
             };
 
+            var start = DateTime.Now;
+            try
+            {
+                upgradeLog.Success = upgradeScript.RunScript(_logDatastore);
+            }
+            catch (Exception e)
+            {
+                upgradeLog.Success = false;
+                upgradeLog.Exception = e.Message;
+                Console.WriteLine(e);
+            }
+
+            upgradeLog.RuntTimeMilliseconds = (DateTime.Now - start).Milliseconds;
             _logDatastore.SaveLog(upgradeLog);
             return upgradeLog;
         }
