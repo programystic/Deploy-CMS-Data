@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace DeployCmsData.Test.Tests
 {
     [TestFixture]
-    public class DocumentTypeTests
+    public class CreateNewDocumentType
     {
         private const string Alias = "myAlias";
         private const string Name = "myName";

@@ -17,6 +17,7 @@ namespace DeployCmsData.Test.Services
         private readonly Mock<IContentTypeService> _contentTypeService;
         private readonly Mock<IDataTypeService> _dataTypeService;
         public Mock<IUmbracoFactory> UmbracoFactory { get; }
+        public Mock<IContentType> ContentType = new Mock<IContentType>();
 
         public DocumentTypeBuilderSetup()
         {
@@ -37,12 +38,12 @@ namespace DeployCmsData.Test.Services
 
         public DocumentTypeBuilderSetup ReturnsNewContentType(int parentId, string parentAlias)
         {
-            var contentType = new Mock<IContentType>();
-            contentType.SetupAllProperties();
-            contentType.Setup(x => x.ParentId).Returns(parentId);
+            ContentType = new Mock<IContentType>();
+            ContentType.SetupAllProperties();
+            ContentType.Setup(x => x.ParentId).Returns(parentId);
 
-            contentType.Setup(x => x.ParentId).Returns(parentId);
-            UmbracoFactory.Setup(x => x.NewContentType(parentId)).Returns(contentType.Object);
+            ContentType.Setup(x => x.ParentId).Returns(parentId);
+            UmbracoFactory.Setup(x => x.NewContentType(parentId)).Returns(ContentType.Object);
 
             var parentContentType = new Mock<IContentType>();
             parentContentType.SetupGet(x => x.Alias).Returns(parentAlias);

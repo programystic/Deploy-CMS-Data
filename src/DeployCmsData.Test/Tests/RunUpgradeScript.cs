@@ -10,7 +10,7 @@ using NUnit.Framework;
 namespace DeployCmsData.Test.Tests
 {
     [TestFixture]
-    public static class UpgradeScriptTests
+    public static class RunUpgradeScript
     {
         [Test]
         public static void UpgradeScriptRunSuccess()

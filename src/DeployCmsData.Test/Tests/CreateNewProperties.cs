@@ -1,12 +1,14 @@
 ﻿using System;
 using DeployCmsData.Constants;
 using DeployCmsData.Test.Services;
+using Moq;
 using NUnit.Framework;
+using Umbraco.Core.Models;
 
 namespace DeployCmsData.Test.Tests
 {
     [TestFixture()]
-    public static class DocumentTypePropertyTests
+    public static class CreateNewProperties
     {
         private const string Alias = "myAlias";
         private const string Name = "myName";
@@ -15,9 +17,10 @@ namespace DeployCmsData.Test.Tests
         private const string ParentAlias = "myParentAlias";
 
         [Test]
-        public static void DocumentTypePropertyCreate()
-        {            
-            var builder = new DocumentTypeBuilderSetup()
+        public static void CreateNewProperty()
+        {
+            var setup = new DocumentTypeBuilderSetup();
+            var builder = setup
                 .ReturnsNewContentType(ValueConstants.RootFolder, ParentAlias)
                 .ReturnsDataType(CmsDataType.TextString)
                 .ReturnsDataType(CmsDataType.Numeric)
@@ -42,7 +45,11 @@ namespace DeployCmsData.Test.Tests
                 .DataType(CmsDataType.Numeric)
                 .IsMandatory();
 
-            var docType = builder.BuildWithParent(ParentAlias);
+            builder.BuildWithParent(ParentAlias);
+
+            setup.ContentType.Verify(x => x.AddPropertyType(
+                    It.IsAny<PropertyType>(), It.IsAny<string>()),
+                Times.Exactly(2));
         }
     }
 }

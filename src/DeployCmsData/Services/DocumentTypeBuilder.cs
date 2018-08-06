@@ -105,7 +105,7 @@ namespace DeployCmsData.Services
 
         private IContentType BuildDocumentType(int parentId)
         {
-            var documentType = CreateDocumentType(parentId);
+            var documentType = CreateNewDocumentType(parentId);
             SetDocumentTypeProperties(documentType, parentId);
             AddNewFields(documentType);
             _contentTypeService.Save(documentType);
@@ -113,7 +113,7 @@ namespace DeployCmsData.Services
             return documentType;
         }
 
-        private IContentType CreateDocumentType(int parentId)
+        private IContentType CreateNewDocumentType(int parentId)
         {
             var documentType = _contentTypeService.GetContentType(_alias);
             if (documentType != null) return documentType;

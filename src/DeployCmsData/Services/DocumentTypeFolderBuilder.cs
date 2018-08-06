@@ -11,8 +11,6 @@ namespace DeployCmsData.Services
         private readonly IContentTypeService _contentTypeService;
         private readonly IUmbracoFactory _factory;
         private string _name { get; set; }
-        private string _parentFolderName { get; set; }
-        private int _parentLevel { get; set; }
 
         public DocumentTypeFolderBuilder(IContentTypeService contentTypeService, IUmbracoFactory factory)
         {
@@ -26,18 +24,6 @@ namespace DeployCmsData.Services
             return this;
         }
 
-        public DocumentTypeFolderBuilder ParentFolderName(string name)
-        {
-            _parentFolderName = name;
-            return this;
-        }
-
-        public DocumentTypeFolderBuilder ParentLevel(int level)
-        {
-            _parentLevel = level;
-            return this;
-        }
-
         public IUmbracoEntity BuildAtRoot()
         {
             var container = _factory.GetContainer(_name, 1);
@@ -47,13 +33,34 @@ namespace DeployCmsData.Services
             return newContainer;
         }
 
-        public IUmbracoEntity Build()
+        public IUmbracoEntity BuildWithParentFolder(string parentFolderName, int parentFolderLevel)
         {
-            var parent = _factory.GetContainer(_parentFolderName, _parentLevel);
+            var parent = _factory.GetContainer(parentFolderName, parentFolderLevel);
             if (parent == null)
-                throw new ArgumentException(ExceptionMessages.ParentFolderNotFound, _parentFolderName);
+                throw new ArgumentException(ExceptionMessages.ParentFolderNotFound, parentFolderName);
 
-            var container = _factory.NewContainer(parent.Id, _name, _parentLevel);
+            var container = _factory.NewContainer(parent.Id, _name, parentFolderLevel);
+            return container;
+        }
+
+        public IUmbracoEntity BuildWithParentFolder(string parentFolderName)
+        {
+            var folderLevel = 0;
+            IUmbracoEntity parentFolder = null;
+
+            if (string.IsNullOrEmpty(parentFolderName))
+                throw new ArgumentException(ExceptionMessages.ParentFolderNameNotDefined);
+
+            while (folderLevel < ValueConstants.MaximumFolderLevel && parentFolder == null)
+            {
+                folderLevel++;
+                parentFolder = _factory.GetContainer(parentFolderName, folderLevel);
+            }
+
+            if (parentFolder == null)
+                throw new ArgumentException(ExceptionMessages.ParentFolderNotFound, parentFolderName);
+
+            var container = _factory.NewContainer(parentFolder.Id, _name, folderLevel);
             return container;
         }
     }
