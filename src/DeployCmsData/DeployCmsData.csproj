@@ -244,6 +244,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\UpgradeLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CmsLibrary.cs" />
     <Compile Include="Services\ContentPropertiesService.cs" />
     <Compile Include="Services\CreateDocumentTypeBuilder.cs" />
     <Compile Include="Services\DocumentTypeBuilder.cs" />

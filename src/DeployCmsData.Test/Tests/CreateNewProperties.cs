@@ -1,5 +1,4 @@
-﻿using System;
-using DeployCmsData.Constants;
+﻿using DeployCmsData.Constants;
 using DeployCmsData.Test.Services;
 using Moq;
 using NUnit.Framework;
@@ -15,13 +14,15 @@ namespace DeployCmsData.Test.Tests
         private const string Description = "myDescription";
         private const string Icon = "myIcon";
         private const string ParentAlias = "myParentAlias";
+        private const int ParentId = 555;
 
         [Test]
         public static void CreateNewProperty()
         {
             var setup = new DocumentTypeBuilderSetup();
             var builder = setup
-                .ReturnsNewContentType(ValueConstants.RootFolder, ParentAlias)
+                .ReturnsNewContentType(ParentAlias, ParentId)
+                .ReturnsExistingContentType(ParentAlias, ParentId)
                 .ReturnsDataType(CmsDataType.TextString)
                 .ReturnsDataType(CmsDataType.Numeric)
                 .Build();
@@ -30,8 +31,7 @@ namespace DeployCmsData.Test.Tests
                 .Alias(Alias)
                 .Icon(Icon)
                 .Name(Name)
-                .Description(Description)
-                .AddTab("The First 1");
+                .Description(Description);
 
             builder.AddField()
                 .Name("The Name")

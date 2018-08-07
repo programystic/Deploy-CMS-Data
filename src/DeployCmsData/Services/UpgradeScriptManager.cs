@@ -38,16 +38,24 @@ namespace DeployCmsData.Services
         public UpgradeLog RunScript(IUpgradeScript upgradeScript)
         {
             if (upgradeScript == null)
-                return new UpgradeLog() {Exception = ExceptionMessages.UpgradeScriptIsNull};
+                return new UpgradeLog() { Exception = ExceptionMessages.UpgradeScriptIsNull };
 
             if (ScriptAlreadyRun(upgradeScript))
                 return null;
 
+            return RunScriptAgain(upgradeScript);
+        }
+
+        public UpgradeLog RunScriptAgain(IUpgradeScript upgradeScript)
+        {
+            if (upgradeScript == null)
+                return new UpgradeLog() { Exception = ExceptionMessages.UpgradeScriptIsNull };
+
             var upgradeLog = new UpgradeLog
             {
-                UpgradeScriptName = upgradeScript.GetType().FullName,
+                UpgradeScriptName = GetScriptName(upgradeScript),
                 Id = Guid.NewGuid(),
-                Timestamp = DateTime.Now                
+                Timestamp = DateTime.Now
             };
 
             var start = DateTime.Now;
@@ -69,11 +77,17 @@ namespace DeployCmsData.Services
 
         private bool ScriptAlreadyRun(IUpgradeScript upgradeScript)
         {
-            var upgradeScriptName = upgradeScript.GetType().FullName;
-            var result = _logDatastore.GetLog(upgradeScriptName);
+            if (upgradeScript == null) return false;
 
-            return result?.UpgradeScriptName == upgradeScriptName;
+            var scriptName = GetScriptName(upgradeScript);
+            var result = _logDatastore.GetLog(scriptName);
+
+            return result?.UpgradeScriptName == scriptName;
         }
 
+        public string GetScriptName(IUpgradeScript upgradeScript)
+        {            
+            return upgradeScript.GetType().FullName;
+        }
     }
 }

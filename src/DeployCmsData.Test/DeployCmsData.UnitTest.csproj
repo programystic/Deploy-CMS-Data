@@ -232,9 +232,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DocumentTypeFolderBuilderSetup.cs" />
     <Compile Include="Services\DocumentTypeBuilderSetup.cs" />
+    <Compile Include="Services\UpgradeScriptSetup.cs" />
     <Compile Include="Tests\CreateNewDocumentTypeFolder.cs" />
     <Compile Include="Tests\CreateNewProperties.cs" />
     <Compile Include="Tests\CreateNewDocumentType.cs" />
+    <Compile Include="Tests\DeleteDocumentType.cs" />
     <Compile Include="Tests\RunUpgradeScript.cs" />
   </ItemGroup>
   <ItemGroup>

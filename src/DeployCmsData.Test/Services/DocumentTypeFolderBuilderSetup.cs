@@ -9,18 +9,16 @@ namespace DeployCmsData.Test.Services
     internal class DocumentTypeFolderBuilderSetup
     {
         private readonly DocumentTypeFolderBuilder _documentTypeFolderBuilder;
-        private readonly Mock<IContentTypeService> _contentTypeService;
         public Mock<IUmbracoFactory> UmbracoFactory { get; }
 
         public DocumentTypeFolderBuilderSetup()
         {
             UmbracoFactory = new Mock<IUmbracoFactory>();
-            _contentTypeService = new Mock<IContentTypeService>();
-            _documentTypeFolderBuilder = new DocumentTypeFolderBuilder(_contentTypeService.Object, UmbracoFactory.Object);
+            var contentTypeService = new Mock<IContentTypeService>();
+            _documentTypeFolderBuilder = new DocumentTypeFolderBuilder(contentTypeService.Object, UmbracoFactory.Object);
 
         }
 
-        // var parent = _factory.GetContainer(parentFolderName, parentFolderLevel);
         public DocumentTypeFolderBuilderSetup ReturnsExistingFolder(string folderName, int level)
         {
             var entity = new Mock<IUmbracoEntity>();

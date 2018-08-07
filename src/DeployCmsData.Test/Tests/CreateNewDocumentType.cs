@@ -6,9 +6,9 @@ using NUnit.Framework;
 
 namespace DeployCmsData.Test.Tests
 {
-    [TestFixture]
     public class CreateNewDocumentType
     {
+        private const int Id = 999;
         private const string Alias = "myAlias";
         private const string Name = "myName";
         private const string Description = "myDescription";
@@ -37,7 +37,8 @@ namespace DeployCmsData.Test.Tests
         public void CreateWithParent()
         {
             var builder = new DocumentTypeBuilderSetup()
-                .ReturnsNewContentType(ParentId, ParentAlias)
+                .ReturnsNewContentType(ParentAlias, ParentId)
+                .ReturnsExistingContentType(ParentAlias, ParentId)
                 .Build();
 
             var documentType = builder
@@ -60,7 +61,7 @@ namespace DeployCmsData.Test.Tests
         public void CreateAtRoot()
         {
             var builder = new DocumentTypeBuilderSetup()
-                .ReturnsNewContentType(ValueConstants.RootFolder, ParentAlias)
+                .ReturnsNewContentType(ParentAlias, ValueConstants.RootFolder)
                 .Build();
 
             var documentType = builder
@@ -83,7 +84,7 @@ namespace DeployCmsData.Test.Tests
         public void CreateInFolderWithLevel()
         {
             var builder = new DocumentTypeBuilderSetup()
-                .ReturnsNewContentType(ParentFolderId, ParentAlias)
+                .ReturnsNewContentType(ParentAlias, ParentFolderId)
                 .ReturnsFolder(ParentFolderName, ParentFolderLevel, ParentFolderId)
                 .Build();
 
@@ -109,7 +110,7 @@ namespace DeployCmsData.Test.Tests
             var setup = new DocumentTypeBuilderSetup();
 
             var builder = setup
-                .ReturnsNewContentType(ParentFolderId, ParentAlias)
+                .ReturnsNewContentType(ParentAlias, ParentFolderId)
                 .ReturnsFolder(ParentFolderName, ParentFolderLevel, ParentFolderId)
                 .Build();
 

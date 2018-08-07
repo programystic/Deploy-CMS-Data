@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using Castle.DynamicProxy.Contributors;
-using DeployCmsData.Constants;
+﻿using DeployCmsData.Constants;
 using DeployCmsData.Interfaces;
 using DeployCmsData.Services;
 using Moq;
-using NUnit.Framework;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.EntityBase;
 using Umbraco.Core.Services;
@@ -36,23 +33,25 @@ namespace DeployCmsData.Test.Services
                 .Returns(propertyType.Object);            
         }
 
-        public DocumentTypeBuilderSetup ReturnsNewContentType(int parentId, string parentAlias)
+        public DocumentTypeBuilderSetup ReturnsNewContentType( string parentAlias, int parentId)
         {
             ContentType = new Mock<IContentType>();
             ContentType.SetupAllProperties();
             ContentType.Setup(x => x.ParentId).Returns(parentId);
 
             ContentType.Setup(x => x.ParentId).Returns(parentId);
-            UmbracoFactory.Setup(x => x.NewContentType(parentId)).Returns(ContentType.Object);
+            UmbracoFactory.Setup(x => x.NewContentType(parentId)).Returns(ContentType.Object);            
 
-            var parentContentType = new Mock<IContentType>();
-            parentContentType.SetupGet(x => x.Alias).Returns(parentAlias);
-            parentContentType.SetupGet(x => x.Id).Returns(parentId);
+            return this;
+        }
 
-            var groups = new List<PropertyGroup>();
-            parentContentType.Setup(x => x.PropertyGroups).Returns(new PropertyGroupCollection(groups));
+        public DocumentTypeBuilderSetup ReturnsExistingContentType(string alias, int id = 0)
+        {
+            var contentType = new Mock<IContentType>();
+            contentType.SetupGet(x => x.Alias).Returns(alias);
+            contentType.SetupGet(x => x.Id).Returns(id);
 
-            _contentTypeService.Setup(x => x.GetContentType(parentAlias)).Returns(parentContentType.Object);
+            _contentTypeService.Setup(x => x.GetContentType(alias)).Returns(contentType.Object);
 
             return this;
         }
@@ -73,6 +72,7 @@ namespace DeployCmsData.Test.Services
         public DocumentTypeBuilderSetup ReturnsDataType(CmsDataType dataType)
         {
             var dataTypeDefinition = new Mock<IDataTypeDefinition>();
+
             _dataTypeService.Setup(x => x.GetDataTypeDefinitionByName(dataType.ToString()))
                 .Returns(dataTypeDefinition.Object);
 

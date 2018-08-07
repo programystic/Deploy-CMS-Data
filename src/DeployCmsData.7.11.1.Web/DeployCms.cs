@@ -11,17 +11,123 @@ namespace DeployCmsData._7_11_1.Web
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
             var manager = new UpgradeScriptManager();
-            manager.RunScript(new Script06());
-            //manager.RunScript(new Script02());
-            //manager.RunScript(new Script03());
+            manager.RunScriptAgain(new Script09());
         }
     }
 
+    public class Script09 : IUpgradeScript
+    {
+        public bool RunScript(IUpgradeLogRepository upgradeLog)
+        {
+            ClearEverythingDown();
+            CreateSiteDocumentType();
+            CreateFolders();
+            CreatePageMetaData();
+            return true;
+        }
+
+        public void ClearEverythingDown()
+        {
+            var library = new CmsLibrary();
+            library.DeleteAllDocumentTypes();
+            library.DeleteAllDocumentTypeFolders();
+        }
+
+        public void CreateSiteDocumentType()
+        {
+            var builder = new DocumentTypeBuilder();
+            builder
+                .Alias("websiteRoot")
+                .Name("Website")
+                .Icon(Icons.Globe)
+                .BuildAtRoot();
+        }
+
+        public void CreateFolders()
+        {
+            var builder = new DocumentTypeFolderBuilder();
+
+            builder
+                .Name("Page Compositions")
+                .BuildAtRoot();
+        }
+
+        public void CreatePageMetaData()
+        {
+            var builder = new DocumentTypeBuilder();
+            builder
+                .Alias("pageMetaData")
+                .Name("Page Meta Data")
+                .Icon(Icons.MindMap)
+                .BuildInFolder("Page Compositions");
+        }
+    }
+
+    public class Script08 : IUpgradeScript
+    {
+        public bool RunScript(IUpgradeLogRepository upgradeLog)
+        {
+            var builder = new DocumentTypeBuilder();
+
+            builder
+                .Alias("DocTypeLevel1")
+                .Icon(Icons.Clubs)
+                .Name("Doc Type Level 1")
+                .BuildInFolder("Folder Level 1");
+
+            builder
+                .Alias("DocTypeLevel3")
+                .Icon(Icons.Clubs)
+                .Name("Doc Type Level 33")
+                .BuildInFolder("Folder Level 2");
+
+            builder
+                .Alias("DocTypeLevel3")
+                .Icon(Icons.Clubs)
+                .Name("Doc Type Level 3")
+                .BuildInFolder("Folder Level 3");
+
+
+            builder
+                .Alias("DocTypeLevel4")
+                .Icon(Icons.Clubs)
+                .Name("Doc Type Level 4")
+                .BuildInFolder("Folder Level 4", 4);
+
+            return true;
+        }
+    }
+
+    public class Script07 : IUpgradeScript
+    {
+        public bool RunScript(IUpgradeLogRepository upgradeLog)
+        {
+            var builder = new DocumentTypeFolderBuilder();
+
+            var folder1 = builder
+                .Name("Folder Level 1")
+                .BuildAtRoot();
+
+            var folder2 = builder
+                .Name("Folder Level 2")
+                .BuildWithParentFolder("Folder Level 1");
+
+            var folder3 = builder
+                .Name("Folder Level 3")
+                .BuildWithParentFolder("Folder Level 2");
+
+            var folder4 = builder
+                .Name("Folder Level 4")
+                .BuildWithParentFolder("Folder Level 3");
+
+            return true;
+        }
+    }
     public class Script06 : IUpgradeScript
     {
         public bool RunScript(IUpgradeLogRepository upgradeLog)
         {
-            var builder = new DocumentTypeBuilder(UmbracoContext.Current.Application);
+            var builder = new DocumentTypeBuilder();
 
             builder
                 .Alias("AWholeNewWorld102")

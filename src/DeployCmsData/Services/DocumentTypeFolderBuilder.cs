@@ -3,6 +3,7 @@ using DeployCmsData.Constants;
 using DeployCmsData.Interfaces;
 using Umbraco.Core.Models.EntityBase;
 using Umbraco.Core.Services;
+using Umbraco.Web;
 
 namespace DeployCmsData.Services
 {
@@ -11,6 +12,15 @@ namespace DeployCmsData.Services
         private readonly IContentTypeService _contentTypeService;
         private readonly IUmbracoFactory _factory;
         private string _name { get; set; }
+
+        public DocumentTypeFolderBuilder()
+        {
+            var applicationContext = UmbracoContext.Current.Application;
+
+            var dataTypeService = applicationContext.Services.DataTypeService;
+            _contentTypeService = applicationContext.Services.ContentTypeService;
+            _factory = new UmbracoFactory(_contentTypeService, dataTypeService);
+        }
 
         public DocumentTypeFolderBuilder(IContentTypeService contentTypeService, IUmbracoFactory factory)
         {

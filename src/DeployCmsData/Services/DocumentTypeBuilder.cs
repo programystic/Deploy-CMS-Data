@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using DeployCmsData.Constants;
@@ -160,6 +161,15 @@ namespace DeployCmsData.Services
             }
         }
 
+        public void DeleteDocumentType(string alias)
+        {
+            var documentType = _contentTypeService.GetContentType(alias);
+            if (documentType == null) 
+                throw new ArgumentException(ExceptionMessages.DocumentTypeNotFound + ":" + alias);
+
+            _contentTypeService.Delete(documentType);
+        }
+
         public DocumentTypeBuilder Alias(string alias)
         {
             _alias = alias;
@@ -181,18 +191,6 @@ namespace DeployCmsData.Services
         public DocumentTypeBuilder Description(string description)
         {
             _description = description;
-            return this;
-        }
-
-        public DocumentTypeBuilder AddTab(string tab)
-        {
-            TabListAdd.Add(tab);
-            return this;
-        }
-
-        public DocumentTypeBuilder RemoveTab(string tab)
-        {
-            TabListRemove.Add(tab);
             return this;
         }
 
