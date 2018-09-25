@@ -10,6 +10,6 @@
         public const string AliasNotDefined = "Alias cannot be empty";
         public const string ParentFolderNameNotDefined = "Parent folder name cannot be empty";
         public const string UpgradeScriptIsNull = "Upgrade script is null";
-        public const string CantFindDataType = "Cant find the data type: ";
+        public const string CannotFindDataType = "Cannot find the data type: ";
     }
 }

@@ -148,7 +148,7 @@ namespace DeployCmsData.Services
 
                 var dataType = _dataTypeService.GetDataTypeDefinitionByName(field.DataTypeValue);
                 if (dataType == null)
-                    throw new ArgumentException(ExceptionMessages.CantFindDataType + field.DataTypeValue);
+                    throw new ArgumentException(ExceptionMessages.CannotFindDataType + field.DataTypeValue);
                 
                 propertyType = _factory.NewPropertyType(dataType, field.AliasValue);
 
