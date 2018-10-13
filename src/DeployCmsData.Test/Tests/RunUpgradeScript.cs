@@ -1,12 +1,13 @@
-﻿using System;
-using DeployCmsData.Constants;
+﻿using DeployCmsData.Constants;
 using DeployCmsData.Interfaces;
 using DeployCmsData.Models;
 using DeployCmsData.Services;
 using DeployCmsData.Test.Services;
 using Moq;
 using NUnit.Framework;
+using System;
 
+[assembly: CLSCompliant(true)]
 namespace DeployCmsData.Test.Tests
 {
     public static class RunUpgradeScript
@@ -80,7 +81,7 @@ namespace DeployCmsData.Test.Tests
                 .Build();
 
             var upgradeScript = setup.UpgradeScript;
-            var scriptName = scriptManager.GetScriptName(upgradeScript.Object);
+            var scriptName = UpgradeScriptManager.GetScriptName(upgradeScript.Object);
 
             var log = scriptManager.RunScript(upgradeScript.Object);
 

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DeployCmsData.Interfaces;
 using DeployCmsData.Models;
 using DeployCmsData.Services;
@@ -12,15 +8,17 @@ namespace DeployCmsData.Test.Services
 {
     internal class UpgradeScriptSetup
     {
-        private UpgradeScriptManager _scriptManager;
+        readonly UpgradeScriptManager ScriptManager;
         public Mock<IUpgradeScript> UpgradeScript { get; }
         public Mock<IUpgradeLogRepository> LogRepository { get; }
+        public UmbracoContextBuilder umbracoContextBuilder;
 
         public UpgradeScriptSetup()
         {
             UpgradeScript = new Mock<IUpgradeScript>();
             LogRepository = new Mock<IUpgradeLogRepository>();
-            _scriptManager = new UpgradeScriptManager(LogRepository.Object);
+            ScriptManager = new UpgradeScriptManager(LogRepository.Object);
+            umbracoContextBuilder = new UmbracoContextBuilder();
         }
 
         public UpgradeScriptSetup RunScriptReturnsTrue()
@@ -45,7 +43,7 @@ namespace DeployCmsData.Test.Services
         {
             var upgradeLog = new UpgradeLog
             {
-                UpgradeScriptName = _scriptManager.GetScriptName(UpgradeScript.Object)
+                UpgradeScriptName = UpgradeScriptManager.GetScriptName(UpgradeScript.Object)
             };
             LogRepository.Setup(x => x.GetLog(It.IsAny<string>())).Returns(upgradeLog);
 
@@ -54,7 +52,7 @@ namespace DeployCmsData.Test.Services
 
         public UpgradeScriptManager Build()
         {
-            return _scriptManager;
+            return ScriptManager;
         }
 
     }

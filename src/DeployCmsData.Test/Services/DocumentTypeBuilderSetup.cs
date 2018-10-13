@@ -33,7 +33,7 @@ namespace DeployCmsData.Test.Services
                 .Returns(propertyType.Object);            
         }
 
-        public DocumentTypeBuilderSetup ReturnsNewContentType( string parentAlias, int parentId)
+        public DocumentTypeBuilderSetup ReturnsNewContentType(int parentId)
         {
             ContentType = new Mock<IContentType>();
             ContentType.SetupAllProperties();

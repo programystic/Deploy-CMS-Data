@@ -37,7 +37,7 @@ namespace DeployCmsData.Test.Tests
         public void CreateWithParent()
         {
             var builder = new DocumentTypeBuilderSetup()
-                .ReturnsNewContentType(ParentAlias, ParentId)
+                .ReturnsNewContentType(ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
                 .Build();
 
@@ -61,7 +61,7 @@ namespace DeployCmsData.Test.Tests
         public void CreateAtRoot()
         {
             var builder = new DocumentTypeBuilderSetup()
-                .ReturnsNewContentType(ParentAlias, ValueConstants.RootFolder)
+                .ReturnsNewContentType(ValueConstants.RootFolder)
                 .Build();
 
             var documentType = builder
@@ -84,7 +84,7 @@ namespace DeployCmsData.Test.Tests
         public void CreateInFolderWithLevel()
         {
             var builder = new DocumentTypeBuilderSetup()
-                .ReturnsNewContentType(ParentAlias, ParentFolderId)
+                .ReturnsNewContentType(ParentFolderId)
                 .ReturnsFolder(ParentFolderName, ParentFolderLevel, ParentFolderId)
                 .Build();
 
@@ -110,7 +110,7 @@ namespace DeployCmsData.Test.Tests
             var setup = new DocumentTypeBuilderSetup();
 
             var builder = setup
-                .ReturnsNewContentType(ParentAlias, ParentFolderId)
+                .ReturnsNewContentType(ParentFolderId)
                 .ReturnsFolder(ParentFolderName, ParentFolderLevel, ParentFolderId)
                 .Build();
 

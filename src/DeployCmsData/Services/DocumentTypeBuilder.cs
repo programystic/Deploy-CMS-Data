@@ -25,8 +25,8 @@ namespace DeployCmsData.Services
         internal readonly IList<FieldBuilder> AddFieldList = new List<FieldBuilder>();
         internal readonly IList<FieldBuilder> UpdateFieldList = new List<FieldBuilder>();
         internal readonly IList<FieldBuilder> RemoveFieldList = new List<FieldBuilder>();
-        internal readonly IList<string> TabListAdd = new List<string>();
-        internal readonly IList<string> TabListRemove = new List<string>();
+        //internal readonly IList<string> TabListAdd = new List<string>();
+        //internal readonly IList<string> TabListRemove = new List<string>();
 
         public DocumentTypeBuilder()
         {
@@ -43,9 +43,10 @@ namespace DeployCmsData.Services
             if (applicationContext == null)
                 throw new ArgumentNullException(nameof(applicationContext));
 
-            _dataTypeService = applicationContext.Services.DataTypeService;
-            _contentTypeService = applicationContext.Services.ContentTypeService;            
-            _factory = new UmbracoFactory(_contentTypeService, _dataTypeService);
+            //_dataTypeService = applicationContext.Services.DataTypeService;
+            _contentTypeService = applicationContext.Services.ContentTypeService;
+            //_factory = new UmbracoFactory(_contentTypeService, _dataTypeService);
+            _factory = new UmbracoFactory(_contentTypeService);
         }
 
         public DocumentTypeBuilder(
@@ -170,27 +171,27 @@ namespace DeployCmsData.Services
             _contentTypeService.Delete(documentType);
         }
 
-        public DocumentTypeBuilder Alias(string alias)
+        public DocumentTypeBuilder Alias(string documentTypeAlias)
         {
-            _alias = alias;
+            _alias = documentTypeAlias;
             return this;
         }
 
-        public DocumentTypeBuilder Name(string name)
+        public DocumentTypeBuilder Name(string documentTypeName)
         {
-            _name = name;
+            _name = documentTypeName;
             return this;
         }
 
-        public DocumentTypeBuilder Icon(string icon)
+        public DocumentTypeBuilder Icon(string documentTypeIcon)
         {
-            _icon = icon;
+            _icon = documentTypeIcon;
             return this;
         }
 
-        public DocumentTypeBuilder Description(string description)
+        public DocumentTypeBuilder Description(string documentTypeDescription)
         {
-            _description = description;
+            _description = documentTypeDescription;
             return this;
         }
 

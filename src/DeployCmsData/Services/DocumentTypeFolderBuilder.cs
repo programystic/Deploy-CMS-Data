@@ -17,9 +17,10 @@ namespace DeployCmsData.Services
         {
             var applicationContext = UmbracoContext.Current.Application;
 
-            var dataTypeService = applicationContext.Services.DataTypeService;
+            //var dataTypeService = applicationContext.Services.DataTypeService;
             _contentTypeService = applicationContext.Services.ContentTypeService;
-            _factory = new UmbracoFactory(_contentTypeService, dataTypeService);
+            //_factory = new UmbracoFactory(_contentTypeService, dataTypeService);
+            _factory = new UmbracoFactory(_contentTypeService);
         }
 
         public DocumentTypeFolderBuilder(IContentTypeService contentTypeService, IUmbracoFactory factory)
@@ -28,9 +29,9 @@ namespace DeployCmsData.Services
             _factory = factory;
         }
 
-        public DocumentTypeFolderBuilder Name(string name)
+        public DocumentTypeFolderBuilder Name(string documentTypeName)
         {
-            _name = name;
+            _name = documentTypeName;
             return this;
         }
 

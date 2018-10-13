@@ -25,6 +25,7 @@ namespace DeployCmsData.Test.Tests
 
             setup.UmbracoFactory.Verify(x => x.NewContainer(ValueConstants.RootFolder, folderName, 1), Times.Once);
             Assert.IsNotNull(folder);
+            Assert.AreEqual(folderName, folder.Name);
         }
 
         [Test]
@@ -46,6 +47,7 @@ namespace DeployCmsData.Test.Tests
 
             setup.UmbracoFactory.Verify(x => x.NewContainer(It.IsAny<int>(), folderName, parentFolderLevel), Times.Once);
             Assert.IsNotNull(folder);
+            Assert.AreEqual(folderName, folder.Name);
         }
 
         [Test]

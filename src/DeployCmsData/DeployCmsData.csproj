@@ -267,6 +267,7 @@
     <Compile Include="Services\DocumentTypeFolderBuilder.cs" />
     <Compile Include="Services\FieldBuilder.cs" />
     <Compile Include="Services\PropertyTypeBuilder.cs" />
+    <Compile Include="Services\RunOnStartup.cs" />
     <Compile Include="Services\UmbracoFactory.cs" />
     <Compile Include="Services\UpgradeLogRepository.cs" />
     <Compile Include="Services\UpgradeScriptManager.cs" />

@@ -21,7 +21,7 @@ namespace DeployCmsData.Test.Tests
         {
             var setup = new DocumentTypeBuilderSetup();
             var builder = setup
-                .ReturnsNewContentType(ParentAlias, ParentId)
+                .ReturnsNewContentType(ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
                 .ReturnsDataType(CmsDataType.TextString)
                 .ReturnsDataType(CmsDataType.Numeric)

@@ -10,12 +10,17 @@ namespace DeployCmsData.Services
     internal class UmbracoFactory : IUmbracoFactory
     {
         private readonly IContentTypeService _contentTypeService;
-        private readonly IDataTypeService _dataTypeService;
+        //private readonly IDataTypeService _dataTypeService;
 
-        public UmbracoFactory(IContentTypeService contentTypeService, IDataTypeService dataTypeService)
+        //public UmbracoFactory(IContentTypeService contentTypeService, IDataTypeService dataTypeService)
+        //{
+        //    _contentTypeService = contentTypeService;
+        //    _dataTypeService = dataTypeService;
+        //}
+
+        public UmbracoFactory(IContentTypeService contentTypeService)
         {
-            _contentTypeService = contentTypeService;
-            _dataTypeService = dataTypeService;
+            _contentTypeService = contentTypeService;        
         }
 
         public IUmbracoEntity NewContainer(int parentId, string name, int parentLevel)
@@ -51,11 +56,11 @@ namespace DeployCmsData.Services
             return new PropertyType(dataTypeDefinition, propertyAlias);
         }
 
-        public PropertyType NewPropertyType(CmsDataType dataTypeName, string propertyAlias)
-        {            
-            var dataType = _dataTypeService.GetDataTypeDefinitionByName(dataTypeName.ToString());
+        //public PropertyType NewPropertyType(CmsDataType dataTypeName, string propertyAlias)
+        //{            
+        //    var dataType = _dataTypeService.GetDataTypeDefinitionByName(dataTypeName.ToString());
 
-            return new PropertyType(dataType, propertyAlias);
-        }
+        //    return new PropertyType(dataType, propertyAlias);
+        //}
     }
 }

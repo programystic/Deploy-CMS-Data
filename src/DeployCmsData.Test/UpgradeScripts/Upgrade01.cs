@@ -4,15 +4,6 @@ using DeployCmsData.Services;
 
 namespace DeployCmsData.Test.UpgradeScripts
 {
-    //public class DeployCms : ApplicationEventHandler
-    //{
-    //    protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
-    //    {
-    //        var manager = new UpgradeScriptManager();
-    //        manager.RunScriptAgain(new Script09());
-    //    }
-    //}
-
     public class Upgrade01 : IUpgradeScript
     {
         public bool RunScript(IUpgradeLogRepository upgradeLog)

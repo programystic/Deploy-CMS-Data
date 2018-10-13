@@ -31,6 +31,8 @@ namespace DeployCmsData.Test.Services
         public DocumentTypeFolderBuilderSetup ReturnsNewFolder(string folderName)
         {
             var entity = new Mock<IUmbracoEntity>();
+            entity.SetupProperty(x => x.Name, folderName);
+
             UmbracoFactory.Setup(x => x.NewContainer(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(entity.Object);
 

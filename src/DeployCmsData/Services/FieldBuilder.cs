@@ -12,45 +12,45 @@ namespace DeployCmsData.Services
         internal string RegularExpressionValue;
         internal bool MandatoryValue;
 
-        public FieldBuilder DataType(CmsDataType dataType)
+        public FieldBuilder DataType(CmsDataType dataTypeName)
         {
-            DataTypeValue = dataType.ToString();
+            DataTypeValue = dataTypeName.ToString();
             return this;
         }
 
-        public FieldBuilder DataType(string dataType)
+        public FieldBuilder DataType(string dataTypeName)
         {
-            DataTypeValue = dataType;
+            DataTypeValue = dataTypeName;
             return this;
         }
 
-        public FieldBuilder Alias(string alias)
+        public FieldBuilder Alias(string fieldAlias)
         {
-            AliasValue = alias;
+            AliasValue = fieldAlias;
             return this;
         }
 
-        public FieldBuilder Name(string name)
+        public FieldBuilder Name(string fieldName)
         {
-            NameValue = name;
+            NameValue = fieldName;
             return this;
         }
 
-        public FieldBuilder Description(string description)
+        public FieldBuilder Description(string fieldDescription)
         {
-            DescriptionValue = description;
+            DescriptionValue = fieldDescription;
             return this;
         }
 
-        public FieldBuilder RegularExpression(string regularExpression)
+        public FieldBuilder RegularExpression(string fieldRegularExpression)
         {
-            RegularExpressionValue = regularExpression;
+            RegularExpressionValue = fieldRegularExpression;
             return this;
         }
 
-        public FieldBuilder Tab(string tab)
+        public FieldBuilder Tab(string fieldTab)
         {
-            TabValue = tab;
+            TabValue = fieldTab;
             return this;
         }
 
