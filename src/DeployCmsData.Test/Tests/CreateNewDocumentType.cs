@@ -61,7 +61,7 @@ namespace DeployCmsData.Test.Tests
         public void CreateAtRoot()
         {
             var builder = new DocumentTypeBuilderSetup()
-                .ReturnsNewContentType(ValueConstants.RootFolder)
+                .ReturnsNewContentType(DeployCmsData.Constants.Umbraco.RootFolder)
                 .Build();
 
             var documentType = builder
@@ -75,7 +75,7 @@ namespace DeployCmsData.Test.Tests
             Assert.AreEqual(Name, documentType.Name);
             Assert.AreEqual(Description, documentType.Description);
             Assert.AreEqual(Icon, documentType.Icon);
-            Assert.AreEqual(ValueConstants.RootFolder, documentType.ParentId);
+            Assert.AreEqual(DeployCmsData.Constants.Umbraco.RootFolder, documentType.ParentId);
             Assert.IsTrue(documentType.AllowedAsRoot);
             Assert.IsFalse(documentType.IsContainer);
         }

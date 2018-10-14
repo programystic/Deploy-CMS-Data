@@ -1,6 +1,6 @@
 ﻿using DeployCmsData.Constants;
-using DeployCmsData.Interfaces;
 using DeployCmsData.Models;
+using DeployCmsData.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +12,8 @@ namespace DeployCmsData.Services
     {
         public readonly IUpgradeLogRepository LogDatastore;
 
-        public UpgradeScriptManager(IUpgradeLogRepository logDataStore)
-        {
-            LogDatastore = logDataStore;
-        }
+        public UpgradeScriptManager(IUpgradeLogRepository logDataStore) 
+            => LogDatastore = logDataStore;
 
         public UpgradeLog RunScript(IUpgradeScript upgradeScript)
         {
@@ -37,8 +35,7 @@ namespace DeployCmsData.Services
 
             var upgradeLog = new UpgradeLog
             {
-                UpgradeScriptName = GetScriptName(upgradeScript),
-                Id = Guid.NewGuid(),
+                UpgradeScriptName = GetScriptName(upgradeScript),                
                 Timestamp = DateTime.Now
             };
 
@@ -64,7 +61,7 @@ namespace DeployCmsData.Services
             if (upgradeScript == null) return false;
 
             var scriptName = GetScriptName(upgradeScript);
-            var result = LogDatastore.GetLog(scriptName);
+            var result = LogDatastore.GetLogByScriptName(scriptName);
 
             return result?.UpgradeScriptName == scriptName;
         }
@@ -77,11 +74,11 @@ namespace DeployCmsData.Services
             return upgradeScript.GetType().FullName;
         }
 
-        public void RunAllScripts()
+        public void RunScripts()
         {
             foreach (var script in GetAllScripts())
             {
-                script.RunScript(LogDatastore);
+                RunScript(script);
             }
         }
 

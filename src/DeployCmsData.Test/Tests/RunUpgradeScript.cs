@@ -1,5 +1,5 @@
 ﻿using DeployCmsData.Constants;
-using DeployCmsData.Interfaces;
+using DeployCmsData.Services.Interfaces;
 using DeployCmsData.Models;
 using DeployCmsData.Services;
 using DeployCmsData.Test.Services;

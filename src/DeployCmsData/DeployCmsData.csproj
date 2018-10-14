@@ -65,15 +65,6 @@
     <Reference Include="CookComputing.XmlRpcV2, Version=2.5.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
       <HintPath>..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServerCompact.Legacy, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.SqlServerCompact.Legacy.6.2.0\lib\net45\EntityFramework.SqlServerCompact.Legacy.dll</HintPath>
-    </Reference>
     <Reference Include="Examine, Version=0.1.89.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Examine.0.1.89\lib\net45\Examine.dll</HintPath>
     </Reference>
@@ -161,8 +152,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Core.7.12.3\lib\net45\System.Data.SqlServerCe.dll</HintPath>
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.SqlServerCe.Entity, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\UmbracoCms.Core.7.12.3\lib\net45\System.Data.SqlServerCe.Entity.dll</HintPath>
@@ -180,9 +171,10 @@
     <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Dataflow.4.7.0\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
     </Reference>
-    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
@@ -248,35 +240,42 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants\ValueConstants.cs" />
+    <Compile Include="ActionFilters\RunScriptEveryTime.cs" />
+    <Compile Include="Constants\AppSettings.cs" />
+    <Compile Include="Constants\Data.cs" />
+    <Compile Include="Constants\Umbraco.cs" />
     <Compile Include="Constants\Enums.cs" />
     <Compile Include="Constants\ExceptionMessages.cs" />
     <Compile Include="Constants\Icons.cs" />
+    <Compile Include="Data\UpgradeLogRepository.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Interfaces\IContentPropertiesService.cs" />
-    <Compile Include="Interfaces\IUpgradeLogRepository.cs" />
-    <Compile Include="Interfaces\IUmbracoFactory.cs" />
-    <Compile Include="Interfaces\IUpgradeScript.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Services\Interfaces\IContentPropertiesService.cs" />
+    <Compile Include="Services\Interfaces\IUpgradeLogRepository.cs" />
+    <Compile Include="Services\Interfaces\IUmbracoFactory.cs" />
+    <Compile Include="Services\Interfaces\IUpgradeScript.cs" />
+    <Compile Include="Data\Configuration.cs" />
     <Compile Include="Models\UpgradeLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CmsLibrary.cs" />
     <Compile Include="Services\ContentPropertiesService.cs" />
-    <Compile Include="Services\CreateDocumentTypeBuilder.cs" />
-    <Compile Include="Services\DocumentTypeBuilder.cs" />
-    <Compile Include="Services\DocumentTypeFolderBuilder.cs" />
-    <Compile Include="Services\FieldBuilder.cs" />
-    <Compile Include="Services\PropertyTypeBuilder.cs" />
+    <Compile Include="Builders\CreateDocumentTypeBuilder.cs" />
+    <Compile Include="Builders\DocumentTypeBuilder.cs" />
+    <Compile Include="Builders\DocumentTypeFolderBuilder.cs" />
+    <Compile Include="Builders\FieldBuilder.cs" />
+    <Compile Include="Builders\PropertyTypeBuilder.cs" />
     <Compile Include="Services\RunOnStartup.cs" />
     <Compile Include="Services\UmbracoFactory.cs" />
-    <Compile Include="Services\UpgradeLogRepository.cs" />
+    <Compile Include="Data\UpgradeLogContext.cs" />
     <Compile Include="Services\UpgradeScriptManager.cs" />
+    <Compile Include="UpgradeScripts\Upgrade01.cs" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="CustomDictionary.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

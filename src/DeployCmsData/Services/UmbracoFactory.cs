@@ -1,6 +1,5 @@
-﻿using System.Linq;
-using DeployCmsData.Constants;
-using DeployCmsData.Interfaces;
+﻿using DeployCmsData.Services.Interfaces;
+using System.Linq;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.EntityBase;
 using Umbraco.Core.Services;

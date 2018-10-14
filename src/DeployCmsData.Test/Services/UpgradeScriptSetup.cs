@@ -1,5 +1,5 @@
 ﻿using System;
-using DeployCmsData.Interfaces;
+using DeployCmsData.Services.Interfaces;
 using DeployCmsData.Models;
 using DeployCmsData.Services;
 using Moq;
@@ -45,7 +45,7 @@ namespace DeployCmsData.Test.Services
             {
                 UpgradeScriptName = UpgradeScriptManager.GetScriptName(UpgradeScript.Object)
             };
-            LogRepository.Setup(x => x.GetLog(It.IsAny<string>())).Returns(upgradeLog);
+            LogRepository.Setup(x => x.GetLogByScriptName(It.IsAny<string>())).Returns(upgradeLog);
 
             return this;
         }

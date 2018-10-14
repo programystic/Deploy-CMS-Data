@@ -1,6 +1,6 @@
 ﻿//using System;
 //using System.Linq;
-//using DeployCmsData.Interfaces;
+//using DeployCmsData.Services.Interfaces;
 //using Umbraco.Core.Models;
 
 //namespace DeployCmsData.Services
