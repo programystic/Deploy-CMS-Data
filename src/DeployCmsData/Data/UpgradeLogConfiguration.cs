@@ -4,7 +4,7 @@ using DeployCmsData.Models;
 
 namespace DeployCmsData.Data
 {
-    public class Configuration
+    public class UpgradeLogConfiguration
     {
         public static void SetupDatabase(ApplicationContext applicationContext)
         {
@@ -16,15 +16,3 @@ namespace DeployCmsData.Data
         }
     }
 }
-
-
-//using DeployCmsData.Data;
-//using System.Data.Entity.Migrations;
-
-//namespace DeployCmsData.Data
-//{
-//    public class Configuration : DbMigrationsConfiguration<UpgradeLogContext>
-//    {
-//        public Configuration() => AutomaticMigrationsEnabled = true;
-//    }
-//}

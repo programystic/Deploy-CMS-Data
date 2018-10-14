@@ -12,7 +12,7 @@ namespace DeployCmsData.Services
         {
             if (IsRunAtStartupDisabled()) return;
 
-            Configuration.SetupDatabase(applicationContext);
+            UpgradeLogConfiguration.SetupDatabase(applicationContext);
             RunAllScripts();
         }
 

@@ -1,10 +1,11 @@
 ﻿using DeployCmsData.Models;
+using System.Collections.Generic;
 
 namespace DeployCmsData.Services.Interfaces
 {
     public interface IUpgradeLogRepository
     {
-        UpgradeLog GetLogByScriptName(string upgradeScriptName);
+        IEnumerable<UpgradeLog> GetLogsByScriptName(string upgradeScriptName);
         void SaveLog(UpgradeLog upgradeLog);
     }
 }

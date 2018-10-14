@@ -1,9 +1,12 @@
-﻿using DeployCmsData.Constants;
+﻿using DeployCmsData.ActionFilters;
+using DeployCmsData.Constants;
 using DeployCmsData.Models;
 using DeployCmsData.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 
 [assembly: CLSCompliant(true)]
 namespace DeployCmsData.Services
@@ -15,20 +18,20 @@ namespace DeployCmsData.Services
         public UpgradeScriptManager(IUpgradeLogRepository logDataStore) 
             => LogDatastore = logDataStore;
 
-        public UpgradeLog RunScript(IUpgradeScript upgradeScript)
+        public UpgradeLog RunScriptIfNeeded(IUpgradeScript upgradeScript)
         {
             if (upgradeScript == null)
                 return new UpgradeLog() { Exception = ExceptionMessages.UpgradeScriptIsNull };
 
-            if (ScriptAlreadyRun(upgradeScript))
+            if (ScriptAlreadyRun(upgradeScript) && !RunScriptEveryTime(upgradeScript))
                 return null;
 
-            return RunScriptAgain(upgradeScript);
+            return RunScript(upgradeScript);
         }
 
         // We need a catch-all exception here as we don't want to raise an exception during startup.
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
-        public UpgradeLog RunScriptAgain(IUpgradeScript upgradeScript)
+        public UpgradeLog RunScript(IUpgradeScript upgradeScript)
         {
             if (upgradeScript == null)
                 return new UpgradeLog() { Exception = ExceptionMessages.UpgradeScriptIsNull };
@@ -59,11 +62,25 @@ namespace DeployCmsData.Services
         private bool ScriptAlreadyRun(IUpgradeScript upgradeScript)
         {
             if (upgradeScript == null) return false;
-
             var scriptName = GetScriptName(upgradeScript);
-            var result = LogDatastore.GetLogByScriptName(scriptName);
+            var logs = LogDatastore.GetLogsByScriptName(scriptName);
+            var atLeastOneSuccessfulLog = logs.Any(x => x.Success);
 
-            return result?.UpgradeScriptName == scriptName;
+            return atLeastOneSuccessfulLog;
+        }
+
+        private bool RunScriptEveryTime(IUpgradeScript upgradeScript)
+        {
+            return ScriptHasAttribute<RunScriptEveryTimeAttribute>(upgradeScript);
+        }
+
+        private bool ScriptHasAttribute<T>(IUpgradeScript upgradeScript)
+        {
+            var attributes = TypeDescriptor
+                .GetAttributes(upgradeScript)
+                .OfType<T>();
+
+            return attributes.Any();
         }
 
         public static string GetScriptName(IUpgradeScript upgradeScript)
@@ -78,7 +95,7 @@ namespace DeployCmsData.Services
         {
             foreach (var script in GetAllScripts())
             {
-                RunScript(script);
+                RunScriptIfNeeded(script);
             }
         }
 
