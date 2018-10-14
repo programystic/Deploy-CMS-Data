@@ -261,6 +261,7 @@
     <Compile Include="Tests\CreateNewDocumentTypeFolder.cs" />
     <Compile Include="Tests\CreateNewProperties.cs" />
     <Compile Include="Tests\CreateNewDocumentType.cs" />
+    <Compile Include="Tests\CreateNewDataTypes.cs" />
     <Compile Include="Tests\DeleteDocumentType.cs" />
     <Compile Include="Tests\RunUpgradeScript.cs" />
     <Compile Include="UpgradeScripts\Upgrade001Test.cs" />

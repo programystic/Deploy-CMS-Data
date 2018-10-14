@@ -262,12 +262,13 @@
     <Compile Include="Builders\DocumentTypeBuilder.cs" />
     <Compile Include="Builders\DocumentTypeFolderBuilder.cs" />
     <Compile Include="Builders\FieldBuilder.cs" />
-    <Compile Include="Builders\PropertyTypeBuilder.cs" />
+    <Compile Include="Builders\DataTypeBuilder.cs" />
     <Compile Include="Services\RunOnStartup.cs" />
     <Compile Include="Services\UmbracoFactory.cs" />
     <Compile Include="Services\UpgradeScriptManager.cs" />
     <Compile Include="UpgradeScripts\Upgrade01.cs" />
     <Compile Include="UpgradeScripts\Upgrade02.cs" />
+    <Compile Include="UpgradeScripts\Upgrade03.cs" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="CustomDictionary.xml" />

@@ -18,7 +18,8 @@ namespace DeployCmsData.Test.Tests
             Assert.AreEqual(nameof(DeployCmsData.UpgradeScripts.Upgrade01), scripts.Skip(1).First().GetType().Name);
             Assert.AreEqual(nameof(DeployCmsData.UpgradeScripts.Upgrade02), scripts.Skip(2).First().GetType().Name);
             Assert.AreEqual(nameof(UpgradeScripts.Upgrade02Test), scripts.Skip(3).First().GetType().Name);
-            Assert.AreEqual(nameof(UpgradeScripts.Upgrade03Test), scripts.Skip(4).First().GetType().Name);            
+            Assert.AreEqual(nameof(DeployCmsData.UpgradeScripts.Upgrade03), scripts.Skip(4).First().GetType().Name);            
+            Assert.AreEqual(nameof(UpgradeScripts.Upgrade03Test), scripts.Skip(5).First().GetType().Name);            
         }
     }
 }
