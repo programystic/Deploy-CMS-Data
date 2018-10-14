@@ -43,7 +43,7 @@ namespace DeployCmsData.Builders
             if (applicationContext == null)
                 throw new ArgumentNullException(nameof(applicationContext));
 
-            //_dataTypeService = applicationContext.Services.DataTypeService;
+            _dataTypeService = applicationContext.Services.DataTypeService;
             _contentTypeService = applicationContext.Services.ContentTypeService;
             //_factory = new UmbracoFactory(_contentTypeService, _dataTypeService);
             _factory = new UmbracoFactory(_contentTypeService);
@@ -146,12 +146,17 @@ namespace DeployCmsData.Builders
             {
                 var propertyType = documentType.PropertyTypes.FirstOrDefault(x => x.Alias == field.AliasValue);
                 if (propertyType != null) continue;
+                IDataTypeDefinition dataTypeDefinition = null;
 
-                var dataType = _dataTypeService.GetDataTypeDefinitionByName(field.DataTypeValue);
-                if (dataType == null)
+                if (!string.IsNullOrEmpty(field.DataTypeValue))
+                {
+                    dataTypeDefinition = _dataTypeService.GetDataTypeDefinitionByName(field.DataTypeValue);
+                }
+                
+                if (dataTypeDefinition == null)
                     throw new ArgumentException(ExceptionMessages.CannotFindDataType + field.DataTypeValue);
                 
-                propertyType = _factory.NewPropertyType(dataType, field.AliasValue);
+                propertyType = _factory.NewPropertyType(dataTypeDefinition, field.AliasValue);
 
                 propertyType.Name = field.NameValue;
                 propertyType.Description = field.DescriptionValue;

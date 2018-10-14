@@ -4,11 +4,12 @@
     {
         Label,
         Upload,
-        TextBoxMultiple,
+        Textarea,
         TextString,
         RichTextEditor,
         Numeric,
         TrueFalse,
+        Checkbox,
         CheckBoxList,
         DropDown,
         DatePicker,

@@ -11,6 +11,7 @@ namespace DeployCmsData.Builders
         internal string DescriptionValue;
         internal string RegularExpressionValue;
         internal bool MandatoryValue;
+        internal string PropertyEditorAliasValue;
 
         public FieldBuilder DataType(CmsDataType dataTypeName)
         {
@@ -21,6 +22,12 @@ namespace DeployCmsData.Builders
         public FieldBuilder DataType(string dataTypeName)
         {
             DataTypeValue = dataTypeName;
+            return this;
+        }
+
+        public FieldBuilder PropertyEditorAlias(string propertyEditorAlias)
+        {
+            PropertyEditorAliasValue = propertyEditorAlias;
             return this;
         }
 

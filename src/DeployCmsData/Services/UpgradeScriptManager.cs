@@ -15,7 +15,7 @@ namespace DeployCmsData.Services
     {
         public readonly IUpgradeLogRepository LogDatastore;
 
-        public UpgradeScriptManager(IUpgradeLogRepository logDataStore) 
+        public UpgradeScriptManager(IUpgradeLogRepository logDataStore)
             => LogDatastore = logDataStore;
 
         public UpgradeLog RunScriptIfNeeded(IUpgradeScript upgradeScript)
@@ -38,11 +38,12 @@ namespace DeployCmsData.Services
 
             var upgradeLog = new UpgradeLog
             {
-                UpgradeScriptName = GetScriptName(upgradeScript),                
+                UpgradeScriptName = GetScriptName(upgradeScript),
                 Timestamp = DateTime.Now
             };
 
             var start = DateTime.Now;
+
             try
             {
                 upgradeLog.Success = upgradeScript.RunScript(LogDatastore);
@@ -50,7 +51,13 @@ namespace DeployCmsData.Services
             catch (Exception e)
             {
                 upgradeLog.Success = false;
-                upgradeLog.Exception = e.Message;
+                upgradeLog.Exception =
+                    e.Message
+                    + Environment.NewLine
+                    + e.Source
+                    + Environment.NewLine
+                    + e.StackTrace;
+
                 Console.WriteLine(e);
             }
 
@@ -114,7 +121,7 @@ namespace DeployCmsData.Services
                 var script = (IUpgradeScript)Activator.CreateInstance(scriptType);
                 scripts.Add(script);
             }
-                
+
             return scripts;
         }
     }

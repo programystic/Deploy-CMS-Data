@@ -50,8 +50,7 @@ namespace DeployCmsData.Services
         }
 
         public PropertyType NewPropertyType(IDataTypeDefinition dataTypeDefinition, string propertyAlias)
-        {            
-            
+        {                        
             return new PropertyType(dataTypeDefinition, propertyAlias);
         }
 

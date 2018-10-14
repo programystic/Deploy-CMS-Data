@@ -33,7 +33,7 @@
         public const string UserGlasses = "icon-user-glasses";
         public const string UserFemales = "icon-user-females";
         public const string UserFemalesAlt = "icon-user-females-alt";
-        public const string UserFemale = "icon-user-female";        
+        public const string UserFemale = "icon-user-female";
         public const string Usb = "icon-usb";
         public const string UsbConnector = "icon-usb-connector";
         public const string Unlocked = "icon-unlocked";
