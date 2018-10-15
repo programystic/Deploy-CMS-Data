@@ -241,6 +241,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionFilters\RunScriptEveryTime.cs" />
+    <Compile Include="Builders\GridDataTypeBuilder.cs" />
     <Compile Include="Constants\AppSettings.cs" />
     <Compile Include="Constants\Data.cs" />
     <Compile Include="Constants\Umbraco.cs" />
@@ -249,6 +250,7 @@
     <Compile Include="Constants\Icons.cs" />
     <Compile Include="Data\UpgradeLogRepository.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="PreValues\Grid.cs" />
     <Compile Include="Services\Interfaces\IContentPropertiesService.cs" />
     <Compile Include="Services\Interfaces\IUpgradeLogRepository.cs" />
     <Compile Include="Services\Interfaces\IUmbracoFactory.cs" />

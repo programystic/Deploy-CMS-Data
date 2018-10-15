@@ -8,7 +8,102 @@ namespace DeployCmsData.Services
 {
     public class DataTypeBuilder
     {
-        public DataTypeBuilder(ApplicationContext applicationContext)
+        public const string items = "{" +
+  "\"styles\": [" +
+   " {" +
+      "\"label\": \"Set a background image\"," +
+      "\"description\": \"Set a row background\"," +
+      "\"key\": \"background-image\"," +
+      "\"view\": \"imagepicker\"," +
+      "\"modifier\": \"url({0})\"" +
+    "}" +
+  "]," +
+  "\"config\": [" +
+   " {" +
+   "   \"label\": \"Class\"," +
+   "   \"description\": \"Set a css class\"," +
+   "   \"key\": \"class\"," +
+   "   \"view\": \"textstring\"" +
+   " }" +
+  "]," +
+  "\"columns\": 12," +
+  "\"templates\": [" +
+  "  {" +
+  "    \"name\": \"1 column layout\"," +
+  "    \"sections\": [" +
+  "      {" +
+  "        \"grid\": 12" +
+  "      }" +
+  "    ]" +
+  "  }," +
+  "  {" +
+  "    \"name\": \"2 column layout\"," +
+  "    \"sections\": [" +
+  "      {" +
+  "        \"grid\": 4" +
+  "      }," +
+  "      {" +
+  "        \"grid\": 8" +
+  "      }" +
+  "    ]" +
+  "  }" +
+  "]," +
+  "\"layouts\": [" +
+  "  {" +
+  "    \"label\": \"Headline\"," +
+  "    \"name\": \"Headline\"," +
+  "    \"areas\": [" +
+  "      {" +
+  "        \"grid\": 12," +
+  "        \"editors\": [" +
+  "          \"headline\"" +
+  "        ]" +
+  "      }" +
+  "    ]" +
+  "  }," +
+  "  {" +
+  "    \"label\": \"Article\"," +
+  "    \"name\": \"Article\"," +
+  "    \"areas\": [" +
+  "      {" +
+  "        \"grid\": 4" +
+  "      }," +
+  "      {" +
+  "        \"grid\": 8" +
+  "      }" +
+  "    ]" +
+  "  }" +
+  "]" +
+"}";
+
+        public const string rte =
+ "       {" +
+"  \"toolbar\": [" +
+    "\"code\"," +
+    "\"styleselect\"," +
+    "\"bold\"," +
+    "\"italic\"," +
+    "\"alignleft\"," +
+    "\"aligncenter\"," +
+    "\"alignright\"," +
+    "\"bullist\"," +
+    "\"numlist\"," +
+    "\"outdent\"," +
+    "\"indent\"," +
+    "\"link\"," +
+    "\"umbmediapicker\"," +
+    "\"umbmacro\"," +
+    "\"umbembeddialog\"" +
+  "]," +
+  "\"stylesheets\": []," +
+  "\"dimensions\": {" +
+  "  \"height\": 500" +
+  "}," +
+  "\"maxImageSize\": 500" +
+"}";
+
+
+    public DataTypeBuilder(ApplicationContext applicationContext)
         {
             //Dictionary<string, PreValue> preValues = new Dictionary<string, PreValue>();
 
@@ -23,10 +118,26 @@ namespace DeployCmsData.Services
 
             var service = applicationContext.Services.DataTypeService;
 
+            var dtd1 = service.GetDataTypeDefinitionByName("Test 101");
+            if (dtd1 != null) service.Delete(dtd1);
+
             var x1 = new DataTypeDefinition(-1, "testDataType");
             x1.Name = "Test 101";
             x1.PropertyEditorAlias = "Umbraco.TinyMCEv3";
             service.Save(x1);
+
+            var dtd2 = service.GetDataTypeDefinitionByName("Test 202");
+            if (dtd2 != null) service.Delete(dtd2);
+
+            var x2 = new DataTypeDefinition(-1, "testDataType2");
+            x2.Name = "Test 202";
+            x2.PropertyEditorAlias = "Umbraco.Grid";
+
+            var preValues = new System.Collections.Generic.Dictionary<string, PreValue>();
+            preValues.Add("items", new PreValue(items));
+            preValues.Add("rte", new PreValue(rte));
+
+            service.SaveDataTypeAndPreValues(x2, preValues);
         }
     }
 }
