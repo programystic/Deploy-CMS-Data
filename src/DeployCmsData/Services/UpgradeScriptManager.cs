@@ -1,7 +1,7 @@
 ﻿using DeployCmsData.ActionFilters;
 using DeployCmsData.Constants;
+using DeployCmsData.Interfaces;
 using DeployCmsData.Models;
-using DeployCmsData.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,7 +23,7 @@ namespace DeployCmsData.Services
             if (upgradeScript == null)
                 return new UpgradeLog() { Exception = ExceptionMessages.UpgradeScriptIsNull };
 
-            if (ScriptAlreadyRun(upgradeScript) && !RunScriptEveryTime(upgradeScript))
+            if (ScriptHasAlreadyRunWithSuccess(upgradeScript) && ScriptShouldntBeRunEveryTime(upgradeScript))
                 return null;
 
             return RunScript(upgradeScript);
@@ -66,7 +66,7 @@ namespace DeployCmsData.Services
             return upgradeLog;
         }
 
-        private bool ScriptAlreadyRun(IUpgradeScript upgradeScript)
+        private bool ScriptHasAlreadyRunWithSuccess(IUpgradeScript upgradeScript)
         {
             if (upgradeScript == null) return false;
             var scriptName = GetScriptName(upgradeScript);
@@ -76,9 +76,9 @@ namespace DeployCmsData.Services
             return atLeastOneSuccessfulLog;
         }
 
-        private bool RunScriptEveryTime(IUpgradeScript upgradeScript)
+        private bool ScriptShouldntBeRunEveryTime(IUpgradeScript upgradeScript)
         {
-            return ScriptHasAttribute<RunScriptEveryTimeAttribute>(upgradeScript);
+            return !ScriptHasAttribute<RunScriptEveryTimeAttribute>(upgradeScript);
         }
 
         private bool ScriptHasAttribute<T>(IUpgradeScript upgradeScript)
@@ -98,7 +98,7 @@ namespace DeployCmsData.Services
             return upgradeScript.GetType().FullName;
         }
 
-        public void RunScripts()
+        public void RunAllScriptsIfNeeded()
         {
             foreach (var script in GetAllScripts())
             {

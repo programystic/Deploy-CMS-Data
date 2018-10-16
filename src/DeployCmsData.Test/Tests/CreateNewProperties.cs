@@ -1,5 +1,5 @@
-﻿using DeployCmsData.Constants;
-using DeployCmsData.Test.Services;
+﻿using DeployCmsData.Test.Services;
+using DeployCmsData.UmbracoCms.Constants;
 using Moq;
 using NUnit.Framework;
 using Umbraco.Core.Models;

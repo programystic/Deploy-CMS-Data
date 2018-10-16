@@ -273,13 +273,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <CodeAnalysisDictionary Include="CustomDictionary.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DeployCmsData.UmbracoCms\DeployCmsData.UmbracoCms.csproj">
+      <Project>{23962911-6a2c-4dcb-a7ca-4fea0840d0b9}</Project>
+      <Name>DeployCmsData.UmbracoCms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DeployCmsData\DeployCmsData.csproj">
       <Project>{0e6ecc8f-e095-48bf-b5a4-f2bcd53fc747}</Project>
       <Name>DeployCmsData</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <CodeAnalysisDictionary Include="CustomDictionary.xml" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

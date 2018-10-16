@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeployCmsData.Web.SqlServer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeployCmsData.Web.SqlCe", "DeployCmsData.Web.SqlCe\DeployCmsData.Web.SqlCe.csproj", "{8D4CA35D-8B72-4C6F-AF86-783BD0C7ABDA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeployCmsData.UmbracoCms", "DeployCmsData.UmbracoCms\DeployCmsData.UmbracoCms.csproj", "{23962911-6A2C-4DCB-A7CA-4FEA0840D0B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{8D4CA35D-8B72-4C6F-AF86-783BD0C7ABDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D4CA35D-8B72-4C6F-AF86-783BD0C7ABDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D4CA35D-8B72-4C6F-AF86-783BD0C7ABDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23962911-6A2C-4DCB-A7CA-4FEA0840D0B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23962911-6A2C-4DCB-A7CA-4FEA0840D0B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23962911-6A2C-4DCB-A7CA-4FEA0840D0B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23962911-6A2C-4DCB-A7CA-4FEA0840D0B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

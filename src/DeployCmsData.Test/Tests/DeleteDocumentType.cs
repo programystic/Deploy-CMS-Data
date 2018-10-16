@@ -1,9 +1,8 @@
-﻿using DeployCmsData.Services;
-using DeployCmsData.Test.Services;
+﻿using DeployCmsData.Test.Services;
+using DeployCmsData.UmbracoCms.Services;
 using Moq;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using Umbraco.Core.Services;
 
 namespace DeployCmsData.Test.Tests

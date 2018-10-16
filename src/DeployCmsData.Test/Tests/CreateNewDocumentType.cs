@@ -1,8 +1,7 @@
-﻿using System;
-using DeployCmsData.Constants;
-using DeployCmsData.Test.Services;
+﻿using DeployCmsData.Test.Services;
 using Moq;
 using NUnit.Framework;
+using System;
 
 namespace DeployCmsData.Test.Tests
 {
@@ -61,7 +60,7 @@ namespace DeployCmsData.Test.Tests
         public void CreateAtRoot()
         {
             var builder = new DocumentTypeBuilderSetup()
-                .ReturnsNewContentType(DeployCmsData.Constants.Umbraco.RootFolder)
+                .ReturnsNewContentType(UmbracoCms.Constants.Umbraco.RootFolder)
                 .Build();
 
             var documentType = builder
@@ -75,7 +74,7 @@ namespace DeployCmsData.Test.Tests
             Assert.AreEqual(Name, documentType.Name);
             Assert.AreEqual(Description, documentType.Description);
             Assert.AreEqual(Icon, documentType.Icon);
-            Assert.AreEqual(DeployCmsData.Constants.Umbraco.RootFolder, documentType.ParentId);
+            Assert.AreEqual(UmbracoCms.Constants.Umbraco.RootFolder, documentType.ParentId);
             Assert.IsTrue(documentType.AllowedAsRoot);
             Assert.IsFalse(documentType.IsContainer);
         }

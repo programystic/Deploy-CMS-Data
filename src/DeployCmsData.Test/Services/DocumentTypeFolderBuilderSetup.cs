@@ -1,5 +1,5 @@
-﻿using DeployCmsData.Builders;
-using DeployCmsData.Services.Interfaces;
+﻿using DeployCmsData.UmbracoCms.Builders;
+using DeployCmsData.UmbracoCms.Interfaces;
 using Moq;
 using Umbraco.Core.Models.EntityBase;
 using Umbraco.Core.Services;

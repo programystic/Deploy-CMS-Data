@@ -1,12 +1,15 @@
-﻿using DeployCmsData.Interfaces;
+﻿using DeployCmsData.ActionFilters;
+using DeployCmsData.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Constants;
 using DeployCmsData.UmbracoCms.Services;
 
-namespace DeployCmsData.Test.UpgradeScripts
+namespace DeployCmsData.UmbracoCms.UpgradeScripts
 {
-    public class Upgrade001Test : IUpgradeScript
+    [RunScriptEveryTime]
+    public class Upgrade01 : IUpgradeScript
     {
+        // TODO - Setup constants for all the magic strings below
         public bool RunScript(IUpgradeLogRepository upgradeLog)
         {
             ClearEverythingDown();
@@ -38,7 +41,7 @@ namespace DeployCmsData.Test.UpgradeScripts
             var builder = new DocumentTypeFolderBuilder();
 
             builder
-                .Name("Page Compositions")
+                .Name("Compositions")
                 .BuildAtRoot();
         }
 
@@ -49,7 +52,7 @@ namespace DeployCmsData.Test.UpgradeScripts
                 .Alias("pageMetaData")
                 .Name("Page Meta Data")
                 .Icon(Icons.MindMap)
-                .BuildInFolder("Page Compositions");
+                .BuildInFolder("Compositions");
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using DeployCmsData.Constants;
-using DeployCmsData.Test.Services;
+﻿using DeployCmsData.Test.Services;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -23,7 +22,7 @@ namespace DeployCmsData.Test.Tests
                 .Name(folderName)
                 .BuildAtRoot();
 
-            setup.UmbracoFactory.Verify(x => x.NewContainer(DeployCmsData.Constants.Umbraco.RootFolder, folderName, 1), Times.Once);
+            setup.UmbracoFactory.Verify(x => x.NewContainer(UmbracoCms.Constants.Umbraco.RootFolder, folderName, 1), Times.Once);
             Assert.IsNotNull(folder);
             Assert.AreEqual(folderName, folder.Name);
         }
@@ -108,7 +107,7 @@ namespace DeployCmsData.Test.Tests
                     x.GetContainer(
                         parentFolderName,
                         It.IsAny<int>()),
-                Times.Exactly(DeployCmsData.Constants.Umbraco.MaximumFolderLevel));
+                Times.Exactly(UmbracoCms.Constants.Umbraco.MaximumFolderLevel));
         }
     }
 }

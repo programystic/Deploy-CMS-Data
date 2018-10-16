@@ -1,11 +1,11 @@
 ﻿using System;
-using DeployCmsData.Services.Interfaces;
 using DeployCmsData.Models;
 using DeployCmsData.Services;
 using Moq;
 using System.Collections.Generic;
 using DeployCmsData.ActionFilters;
 using System.ComponentModel;
+using DeployCmsData.Interfaces;
 
 namespace DeployCmsData.Test.Services
 {
