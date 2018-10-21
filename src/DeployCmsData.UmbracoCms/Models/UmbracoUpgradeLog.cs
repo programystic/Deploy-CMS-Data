@@ -3,9 +3,9 @@ using Umbraco.Core.Persistence.DatabaseAnnotations;
 
 namespace DeployCmsData.UmbracoCms.Models
 {
-    [TableName(DeployCmsData.Constants.Data.LogsTableName)]
+    [TableName(Constants.Data.LogsTableName)]
     [PrimaryKey(nameof(Id), autoIncrement = true)]
-    public class UmbracoUpgradeLog : DeployCmsData.Models.UpgradeLog
+    public class UmbracoUpgradeLog : Core.Models.UpgradeLog
     {
         [PrimaryKeyColumn(AutoIncrement = true)]
         public override long Id { get; set; }

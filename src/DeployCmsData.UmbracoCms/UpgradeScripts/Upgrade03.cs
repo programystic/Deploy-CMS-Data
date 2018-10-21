@@ -1,5 +1,5 @@
-﻿using DeployCmsData.ActionFilters;
-using DeployCmsData.Interfaces;
+﻿using DeployCmsData.Core.ActionFilters;
+using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
 using Umbraco.Web;
 

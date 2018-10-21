@@ -1,4 +1,4 @@
-﻿using DeployCmsData.Constants;
+﻿using DeployCmsData.Core.Constants;
 using DeployCmsData.UmbracoCms.Interfaces;
 using DeployCmsData.UmbracoCms.Services;
 using System;

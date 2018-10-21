@@ -1,4 +1,4 @@
-﻿namespace DeployCmsData.Constants
+﻿namespace DeployCmsData.UmbracoCms.Constants
 {
     public static class Data
     {

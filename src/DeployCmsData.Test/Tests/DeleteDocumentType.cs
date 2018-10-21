@@ -65,7 +65,7 @@ namespace DeployCmsData.Test.Tests
         public void DeleteAllDocumentTypes()
         {
             var contentTypeService = new Mock<IContentTypeService>();
-            var cmsCollections = new CmsLibrary(contentTypeService.Object);
+            var cmsCollections = new UmbracoLibrary(contentTypeService.Object);
 
             cmsCollections.DeleteAllDocumentTypes();
         }

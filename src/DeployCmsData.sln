@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeployCmsData", "DeployCmsData\DeployCmsData.csproj", "{0E6ECC8F-E095-48BF-B5A4-F2BCD53FC747}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DE56C4BC-F6EC-4497-8CF6-7C36CEF0C12A}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
@@ -19,16 +17,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeployCmsData.Web.SqlCe", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeployCmsData.UmbracoCms", "DeployCmsData.UmbracoCms\DeployCmsData.UmbracoCms.csproj", "{23962911-6A2C-4DCB-A7CA-4FEA0840D0B9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeployCmsData.Core", "DeployCmsData.Core\DeployCmsData.Core.csproj", "{C3D50060-EE8D-4F4C-81DF-1D8DBD665BD2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0E6ECC8F-E095-48BF-B5A4-F2BCD53FC747}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E6ECC8F-E095-48BF-B5A4-F2BCD53FC747}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0E6ECC8F-E095-48BF-B5A4-F2BCD53FC747}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E6ECC8F-E095-48BF-B5A4-F2BCD53FC747}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5C9331F0-39C3-46BB-B75E-2E2C24486E5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5C9331F0-39C3-46BB-B75E-2E2C24486E5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C9331F0-39C3-46BB-B75E-2E2C24486E5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{23962911-6A2C-4DCB-A7CA-4FEA0840D0B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23962911-6A2C-4DCB-A7CA-4FEA0840D0B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23962911-6A2C-4DCB-A7CA-4FEA0840D0B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3D50060-EE8D-4F4C-81DF-1D8DBD665BD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3D50060-EE8D-4F4C-81DF-1D8DBD665BD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3D50060-EE8D-4F4C-81DF-1D8DBD665BD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3D50060-EE8D-4F4C-81DF-1D8DBD665BD2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

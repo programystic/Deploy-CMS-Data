@@ -1,6 +1,4 @@
-﻿using DeployCmsData.Constants;
-
-namespace DeployCmsData.Test.Constants
+﻿namespace DeployCmsData.Test.Constants
 {
     internal static class DocumentTypeAlias
     {       

@@ -1,11 +1,11 @@
-﻿using DeployCmsData.Constants;
-using DeployCmsData.Models;
-using DeployCmsData.Services;
+﻿using DeployCmsData.Core.Constants;
+using DeployCmsData.Core.Interfaces;
+using DeployCmsData.Core.Models;
+using DeployCmsData.Core.Services;
+using DeployCmsData.Test.Services;
 using Moq;
 using NUnit.Framework;
 using System;
-using DeployCmsData.Test.Services;
-using DeployCmsData.Interfaces;
 
 [assembly: CLSCompliant(true)]
 namespace DeployCmsData.Test.Tests

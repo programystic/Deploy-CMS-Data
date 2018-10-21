@@ -330,13 +330,13 @@
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DeployCmsData.Core\DeployCmsData.Core.csproj">
+      <Project>{c3d50060-ee8d-4f4c-81df-1d8dbd665bd2}</Project>
+      <Name>DeployCmsData.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DeployCmsData.UmbracoCms\DeployCmsData.UmbracoCms.csproj">
       <Project>{23962911-6a2c-4dcb-a7ca-4fea0840d0b9}</Project>
       <Name>DeployCmsData.UmbracoCms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DeployCmsData\DeployCmsData.csproj">
-      <Project>{0e6ecc8f-e095-48bf-b5a4-f2bcd53fc747}</Project>
-      <Name>DeployCmsData</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

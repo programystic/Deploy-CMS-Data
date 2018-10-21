@@ -1,5 +1,4 @@
-﻿
-using DeployCmsData.Interfaces;
+﻿using DeployCmsData.Core.Interfaces;
 
 namespace DeployCmsData.Test.UpgradeScripts
 {

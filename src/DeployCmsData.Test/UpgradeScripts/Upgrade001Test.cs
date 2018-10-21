@@ -1,4 +1,4 @@
-﻿using DeployCmsData.Interfaces;
+﻿using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Constants;
 using DeployCmsData.UmbracoCms.Services;
@@ -18,7 +18,7 @@ namespace DeployCmsData.Test.UpgradeScripts
 
         public void ClearEverythingDown()
         {
-            var library = new CmsLibrary();
+            var library = new UmbracoLibrary();
             library.DeleteAllDocumentTypes();
             library.DeleteAllDocumentTypeFolders();
         }

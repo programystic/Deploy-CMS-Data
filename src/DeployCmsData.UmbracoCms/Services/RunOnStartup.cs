@@ -1,4 +1,4 @@
-﻿using DeployCmsData.Services;
+﻿using DeployCmsData.Core.Services;
 using DeployCmsData.UmbracoCms.Data;
 using System.Web.Configuration;
 using Umbraco.Core;
@@ -13,7 +13,7 @@ namespace DeployCmsData.UmbracoCms.Services
         {
             if (IsRunAtStartupDisabled()) return;
 
-            UpgradeLogConfiguration.SetupDatabase(applicationContext);
+            RepositoryConfiguration.SetupDatabase(applicationContext);
             RunAllScripts();
         }
 

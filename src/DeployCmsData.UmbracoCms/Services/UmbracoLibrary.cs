@@ -4,17 +4,17 @@ using Umbraco.Web;
 
 namespace DeployCmsData.UmbracoCms.Services
 {
-    public class CmsLibrary
+    public class UmbracoLibrary
     {
         IContentTypeService _contentTypeService;
 
-        public CmsLibrary()
+        public UmbracoLibrary()
         {
             var applicationContext = UmbracoContext.Current.Application;
             _contentTypeService = applicationContext.Services.ContentTypeService;
         }
 
-        public CmsLibrary(IContentTypeService contentTypeService)
+        public UmbracoLibrary(IContentTypeService contentTypeService)
         {            
             _contentTypeService = contentTypeService;
         }
