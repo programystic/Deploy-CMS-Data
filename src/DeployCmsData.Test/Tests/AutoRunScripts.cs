@@ -1,4 +1,4 @@
-﻿using DeployCmsData.Test.Services;
+﻿using DeployCmsData.Test.Builders;
 using NUnit.Framework;
 using System.Linq;
 
@@ -9,7 +9,7 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public static void FindTestScripts()
         {
-            var setup = new UpgradeScriptSetup();
+            var setup = new UpgradeScriptManagerBuilder();
             var scriptManager = setup.Build();
 
             var scripts = scriptManager.GetAllScripts();

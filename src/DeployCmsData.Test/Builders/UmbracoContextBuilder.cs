@@ -9,7 +9,7 @@ using Umbraco.Web;
 using Umbraco.Web.Routing;
 using Umbraco.Web.Security;
 
-namespace DeployCmsData.Test.Services
+namespace DeployCmsData.Test.Builders
 {
     class UmbracoContextBuilder
     {

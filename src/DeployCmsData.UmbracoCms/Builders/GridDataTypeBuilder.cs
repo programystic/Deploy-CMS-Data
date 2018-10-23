@@ -1,12 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Umbraco.Core.Services;
 
 namespace DeployCmsData.UmbracoCms.Builders
 {
-    class GridDataTypeBuilder
+    public class GridDataTypeBuilder
     {
+        public GridDataTypeBuilder(IDataTypeService dataTypeService)
+        {
+        }
+
+        public GridDataTypeBuilder AddRow()
+        {
+            return this;
+        }
+
+        public GridDataTypeBuilder AddToolbarOption()
+        {
+            return this;
+        }
     }
 }

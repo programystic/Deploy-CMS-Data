@@ -1,4 +1,4 @@
-﻿using DeployCmsData.Test.Services;
+﻿using DeployCmsData.Test.Builders;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -21,7 +21,7 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public void CreateWithInvalidParent()
         {
-            var builder = new DocumentTypeBuilderSetup().Build();
+            var builder = new DocumentTypeTestBuilder().Build();
 
             Assert.Throws<ArgumentException>(
                 () => builder
@@ -35,7 +35,7 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public void CreateWithParent()
         {
-            var builder = new DocumentTypeBuilderSetup()
+            var builder = new DocumentTypeTestBuilder()
                 .ReturnsNewContentType(ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
                 .Build();
@@ -59,7 +59,7 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public void CreateAtRoot()
         {
-            var builder = new DocumentTypeBuilderSetup()
+            var builder = new DocumentTypeTestBuilder()
                 .ReturnsNewContentType(UmbracoCms.Constants.Umbraco.RootFolder)
                 .Build();
 
@@ -82,7 +82,7 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public void CreateInFolderWithLevel()
         {
-            var builder = new DocumentTypeBuilderSetup()
+            var builder = new DocumentTypeTestBuilder()
                 .ReturnsNewContentType(ParentFolderId)
                 .ReturnsFolder(ParentFolderName, ParentFolderLevel, ParentFolderId)
                 .Build();
@@ -106,7 +106,7 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public void CreateInFolderWithNoLevel()
         {
-            var setup = new DocumentTypeBuilderSetup();
+            var setup = new DocumentTypeTestBuilder();
 
             var builder = setup
                 .ReturnsNewContentType(ParentFolderId)

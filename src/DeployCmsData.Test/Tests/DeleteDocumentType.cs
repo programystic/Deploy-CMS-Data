@@ -1,4 +1,4 @@
-﻿using DeployCmsData.Test.Services;
+﻿using DeployCmsData.Test.Builders;
 using DeployCmsData.UmbracoCms.Services;
 using Moq;
 using NUnit.Framework;
@@ -15,7 +15,7 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public void DeleteDocumentTypeFailsWhenItDoesNotExist()
         {
-            var builder = new DocumentTypeBuilderSetup()
+            var builder = new DocumentTypeTestBuilder()
                 .Build();
 
             Assert.Throws<ArgumentException>(
@@ -25,7 +25,7 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public void DeleteExistingDocumentType()
         {
-            var builder = new DocumentTypeBuilderSetup()
+            var builder = new DocumentTypeTestBuilder()
                 .ReturnsExistingContentType(Alias)
                 .Build();
 

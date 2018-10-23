@@ -1,4 +1,4 @@
-﻿using DeployCmsData.Test.Services;
+﻿using DeployCmsData.Test.Builders;
 using DeployCmsData.UmbracoCms.Constants;
 using Moq;
 using NUnit.Framework;
@@ -19,7 +19,7 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public static void CreateNewProperty()
         {
-            var setup = new DocumentTypeBuilderSetup();
+            var setup = new DocumentTypeTestBuilder();
             var builder = setup
                 .ReturnsNewContentType(ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)

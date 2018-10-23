@@ -1,4 +1,4 @@
-﻿using DeployCmsData.Test.Services;
+﻿using DeployCmsData.Test.Builders;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -13,7 +13,7 @@ namespace DeployCmsData.Test.Tests
         {
             const string folderName = "My New Folder";
 
-            var setup = new DocumentTypeFolderBuilderSetup();
+            var setup = new DocumentTypeFolderTestBuilder();
             var builder = setup
                 .ReturnsNewFolder(folderName)
                 .Build();
@@ -34,7 +34,7 @@ namespace DeployCmsData.Test.Tests
             const string parentFolderName = "Parent folder name";
             const int parentFolderLevel = 7;
 
-            var setup = new DocumentTypeFolderBuilderSetup();
+            var setup = new DocumentTypeFolderTestBuilder();
             var builder = setup
                 .ReturnsNewFolder(folderName)
                 .ReturnsExistingFolder(parentFolderName, parentFolderLevel)
@@ -56,7 +56,7 @@ namespace DeployCmsData.Test.Tests
             const string parentFolderName = "Parent folder name";
             const int parentFolderLevel = 7;
 
-            var setup = new DocumentTypeFolderBuilderSetup();
+            var setup = new DocumentTypeFolderTestBuilder();
             var builder = setup
                 .ReturnsNewFolder(folderName)
                 .ReturnsExistingFolder(parentFolderName, parentFolderLevel)
@@ -76,7 +76,7 @@ namespace DeployCmsData.Test.Tests
             const string folderName = "My new folder";
             const string parentFolderName = "Parent folder name";
 
-            var setup = new DocumentTypeFolderBuilderSetup();
+            var setup = new DocumentTypeFolderTestBuilder();
             var builder = setup
                 .ReturnsNewFolder(folderName)
                 .Build();
@@ -93,7 +93,7 @@ namespace DeployCmsData.Test.Tests
             const string folderName = "My new folder";
             const string parentFolderName = "Parent folder name";
 
-            var setup = new DocumentTypeFolderBuilderSetup();
+            var setup = new DocumentTypeFolderTestBuilder();
             var builder = setup
                 .ReturnsNewFolder(folderName)
                 .Build();

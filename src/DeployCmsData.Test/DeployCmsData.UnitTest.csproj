@@ -253,15 +253,15 @@
     <Compile Include="Constants\Folders.cs" />
     <Compile Include="Constants\PropertyAlias.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\DocumentTypeFolderBuilderSetup.cs" />
-    <Compile Include="Services\DocumentTypeBuilderSetup.cs" />
-    <Compile Include="Services\UmbracoContextBuilder.cs" />
-    <Compile Include="Services\UpgradeScriptSetup.cs" />
+    <Compile Include="Builders\DocumentTypeFolderTestBuilder.cs" />
+    <Compile Include="Builders\DocumentTypeTestBuilder.cs" />
+    <Compile Include="Builders\UmbracoContextBuilder.cs" />
+    <Compile Include="Builders\UpgradeScriptManagerBuilder.cs" />
     <Compile Include="Tests\AutoRunScripts.cs" />
     <Compile Include="Tests\CreateNewDocumentTypeFolder.cs" />
     <Compile Include="Tests\CreateNewProperties.cs" />
     <Compile Include="Tests\CreateNewDocumentType.cs" />
-    <Compile Include="Tests\CreateNewDataTypes.cs" />
+    <Compile Include="Tests\CreateNewDataType.cs" />
     <Compile Include="Tests\DeleteDocumentType.cs" />
     <Compile Include="Tests\RunUpgradeScript.cs" />
     <Compile Include="UpgradeScripts\Upgrade001Test.cs" />
@@ -284,6 +284,9 @@
       <Project>{23962911-6a2c-4dcb-a7ca-4fea0840d0b9}</Project>
       <Name>DeployCmsData.UmbracoCms</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

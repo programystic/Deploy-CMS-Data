@@ -2,7 +2,7 @@
 using DeployCmsData.Core.Interfaces;
 using DeployCmsData.Core.Models;
 using DeployCmsData.Core.Services;
-using DeployCmsData.Test.Services;
+using DeployCmsData.Test.Builders;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -15,7 +15,7 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public static void UpgradeScriptRunSuccess()
         {
-            var setup = new UpgradeScriptSetup();
+            var setup = new UpgradeScriptManagerBuilder();
             var scriptManager = setup
                 .RunScriptReturnsTrue()
                 .Build();
@@ -31,7 +31,7 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public static void UpgradeScriptRunFail()
         {
-            var setup = new UpgradeScriptSetup();
+            var setup = new UpgradeScriptManagerBuilder();
             var scriptManager = setup
                 .RunScriptReturnsFalse()
                 .Build();
@@ -46,7 +46,7 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public static void UpgradeScriptRaisesException()
         {
-            var setup = new UpgradeScriptSetup();
+            var setup = new UpgradeScriptManagerBuilder();
             var scriptManager = setup
                 .RunScriptThrowsException()
                 .Build();
@@ -62,7 +62,7 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public static void UpgradeScriptRunNullScript()
         {
-            var setup = new UpgradeScriptSetup();
+            var setup = new UpgradeScriptManagerBuilder();
             var scriptManager = setup
                 .Build();
 
@@ -75,7 +75,7 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public static void UpgradeScriptWriteToLog()
         {
-            var setup = new UpgradeScriptSetup();
+            var setup = new UpgradeScriptManagerBuilder();
             var scriptManager = setup
                 .RunScriptReturnsTrue()
                 .Build();
@@ -95,7 +95,7 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public static void UpgradeScriptAlreadyRun()
         {
-            var setup = new UpgradeScriptSetup();
+            var setup = new UpgradeScriptManagerBuilder();
             var scriptManager = setup
                 .GetLogsReturnsSuccessfulLogs()
                 .Build();
@@ -109,7 +109,7 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public static void ReRunUpgradeScript()
         {
-            var setup = new UpgradeScriptSetup();
+            var setup = new UpgradeScriptManagerBuilder();
             var scriptManager = setup
                 .GetLogsReturnsSuccessfulLogs()
                 .Build();
@@ -123,7 +123,7 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public static void ScriptHasRunScriptEveryTimeAttribute()
         {
-            var setup = new UpgradeScriptSetup();
+            var setup = new UpgradeScriptManagerBuilder();
             var scriptManager = setup
                 .GetLogsReturnsSuccessfulLogs()
                 .AddRunScriptEveryTimeAttribute()
