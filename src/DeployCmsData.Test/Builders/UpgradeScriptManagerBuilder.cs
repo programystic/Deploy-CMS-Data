@@ -6,6 +6,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Threading;
 
 namespace DeployCmsData.Test.Builders
 {
@@ -33,6 +34,15 @@ namespace DeployCmsData.Test.Builders
         public UpgradeScriptManagerBuilder RunScriptReturnsFalse()
         {
             UpgradeScript.Setup(x => x.RunScript(LogRepository.Object)).Returns(false);
+            return this;
+        }
+
+        public UpgradeScriptManagerBuilder RunScriptSleeps(int milliseconds)
+        {
+            UpgradeScript.Setup(x => 
+                x.RunScript(LogRepository.Object))
+                .Callback(() => Thread.Sleep(milliseconds))
+                .Returns(true);
             return this;
         }
 

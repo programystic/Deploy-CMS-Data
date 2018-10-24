@@ -134,5 +134,19 @@ namespace DeployCmsData.Test.Tests
 
             upgradeScript.Verify(x => x.RunScript(It.IsAny<IUpgradeLogRepository>()), Times.Once);
         }
+
+        [Test]
+        public static void ScriptTakesSomeTimeToRun()
+        {
+            var setup = new UpgradeScriptManagerBuilder();
+            var scriptManager = setup
+                .RunScriptSleeps(10)
+                .Build();
+
+            var upgradeScript = setup.UpgradeScript;
+            var log = scriptManager.RunScriptIfNeeded(upgradeScript.Object);
+
+            Assert.Greater(log.RuntTimeMilliseconds, 9);
+        }
     }
 }

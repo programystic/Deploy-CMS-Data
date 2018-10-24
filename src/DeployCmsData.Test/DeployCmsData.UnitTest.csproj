@@ -248,6 +248,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\GridDataTypeTestBuilder.cs" />
     <Compile Include="Constants\DocumentTypeAlias.cs" />
     <Compile Include="Constants\Enums.cs" />
     <Compile Include="Constants\Folders.cs" />
@@ -261,9 +262,10 @@
     <Compile Include="Tests\CreateNewDocumentTypeFolder.cs" />
     <Compile Include="Tests\CreateNewProperties.cs" />
     <Compile Include="Tests\CreateNewDocumentType.cs" />
-    <Compile Include="Tests\CreateNewDataType.cs" />
+    <Compile Include="Tests\CreateNewGridDataType.cs" />
     <Compile Include="Tests\DeleteDocumentType.cs" />
     <Compile Include="Tests\RunUpgradeScript.cs" />
+    <Compile Include="Tests\UmbracoUpgradeLog.cs" />
     <Compile Include="UpgradeScripts\Upgrade001Test.cs" />
     <Compile Include="UpgradeScripts\Upgrade02Test.cs" />
     <Compile Include="UpgradeScripts\Upgrade03Test.cs" />

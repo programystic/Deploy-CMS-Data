@@ -10,7 +10,7 @@ namespace DeployCmsData.UmbracoCms.UpgradeScripts
     {
         public bool RunScript(IUpgradeLogRepository upgradeLog)
         {
-            var builder = new DataTypeBuilder(UmbracoContext.Current.Application);
+            //var builder = new DataTypeBuilder(UmbracoContext.Current.Application);
 
             return true;
         }

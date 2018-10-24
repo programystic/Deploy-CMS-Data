@@ -16,8 +16,10 @@ namespace DeployCmsData.UmbracoCms.Data
 
         public void SaveLog(UpgradeLog upgradeLog)
         {
+            var newLog = new UmbracoUpgradeLog(upgradeLog);
+
             var db = ApplicationContext.Current.DatabaseContext.Database;
-            db.Insert((UmbracoUpgradeLog)upgradeLog);
+            db.Insert(newLog);
         }
     }
 }
