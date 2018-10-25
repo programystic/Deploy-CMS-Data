@@ -1,6 +1,7 @@
 ﻿using DeployCmsData.UmbracoCms.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using ProperyEditors = Umbraco.Core.Constants.PropertyEditors;
@@ -17,14 +18,15 @@ namespace DeployCmsData.UmbracoCms.Builders
         public GridRtePreValue GridRtePreValue { get; set; }
         IDataTypeService DataTypeService { get; set; }
         string NameValue { get; set; }
+        Guid KeyValue { get; set; }
 
         public GridDataTypeBuilder(IDataTypeService dataTypeService)
         {
             DataTypeService = dataTypeService;
             GridItemsPreValue = new GridItemsPreValue();
-            GridRtePreValue = new GridRtePreValue();
-
+            GridRtePreValue = new GridRtePreValue();            
             GridItemsPreValue.Columns = 12;
+            KeyValue = Guid.Empty;
 
             GridItemsPreValue.Styles.Add(new Style()
             {
@@ -53,22 +55,28 @@ namespace DeployCmsData.UmbracoCms.Builders
             return this;
         }
 
-        public GridDataTypeBuilder AddTemplate(string templateName, params int[] gridColumns)
+        public GridDataTypeBuilder Key(Guid key)
+        {
+            KeyValue = key;
+            return this;
+        }
+
+        public GridDataTypeBuilder AddLayout(string layoutName, params int[] gridColumns)
         {
             var template = new Models.Template();
-            template.Name = templateName;
+            template.Name = layoutName;
 
             foreach (var column in gridColumns)
                 template.Sections.Add(new Models.Section(column));
 
-            GridItemsPreValue.Templates.Add(template);
+            GridItemsPreValue.Layouts.Add(template);
 
             return this;
         }
 
-        public GridDataTypeBuilder AddStandardTemplates()
+        public GridDataTypeBuilder AddStandardLayouts()
         {
-            GridItemsPreValue.Templates.Add(new Models.Template()
+            GridItemsPreValue.Layouts.Add(new Models.Template()
             {
                 Name = "1 column layout",
                 Sections = {
@@ -76,7 +84,7 @@ namespace DeployCmsData.UmbracoCms.Builders
                 }
             });
 
-            GridItemsPreValue.Templates.Add(new Models.Template()
+            GridItemsPreValue.Layouts.Add(new Models.Template()
             {
                 Name = "2 column layout",
                 Sections = {
@@ -87,9 +95,9 @@ namespace DeployCmsData.UmbracoCms.Builders
             return this;
         }
 
-        public GridDataTypeBuilder AddStandardLayouts()
+        public GridDataTypeBuilder AddStandardRows()
         {
-            GridItemsPreValue.Layouts.Add(new Layout()
+            GridItemsPreValue.Rows.Add(new Layout()
             {
                 Label = "Headline",
                 Name = "Headline",
@@ -99,7 +107,7 @@ namespace DeployCmsData.UmbracoCms.Builders
                 }
             });
 
-            GridItemsPreValue.Layouts.Add(new Layout()
+            GridItemsPreValue.Rows.Add(new Layout()
             {
                 Label = "Article",
                 Name = "Article",
@@ -150,6 +158,12 @@ namespace DeployCmsData.UmbracoCms.Builders
             return this;
         }
 
+        public GridDataTypeBuilder DeleteGrid(Guid id)
+        {
+            DeleteDataTypeById(id, DataTypeService);
+            return this;
+        }
+
         public void BuildInFolder(string folderName)
         {
             // returns IDataTypeDefinition
@@ -159,12 +173,10 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             var newGridDataType = new DataTypeDefinition(-1, ProperyEditors.GridAlias);
             newGridDataType.Name = NameValue;
-
-            var serializerSettings = new JsonSerializerSettings();
-            serializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-
-            var itemsJson = JsonConvert.SerializeObject(GridItemsPreValue, serializerSettings);
-            var rteJson = JsonConvert.SerializeObject(GridRtePreValue, serializerSettings);
+            if (KeyValue != Guid.Empty) newGridDataType.Key = KeyValue;
+         
+            var itemsJson = SerializeObject(GridItemsPreValue);
+            var rteJson = SerializeObject(GridRtePreValue);
 
             var preValues = new System.Collections.Generic.Dictionary<string, PreValue>();
             preValues.Add(PreValueItemsName, new PreValue(itemsJson));
@@ -173,6 +185,14 @@ namespace DeployCmsData.UmbracoCms.Builders
             DataTypeService.SaveDataTypeAndPreValues(newGridDataType, preValues);
 
             return newGridDataType;
+        }
+
+        public string SerializeObject(object value)
+        {
+            var serializerSettings = new JsonSerializerSettings();
+            serializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            return JsonConvert.SerializeObject(value, serializerSettings);
         }
     }
 }

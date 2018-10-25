@@ -1,4 +1,5 @@
-﻿using Umbraco.Core;
+﻿using System;
+using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using ProperyEditors = Umbraco.Core.Constants.PropertyEditors;
@@ -10,6 +11,12 @@ namespace DeployCmsData.UmbracoCms.Builders
         public void DeleteDataTypeByName(string dataTypeName, IDataTypeService dataTypeService)
         {
             var dataType = dataTypeService.GetDataTypeDefinitionByName(dataTypeName);
+            if (dataType != null) dataTypeService.Delete(dataType);
+        }
+
+        public void DeleteDataTypeById(Guid id, IDataTypeService dataTypeService)
+        {
+            var dataType = dataTypeService.GetDataTypeDefinitionById(id);
             if (dataType != null) dataTypeService.Delete(dataType);
         }
 

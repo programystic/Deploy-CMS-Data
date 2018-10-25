@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DeployCmsData.UmbracoCms.Models
@@ -9,15 +10,19 @@ namespace DeployCmsData.UmbracoCms.Models
         public List<Style> Styles { get; set; }
         public List<Config> Config { get; set; }
         public int Columns { get; set; }
-        public List<Template> Templates { get; set; }
-        public List<Layout> Layouts { get; set; }
+
+        [JsonProperty("Templates")]
+        public List<Template> Layouts { get; set; }
+
+        [JsonProperty("Layouts")]
+        public List<Layout> Rows { get; set; }
 
         public GridItemsPreValue()
         {
             Styles = new List<Style>();
             Config = new List<Config>();
-            Templates = new List<Template>();
-            Layouts = new List<Layout>();
+            Layouts = new List<Template>();
+            Rows = new List<Layout>();
         }
     }
 
