@@ -19,10 +19,17 @@ namespace DeployCmsData.UmbracoCms.Models
     public class Dimensions
     {
         public int Height { get; set; }
+        public int Width { get; set; }
 
         public Dimensions(int height)
         {
             Height = height;
+        }
+
+        public Dimensions(int height, int width)
+        {
+            Height = height;
+            Width = width;
         }
     }
 }

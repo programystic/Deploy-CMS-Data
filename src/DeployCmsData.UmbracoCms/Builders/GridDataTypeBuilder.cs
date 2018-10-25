@@ -74,49 +74,30 @@ namespace DeployCmsData.UmbracoCms.Builders
             return this;
         }
 
+        public GridDataTypeBuilder AddRow(string rowName, params int[] areas)
+        {
+            var layout = new Models.Layout();
+            layout.Label = rowName;
+            layout.Name = rowName;
+
+            foreach (var area in areas)
+                layout.Areas.Add(new Area(area));
+
+            return this;
+        }
+
         public GridDataTypeBuilder AddStandardLayouts()
         {
-            GridItemsPreValue.Layouts.Add(new Models.Template()
-            {
-                Name = "1 column layout",
-                Sections = {
-                    new Models.Section(12)
-                }
-            });
-
-            GridItemsPreValue.Layouts.Add(new Models.Template()
-            {
-                Name = "2 column layout",
-                Sections = {
-                    new Models.Section(4),
-                    new Models.Section(8)}
-            });
+            AddLayout("1 column layout", 12);
+            AddLayout("2 column layout", 4, 8);
 
             return this;
         }
 
         public GridDataTypeBuilder AddStandardRows()
         {
-            GridItemsPreValue.Rows.Add(new Layout()
-            {
-                Label = "Headline",
-                Name = "Headline",
-                Areas =
-                {
-                    new Area(12, "headline")
-                }
-            });
-
-            GridItemsPreValue.Rows.Add(new Layout()
-            {
-                Label = "Article",
-                Name = "Article",
-                Areas =
-                {
-                    new Area(4),
-                    new Area(8)
-                }
-            });
+            AddRow("Headline", 12);
+            AddRow("Article", 4, 8);            
 
             return this;
         }
@@ -147,11 +128,6 @@ namespace DeployCmsData.UmbracoCms.Builders
             return this;
         }
 
-        public GridDataTypeBuilder AddRow()
-        {
-            return this;
-        }
-
         public GridDataTypeBuilder DeleteGrid(string gridName)
         {
             DeleteDataTypeByName(gridName, DataTypeService);
@@ -178,16 +154,18 @@ namespace DeployCmsData.UmbracoCms.Builders
             var itemsJson = SerializeObject(GridItemsPreValue);
             var rteJson = SerializeObject(GridRtePreValue);
 
-            var preValues = new System.Collections.Generic.Dictionary<string, PreValue>();
-            preValues.Add(PreValueItemsName, new PreValue(itemsJson));
-            preValues.Add(PreValueRteName, new PreValue(rteJson));
+            var preValues = new System.Collections.Generic.Dictionary<string, PreValue>
+            {
+                { PreValueItemsName, new PreValue(itemsJson) },
+                { PreValueRteName, new PreValue(rteJson) }
+            };
 
             DataTypeService.SaveDataTypeAndPreValues(newGridDataType, preValues);
 
             return newGridDataType;
         }
 
-        public string SerializeObject(object value)
+        private string SerializeObject(object value)
         {
             var serializerSettings = new JsonSerializerSettings();
             serializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();

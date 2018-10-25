@@ -68,6 +68,9 @@ namespace DeployCmsData.UmbracoCms.Models
     {
         public int Grid { get; set; }
         public List<string> Editors { get; set; }
+        public int MaxItems { get; set; }
+        public bool AllowAll { get; set; }
+        public List<string> Allowed { get; set; }
 
         public Area(int grid)
         {

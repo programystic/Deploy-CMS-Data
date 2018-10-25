@@ -234,7 +234,6 @@
     <Compile Include="Services\UmbracoFactory.cs" />
     <Compile Include="UpgradeScripts\Upgrade01.cs" />
     <Compile Include="UpgradeScripts\Upgrade02.cs" />
-    <Compile Include="UpgradeScripts\Upgrade03.cs" />
     <Compile Include="UpgradeScripts\Upgrade04.cs" />
   </ItemGroup>
   <ItemGroup>

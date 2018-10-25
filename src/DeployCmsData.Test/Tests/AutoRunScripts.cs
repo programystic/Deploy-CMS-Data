@@ -17,9 +17,8 @@ namespace DeployCmsData.Test.Tests
             Assert.AreEqual(nameof(UpgradeScripts.Upgrade001Test), scripts.First().GetType().Name);
             Assert.AreEqual(nameof(UmbracoCms.UpgradeScripts.Upgrade01), scripts.Skip(1).First().GetType().Name);
             Assert.AreEqual(nameof(UmbracoCms.UpgradeScripts.Upgrade02), scripts.Skip(2).First().GetType().Name);
-            Assert.AreEqual(nameof(UpgradeScripts.Upgrade02Test), scripts.Skip(3).First().GetType().Name);
-            Assert.AreEqual(nameof(UmbracoCms.UpgradeScripts.Upgrade03), scripts.Skip(4).First().GetType().Name);            
-            Assert.AreEqual(nameof(UpgradeScripts.Upgrade03Test), scripts.Skip(5).First().GetType().Name);            
+            Assert.AreEqual(nameof(UpgradeScripts.Upgrade02Test), scripts.Skip(3).First().GetType().Name);            
+            Assert.AreEqual(nameof(UmbracoCms.UpgradeScripts.Upgrade04), scripts.Skip(5).First().GetType().Name);            
         }
     }
 }
