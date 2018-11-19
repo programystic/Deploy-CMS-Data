@@ -22,6 +22,7 @@ namespace DeployCmsData.UmbracoCms.UpgradeScripts
         public void ClearEverythingDown()
         {
             var library = new UmbracoLibrary();
+            library.DeleteAllContent();
             library.DeleteAllDocumentTypes();
             library.DeleteAllDocumentTypeFolders();
         }

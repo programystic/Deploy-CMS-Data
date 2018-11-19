@@ -1,4 +1,5 @@
-﻿using Umbraco.Core.Models;
+﻿using System.Collections.Generic;
+using Umbraco.Core.Models;
 using Umbraco.Core.Models.EntityBase;
 
 namespace DeployCmsData.UmbracoCms.Interfaces
@@ -9,5 +10,6 @@ namespace DeployCmsData.UmbracoCms.Interfaces
         IUmbracoEntity NewContainer(int parentId, string name, int parentLevel);
         IUmbracoEntity GetContainer(string name, int level);
         PropertyType NewPropertyType(IDataTypeDefinition dataTypeDefinition, string propertyAlias);
+        IEnumerable<IContent> GetChildren(IContent content);
     }
 }

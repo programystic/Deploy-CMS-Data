@@ -1,8 +1,11 @@
 ﻿using DeployCmsData.Test.Builders;
+using DeployCmsData.UmbracoCms.Interfaces;
 using DeployCmsData.UmbracoCms.Services;
 using Moq;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
+using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
 namespace DeployCmsData.Test.Tests
@@ -32,47 +35,30 @@ namespace DeployCmsData.Test.Tests
             builder.DeleteDocumentType(Alias);
         }
 
-        //[Test]
-        //public void EmptyListOfDocumentTypes()
-        //{
-        //    var contentTypeService = new Mock<IContentTypeService>();
-        //    var cmsCollections = new CmsLibrary(contentTypeService.Object);
-
-        //    var aliases = cmsCollections.GetAllDocumentTypeAliases();
-
-        //    Assert.AreEqual(0, aliases.Count);
-        //}
-
-        //[Test]
-        //public void GetListOfDocumentTypes()
-        //{
-        //    var contentTypeService = new Mock<IContentTypeService>();
-        //    var cmsCollections = new CmsLibrary(contentTypeService.Object);
-
-        //    var list = new List<string>();
-        //    list.Add("alias1");
-        //    list.Add("alias2");
-        //    list.Add("alias3");
-
-        //    contentTypeService.Setup(x => x.GetAllContentTypeAliases(It.IsAny<Guid>())).Returns(list);
-
-        //    var aliases = cmsCollections.GetAllDocumentTypeAliases();
-
-        //    Assert.AreEqual(3, aliases.Count);
-        //}
-
         [Test]
         public void DeleteAllDocumentTypes()
         {
-            var contentTypeService = new Mock<IContentTypeService>();
-            var cmsCollections = new UmbracoLibrary(contentTypeService.Object);
+            var builder = new UmbracoLibraryTestBuilder();
 
-            cmsCollections.DeleteAllDocumentTypes();
+            var library = builder
+                .Build();
+
+            library.DeleteAllDocumentTypes();
         }
 
         [Test]
         public void DeleteAllContent()
         {
+            const int childCount = 10;
+            var builder = new UmbracoLibraryTestBuilder();
+
+            var library = builder
+                .SetupRootContent(childCount)
+                .Build();
+
+            library.DeleteAllContent();
+
+            builder.ContentService.Verify(x => x.Delete(It.IsAny<Content>(), 0), Times.Exactly(childCount + 1));
         }
     }
 }

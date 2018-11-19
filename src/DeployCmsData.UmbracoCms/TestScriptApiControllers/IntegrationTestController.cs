@@ -16,8 +16,6 @@ namespace DeployCmsData.UmbracoCms.TestScriptApiControllers
 
             var log = upgradeScriptManager.RunScript(new Upgrade01());
 
-
-
             return log.Success ? "True" : log.Exception;
         }
     }
