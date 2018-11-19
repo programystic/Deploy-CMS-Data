@@ -69,5 +69,10 @@ namespace DeployCmsData.Test.Tests
 
             cmsCollections.DeleteAllDocumentTypes();
         }
+
+        [Test]
+        public void DeleteAllContent()
+        {
+        }
     }
 }

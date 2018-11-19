@@ -4,6 +4,7 @@ using Newtonsoft.Json.Serialization;
 using System;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
+using Umbraco.Web;
 using ProperyEditors = Umbraco.Core.Constants.PropertyEditors;
 
 
@@ -20,11 +21,21 @@ namespace DeployCmsData.UmbracoCms.Builders
         string NameValue { get; set; }
         Guid KeyValue { get; set; }
 
+        public GridDataTypeBuilder()
+        {
+            Setup(UmbracoContext.Current.Application.Services.DataTypeService);
+        }
+
         public GridDataTypeBuilder(IDataTypeService dataTypeService)
+        {
+            Setup(dataTypeService);
+        }
+
+        public void Setup(IDataTypeService dataTypeService)
         {
             DataTypeService = dataTypeService;
             GridItemsPreValue = new GridItemsPreValue();
-            GridRtePreValue = new GridRtePreValue();            
+            GridRtePreValue = new GridRtePreValue();
             GridItemsPreValue.Columns = 12;
             KeyValue = Guid.Empty;
 
@@ -43,8 +54,8 @@ namespace DeployCmsData.UmbracoCms.Builders
                 Description = "Set a css class",
                 Key = "class",
                 View = "textstring"
-            });            
-            
+            });
+
             GridRtePreValue.Dimensions = new Dimensions(500);
             GridRtePreValue.MaxImageSize = 500;
         }
@@ -97,7 +108,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         public GridDataTypeBuilder AddStandardRows()
         {
             AddRow("Headline", 12);
-            AddRow("Article", 4, 8);            
+            AddRow("Article", 4, 8);
 
             return this;
         }
@@ -150,7 +161,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             var newGridDataType = new DataTypeDefinition(-1, ProperyEditors.GridAlias);
             newGridDataType.Name = NameValue;
             if (KeyValue != Guid.Empty) newGridDataType.Key = KeyValue;
-         
+
             var itemsJson = SerializeObject(GridItemsPreValue);
             var rteJson = SerializeObject(GridRtePreValue);
 

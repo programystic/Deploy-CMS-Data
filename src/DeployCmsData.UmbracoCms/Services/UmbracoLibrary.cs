@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
@@ -7,11 +9,13 @@ namespace DeployCmsData.UmbracoCms.Services
     public class UmbracoLibrary
     {
         IContentTypeService _contentTypeService;
+        IContentService _contentService;
 
         public UmbracoLibrary()
         {
             var applicationContext = UmbracoContext.Current.Application;
             _contentTypeService = applicationContext.Services.ContentTypeService;
+            _contentService = applicationContext.Services.ContentService;
         }
 
         public UmbracoLibrary(IContentTypeService contentTypeService)
@@ -36,6 +40,20 @@ namespace DeployCmsData.UmbracoCms.Services
                 _contentTypeService.DeleteContentTypeContainer(folder.Id);
             }
             
+        }
+
+        public void DeleteAllContent()
+        {
+            DeleteAllContent(_contentService.GetRootContent());
+        }
+
+        private void DeleteAllContent(IEnumerable<IContent> content)
+        {
+            foreach (var item in content)
+            {
+                DeleteAllContent(item.Children());
+                _contentService.Delete(item);
+            }
         }
     }
 }

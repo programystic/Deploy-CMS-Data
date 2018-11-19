@@ -232,6 +232,7 @@
     <Compile Include="Interfaces\IUmbracoFactory.cs" />
     <Compile Include="Services\RunOnStartup.cs" />
     <Compile Include="Services\UmbracoFactory.cs" />
+    <Compile Include="TestScriptApiControllers\IntegrationTestController.cs" />
     <Compile Include="UpgradeScripts\Upgrade01.cs" />
     <Compile Include="UpgradeScripts\Upgrade02.cs" />
     <Compile Include="UpgradeScripts\Upgrade04.cs" />

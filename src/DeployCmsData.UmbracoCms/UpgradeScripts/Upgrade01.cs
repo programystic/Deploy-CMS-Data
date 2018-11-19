@@ -13,9 +13,9 @@ namespace DeployCmsData.UmbracoCms.UpgradeScripts
         public bool RunScript(IUpgradeLogRepository upgradeLog)
         {
             ClearEverythingDown();
-            CreateSiteDocumentType();
-            CreateFolders();
-            CreatePageMetaData();
+            //CreateSiteDocumentType();
+            //CreateFolders();
+            //CreatePageMetaData();
             return true;
         }
 

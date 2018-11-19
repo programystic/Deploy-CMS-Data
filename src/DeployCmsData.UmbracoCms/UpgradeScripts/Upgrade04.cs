@@ -11,7 +11,7 @@ namespace DeployCmsData.UmbracoCms.UpgradeScripts
     {
         public bool RunScript(IUpgradeLogRepository upgradeLog)
         {            
-            var gridBuilder = new GridDataTypeBuilder(UmbracoContext.Current.Application.Services.DataTypeService);
+            var gridBuilder = new GridDataTypeBuilder();
             var id = Guid.Parse("{3B7F4064-E61E-4937-BFE8-3FFF0C71977A}");
 
             gridBuilder

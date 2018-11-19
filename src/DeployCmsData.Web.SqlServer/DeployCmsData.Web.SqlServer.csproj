@@ -280,6 +280,16 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Data\Models\ContentBase.generated.cs" />
+    <Compile Include="App_Data\Models\File.generated.cs" />
+    <Compile Include="App_Data\Models\Folder.generated.cs" />
+    <Compile Include="App_Data\Models\Image.generated.cs" />
+    <Compile Include="App_Data\Models\Member.generated.cs" />
+    <Compile Include="App_Data\Models\NavigationBase.generated.cs" />
+    <Compile Include="App_Data\Models\PageMetaData.generated.cs" />
+    <Compile Include="App_Data\Models\Test.generated.cs" />
+    <Compile Include="App_Data\Models\WebsiteRoot.generated.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
