@@ -1,4 +1,5 @@
 ﻿using DeployCmsData.Test.Builders;
+using DeployCmsData.Test.UpgradeScripts;
 using NUnit.Framework;
 using System.Linq;
 
@@ -10,15 +11,14 @@ namespace DeployCmsData.Test.Tests
         public static void FindTestScripts()
         {
             var setup = new UpgradeScriptManagerBuilder();
-            var scriptManager = setup.Build();
-
+            var scriptManager = setup
+                .AddScript(typeof(DontAutoRun))
+                .AddScript(typeof(ReturnsTrue))
+                .Build();
+            
             var scripts = scriptManager.GetAllScripts();
 
-            Assert.AreEqual(nameof(UpgradeScripts.Upgrade001Test), scripts.First().GetType().Name);
-            Assert.AreEqual(nameof(UmbracoCms.UpgradeScripts.Upgrade01), scripts.Skip(1).First().GetType().Name);
-            Assert.AreEqual(nameof(UmbracoCms.UpgradeScripts.Upgrade02), scripts.Skip(2).First().GetType().Name);
-            Assert.AreEqual(nameof(UpgradeScripts.Upgrade02Test), scripts.Skip(3).First().GetType().Name);            
-            Assert.AreEqual(nameof(UmbracoCms.UpgradeScripts.Upgrade04), scripts.Skip(5).First().GetType().Name);            
+            Assert.AreEqual(1, scripts.Count());
         }
     }
 }

@@ -13,11 +13,15 @@ namespace DeployCmsData.Core.Services
     public sealed class UpgradeScriptManager
     {
         public readonly IUpgradeLogRepository LogDatastore;
+        public readonly IUpgradeScriptRepository UpgradeScriptRepository;
 
-        public UpgradeScriptManager(IUpgradeLogRepository logDataStore)
-            => LogDatastore = logDataStore;
+        public UpgradeScriptManager(IUpgradeLogRepository logDataStore, IUpgradeScriptRepository upgradeScriptRepository)
+        {
+            LogDatastore = logDataStore;
+            UpgradeScriptRepository = upgradeScriptRepository;
+        }            
 
-        public UpgradeLog RunScriptIfNeeded(IUpgradeScript upgradeScript)
+        public IUpgradeLog RunScriptIfNeeded(IUpgradeScript upgradeScript)
         {
             if (upgradeScript == null)
                 return new UpgradeLog() { Exception = ExceptionMessages.UpgradeScriptIsNull };
@@ -97,12 +101,20 @@ namespace DeployCmsData.Core.Services
             return upgradeScript.GetType().FullName;
         }
 
-        public void RunAllScriptsIfNeeded()
+        public int RunAllScriptsIfNeeded()
         {
+            var scriptRunCount = 0;
+
             foreach (var script in GetAllScripts())
             {
-                RunScriptIfNeeded(script);
+                var result = RunScriptIfNeeded(script);
+                if (result != null && result.Success)
+                {
+                    scriptRunCount++;
+                }                
             }
+
+            return scriptRunCount;
         }
 
         public IEnumerable<IUpgradeScript> GetAllScripts()
@@ -110,15 +122,22 @@ namespace DeployCmsData.Core.Services
             var scripts = new List<IUpgradeScript>();
             var type = typeof(IUpgradeScript);
 
-            var types = AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(s => s.GetTypes())
+            var xyz = UpgradeScriptRepository
+                .GetTypes();
+
+            var types = UpgradeScriptRepository
+                .GetTypes()
                 .Where(p => type.IsAssignableFrom(p) && !p.IsAbstract)
-                .OrderBy(x => x.Name);
+                .OrderBy(x => x.Name)
+                .ToList();
 
             foreach (var scriptType in types)
             {
                 var script = (IUpgradeScript)Activator.CreateInstance(scriptType);
-                scripts.Add(script);
+                if (!ScriptHasAttribute<DontAutoRunAttribute>(script))
+                {
+                    scripts.Add(script);
+                }                
             }
 
             return scripts;

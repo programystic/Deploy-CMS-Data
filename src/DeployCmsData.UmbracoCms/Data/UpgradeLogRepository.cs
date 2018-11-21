@@ -8,13 +8,13 @@ namespace DeployCmsData.UmbracoCms.Data
 {
     public class UpgradeLogRepository : IUpgradeLogRepository
     {
-        public IEnumerable<UpgradeLog> GetLogsByScriptName(string upgradeScriptName)
+        public IEnumerable<IUpgradeLog> GetLogsByScriptName(string upgradeScriptName)
         {
             var db = ApplicationContext.Current.DatabaseContext.Database;
             return db.Fetch<UmbracoUpgradeLog>($"WHERE {nameof(UpgradeLog.UpgradeScriptName)}='{upgradeScriptName}'");
         }
 
-        public void SaveLog(UpgradeLog upgradeLog)
+        public void SaveLog(IUpgradeLog upgradeLog)
         {
             var newLog = new UmbracoUpgradeLog(upgradeLog);
 

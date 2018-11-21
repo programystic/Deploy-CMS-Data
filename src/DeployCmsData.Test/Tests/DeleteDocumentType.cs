@@ -1,17 +1,13 @@
-﻿using DeployCmsData.Test.Builders;
-using DeployCmsData.UmbracoCms.Interfaces;
-using DeployCmsData.UmbracoCms.Services;
+﻿using System;
+using DeployCmsData.Test.Builders;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using Umbraco.Core.Models;
-using Umbraco.Core.Services;
 
 namespace DeployCmsData.Test.Tests
 {
     [TestFixture]
-    class DeleteDocumentType
+    public class DeleteDocumentType
     {
         private const string Alias = "myAlias";
 

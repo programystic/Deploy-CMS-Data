@@ -5,7 +5,7 @@ namespace DeployCmsData.Core.Interfaces
 {
     public interface IUpgradeLogRepository
     {
-        IEnumerable<UpgradeLog> GetLogsByScriptName(string upgradeScriptName);
-        void SaveLog(UpgradeLog upgradeLog);
+        IEnumerable<IUpgradeLog> GetLogsByScriptName(string upgradeScriptName);
+        void SaveLog(IUpgradeLog upgradeLog);
     }
 }

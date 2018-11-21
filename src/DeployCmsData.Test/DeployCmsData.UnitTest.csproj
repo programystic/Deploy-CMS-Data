@@ -257,7 +257,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Builders\DocumentTypeFolderTestBuilder.cs" />
     <Compile Include="Builders\DocumentTypeTestBuilder.cs" />
-    <Compile Include="Builders\UmbracoContextBuilder.cs" />
     <Compile Include="Builders\UpgradeScriptManagerBuilder.cs" />
     <Compile Include="Tests\AutoRunScripts.cs" />
     <Compile Include="Tests\CreateNewDocumentTypeFolder.cs" />
@@ -267,9 +266,12 @@
     <Compile Include="Tests\DeleteDocumentType.cs" />
     <Compile Include="Tests\RunUpgradeScript.cs" />
     <Compile Include="Tests\UmbracoUpgradeLog.cs" />
-    <Compile Include="UpgradeScripts\Upgrade001Test.cs" />
-    <Compile Include="UpgradeScripts\Upgrade02Test.cs" />
-    <Compile Include="UpgradeScripts\Upgrade03Test.cs" />
+    <Compile Include="UpgradeScripts\DontAutoRun.cs" />
+    <Compile Include="UpgradeScripts\ReturnsFalse.cs" />
+    <Compile Include="UpgradeScripts\RunEveryTime.cs" />
+    <Compile Include="UpgradeScripts\ReturnsTrue.cs" />
+    <Compile Include="UpgradeScripts\Sleeps.cs" />
+    <Compile Include="UpgradeScripts\ThrowsException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -1,4 +1,5 @@
-﻿using DeployCmsData.Core.Models;
+﻿using System;
+using DeployCmsData.Core.Interfaces;
 using Umbraco.Core.Persistence;
 using Umbraco.Core.Persistence.DatabaseAnnotations;
 
@@ -6,20 +7,25 @@ namespace DeployCmsData.UmbracoCms.Models
 {
     [TableName(Constants.Data.LogsTableName)]
     [PrimaryKey(nameof(Id), autoIncrement = true)]
-    public class UmbracoUpgradeLog : Core.Models.UpgradeLog
+    public class UmbracoUpgradeLog : IUpgradeLog
     {
         [PrimaryKeyColumn(AutoIncrement = true)]
-        public override long Id { get; set; }
+        public long Id { get; set; }
 
         [NullSetting(NullSetting = NullSettings.Null)]
         [SpecialDbType(SpecialDbTypes.NTEXT)]
-        public override string Exception { get; set; }
+        public string Exception { get; set; }
+
+        public DateTime Timestamp { get; set; }
+        public string UpgradeScriptName { get; set; }
+        public bool Success { get; set; }
+        public int RuntTimeMilliseconds { get; set; }
 
         public UmbracoUpgradeLog()
         {
         }
 
-        public UmbracoUpgradeLog(UpgradeLog upgradeLog)
+        public UmbracoUpgradeLog(IUpgradeLog upgradeLog)
         {
             Id = upgradeLog.Id;
             Success = upgradeLog.Success;
@@ -27,6 +33,6 @@ namespace DeployCmsData.UmbracoCms.Models
             UpgradeScriptName = upgradeLog.UpgradeScriptName;
             Exception = upgradeLog.Exception;
             RuntTimeMilliseconds = upgradeLog.RuntTimeMilliseconds;
-        }        
+        }
     }
 }

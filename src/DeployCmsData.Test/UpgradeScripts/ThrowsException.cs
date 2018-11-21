@@ -1,13 +1,12 @@
 ﻿using DeployCmsData.Core.Interfaces;
-using System;
 
 namespace DeployCmsData.Test.UpgradeScripts
 {
-    class Upgrade02Test : IUpgradeScript
+    public class ThrowsException : IUpgradeScript
     {
         public bool RunScript(IUpgradeLogRepository upgradeLog)
         {
-            throw new NotImplementedException();
+            throw new System.Exception();
         }
     }
 }

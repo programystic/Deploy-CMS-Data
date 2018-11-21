@@ -1,14 +1,15 @@
 ﻿using System;
+using DeployCmsData.Core.Interfaces;
 
 namespace DeployCmsData.Core.Models
 {
-    public class UpgradeLog
+    public class UpgradeLog : IUpgradeLog
     {
-        public virtual long Id { get; set; }
-        public virtual DateTime Timestamp { get; set; }
-        public virtual string UpgradeScriptName { get; set; }
-        public virtual bool Success { get; set; }
-        public virtual int RuntTimeMilliseconds { get; set; }
-        public virtual string Exception { get; set; }
+        public long Id { get; set; }
+        public DateTime Timestamp { get; set; }
+        public string UpgradeScriptName { get; set; }
+        public bool Success { get; set; }
+        public int RuntTimeMilliseconds { get; set; }
+        public string Exception { get; set; }
     }
 }

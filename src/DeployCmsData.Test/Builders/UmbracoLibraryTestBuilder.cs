@@ -1,7 +1,7 @@
-﻿using DeployCmsData.UmbracoCms.Interfaces;
+﻿using System.Collections.Generic;
+using DeployCmsData.UmbracoCms.Interfaces;
 using DeployCmsData.UmbracoCms.Services;
 using Moq;
-using System.Collections.Generic;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
@@ -9,9 +9,9 @@ namespace DeployCmsData.Test.Builders
 {
     class UmbracoLibraryTestBuilder
     {
-        UmbracoLibrary _umbracoLibrary;
-        Mock<IUmbracoFactory> _umbracoFactory;
         public readonly Mock<IContentService> ContentService;
+        readonly UmbracoLibrary _umbracoLibrary;
+        readonly Mock<IUmbracoFactory> _umbracoFactory;        
 
         public UmbracoLibraryTestBuilder()
         {
@@ -32,10 +32,12 @@ namespace DeployCmsData.Test.Builders
                 rootChildren.Add(childContent.Object);
             }
 
-            _umbracoFactory.Setup(x => x.GetChildren(root.Object)).Returns(rootChildren);            
+            _umbracoFactory.Setup(x => x.GetChildren(root.Object)).Returns(rootChildren);
 
-            var rootContent = new List<IContent>();
-            rootContent.Add(root.Object);
+            var rootContent = new List<IContent>
+            {
+                root.Object
+            };
 
             ContentService.Setup(x => x.GetRootContent()).Returns(rootContent);
 

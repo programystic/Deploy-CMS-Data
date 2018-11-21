@@ -1,4 +1,5 @@
-﻿using DeployCmsData.Core.Services;
+﻿using DeployCmsData.Core.Data;
+using DeployCmsData.Core.Services;
 using DeployCmsData.UmbracoCms.Data;
 using System.Web.Configuration;
 using Umbraco.Core;
@@ -20,7 +21,8 @@ namespace DeployCmsData.UmbracoCms.Services
         private void RunAllScripts()
         {
             var logRepository = new UpgradeLogRepository();
-            var upgradeScriptManager = new UpgradeScriptManager(logRepository);
+            var scriptRepository = new UpgradeScriptRepository();
+            var upgradeScriptManager = new UpgradeScriptManager(logRepository, scriptRepository);
 
             upgradeScriptManager.RunAllScriptsIfNeeded();
         }

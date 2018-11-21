@@ -1,7 +1,7 @@
-﻿using DeployCmsData.UmbracoCms.Models;
+﻿using System;
+using DeployCmsData.UmbracoCms.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
@@ -74,8 +74,10 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public GridDataTypeBuilder AddLayout(string layoutName, params int[] gridColumns)
         {
-            var template = new Models.Template();
-            template.Name = layoutName;
+            var template = new Models.Template
+            {
+                Name = layoutName
+            };
 
             foreach (var column in gridColumns)
                 template.Sections.Add(new Models.Section(column));
@@ -87,9 +89,11 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public GridDataTypeBuilder AddRow(string rowName, params int[] areas)
         {
-            var layout = new Models.Layout();
-            layout.Label = rowName;
-            layout.Name = rowName;
+            var layout = new Layout
+            {
+                Label = rowName,
+                Name = rowName
+            };
 
             foreach (var area in areas)
                 layout.Areas.Add(new Area(area));
@@ -158,8 +162,10 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public IDataTypeDefinition Build()
         {
-            var newGridDataType = new DataTypeDefinition(-1, ProperyEditors.GridAlias);
-            newGridDataType.Name = NameValue;
+            var newGridDataType = new DataTypeDefinition(-1, ProperyEditors.GridAlias)
+            {
+                Name = NameValue
+            };
             if (KeyValue != Guid.Empty) newGridDataType.Key = KeyValue;
 
             var itemsJson = SerializeObject(GridItemsPreValue);
@@ -178,8 +184,10 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         private string SerializeObject(object value)
         {
-            var serializerSettings = new JsonSerializerSettings();
-            serializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            var serializerSettings = new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
 
             return JsonConvert.SerializeObject(value, serializerSettings);
         }
