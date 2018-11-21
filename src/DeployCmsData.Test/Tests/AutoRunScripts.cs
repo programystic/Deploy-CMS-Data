@@ -5,14 +5,15 @@ using System.Linq;
 
 namespace DeployCmsData.Test.Tests
 {
-    class AutoRunScripts
+    [TestFixture]
+    public static class AutoRunScripts
     {
         [Test]
         public static void FindTestScripts()
         {
             var setup = new UpgradeScriptManagerBuilder();
             var scriptManager = setup
-                .AddScript(typeof(DontAutoRun))
+                .AddScript(typeof(DoNotAutoRun))
                 .AddScript(typeof(ReturnsTrue))
                 .Build();
             

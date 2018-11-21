@@ -6,10 +6,11 @@ using static Umbraco.Core.Constants;
 
 namespace DeployCmsData.Test.Tests
 {
-    public class CreateNewGridDataType
+    [TestFixture]
+    public static class CreateNewGridDataType
     {
         [Test]
-        public void DefaultGridView()
+        public static void DefaultGridView()
         {
             var builder = new GridDataTypeTestBuilder()
                 .Build();
@@ -26,7 +27,7 @@ namespace DeployCmsData.Test.Tests
         }
 
         [Test]
-        public void GridViewStandardLayouts()
+        public static void GridViewStandardLayouts()
         {
             var builder = new GridDataTypeTestBuilder()
                 .Build();
@@ -43,7 +44,7 @@ namespace DeployCmsData.Test.Tests
         }
 
         [Test]
-        public void GridViewLayouts()
+        public static void GridViewLayouts()
         {
             var builder = new GridDataTypeTestBuilder()
                 .Build();
@@ -67,7 +68,7 @@ namespace DeployCmsData.Test.Tests
         }
 
         [Test]
-        public void GridViewKeySet()
+        public static void GridViewKeySet()
         {
             var key = Guid.Parse("{7829562A-1C09-4E62-B0B5-A80E2542DDF7}");
 

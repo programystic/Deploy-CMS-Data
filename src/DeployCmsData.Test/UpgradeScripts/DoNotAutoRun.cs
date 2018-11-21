@@ -3,8 +3,8 @@ using DeployCmsData.Core.Interfaces;
 
 namespace DeployCmsData.Test.UpgradeScripts
 {
-    [DontAutoRun]
-    public class DontAutoRun : IUpgradeScript
+    [DoNotAutoRun]
+    public class DoNotAutoRun : IUpgradeScript
     {
         public bool RunScript(IUpgradeLogRepository upgradeLog)
         {

@@ -1,33 +1,37 @@
-﻿using DeployCmsData.Core.ActionFilters;
-using DeployCmsData.Core.Constants;
-using DeployCmsData.Core.Interfaces;
-using DeployCmsData.Core.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using DeployCmsData.Core.ActionFilters;
+using DeployCmsData.Core.Constants;
+using DeployCmsData.Core.Interfaces;
+using DeployCmsData.Core.Models;
 
 [assembly: CLSCompliant(true)]
 namespace DeployCmsData.Core.Services
 {
     public sealed class UpgradeScriptManager
     {
-        public readonly IUpgradeLogRepository LogDatastore;
+        public readonly IUpgradeLogRepository LogDataStore;
         public readonly IUpgradeScriptRepository UpgradeScriptRepository;
 
         public UpgradeScriptManager(IUpgradeLogRepository logDataStore, IUpgradeScriptRepository upgradeScriptRepository)
         {
-            LogDatastore = logDataStore;
+            LogDataStore = logDataStore;
             UpgradeScriptRepository = upgradeScriptRepository;
-        }            
+        }
 
         public IUpgradeLog RunScriptIfNeeded(IUpgradeScript upgradeScript)
         {
             if (upgradeScript == null)
+            {
                 return new UpgradeLog() { Exception = ExceptionMessages.UpgradeScriptIsNull };
+            }
 
             if (ScriptHasAlreadyRunWithSuccess(upgradeScript) && ScriptShouldntBeRunEveryTime(upgradeScript))
+            {
                 return null;
+            }
 
             return RunScript(upgradeScript);
         }
@@ -37,19 +41,21 @@ namespace DeployCmsData.Core.Services
         public UpgradeLog RunScript(IUpgradeScript upgradeScript)
         {
             if (upgradeScript == null)
+            {
                 return new UpgradeLog() { Exception = ExceptionMessages.UpgradeScriptIsNull };
+            }
 
-            var upgradeLog = new UpgradeLog
+            UpgradeLog upgradeLog = new UpgradeLog
             {
                 UpgradeScriptName = GetScriptName(upgradeScript),
                 Timestamp = DateTime.Now
             };
 
-            var start = DateTime.Now;
+            DateTime start = DateTime.Now;
 
             try
             {
-                upgradeLog.Success = upgradeScript.RunScript(LogDatastore);
+                upgradeLog.Success = upgradeScript.RunScript(LogDataStore);
             }
             catch (Exception e)
             {
@@ -65,16 +71,20 @@ namespace DeployCmsData.Core.Services
             }
 
             upgradeLog.RuntTimeMilliseconds = (DateTime.Now - start).Milliseconds;
-            LogDatastore.SaveLog(upgradeLog);
+            LogDataStore.SaveLog(upgradeLog);
             return upgradeLog;
         }
 
         private bool ScriptHasAlreadyRunWithSuccess(IUpgradeScript upgradeScript)
         {
-            if (upgradeScript == null) return false;
-            var scriptName = GetScriptName(upgradeScript);
-            var logs = LogDatastore.GetLogsByScriptName(scriptName);
-            var atLeastOneSuccessfulLog = logs.Any(x => x.Success);
+            if (upgradeScript == null)
+            {
+                return false;
+            }
+
+            string scriptName = GetScriptName(upgradeScript);
+            IEnumerable<IUpgradeLog> logs = LogDataStore.GetLogsByScriptName(scriptName);
+            bool atLeastOneSuccessfulLog = logs.Any(x => x.Success);
 
             return atLeastOneSuccessfulLog;
         }
@@ -86,7 +96,7 @@ namespace DeployCmsData.Core.Services
 
         private bool ScriptHasAttribute<T>(IUpgradeScript upgradeScript)
         {
-            var attributes = TypeDescriptor
+            IEnumerable<T> attributes = TypeDescriptor
                 .GetAttributes(upgradeScript)
                 .OfType<T>();
 
@@ -96,22 +106,24 @@ namespace DeployCmsData.Core.Services
         public static string GetScriptName(IUpgradeScript upgradeScript)
         {
             if (upgradeScript == null)
+            {
                 throw new ArgumentNullException(nameof(upgradeScript));
+            }
 
             return upgradeScript.GetType().FullName;
         }
 
         public int RunAllScriptsIfNeeded()
         {
-            var scriptRunCount = 0;
+            int scriptRunCount = 0;
 
-            foreach (var script in GetAllScripts())
+            foreach (IUpgradeScript script in GetAllScripts())
             {
-                var result = RunScriptIfNeeded(script);
+                IUpgradeLog result = RunScriptIfNeeded(script);
                 if (result != null && result.Success)
                 {
                     scriptRunCount++;
-                }                
+                }
             }
 
             return scriptRunCount;
@@ -119,25 +131,25 @@ namespace DeployCmsData.Core.Services
 
         public IEnumerable<IUpgradeScript> GetAllScripts()
         {
-            var scripts = new List<IUpgradeScript>();
-            var type = typeof(IUpgradeScript);
+            List<IUpgradeScript> scripts = new List<IUpgradeScript>();
+            Type type = typeof(IUpgradeScript);
 
-            var xyz = UpgradeScriptRepository
-                .GetTypes();
+            IEnumerable<Type> xyz = UpgradeScriptRepository
+                .GetTypes;
 
-            var types = UpgradeScriptRepository
-                .GetTypes()
+            List<Type> types = UpgradeScriptRepository
+                .GetTypes
                 .Where(p => type.IsAssignableFrom(p) && !p.IsAbstract)
                 .OrderBy(x => x.Name)
                 .ToList();
 
-            foreach (var scriptType in types)
+            foreach (Type scriptType in types)
             {
-                var script = (IUpgradeScript)Activator.CreateInstance(scriptType);
-                if (!ScriptHasAttribute<DontAutoRunAttribute>(script))
+                IUpgradeScript script = (IUpgradeScript)Activator.CreateInstance(scriptType);
+                if (!ScriptHasAttribute<DoNotAutoRunAttribute>(script))
                 {
                     scripts.Add(script);
-                }                
+                }
             }
 
             return scripts;

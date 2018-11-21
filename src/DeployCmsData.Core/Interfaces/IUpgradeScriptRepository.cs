@@ -5,6 +5,6 @@ namespace DeployCmsData.Core.Interfaces
 {
     public interface IUpgradeScriptRepository
     {
-        IEnumerable<Type> GetTypes();
+        IEnumerable<Type> GetTypes { get; }
     }
 }

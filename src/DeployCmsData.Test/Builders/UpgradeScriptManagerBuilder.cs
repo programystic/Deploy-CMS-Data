@@ -4,6 +4,7 @@ using DeployCmsData.Core.Interfaces;
 using DeployCmsData.Core.Models;
 using DeployCmsData.Core.Services;
 using Moq;
+using static System.FormattableString;
 
 namespace DeployCmsData.Test.Builders
 {
@@ -20,7 +21,7 @@ namespace DeployCmsData.Test.Builders
             UpgradeScriptRepository = new Mock<IUpgradeScriptRepository>();
 
             Types = new List<Type>();
-            UpgradeScriptRepository.Setup(x => x.GetTypes()).Returns(Types);
+            UpgradeScriptRepository.Setup(x => x.GetTypes).Returns(Types);
 
             ScriptManager = new UpgradeScriptManager(LogRepository.Object, UpgradeScriptRepository.Object);
         }
@@ -40,7 +41,7 @@ namespace DeployCmsData.Test.Builders
                 {
                     Id = i,
                     Success = true,
-                    UpgradeScriptName = $"UpgradeScript{i}"
+                    UpgradeScriptName = Invariant($"UpgradeScript{i}")
                 };
                 logs.Add(upgradeLog);
             }

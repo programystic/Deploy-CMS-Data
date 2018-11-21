@@ -7,10 +7,7 @@ namespace DeployCmsData.Core.Data
 {
     public class UpgradeScriptRepository : IUpgradeScriptRepository
     {
-        public IEnumerable<Type> GetTypes()
-        {
-            return AppDomain.CurrentDomain.GetAssemblies()
-             .SelectMany(s => s.GetTypes());
-        }
+        IEnumerable<Type> IUpgradeScriptRepository.GetTypes =>
+            AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes());
     }
 }

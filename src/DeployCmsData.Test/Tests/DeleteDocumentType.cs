@@ -7,12 +7,12 @@ using Umbraco.Core.Models;
 namespace DeployCmsData.Test.Tests
 {
     [TestFixture]
-    public class DeleteDocumentType
+    public static class DeleteDocumentType
     {
         private const string Alias = "myAlias";
 
         [Test]
-        public void DeleteDocumentTypeFailsWhenItDoesNotExist()
+        public static void DeleteDocumentTypeFailsWhenItDoesNotExist()
         {
             var builder = new DocumentTypeTestBuilder()
                 .Build();
@@ -22,7 +22,7 @@ namespace DeployCmsData.Test.Tests
         }
 
         [Test]
-        public void DeleteExistingDocumentType()
+        public static void DeleteExistingDocumentType()
         {
             var builder = new DocumentTypeTestBuilder()
                 .ReturnsExistingContentType(Alias)
@@ -32,7 +32,7 @@ namespace DeployCmsData.Test.Tests
         }
 
         [Test]
-        public void DeleteAllDocumentTypes()
+        public static void DeleteAllDocumentTypes()
         {
             var builder = new UmbracoLibraryTestBuilder();
 
@@ -43,7 +43,7 @@ namespace DeployCmsData.Test.Tests
         }
 
         [Test]
-        public void DeleteAllContent()
+        public static void DeleteAllContent()
         {
             const int childCount = 10;
             var builder = new UmbracoLibraryTestBuilder();

@@ -5,7 +5,7 @@ using System;
 
 namespace DeployCmsData.Test.Tests
 {
-    public class CreateNewDocumentType
+    public static class CreateNewDocumentType
     {
         private const int Id = 999;
         private const string Alias = "myAlias";
@@ -19,7 +19,7 @@ namespace DeployCmsData.Test.Tests
         private const int ParentFolderId = 78;
 
         [Test]
-        public void CreateWithInvalidParent()
+        public static void CreateWithInvalidParent()
         {
             var builder = new DocumentTypeTestBuilder().Build();
 
@@ -33,7 +33,7 @@ namespace DeployCmsData.Test.Tests
         }
 
         [Test]
-        public void CreateWithParent()
+        public static void CreateWithParent()
         {
             var builder = new DocumentTypeTestBuilder()
                 .ReturnsNewContentType(ParentId)
@@ -57,7 +57,7 @@ namespace DeployCmsData.Test.Tests
         }
 
         [Test]
-        public void CreateAtRoot()
+        public static void CreateAtRoot()
         {
             var builder = new DocumentTypeTestBuilder()
                 .ReturnsNewContentType(UmbracoCms.Constants.Umbraco.RootFolder)
@@ -80,7 +80,7 @@ namespace DeployCmsData.Test.Tests
         }
 
         [Test]
-        public void CreateInFolderWithLevel()
+        public static void CreateInFolderWithLevel()
         {
             var builder = new DocumentTypeTestBuilder()
                 .ReturnsNewContentType(ParentFolderId)
@@ -104,7 +104,7 @@ namespace DeployCmsData.Test.Tests
         }
 
         [Test]
-        public void CreateInFolderWithNoLevel()
+        public static void CreateInFolderWithNoLevel()
         {
             var setup = new DocumentTypeTestBuilder();
 

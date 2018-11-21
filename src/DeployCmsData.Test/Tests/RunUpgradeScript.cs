@@ -42,11 +42,11 @@ namespace DeployCmsData.Test.Tests
         }
 
         [Test]
-        public static void UpgradeScriptRaisesException()
+        public static void UpgradeScriptFails()
         {
             var setup = new UpgradeScriptManagerBuilder();
             var scriptManager = setup
-                .AddScript(typeof(ThrowsException))
+                .AddScript(typeof(Fails))
                 .Build();
 
             var count = scriptManager.RunAllScriptsIfNeeded();
@@ -121,7 +121,7 @@ namespace DeployCmsData.Test.Tests
         }
 
         [Test]
-        public static void ReRunUpgradeScript()
+        public static void RerunUpgradeScript()
         {
             var setup = new UpgradeScriptManagerBuilder();
             var scriptManager = setup
@@ -135,7 +135,7 @@ namespace DeployCmsData.Test.Tests
         }
 
         [Test]
-        public static void ScriptHasRunScriptEveryTimeAttribute()
+        public static void RunScriptEveryTime()
         {
             var setup = new UpgradeScriptManagerBuilder();
             var scriptManager = setup
@@ -149,11 +149,11 @@ namespace DeployCmsData.Test.Tests
         }
 
         [Test]
-        public static void DontAutoRunScript()
+        public static void DoNotAutoRunScript()
         {
             var setup = new UpgradeScriptManagerBuilder();
             var scriptManager = setup                
-                .AddScript(typeof(DontAutoRun))
+                .AddScript(typeof(DoNotAutoRun))
                 .AddScript(typeof(ReturnsTrue))
                 .AddScript(typeof(RunEveryTime))
                 .Build();
@@ -164,7 +164,7 @@ namespace DeployCmsData.Test.Tests
         }
 
         [Test]
-        public static void ScriptTakesSomeTimeToRun()
+        public static void RunScriptTakesABitOfTime()
         {
             var setup = new UpgradeScriptManagerBuilder();
             var scriptManager = setup

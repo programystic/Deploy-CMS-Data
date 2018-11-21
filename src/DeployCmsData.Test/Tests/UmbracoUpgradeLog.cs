@@ -4,10 +4,11 @@ using System;
 
 namespace DeployCmsData.Test.Tests
 {
-    class UmbracoUpgradeLog
+    [TestFixture]
+    public static class UmbracoUpgradeLog
     {
         [Test]
-        public void MapLogModel()
+        public static void MapLogModel()
         {
             var log = new UpgradeLog
             {

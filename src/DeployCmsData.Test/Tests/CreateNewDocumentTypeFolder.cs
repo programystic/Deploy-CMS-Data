@@ -6,10 +6,10 @@ using System;
 namespace DeployCmsData.Test.Tests
 {
     [TestFixture]
-    public class CreateNewDocumentTypeFolder
+    public static class CreateNewDocumentTypeFolder
     {
         [Test]
-        public void CreateFolderAtRoot()
+        public static void CreateFolderAtRoot()
         {
             const string folderName = "My New Folder";
 
@@ -28,7 +28,7 @@ namespace DeployCmsData.Test.Tests
         }
 
         [Test]
-        public void CreateFolderWithParentFolderAndLevel()
+        public static void CreateFolderWithParentFolderAndLevel()
         {
             const string folderName = "My new folder";
             const string parentFolderName = "Parent folder name";
@@ -50,7 +50,7 @@ namespace DeployCmsData.Test.Tests
         }
 
         [Test]
-        public void CreateFolderWithParentFolderAndNoLevel()
+        public static void CreateFolderWithParentFolderAndNoLevel()
         {
             const string folderName = "My new folder";
             const string parentFolderName = "Parent folder name";
@@ -71,7 +71,7 @@ namespace DeployCmsData.Test.Tests
         }
 
         [Test]
-        public void DocumentTypeFolderCreateWithInvalidParentAndLevel()
+        public static void DocumentTypeFolderCreateWithInvalidParentAndLevel()
         {
             const string folderName = "My new folder";
             const string parentFolderName = "Parent folder name";
@@ -88,7 +88,7 @@ namespace DeployCmsData.Test.Tests
         }
 
         [Test]
-        public void DocumentTypeFolderCreateWithInvalidParentNoLevel()
+        public static void DocumentTypeFolderCreateWithInvalidParentNoLevel()
         {
             const string folderName = "My new folder";
             const string parentFolderName = "Parent folder name";

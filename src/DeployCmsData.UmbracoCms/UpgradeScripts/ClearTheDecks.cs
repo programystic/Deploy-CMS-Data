@@ -4,7 +4,7 @@ using DeployCmsData.UmbracoCms.Services;
 
 namespace DeployCmsData.UmbracoCms.UpgradeScripts
 {
-    [DontAutoRun]
+    [DoNotAutoRun]
     class ClearTheDecks : IUpgradeScript
     {
         public bool RunScript(IUpgradeLogRepository upgradeLog)

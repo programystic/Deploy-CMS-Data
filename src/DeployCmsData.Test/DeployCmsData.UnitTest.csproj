@@ -266,12 +266,12 @@
     <Compile Include="Tests\DeleteDocumentType.cs" />
     <Compile Include="Tests\RunUpgradeScript.cs" />
     <Compile Include="Tests\UmbracoUpgradeLog.cs" />
-    <Compile Include="UpgradeScripts\DontAutoRun.cs" />
+    <Compile Include="UpgradeScripts\DoNotAutoRun.cs" />
     <Compile Include="UpgradeScripts\ReturnsFalse.cs" />
     <Compile Include="UpgradeScripts\RunEveryTime.cs" />
     <Compile Include="UpgradeScripts\ReturnsTrue.cs" />
     <Compile Include="UpgradeScripts\Sleeps.cs" />
-    <Compile Include="UpgradeScripts\ThrowsException.cs" />
+    <Compile Include="UpgradeScripts\Fails.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
