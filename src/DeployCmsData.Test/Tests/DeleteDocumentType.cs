@@ -58,7 +58,7 @@ namespace DeployCmsData.Test.Tests
 
             library.DeleteAllContent();
 
-            builder.ContentService.Verify(x => x.Delete(It.IsAny<Content>(), 0), Times.Exactly(childCount + 1));
+            builder.ContentService.Verify(x => x.Delete(It.IsAny<IContent>(), 0), Times.Exactly(childCount + 1));
         }
     }
 }
