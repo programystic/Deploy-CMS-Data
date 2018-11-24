@@ -4,7 +4,7 @@ using Moq;
 using Umbraco.Core.Models.EntityBase;
 using Umbraco.Core.Services;
 
-namespace DeployCmsData.Test.Builders
+namespace DeployCmsData.UmbracoCms.UnitTest.Builders
 {
     internal class DocumentTypeFolderTestBuilder
     {
@@ -14,14 +14,14 @@ namespace DeployCmsData.Test.Builders
         public DocumentTypeFolderTestBuilder()
         {
             UmbracoFactory = new Mock<IUmbracoFactory>();
-            var contentTypeService = new Mock<IContentTypeService>();
+            Mock<IContentTypeService> contentTypeService = new Mock<IContentTypeService>();
             _documentTypeFolderBuilder = new DocumentTypeFolderBuilder(contentTypeService.Object, UmbracoFactory.Object);
 
         }
 
         public DocumentTypeFolderTestBuilder ReturnsExistingFolder(string folderName, int level)
         {
-            var entity = new Mock<IUmbracoEntity>();
+            Mock<IUmbracoEntity> entity = new Mock<IUmbracoEntity>();
             UmbracoFactory.Setup(x => x.GetContainer(folderName, level))
                 .Returns(entity.Object);
 
@@ -30,7 +30,7 @@ namespace DeployCmsData.Test.Builders
 
         public DocumentTypeFolderTestBuilder ReturnsNewFolder(string folderName)
         {
-            var entity = new Mock<IUmbracoEntity>();
+            Mock<IUmbracoEntity> entity = new Mock<IUmbracoEntity>();
             entity.SetupProperty(x => x.Name, folderName);
 
             UmbracoFactory.Setup(x => x.NewContainer(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<int>()))

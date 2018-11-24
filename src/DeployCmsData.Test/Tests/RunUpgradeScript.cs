@@ -1,29 +1,44 @@
-﻿using DeployCmsData.Core.Constants;
+﻿using System;
+using System.Linq;
+using DeployCmsData.Core.Constants;
 using DeployCmsData.Core.Interfaces;
 using DeployCmsData.Core.Models;
 using DeployCmsData.Core.Services;
-using DeployCmsData.Test.Builders;
-using DeployCmsData.Test.UpgradeScripts;
+using DeployCmsData.UnitTest.Builders;
+using DeployCmsData.UnitTest.UpgradeScripts;
 using Moq;
 using NUnit.Framework;
-using System;
 
 [assembly: CLSCompliant(true)]
-namespace DeployCmsData.Test.Tests
+namespace DeployCmsData.UnitTest.Tests
 {
     public static class RunUpgradeScript
     {
+
+        [Test]
+        public static void GetAllScripts()
+        {
+            UpgradeScriptManagerBuilder setup = new UpgradeScriptManagerBuilder();
+            UpgradeScriptManager scriptManager = setup
+                .AddScript(typeof(DoNotAutoRun))
+                .AddScript(typeof(ReturnsTrue))
+                .Build();
+
+            System.Collections.Generic.IEnumerable<IUpgradeScript> scripts = scriptManager.GetAllScripts();
+
+            Assert.AreEqual(1, scripts.Count());
+        }
+
         [Test]
         public static void UpgradeScriptRunSuccess()
         {
-            var setup = new UpgradeScriptManagerBuilder();
-            var scriptManager = setup
-                .RunScriptReturnsTrue()
+            UpgradeScriptManagerBuilder setup = new UpgradeScriptManagerBuilder();
+            UpgradeScriptManager scriptManager = setup
                 .Build();
 
-            var upgradeScript = new ReturnsTrue();
-            var log = scriptManager.RunScriptIfNeeded(upgradeScript);
-            
+            ReturnsTrue upgradeScript = new ReturnsTrue();
+            IUpgradeLog log = scriptManager.RunScriptIfNeeded(upgradeScript);
+
             Assert.IsTrue(log.Success);
             Assert.IsTrue(string.IsNullOrEmpty(log.Exception));
         }
@@ -31,25 +46,25 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public static void UpgradeScriptRunFail()
         {
-            var setup = new UpgradeScriptManagerBuilder();
-            var scriptManager = setup                
+            UpgradeScriptManagerBuilder setup = new UpgradeScriptManagerBuilder();
+            UpgradeScriptManager scriptManager = setup
                 .Build();
 
-            var upgradeScript = new ReturnsFalse();
-            var log = scriptManager.RunScriptIfNeeded(upgradeScript);
-            
-            Assert.IsFalse(log.Success);            
+            ReturnsFalse upgradeScript = new ReturnsFalse();
+            IUpgradeLog log = scriptManager.RunScriptIfNeeded(upgradeScript);
+
+            Assert.IsFalse(log.Success);
         }
 
         [Test]
         public static void UpgradeScriptFails()
         {
-            var setup = new UpgradeScriptManagerBuilder();
-            var scriptManager = setup
+            UpgradeScriptManagerBuilder setup = new UpgradeScriptManagerBuilder();
+            UpgradeScriptManager scriptManager = setup
                 .AddScript(typeof(Fails))
                 .Build();
 
-            var count = scriptManager.RunAllScriptsIfNeeded();
+            int count = scriptManager.RunAllScriptsIfNeeded();
 
             Assert.Zero(count);
         }
@@ -57,11 +72,11 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public static void UpgradeScriptRunNullScript()
         {
-            var setup = new UpgradeScriptManagerBuilder();
-            var scriptManager = setup
+            UpgradeScriptManagerBuilder setup = new UpgradeScriptManagerBuilder();
+            UpgradeScriptManager scriptManager = setup
                 .Build();
 
-            var log = scriptManager.RunScriptIfNeeded(null);
+            IUpgradeLog log = scriptManager.RunScriptIfNeeded(null);
 
             Assert.IsFalse(log.Success);
             Assert.AreEqual(ExceptionMessages.UpgradeScriptIsNull, log.Exception);
@@ -70,33 +85,30 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public static void UpgradeScriptWriteToLogOnSuccess()
         {
-            var setup = new UpgradeScriptManagerBuilder();
-            var scriptManager = setup
-                .Build();
+            UpgradeScriptManagerBuilder setup = new UpgradeScriptManagerBuilder();
+            UpgradeScriptManager scriptManager = setup.Build();
 
-            var upgradeScript = new ReturnsTrue();
-            var scriptName = UpgradeScriptManager.GetScriptName(upgradeScript);
+            ReturnsTrue upgradeScript = new ReturnsTrue();
+            string scriptName = UpgradeScriptManager.GetScriptName(upgradeScript);
 
-            var log = scriptManager.RunScriptIfNeeded(upgradeScript);
+            IUpgradeLog log = scriptManager.RunScriptIfNeeded(upgradeScript);
 
-            setup.LogRepository.Verify(x => x.SaveLog(It.IsAny<UpgradeLog>()));            
+            setup.LogRepository.Verify(x => x.SaveLog(It.IsAny<UpgradeLog>()));
             Assert.AreEqual(scriptName, log.UpgradeScriptName);
             Assert.IsTrue(log.Success);
-            Assert.AreNotEqual(Guid.Empty, log.Id);            
+            Assert.AreNotEqual(Guid.Empty, log.Id);
         }
 
         [Test]
         public static void UpgradeScriptWriteToLogOnFail()
         {
-            var setup = new UpgradeScriptManagerBuilder();
-            var scriptManager = setup
-                .RunScriptReturnsTrue()
-                .Build();
+            UpgradeScriptManagerBuilder setup = new UpgradeScriptManagerBuilder();
+            UpgradeScriptManager scriptManager = setup.Build();
 
-            var upgradeScript = new ReturnsFalse();
-            var scriptName = UpgradeScriptManager.GetScriptName(upgradeScript);
+            ReturnsFalse upgradeScript = new ReturnsFalse();
+            string scriptName = UpgradeScriptManager.GetScriptName(upgradeScript);
 
-            var log = scriptManager.RunScriptIfNeeded(upgradeScript);
+            IUpgradeLog log = scriptManager.RunScriptIfNeeded(upgradeScript);
 
             setup.LogRepository.Verify(x => x.SaveLog(It.IsAny<UpgradeLog>()));
             Assert.AreEqual(scriptName, log.UpgradeScriptName);
@@ -107,15 +119,15 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public static void UpgradeScriptAlreadyRun()
         {
-            var setup = new UpgradeScriptManagerBuilder();
-            var scriptManager = setup
+            UpgradeScriptManagerBuilder setup = new UpgradeScriptManagerBuilder();
+            UpgradeScriptManager scriptManager = setup
                 .GetLogsReturnsSuccessfulLogs()
                 .AddScript(typeof(ReturnsTrue))
                 .AddScript(typeof(ReturnsTrue))
                 .AddScript(typeof(ReturnsTrue))
                 .Build();
-            
-            var count = scriptManager.RunAllScriptsIfNeeded();
+
+            int count = scriptManager.RunAllScriptsIfNeeded();
 
             Assert.Zero(count);
         }
@@ -123,13 +135,13 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public static void RerunUpgradeScript()
         {
-            var setup = new UpgradeScriptManagerBuilder();
-            var scriptManager = setup
+            UpgradeScriptManagerBuilder setup = new UpgradeScriptManagerBuilder();
+            UpgradeScriptManager scriptManager = setup
                 .GetLogsReturnsSuccessfulLogs()
                 .Build();
 
-            var upgradeScript = new ReturnsTrue();
-            var log = scriptManager.RunScript(upgradeScript);
+            ReturnsTrue upgradeScript = new ReturnsTrue();
+            UpgradeLog log = scriptManager.RunScript(upgradeScript);
 
             Assert.IsTrue(log.Success);
         }
@@ -137,13 +149,13 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public static void RunScriptEveryTime()
         {
-            var setup = new UpgradeScriptManagerBuilder();
-            var scriptManager = setup
-                .GetLogsReturnsSuccessfulLogs()                
+            UpgradeScriptManagerBuilder setup = new UpgradeScriptManagerBuilder();
+            UpgradeScriptManager scriptManager = setup
+                .GetLogsReturnsSuccessfulLogs()
                 .Build();
 
-            var upgradeScript = new RunEveryTime();
-            var log = scriptManager.RunScriptIfNeeded(upgradeScript);
+            RunEveryTime upgradeScript = new RunEveryTime();
+            IUpgradeLog log = scriptManager.RunScriptIfNeeded(upgradeScript);
 
             Assert.IsTrue(log.Success);
         }
@@ -151,14 +163,14 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public static void DoNotAutoRunScript()
         {
-            var setup = new UpgradeScriptManagerBuilder();
-            var scriptManager = setup                
+            UpgradeScriptManagerBuilder setup = new UpgradeScriptManagerBuilder();
+            UpgradeScriptManager scriptManager = setup
                 .AddScript(typeof(DoNotAutoRun))
                 .AddScript(typeof(ReturnsTrue))
                 .AddScript(typeof(RunEveryTime))
                 .Build();
-            
-            var count = scriptManager.RunAllScriptsIfNeeded();
+
+            int count = scriptManager.RunAllScriptsIfNeeded();
 
             Assert.AreEqual(2, count);
         }
@@ -166,12 +178,12 @@ namespace DeployCmsData.Test.Tests
         [Test]
         public static void RunScriptTakesABitOfTime()
         {
-            var setup = new UpgradeScriptManagerBuilder();
-            var scriptManager = setup
+            UpgradeScriptManagerBuilder setup = new UpgradeScriptManagerBuilder();
+            UpgradeScriptManager scriptManager = setup
                 .Build();
 
-            var script = new Sleeps();            
-            var log = scriptManager.RunScriptIfNeeded(script);
+            Sleeps script = new Sleeps();
+            IUpgradeLog log = scriptManager.RunScriptIfNeeded(script);
 
             Assert.Greater(log.RuntTimeMilliseconds, 0);
         }

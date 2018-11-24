@@ -5,13 +5,13 @@ using Moq;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
-namespace DeployCmsData.Test.Builders
+namespace DeployCmsData.UmbracoCms.UnitTest.Builders
 {
-    class UmbracoLibraryTestBuilder
+    internal class UmbracoLibraryTestBuilder
     {
         public readonly Mock<IContentService> ContentService;
-        readonly UmbracoLibrary _umbracoLibrary;
-        readonly Mock<IUmbracoFactory> _umbracoFactory;        
+        private readonly UmbracoLibrary _umbracoLibrary;
+        private readonly Mock<IUmbracoFactory> _umbracoFactory;
 
         public UmbracoLibraryTestBuilder()
         {
@@ -45,7 +45,7 @@ namespace DeployCmsData.Test.Builders
         }
 
         public UmbracoLibrary Build()
-        {            
+        {
             return _umbracoLibrary;
         }
     }

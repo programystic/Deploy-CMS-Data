@@ -2,7 +2,7 @@
 using Moq;
 using Umbraco.Core.Services;
 
-namespace DeployCmsData.Test.Builders
+namespace DeployCmsData.UmbracoCms.UnitTest.Builders
 {
     internal class GridDataTypeTestBuilder
     {

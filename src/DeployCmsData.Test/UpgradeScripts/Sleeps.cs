@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using DeployCmsData.Core.Interfaces;
 
-namespace DeployCmsData.Test.UpgradeScripts
+namespace DeployCmsData.UnitTest.UpgradeScripts
 {
     public class Sleeps : IUpgradeScript
     {

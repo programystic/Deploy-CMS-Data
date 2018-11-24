@@ -134,9 +134,6 @@ namespace DeployCmsData.Core.Services
             List<IUpgradeScript> scripts = new List<IUpgradeScript>();
             Type type = typeof(IUpgradeScript);
 
-            IEnumerable<Type> xyz = UpgradeScriptRepository
-                .GetTypes;
-
             List<Type> types = UpgradeScriptRepository
                 .GetTypes
                 .Where(p => type.IsAssignableFrom(p) && !p.IsAbstract)

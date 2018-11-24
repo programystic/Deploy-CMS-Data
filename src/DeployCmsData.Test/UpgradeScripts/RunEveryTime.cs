@@ -2,7 +2,7 @@
 using DeployCmsData.Core.ActionFilters;
 using DeployCmsData.Core.Interfaces;
 
-namespace DeployCmsData.Test.UpgradeScripts
+namespace DeployCmsData.UnitTest.UpgradeScripts
 {
     [RunScriptEveryTime]
     public class RunEveryTime : IUpgradeScript

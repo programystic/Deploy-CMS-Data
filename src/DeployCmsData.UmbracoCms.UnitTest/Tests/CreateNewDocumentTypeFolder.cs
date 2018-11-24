@@ -1,9 +1,9 @@
-﻿using DeployCmsData.Test.Builders;
+﻿using System;
+using DeployCmsData.UmbracoCms.UnitTest.Builders;
 using Moq;
 using NUnit.Framework;
-using System;
 
-namespace DeployCmsData.Test.Tests
+namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 {
     [TestFixture]
     public static class CreateNewDocumentTypeFolder
@@ -18,7 +18,7 @@ namespace DeployCmsData.Test.Tests
                 .ReturnsNewFolder(folderName)
                 .Build();
 
-            var folder = builder
+            Umbraco.Core.Models.EntityBase.IUmbracoEntity folder = builder
                 .Name(folderName)
                 .BuildAtRoot();
 
@@ -34,13 +34,13 @@ namespace DeployCmsData.Test.Tests
             const string parentFolderName = "Parent folder name";
             const int parentFolderLevel = 7;
 
-            var setup = new DocumentTypeFolderTestBuilder();
-            var builder = setup
+            DocumentTypeFolderTestBuilder setup = new DocumentTypeFolderTestBuilder();
+            UmbracoCms.Builders.DocumentTypeFolderBuilder builder = setup
                 .ReturnsNewFolder(folderName)
                 .ReturnsExistingFolder(parentFolderName, parentFolderLevel)
                 .Build();
 
-            var folder = builder
+            Umbraco.Core.Models.EntityBase.IUmbracoEntity folder = builder
                 .Name(folderName)
                 .BuildWithParentFolder(parentFolderName, parentFolderLevel);
 
@@ -56,13 +56,13 @@ namespace DeployCmsData.Test.Tests
             const string parentFolderName = "Parent folder name";
             const int parentFolderLevel = 7;
 
-            var setup = new DocumentTypeFolderTestBuilder();
-            var builder = setup
+            DocumentTypeFolderTestBuilder setup = new DocumentTypeFolderTestBuilder();
+            UmbracoCms.Builders.DocumentTypeFolderBuilder builder = setup
                 .ReturnsNewFolder(folderName)
                 .ReturnsExistingFolder(parentFolderName, parentFolderLevel)
                 .Build();
 
-            var folder = builder
+            Umbraco.Core.Models.EntityBase.IUmbracoEntity folder = builder
                 .Name(folderName)
                 .BuildWithParentFolder(parentFolderName);
 
@@ -76,8 +76,8 @@ namespace DeployCmsData.Test.Tests
             const string folderName = "My new folder";
             const string parentFolderName = "Parent folder name";
 
-            var setup = new DocumentTypeFolderTestBuilder();
-            var builder = setup
+            DocumentTypeFolderTestBuilder setup = new DocumentTypeFolderTestBuilder();
+            UmbracoCms.Builders.DocumentTypeFolderBuilder builder = setup
                 .ReturnsNewFolder(folderName)
                 .Build();
 
@@ -93,8 +93,8 @@ namespace DeployCmsData.Test.Tests
             const string folderName = "My new folder";
             const string parentFolderName = "Parent folder name";
 
-            var setup = new DocumentTypeFolderTestBuilder();
-            var builder = setup
+            DocumentTypeFolderTestBuilder setup = new DocumentTypeFolderTestBuilder();
+            UmbracoCms.Builders.DocumentTypeFolderBuilder builder = setup
                 .ReturnsNewFolder(folderName)
                 .Build();
 
@@ -102,7 +102,7 @@ namespace DeployCmsData.Test.Tests
                 builder.
                     Name(folderName).
                     BuildWithParentFolder(parentFolderName));
-           
+
             setup.UmbracoFactory.Verify(x =>
                     x.GetContainer(
                         parentFolderName,

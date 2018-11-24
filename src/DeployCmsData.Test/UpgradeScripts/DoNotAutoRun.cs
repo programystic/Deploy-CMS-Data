@@ -1,7 +1,7 @@
 ﻿using DeployCmsData.Core.ActionFilters;
 using DeployCmsData.Core.Interfaces;
 
-namespace DeployCmsData.Test.UpgradeScripts
+namespace DeployCmsData.UnitTest.UpgradeScripts
 {
     [DoNotAutoRun]
     public class DoNotAutoRun : IUpgradeScript

@@ -6,7 +6,7 @@ using Umbraco.Core.Models;
 using Umbraco.Core.Models.EntityBase;
 using Umbraco.Core.Services;
 
-namespace DeployCmsData.Test.Builders
+namespace DeployCmsData.UmbracoCms.UnitTest.Builders
 {
     internal class DocumentTypeTestBuilder
     {
@@ -19,18 +19,18 @@ namespace DeployCmsData.Test.Builders
         public DocumentTypeTestBuilder()
         {
             UmbracoFactory = new Mock<IUmbracoFactory>();
-            _contentTypeService = new Mock<IContentTypeService>();   
+            _contentTypeService = new Mock<IContentTypeService>();
             _dataTypeService = new Mock<IDataTypeService>();
 
             _documentTypeBuilder = new DocumentTypeBuilder(
-                _contentTypeService.Object, 
+                _contentTypeService.Object,
                 UmbracoFactory.Object,
                 _dataTypeService.Object);
 
             var dataTypeDefinition = new Mock<IDataTypeDefinition>();
             var propertyType = new Mock<PropertyType>(dataTypeDefinition.Object);
             UmbracoFactory.Setup(x => x.NewPropertyType(It.IsAny<IDataTypeDefinition>(), It.IsAny<string>()))
-                .Returns(propertyType.Object);            
+                .Returns(propertyType.Object);
         }
 
         public DocumentTypeTestBuilder ReturnsNewContentType(int parentId)
@@ -40,7 +40,7 @@ namespace DeployCmsData.Test.Builders
             ContentType.Setup(x => x.ParentId).Returns(parentId);
 
             ContentType.Setup(x => x.ParentId).Returns(parentId);
-            UmbracoFactory.Setup(x => x.NewContentType(parentId)).Returns(ContentType.Object);            
+            UmbracoFactory.Setup(x => x.NewContentType(parentId)).Returns(ContentType.Object);
 
             return this;
         }

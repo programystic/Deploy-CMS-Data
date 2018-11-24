@@ -1,4 +1,4 @@
-﻿namespace DeployCmsData.Test.Constants
+﻿namespace DeployCmsData.UmbracoCms.Constants
 {
     internal static class Enums
     {

@@ -1,10 +1,10 @@
-﻿using DeployCmsData.Test.Builders;
+﻿using System;
+using DeployCmsData.UmbracoCms.UnitTest.Builders;
 using NUnit.Framework;
-using System;
 using Umbraco.Core.Models;
 using static Umbraco.Core.Constants;
 
-namespace DeployCmsData.Test.Tests
+namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 {
     [TestFixture]
     public static class CreateNewGridDataType

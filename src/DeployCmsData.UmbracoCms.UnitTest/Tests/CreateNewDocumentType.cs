@@ -1,9 +1,9 @@
-﻿using DeployCmsData.Test.Builders;
+﻿using System;
+using DeployCmsData.UmbracoCms.UnitTest.Builders;
 using Moq;
 using NUnit.Framework;
-using System;
 
-namespace DeployCmsData.Test.Tests
+namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 {
     public static class CreateNewDocumentType
     {
@@ -63,7 +63,7 @@ namespace DeployCmsData.Test.Tests
                 .ReturnsNewContentType(UmbracoCms.Constants.Umbraco.RootFolder)
                 .Build();
 
-            var documentType = builder
+            Umbraco.Core.Models.IContentType documentType = builder
                 .Alias(Alias)
                 .Icon(Icon)
                 .Name(Name)
@@ -119,7 +119,7 @@ namespace DeployCmsData.Test.Tests
                 .Name(Name)
                 .Description(Description)
                 .BuildInFolder(ParentFolderName);
-            
+
             Assert.AreEqual(ParentFolderId, folder.ParentId);
             Assert.AreEqual(Alias, folder.Alias);
             Assert.AreEqual(Name, folder.Name);

@@ -6,17 +6,18 @@ using DeployCmsData.Core.Services;
 using Moq;
 using static System.FormattableString;
 
-namespace DeployCmsData.Test.Builders
+namespace DeployCmsData.UnitTest.Builders
 {
     internal class UpgradeScriptManagerBuilder
-    {        
+    {
         public Mock<IUpgradeLogRepository> LogRepository { get; }
         public Mock<IUpgradeScriptRepository> UpgradeScriptRepository { get; }
-        readonly UpgradeScriptManager ScriptManager;
-        readonly List<Type> Types;
+
+        private readonly UpgradeScriptManager ScriptManager;
+        private readonly List<Type> Types;
 
         public UpgradeScriptManagerBuilder()
-        {            
+        {
             LogRepository = new Mock<IUpgradeLogRepository>();
             UpgradeScriptRepository = new Mock<IUpgradeScriptRepository>();
 
@@ -26,18 +27,13 @@ namespace DeployCmsData.Test.Builders
             ScriptManager = new UpgradeScriptManager(LogRepository.Object, UpgradeScriptRepository.Object);
         }
 
-        public UpgradeScriptManagerBuilder RunScriptReturnsTrue()
-        {            
-            return this;
-        }
-
         public UpgradeScriptManagerBuilder GetLogsReturnsSuccessfulLogs()
         {
-            var logs = new List<UpgradeLog>();
+            List<UpgradeLog> logs = new List<UpgradeLog>();
 
             for (int i = 0; i < 10; i++)
             {
-                var upgradeLog = new UpgradeLog
+                UpgradeLog upgradeLog = new UpgradeLog
                 {
                     Id = i,
                     Success = true,
@@ -45,7 +41,7 @@ namespace DeployCmsData.Test.Builders
                 };
                 logs.Add(upgradeLog);
             }
-            
+
             LogRepository.Setup(x => x.GetLogsByScriptName(It.IsAny<string>())).Returns(logs);
 
             return this;
@@ -53,13 +49,13 @@ namespace DeployCmsData.Test.Builders
 
         public UpgradeScriptManagerBuilder AddScript(Type upgradeScript)
         {
-            Types.Add(upgradeScript);            
+            Types.Add(upgradeScript);
 
             return this;
         }
 
         public UpgradeScriptManager Build()
-        {            
+        {
             return ScriptManager;
         }
 
