@@ -3,7 +3,7 @@ using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Constants;
 
-namespace DeployCmsData.UmbracoCms.UpgradeScripts
+namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
 {
     [RunScriptEveryTime]
     public class Upgrade02 : IUpgradeScript
@@ -23,7 +23,7 @@ namespace DeployCmsData.UmbracoCms.UpgradeScripts
             builder
                 .Alias("contentBase")
                 .Name("Content Base")
-                .Icon(Constants.Icons.Document);
+                .Icon(Icons.Document);
 
             builder.AddField()
                 .Alias("pageTitle")
@@ -49,7 +49,7 @@ namespace DeployCmsData.UmbracoCms.UpgradeScripts
             builder
                 .Alias("navigationBase")
                 .Name("Navigation Base")
-                .Icon(Constants.Icons.Nodes);
+                .Icon(Icons.Nodes);
 
             builder.AddField()
                 .Alias("seoMetaDescription")

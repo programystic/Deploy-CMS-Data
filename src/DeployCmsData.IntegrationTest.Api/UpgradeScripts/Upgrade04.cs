@@ -1,16 +1,15 @@
-﻿using DeployCmsData.Core.ActionFilters;
+﻿using System;
+using DeployCmsData.Core.ActionFilters;
 using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
-using System;
-using Umbraco.Web;
 
-namespace DeployCmsData.UmbracoCms.UpgradeScripts
+namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
 {
     [RunScriptEveryTime]
     public class Upgrade04 : IUpgradeScript
     {
         public bool RunScript(IUpgradeLogRepository upgradeLog)
-        {            
+        {
             var gridBuilder = new GridDataTypeBuilder();
             var id = Guid.Parse("{3B7F4064-E61E-4937-BFE8-3FFF0C71977A}");
 

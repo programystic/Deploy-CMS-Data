@@ -4,7 +4,7 @@ using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Constants;
 using DeployCmsData.UmbracoCms.Services;
 
-namespace DeployCmsData.UmbracoCms.UpgradeScripts
+namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
 {
     [RunScriptEveryTime]
     public class Upgrade01 : IUpgradeScript
@@ -12,7 +12,6 @@ namespace DeployCmsData.UmbracoCms.UpgradeScripts
         // TODO - Setup constants for all the magic strings below
         public bool RunScript(IUpgradeLogRepository upgradeLog)
         {
-            ClearEverythingDown();
             CreateSiteDocumentType();
             CreateFolders();
             CreatePageMetaData();

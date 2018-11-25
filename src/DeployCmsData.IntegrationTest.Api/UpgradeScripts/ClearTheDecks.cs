@@ -2,10 +2,10 @@
 using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Services;
 
-namespace DeployCmsData.UmbracoCms.UpgradeScripts
+namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
 {
     [DoNotAutoRun]
-    class ClearTheDecks : IUpgradeScript
+    public class ClearTheDecks : IUpgradeScript
     {
         public bool RunScript(IUpgradeLogRepository upgradeLog)
         {

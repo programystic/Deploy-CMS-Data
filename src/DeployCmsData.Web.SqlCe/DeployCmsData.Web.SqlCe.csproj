@@ -331,6 +331,10 @@
       <Project>{c3d50060-ee8d-4f4c-81df-1d8dbd665bd2}</Project>
       <Name>DeployCmsData.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DeployCmsData.IntegrationTest.Api\DeployCmsData.IntegrationTest.Api.csproj">
+      <Project>{795af61c-0976-4f0b-bd33-5900435e23a0}</Project>
+      <Name>DeployCmsData.IntegrationTest.Api</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DeployCmsData.UmbracoCms\DeployCmsData.UmbracoCms.csproj">
       <Project>{23962911-6a2c-4dcb-a7ca-4fea0840d0b9}</Project>
       <Name>DeployCmsData.UmbracoCms</Name>
