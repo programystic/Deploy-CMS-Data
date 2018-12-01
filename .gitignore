@@ -317,3 +317,5 @@ src/DeployCmsData.Web/Media/
 src/DeployCmsData.Web/_bin_deployableAssemblies/
 src/DeployCmsData.Web/App_Data/
 src/DeployCmsData.Web.SqlCe/Media/
+/src/DeployCmsData.Web.SqlCe/App_Data/Models/all.dll.path
+/src/DeployCmsData.Web.SqlCe/App_Data/Models
