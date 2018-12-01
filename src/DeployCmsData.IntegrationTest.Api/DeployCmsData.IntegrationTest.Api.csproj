@@ -214,6 +214,7 @@
     <Compile Include="UpgradeScripts\BuildHomePage.cs" />
     <Compile Include="UpgradeScripts\BuildWebsite.cs" />
     <Compile Include="UpgradeScripts\ClearTheDecks.cs" />
+    <Compile Include="UpgradeScripts\CreateContent.cs" />
     <Compile Include="UpgradeScripts\RunEveryTimeAttribute.cs" />
     <Compile Include="UpgradeScripts\Upgrade01.cs" />
     <Compile Include="UpgradeScripts\Upgrade02.cs" />
