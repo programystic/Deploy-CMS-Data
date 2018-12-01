@@ -2,21 +2,22 @@
 using DeployCmsData.Core.ActionFilters;
 using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
+using DeployCmsData.UmbracoCms.Services;
 
 namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
 {
     [RunScriptEveryTime]
-    public class Upgrade04 : IUpgradeScript
+    public class Upgrade04 : UmbracoUpgradeScript
     {
-        public bool RunScript(IUpgradeLogRepository upgradeLog)
-        {
-            var gridBuilder = new GridDataTypeBuilder();
+        public override bool RunScript(IUpgradeLogRepository upgradeLog)
+        {            
             var id = Guid.Parse("{3B7F4064-E61E-4937-BFE8-3FFF0C71977A}");
 
+            Library.DeleteDataTypeById(id);            
+            var gridBuilder = new GridDataTypeBuilder(id);
+            
             gridBuilder
-                .DeleteGrid(id)
                 .Name("Another Grid View")
-                .Key(id)
                 .AddStandardToolbar()
                 .AddStandardRows()
                 .AddLayout("1 column layout", 12)

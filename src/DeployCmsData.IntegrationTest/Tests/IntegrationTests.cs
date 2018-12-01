@@ -6,33 +6,16 @@ namespace DeployCmsData.IntegrationTest.Tests
     [TestFixture, Explicit]
     class IntegrationTests
     {
-        [Test, Order(1)]
-        public void ClearTheDecks()
-        {           
-            Assert.IsTrue(GetResponse("ClearTheDecks"));
-        }
-
-        [Test, Order(2)]
-        public void Upgrade01()
+        [TestCase("ClearTheDecks")]
+        [TestCase("Upgrade01")]
+        [TestCase("Upgrade02")]
+        [TestCase("Upgrade04")]        
+        [TestCase("BuildHomePage")]
+        [TestCase("BuildWebsite")]
+        public void CallUpgradeScriptApi(string apiMethodName)
         {
-            Assert.IsTrue(GetResponse("Upgrade01"));
-        }
-
-        [Test, Order(3)]
-        public void Upgrade02()
-        {
-            Assert.IsTrue(GetResponse("Upgrade02"));
-        }
-
-        [Test, Order(4)]
-        public void Upgrade04()
-        {
-            Assert.IsTrue(GetResponse("Upgrade04"));
-        }
-
-        public bool GetResponse(string method)
-        {
-            return GetResponse1(method) && GetResponse2(method);
+            Assert.IsTrue(GetResponse1(apiMethodName));
+            Assert.IsTrue(GetResponse2(apiMethodName));
         }
 
         public bool GetResponse1(string method)

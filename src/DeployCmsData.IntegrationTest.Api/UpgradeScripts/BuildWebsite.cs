@@ -1,0 +1,24 @@
+﻿using DeployCmsData.Core.Interfaces;
+using DeployCmsData.UmbracoCms.Builders;
+using DeployCmsData.UmbracoCms.Constants;
+using DeployCmsData.UmbracoCms.Services;
+
+namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
+{
+    [RunEveryTime]
+    public class BuildWebsite : UmbracoUpgradeScript
+    {
+        public override bool RunScript(IUpgradeLogRepository upgradeLog)
+        {
+            var builder = new DocumentTypeBuilder();
+            builder
+                .Alias("websiteRoot")
+                .Name("Website")
+                .Icon(Icons.Globe)
+                .AddAllowedChildNodeType("homePage")
+                .BuildAtRoot();
+
+            return true;
+        }
+    }
+}

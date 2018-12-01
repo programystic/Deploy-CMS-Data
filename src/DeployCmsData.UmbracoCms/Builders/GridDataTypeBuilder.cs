@@ -21,14 +21,16 @@ namespace DeployCmsData.UmbracoCms.Builders
         string NameValue { get; set; }
         Guid KeyValue { get; set; }
 
-        public GridDataTypeBuilder()
+        public GridDataTypeBuilder(Guid key)
         {
             Setup(UmbracoContext.Current.Application.Services.DataTypeService);
+            KeyValue = key;
         }
 
-        public GridDataTypeBuilder(IDataTypeService dataTypeService)
+        public GridDataTypeBuilder(IDataTypeService dataTypeService, Guid key)
         {
             Setup(dataTypeService);
+            KeyValue = key;
         }
 
         public void Setup(IDataTypeService dataTypeService)
@@ -66,11 +68,11 @@ namespace DeployCmsData.UmbracoCms.Builders
             return this;
         }
 
-        public GridDataTypeBuilder Key(Guid key)
-        {
-            KeyValue = key;
-            return this;
-        }
+        //public GridDataTypeBuilder Key(Guid key)
+        //{
+        //    KeyValue = key;
+        //    return this;
+        //}
 
         public GridDataTypeBuilder AddLayout(string layoutName, params int[] gridColumns)
         {
@@ -149,10 +151,9 @@ namespace DeployCmsData.UmbracoCms.Builders
             return this;
         }
 
-        public GridDataTypeBuilder DeleteGrid(Guid id)
+        public void DeleteGrid(Guid id)
         {
             DeleteDataTypeById(id, DataTypeService);
-            return this;
         }
 
         public void BuildInFolder(string folderName)

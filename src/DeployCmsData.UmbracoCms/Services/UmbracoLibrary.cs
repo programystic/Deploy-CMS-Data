@@ -1,4 +1,5 @@
 ﻿using DeployCmsData.UmbracoCms.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Umbraco.Core.Models;
@@ -12,6 +13,7 @@ namespace DeployCmsData.UmbracoCms.Services
         IContentTypeService _contentTypeService;
         IContentService _contentService;
         IUmbracoFactory _umbracoFactory;
+        IDataTypeService _dataTypeService;
 
         public UmbracoLibrary()
         {
@@ -19,6 +21,7 @@ namespace DeployCmsData.UmbracoCms.Services
             _contentTypeService = applicationContext.Services.ContentTypeService;
             _contentService = applicationContext.Services.ContentService;
             _umbracoFactory = new UmbracoFactory(_contentTypeService);
+            _dataTypeService = applicationContext.Services.DataTypeService;
         }
 
         public UmbracoLibrary(IContentTypeService contentTypeService, IContentService contentService, IUmbracoFactory umbracoFactory)
@@ -59,6 +62,12 @@ namespace DeployCmsData.UmbracoCms.Services
                 DeleteAllContent(_umbracoFactory.GetChildren(item));
                 _contentService.Delete(item);
             }
+        }
+
+        public void DeleteDataTypeById(Guid id)
+        {
+            var dataType = _dataTypeService.GetDataTypeDefinitionById(id);
+            if (dataType != null) _dataTypeService.Delete(dataType);
         }
     }
 }

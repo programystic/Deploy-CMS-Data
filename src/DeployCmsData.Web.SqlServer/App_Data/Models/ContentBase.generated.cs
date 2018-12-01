@@ -20,9 +20,20 @@ using Umbraco.ModelsBuilder.Umbraco;
 
 namespace Umbraco.Web.PublishedContentModels
 {
+	// Mixin content Type 1525 with alias "contentBase"
+	/// <summary>Content Base</summary>
+	public partial interface IContentBase : IPublishedContent
+	{
+		/// <summary>Content</summary>
+		string BodyText { get; }
+
+		/// <summary>Page Title</summary>
+		string PageTitle { get; }
+	}
+
 	/// <summary>Content Base</summary>
 	[PublishedContentModel("contentBase")]
-	public partial class ContentBase : PublishedContentModel
+	public partial class ContentBase : PublishedContentModel, IContentBase
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "contentBase";
@@ -51,8 +62,11 @@ namespace Umbraco.Web.PublishedContentModels
 		[ImplementPropertyType("bodyText")]
 		public string BodyText
 		{
-			get { return this.GetPropertyValue<string>("bodyText"); }
+			get { return GetBodyText(this); }
 		}
+
+		/// <summary>Static getter for Content</summary>
+		public static string GetBodyText(IContentBase that) { return that.GetPropertyValue<string>("bodyText"); }
 
 		///<summary>
 		/// Page Title: The title of the page, this is also the first text in a google search result. The ideal length is between 40 and 60 characters
@@ -60,7 +74,10 @@ namespace Umbraco.Web.PublishedContentModels
 		[ImplementPropertyType("pageTitle")]
 		public string PageTitle
 		{
-			get { return this.GetPropertyValue<string>("pageTitle"); }
+			get { return GetPageTitle(this); }
 		}
+
+		/// <summary>Static getter for Page Title</summary>
+		public static string GetPageTitle(IContentBase that) { return that.GetPropertyValue<string>("pageTitle"); }
 	}
 }

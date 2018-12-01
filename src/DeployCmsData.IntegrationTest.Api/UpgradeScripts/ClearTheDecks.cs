@@ -5,14 +5,13 @@ using DeployCmsData.UmbracoCms.Services;
 namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
 {
     [DoNotAutoRun]
-    public class ClearTheDecks : IUpgradeScript
+    public class ClearTheDecks : UmbracoUpgradeScript
     {
-        public bool RunScript(IUpgradeLogRepository upgradeLog)
+        public override bool RunScript(IUpgradeLogRepository upgradeLog)
         {
-            var library = new UmbracoLibrary();
-            library.DeleteAllContent();
-            library.DeleteAllDocumentTypes();
-            library.DeleteAllDocumentTypeFolders();
+            Library.DeleteAllContent();
+            Library.DeleteAllDocumentTypes();
+            Library.DeleteAllDocumentTypeFolders();
 
             return true;
         }

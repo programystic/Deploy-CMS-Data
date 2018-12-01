@@ -1,10 +1,10 @@
-﻿using DeployCmsData.Core.Constants;
-using DeployCmsData.UmbracoCms.Interfaces;
-using DeployCmsData.UmbracoCms.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using DeployCmsData.Core.Constants;
+using DeployCmsData.UmbracoCms.Interfaces;
+using DeployCmsData.UmbracoCms.Services;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.EntityBase;
@@ -25,6 +25,8 @@ namespace DeployCmsData.UmbracoCms.Builders
         internal readonly IList<PropertyBuilder> AddFieldList = new List<PropertyBuilder>();
         internal readonly IList<PropertyBuilder> UpdateFieldList = new List<PropertyBuilder>();
         internal readonly IList<PropertyBuilder> RemoveFieldList = new List<PropertyBuilder>();
+        internal readonly IList<ContentTypeSort> AllowedChildNodeTypes = new List<ContentTypeSort>();
+        internal readonly IList<IContentTypeComposition> Compositions = new List<IContentTypeComposition>();
         //internal readonly IList<string> TabListAdd = new List<string>();
         //internal readonly IList<string> TabListRemove = new List<string>();
 
@@ -41,7 +43,9 @@ namespace DeployCmsData.UmbracoCms.Builders
         private void Initialise(ApplicationContext applicationContext)
         {
             if (applicationContext == null)
+            {
                 throw new ArgumentNullException(nameof(applicationContext));
+            }
 
             _dataTypeService = applicationContext.Services.DataTypeService;
             _contentTypeService = applicationContext.Services.ContentTypeService;
@@ -50,7 +54,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         }
 
         public DocumentTypeBuilder(
-            IContentTypeService contentTypeService, 
+            IContentTypeService contentTypeService,
             IUmbracoFactory factory,
             IDataTypeService dataTypeService)
         {
@@ -63,7 +67,9 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             var parent = _contentTypeService.GetContentType(parentAlias);
             if (parent == null)
+            {
                 throw new ArgumentException(ExceptionMessages.ParentAliasNotFound, parentAlias);
+            }
 
             return BuildDocumentType(parent.Id);
         }
@@ -71,35 +77,43 @@ namespace DeployCmsData.UmbracoCms.Builders
         public IContentType BuildInFolder(string folderName, int folderLevel)
         {
             if (string.IsNullOrEmpty(folderName))
+            {
                 throw new ArgumentException(ExceptionMessages.ParentFolderNameNotDefined);
+            }
 
             var parentFolder = _factory.GetContainer(folderName, folderLevel);
             if (parentFolder == null)
+            {
                 throw new ArgumentException(ExceptionMessages.ParentFolderNotFound, folderName);
+            }
 
             return BuildDocumentType(parentFolder.Id);
         }
 
         public IContentType BuildInFolder(string folderName)
-        {            
+        {
             var folderLevel = 1;
             IUmbracoEntity parentFolder = null;
 
             if (string.IsNullOrEmpty(folderName))
+            {
                 throw new ArgumentException(ExceptionMessages.ParentFolderNameNotDefined);
+            }
 
             while (folderLevel <= Constants.Umbraco.MaximumFolderLevel && parentFolder == null)
             {
                 parentFolder = _factory.GetContainer(folderName, folderLevel);
                 folderLevel++;
             }
-            
+
             if (parentFolder == null)
+            {
                 throw new ArgumentException(ExceptionMessages.ParentFolderNotFound, folderName);
+            }
 
             return BuildDocumentType(parentFolder.Id);
         }
-        
+
         public IContentType BuildAtRoot()
         {
             return BuildDocumentType(Constants.Umbraco.RootFolder);
@@ -110,6 +124,13 @@ namespace DeployCmsData.UmbracoCms.Builders
             var documentType = CreateNewDocumentType(parentId);
             SetDocumentTypeProperties(documentType, parentId);
             AddNewFields(documentType);
+            documentType.AllowedContentTypes = AllowedChildNodeTypes;
+
+            foreach (var composition in Compositions)
+            {
+                documentType.AddContentType(composition);
+            }
+
             _contentTypeService.Save(documentType);
 
             return documentType;
@@ -118,14 +139,21 @@ namespace DeployCmsData.UmbracoCms.Builders
         private IContentType CreateNewDocumentType(int parentId)
         {
             var documentType = _contentTypeService.GetContentType(_alias);
-            if (documentType != null) return documentType;
+            if (documentType != null)
+            {
+                return documentType;
+            }
 
             documentType = _factory.NewContentType(parentId);
             if (documentType == null)
+            {
                 throw new ArgumentException(ExceptionMessages.CannotCreateDocumentType, parentId.ToString(CultureInfo.InvariantCulture));
+            }
 
             if (string.IsNullOrEmpty(_alias))
+            {
                 throw new ArgumentException(ExceptionMessages.AliasNotDefined);
+            }
 
             return documentType;
         }
@@ -145,17 +173,23 @@ namespace DeployCmsData.UmbracoCms.Builders
             foreach (var field in AddFieldList)
             {
                 var propertyType = documentType.PropertyTypes.FirstOrDefault(x => x.Alias == field.AliasValue);
-                if (propertyType != null) continue;
+                if (propertyType != null)
+                {
+                    continue;
+                }
+
                 IDataTypeDefinition dataTypeDefinition = null;
 
                 if (!string.IsNullOrEmpty(field.DataTypeValue))
                 {
                     dataTypeDefinition = _dataTypeService.GetDataTypeDefinitionByName(field.DataTypeValue);
                 }
-                
+
                 if (dataTypeDefinition == null)
+                {
                     throw new ArgumentException(ExceptionMessages.CannotFindDataType + field.DataTypeValue);
-                
+                }
+
                 propertyType = _factory.NewPropertyType(dataTypeDefinition, field.AliasValue);
 
                 propertyType.Name = field.NameValue;
@@ -170,8 +204,10 @@ namespace DeployCmsData.UmbracoCms.Builders
         public void DeleteDocumentType(string alias)
         {
             var documentType = _contentTypeService.GetContentType(alias);
-            if (documentType == null) 
+            if (documentType == null)
+            {
                 throw new ArgumentException(ExceptionMessages.DocumentTypeNotFound + ":" + alias);
+            }
 
             _contentTypeService.Delete(documentType);
         }
@@ -197,6 +233,28 @@ namespace DeployCmsData.UmbracoCms.Builders
         public DocumentTypeBuilder Description(string documentTypeDescription)
         {
             _description = documentTypeDescription;
+            return this;
+        }
+
+        public DocumentTypeBuilder AddAllowedChildNodeType(string alias)
+        {
+            var documentType = _contentTypeService.GetContentType(alias);
+            if (documentType != null)
+            {
+                AllowedChildNodeTypes.Add(new ContentTypeSort(documentType.Id, AllowedChildNodeTypes.Count + 1));
+            }
+
+            return this;
+        }
+
+        public DocumentTypeBuilder AddComposition(string alias)
+        {
+            var documentType = _contentTypeService.GetContentType(alias);
+            if (documentType != null)
+            {
+                Compositions.Add(documentType);
+            }
+
             return this;
         }
 

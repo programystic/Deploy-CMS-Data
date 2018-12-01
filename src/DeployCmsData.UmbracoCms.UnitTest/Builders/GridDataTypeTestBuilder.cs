@@ -1,4 +1,5 @@
-﻿using DeployCmsData.UmbracoCms.Builders;
+﻿using System;
+using DeployCmsData.UmbracoCms.Builders;
 using Moq;
 using Umbraco.Core.Services;
 
@@ -9,10 +10,10 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
         private readonly GridDataTypeBuilder _gridDataTypeBuilder;
         public Mock<IDataTypeService> DataTypeService { get; }
 
-        public GridDataTypeTestBuilder()
+        public GridDataTypeTestBuilder(Guid key)
         {
             DataTypeService = new Mock<IDataTypeService>();
-            _gridDataTypeBuilder = new GridDataTypeBuilder(DataTypeService.Object);
+            _gridDataTypeBuilder = new GridDataTypeBuilder(DataTypeService.Object, key);
         }
 
         public GridDataTypeBuilder Build()

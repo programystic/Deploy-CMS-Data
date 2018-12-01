@@ -134,5 +134,25 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                         It.IsAny<int>()),
                 Times.Exactly(ParentFolderLevel));
         }
+
+        [Test]
+        public static void SetAllowedChildNodeTypes()
+        {
+            var setup = new DocumentTypeTestBuilder();
+
+            var builder = setup
+                .ReturnsNewContentType(ParentFolderId)
+                .ReturnsFolder(ParentFolderName, ParentFolderLevel, ParentFolderId)
+                .Build();
+
+            var folder = builder
+                .Alias(Alias)
+                .Icon(Icon)
+                .Name(Name)
+                .Description(Description)
+                .AddAllowedChildNodeType("homePage")
+                .AddAllowedChildNodeType("abourPage")
+                .BuildInFolder(ParentFolderName);
+        }
     }
 }

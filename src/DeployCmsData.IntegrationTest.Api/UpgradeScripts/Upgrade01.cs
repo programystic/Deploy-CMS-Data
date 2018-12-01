@@ -7,42 +7,26 @@ using DeployCmsData.UmbracoCms.Services;
 namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
 {
     [RunScriptEveryTime]
-    public class Upgrade01 : IUpgradeScript
+    public class Upgrade01 : UmbracoUpgradeScript
     {
         // TODO - Setup constants for all the magic strings below
-        public bool RunScript(IUpgradeLogRepository upgradeLog)
+        public override bool RunScript(IUpgradeLogRepository upgradeLog)
         {
-            CreateSiteDocumentType();
             CreateFolders();
             CreatePageMetaData();
             return true;
         }
 
-        public void ClearEverythingDown()
-        {
-            var library = new UmbracoLibrary();
-            library.DeleteAllContent();
-            library.DeleteAllDocumentTypes();
-            library.DeleteAllDocumentTypeFolders();
-        }
-
-        public void CreateSiteDocumentType()
-        {
-            var builder = new DocumentTypeBuilder();
-            builder
-                .Alias("websiteRoot")
-                .Name("Website")
-                .Icon(Icons.Globe)
-                .BuildAtRoot();
-        }
-
         public void CreateFolders()
         {
-            var builder = new DocumentTypeFolderBuilder();
-
-            builder
+            new DocumentTypeFolderBuilder()
                 .Name("Compositions")
                 .BuildAtRoot();
+
+            new DocumentTypeFolderBuilder()
+                .Name("Pages")
+                .BuildAtRoot();
+
         }
 
         public void CreatePageMetaData()

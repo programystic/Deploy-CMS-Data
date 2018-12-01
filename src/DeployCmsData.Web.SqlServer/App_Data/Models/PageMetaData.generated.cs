@@ -20,9 +20,15 @@ using Umbraco.ModelsBuilder.Umbraco;
 
 namespace Umbraco.Web.PublishedContentModels
 {
+	// Mixin content Type 1524 with alias "pageMetaData"
+	/// <summary>Page Meta Data</summary>
+	public partial interface IPageMetaData : IPublishedContent
+	{
+	}
+
 	/// <summary>Page Meta Data</summary>
 	[PublishedContentModel("pageMetaData")]
-	public partial class PageMetaData : PublishedContentModel
+	public partial class PageMetaData : PublishedContentModel, IPageMetaData
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "pageMetaData";

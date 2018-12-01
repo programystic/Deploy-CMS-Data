@@ -74,5 +74,6 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
 
             builder.BuildInFolder("Compositions");
         }
+
     }
 }

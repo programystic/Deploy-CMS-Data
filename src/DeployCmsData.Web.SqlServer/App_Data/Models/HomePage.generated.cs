@@ -20,30 +20,16 @@ using Umbraco.ModelsBuilder.Umbraco;
 
 namespace Umbraco.Web.PublishedContentModels
 {
-	// Mixin content Type 1526 with alias "navigationBase"
-	/// <summary>Navigation Base</summary>
-	public partial interface INavigationBase : IPublishedContent
-	{
-		/// <summary>Keywords</summary>
-		IEnumerable<string> Keywords { get; }
-
-		/// <summary>Description</summary>
-		string SeoMetaDescription { get; }
-
-		/// <summary>Hide in Navigation</summary>
-		bool UmbracoNavihide { get; }
-	}
-
-	/// <summary>Navigation Base</summary>
-	[PublishedContentModel("navigationBase")]
-	public partial class NavigationBase : PublishedContentModel, INavigationBase
+	/// <summary>Home Page</summary>
+	[PublishedContentModel("homePage")]
+	public partial class HomePage : PublishedContentModel, IContentBase, INavigationBase, IPageMetaData
 	{
 #pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "navigationBase";
+		public new const string ModelTypeAlias = "homePage";
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 #pragma warning restore 0109
 
-		public NavigationBase(IPublishedContent content)
+		public HomePage(IPublishedContent content)
 			: base(content)
 		{ }
 
@@ -54,9 +40,27 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 #pragma warning restore 0109
 
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NavigationBase, TValue>> selector)
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HomePage, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Content
+		///</summary>
+		[ImplementPropertyType("bodyText")]
+		public string BodyText
+		{
+			get { return Umbraco.Web.PublishedContentModels.ContentBase.GetBodyText(this); }
+		}
+
+		///<summary>
+		/// Page Title: The title of the page, this is also the first text in a google search result. The ideal length is between 40 and 60 characters
+		///</summary>
+		[ImplementPropertyType("pageTitle")]
+		public string PageTitle
+		{
+			get { return Umbraco.Web.PublishedContentModels.ContentBase.GetPageTitle(this); }
 		}
 
 		///<summary>
@@ -65,11 +69,8 @@ namespace Umbraco.Web.PublishedContentModels
 		[ImplementPropertyType("keywords")]
 		public IEnumerable<string> Keywords
 		{
-			get { return GetKeywords(this); }
+			get { return Umbraco.Web.PublishedContentModels.NavigationBase.GetKeywords(this); }
 		}
-
-		/// <summary>Static getter for Keywords</summary>
-		public static IEnumerable<string> GetKeywords(INavigationBase that) { return that.GetPropertyValue<IEnumerable<string>>("keywords"); }
 
 		///<summary>
 		/// Description: A brief description of the content on your page. This text is shown below the title in a google search result and also used for Social Sharing Cards. The ideal length is between 130
@@ -77,11 +78,8 @@ namespace Umbraco.Web.PublishedContentModels
 		[ImplementPropertyType("seoMetaDescription")]
 		public string SeoMetaDescription
 		{
-			get { return GetSeoMetaDescription(this); }
+			get { return Umbraco.Web.PublishedContentModels.NavigationBase.GetSeoMetaDescription(this); }
 		}
-
-		/// <summary>Static getter for Description</summary>
-		public static string GetSeoMetaDescription(INavigationBase that) { return that.GetPropertyValue<string>("seoMetaDescription"); }
 
 		///<summary>
 		/// Hide in Navigation: If you don't want this page to appear in the navigation, check this box
@@ -89,10 +87,7 @@ namespace Umbraco.Web.PublishedContentModels
 		[ImplementPropertyType("umbracoNavihide")]
 		public bool UmbracoNavihide
 		{
-			get { return GetUmbracoNavihide(this); }
+			get { return Umbraco.Web.PublishedContentModels.NavigationBase.GetUmbracoNavihide(this); }
 		}
-
-		/// <summary>Static getter for Hide in Navigation</summary>
-		public static bool GetUmbracoNavihide(INavigationBase that) { return that.GetPropertyValue<bool>("umbracoNavihide"); }
 	}
 }

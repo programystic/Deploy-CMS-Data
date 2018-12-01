@@ -12,7 +12,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         [Test]
         public static void DefaultGridView()
         {
-            var builder = new GridDataTypeTestBuilder()
+            var builder = new GridDataTypeTestBuilder(Guid.NewGuid())
                 .Build();
 
             var gridDataType = builder
@@ -29,7 +29,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         [Test]
         public static void GridViewStandardLayouts()
         {
-            var builder = new GridDataTypeTestBuilder()
+            var builder = new GridDataTypeTestBuilder(Guid.NewGuid())
                 .Build();
 
             var gridDataType = builder
@@ -46,7 +46,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         [Test]
         public static void GridViewLayouts()
         {
-            var builder = new GridDataTypeTestBuilder()
+            var builder = new GridDataTypeTestBuilder(Guid.NewGuid())
                 .Build();
 
             var gridDataType = builder
@@ -72,12 +72,11 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         {
             var key = Guid.Parse("{7829562A-1C09-4E62-B0B5-A80E2542DDF7}");
 
-            var builder = new GridDataTypeTestBuilder()
+            var builder = new GridDataTypeTestBuilder(key)
                 .Build();
 
             var gridDataType = builder
                 .Name("My New Grid View")
-                .Key(key)
                 .Build();
 
             Assert.AreEqual(key, gridDataType.Key);
