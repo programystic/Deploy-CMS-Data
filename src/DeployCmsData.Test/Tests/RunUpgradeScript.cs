@@ -24,7 +24,7 @@ namespace DeployCmsData.UnitTest.Tests
                 .AddScript(typeof(ReturnsTrue))
                 .Build();
 
-            System.Collections.Generic.IEnumerable<IUpgradeScript> scripts = scriptManager.GetAllScripts();
+            var scripts = scriptManager.Scripts;
 
             Assert.AreEqual(1, scripts.Count());
         }

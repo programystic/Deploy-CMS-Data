@@ -5,9 +5,12 @@ using DeployCmsData.Core.Interfaces;
 
 namespace DeployCmsData.Core.Data
 {
-    public class UpgradeScriptRepository : IUpgradeScriptRepository
+    public sealed class UpgradeScriptRepository : IUpgradeScriptRepository
     {
         IEnumerable<Type> IUpgradeScriptRepository.GetTypes =>
+            GetTypes;
+
+        public static IEnumerable<Type> GetTypes =>
             AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes());
     }
 }

@@ -20,7 +20,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 UpgradeScriptName = "My Script Name"
             };
 
-            var umbracoUpgradeLog = new UmbracoCms.Models.UmbracoUpgradeLog(log);
+            var umbracoUpgradeLog = new Models.UmbracoUpgradeLog(log);
 
             Assert.AreEqual(log.Id, umbracoUpgradeLog.Id);
             Assert.AreEqual(log.Exception, umbracoUpgradeLog.Exception);

@@ -12,8 +12,8 @@ namespace DeployCmsData.Core.Services
 {
     public sealed class UpgradeScriptManager
     {
-        public readonly IUpgradeLogRepository LogDataStore;
-        public readonly IUpgradeScriptRepository UpgradeScriptRepository;
+        public IUpgradeLogRepository LogDataStore { get; }
+        public IUpgradeScriptRepository UpgradeScriptRepository { get; }
 
         public UpgradeScriptManager(IUpgradeLogRepository logDataStore, IUpgradeScriptRepository upgradeScriptRepository)
         {
@@ -94,7 +94,7 @@ namespace DeployCmsData.Core.Services
             return !ScriptHasAttribute<RunScriptEveryTimeAttribute>(upgradeScript);
         }
 
-        private bool ScriptHasAttribute<T>(IUpgradeScript upgradeScript)
+        private static bool ScriptHasAttribute<T>(IUpgradeScript upgradeScript)
         {
             IEnumerable<T> attributes = TypeDescriptor
                 .GetAttributes(upgradeScript)
@@ -117,7 +117,7 @@ namespace DeployCmsData.Core.Services
         {
             int scriptRunCount = 0;
 
-            foreach (IUpgradeScript script in GetAllScripts())
+            foreach (IUpgradeScript script in Scripts)
             {
                 IUpgradeLog result = RunScriptIfNeeded(script);
                 if (result != null && result.Success)
@@ -129,27 +129,30 @@ namespace DeployCmsData.Core.Services
             return scriptRunCount;
         }
 
-        public IEnumerable<IUpgradeScript> GetAllScripts()
+        public IEnumerable<IUpgradeScript> Scripts
         {
-            List<IUpgradeScript> scripts = new List<IUpgradeScript>();
-            Type type = typeof(IUpgradeScript);
-
-            List<Type> types = UpgradeScriptRepository
-                .GetTypes
-                .Where(p => type.IsAssignableFrom(p) && !p.IsAbstract)
-                .OrderBy(x => x.Name)
-                .ToList();
-
-            foreach (Type scriptType in types)
+            get
             {
-                IUpgradeScript script = (IUpgradeScript)Activator.CreateInstance(scriptType);
-                if (!ScriptHasAttribute<DoNotAutoRunAttribute>(script))
-                {
-                    scripts.Add(script);
-                }
-            }
+                List<IUpgradeScript> scripts = new List<IUpgradeScript>();
+                Type type = typeof(IUpgradeScript);
 
-            return scripts;
+                List<Type> types = UpgradeScriptRepository
+                    .GetTypes
+                    .Where(p => type.IsAssignableFrom(p) && !p.IsAbstract)
+                    .OrderBy(x => x.Name)
+                    .ToList();
+
+                foreach (Type scriptType in types)
+                {
+                    IUpgradeScript script = (IUpgradeScript)Activator.CreateInstance(scriptType);
+                    if (!ScriptHasAttribute<DoNotAutoRunAttribute>(script))
+                    {
+                        scripts.Add(script);
+                    }
+                }
+
+                return scripts;
+            }
         }
     }
 }
