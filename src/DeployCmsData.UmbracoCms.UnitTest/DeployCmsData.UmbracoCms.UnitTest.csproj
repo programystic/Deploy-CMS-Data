@@ -241,6 +241,7 @@
     <Compile Include="Tests\CreateNewGridDataType.cs" />
     <Compile Include="Tests\CreateNewProperties.cs" />
     <Compile Include="Tests\DeleteDocumentType.cs" />
+    <Compile Include="Tests\MultiNodeTreePicker.cs" />
     <Compile Include="Tests\UmbracoUpgradeLog.cs" />
   </ItemGroup>
   <ItemGroup>

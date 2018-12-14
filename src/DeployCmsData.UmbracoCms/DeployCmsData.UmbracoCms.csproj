@@ -214,6 +214,7 @@
     <Compile Include="Builders\DataTypeBuilder.cs" />
     <Compile Include="Builders\DocumentTypeBuilder.cs" />
     <Compile Include="Builders\DocumentTypeFolderBuilder.cs" />
+    <Compile Include="Builders\MultiNodeTreePickerBuilder.cs" />
     <Compile Include="Builders\PropertyBuilder.cs" />
     <Compile Include="Builders\GridDataTypeBuilder.cs" />
     <Compile Include="Constants\AppSettings.cs" />

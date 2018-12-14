@@ -10,16 +10,18 @@ using ProperyEditors = Umbraco.Core.Constants.PropertyEditors;
 
 namespace DeployCmsData.UmbracoCms.Builders
 {
-    public class GridDataTypeBuilder : DataTypeBuilder
+    public class GridDataTypeBuilder
     {
         public const string PreValueItemsName = "items";
         public const string PreValueRteName = "rte";
 
         public GridItemsPreValue GridItemsPreValue { get; set; }
         public GridRtePreValue GridRtePreValue { get; set; }
+
         IDataTypeService DataTypeService { get; set; }
         string NameValue { get; set; }
         Guid KeyValue { get; set; }
+        DataTypeBuilder _dataTypeBuilder;
 
         public GridDataTypeBuilder(Guid key)
         {
@@ -35,6 +37,7 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public void Setup(IDataTypeService dataTypeService)
         {
+            _dataTypeBuilder = new DataTypeBuilder();
             DataTypeService = dataTypeService;
             GridItemsPreValue = new GridItemsPreValue();
             GridRtePreValue = new GridRtePreValue();
@@ -67,12 +70,6 @@ namespace DeployCmsData.UmbracoCms.Builders
             NameValue = name;
             return this;
         }
-
-        //public GridDataTypeBuilder Key(Guid key)
-        //{
-        //    KeyValue = key;
-        //    return this;
-        //}
 
         public GridDataTypeBuilder AddLayout(string layoutName, params int[] gridColumns)
         {
@@ -147,13 +144,13 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public GridDataTypeBuilder DeleteGrid(string gridName)
         {
-            DeleteDataTypeByName(gridName, DataTypeService);
+            _dataTypeBuilder.DeleteDataTypeByName(gridName, DataTypeService);
             return this;
         }
 
         public void DeleteGrid(Guid id)
         {
-            DeleteDataTypeById(id, DataTypeService);
+            _dataTypeBuilder.DeleteDataTypeById(id, DataTypeService);
         }
 
         public void BuildInFolder(string folderName)

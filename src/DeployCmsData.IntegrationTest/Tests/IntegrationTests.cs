@@ -3,7 +3,7 @@ using RestSharp;
 
 namespace DeployCmsData.IntegrationTest.Tests
 {
-    [TestFixture, Explicit]
+    [TestFixture]
     class IntegrationTests
     {
         [TestCase("ClearTheDecks")]
@@ -13,6 +13,7 @@ namespace DeployCmsData.IntegrationTest.Tests
         [TestCase("BuildHomePage")]
         [TestCase("BuildWebsite")]
         [TestCase("CreateContent")]
+        [TestCase("MultiNodeTreePicker")]
         public void CallUpgradeScriptApi(string apiMethodName)
         {
             Assert.IsTrue(GetResponse1(apiMethodName));
