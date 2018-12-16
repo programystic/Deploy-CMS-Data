@@ -227,8 +227,10 @@
     <Compile Include="Data\UpgradeLogRepository.cs" />
     <Compile Include="Models\GridItemsPreValue.cs" />
     <Compile Include="Models\GridRtePreValue.cs" />
+    <Compile Include="Models\MultiNodeTreePickerStartNodePreValue.cs" />
     <Compile Include="Models\UmbracoUpgradeLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\JsonHelper.cs" />
     <Compile Include="Services\UmbracoLibrary.cs" />
     <Compile Include="Interfaces\IContentPropertiesService.cs" />
     <Compile Include="Interfaces\IUmbracoFactory.cs" />

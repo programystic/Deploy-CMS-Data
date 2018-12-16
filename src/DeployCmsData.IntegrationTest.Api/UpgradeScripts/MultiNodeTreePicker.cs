@@ -18,11 +18,11 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
 
             builder
                 .Name("Another Multi Node Tree Picker")
-                .NodeType(UmbracoCms.Constants.MultiNodeTreePickerNodeType.Content)
                 .AllowItemsOfType("type1", "type2")
                 .MinimumNumberOfItems(1)
                 .MaximumNumberOfItems(5)
                 .ShowOpenButton()
+                //.StartNodeContent(1234)
                 .Build();
 
             return true;

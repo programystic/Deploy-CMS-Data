@@ -32,11 +32,4 @@
         SmallRichTextEditor,
         Accordian
     }
-
-    public enum MultiNodeTreePickerNodeType
-    {
-        Content,
-        Media,
-        Members
-    }
 }

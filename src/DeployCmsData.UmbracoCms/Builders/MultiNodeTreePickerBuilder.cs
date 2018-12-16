@@ -1,5 +1,7 @@
 ﻿using System;
-using DeployCmsData.UmbracoCms.Constants;
+using System.Collections.Generic;
+using DeployCmsData.UmbracoCms.Models;
+using DeployCmsData.UmbracoCms.Services;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
@@ -7,42 +9,58 @@ using ProperyEditors = Umbraco.Core.Constants.PropertyEditors;
 
 namespace DeployCmsData.UmbracoCms.Builders
 {
+    public enum StartNodeType
+    {
+        Content,
+        Media,
+        Member
+    }
+
     public class MultiNodeTreePickerBuilder
     {
-        private IDataTypeService DataTypeService { get; set; }
+        private IDataTypeService _dataTypeService;
+        private IContentService _contentService;
+        private IMediaService _mediaService;
+
         private string NameValue { get; set; }
         private Guid KeyValue { get; set; }
         private string[] _filter;
         private int _minimumItems;
         private int _maximumItems;
         private bool _showOpenButton;
+        private MultiNodeTreePickerStartNodePreValue _startNodepreValue;
+
+        public const string PreValueFilter = "filter";
+        public const string PreValueMinNumber = "minNumber";
+        public const string PreValueMaxNumber = "maxNumber";
+        public const string PreValueShowOpenButton = "showOpenButton";
+        public const string PreValueStartNode = "startNode";
 
         public MultiNodeTreePickerBuilder(Guid key)
         {
-            Setup(UmbracoContext.Current.Application.Services.DataTypeService);
+            _dataTypeService = UmbracoContext.Current.Application.Services.DataTypeService;
+            _contentService = UmbracoContext.Current.Application.Services.ContentService;
+            _mediaService = UmbracoContext.Current.Application.Services.MediaService;
             KeyValue = key;
+            _startNodepreValue = new MultiNodeTreePickerStartNodePreValue() { Type = nameof(StartNodeType.Content).ToLower() };
         }
 
-        public MultiNodeTreePickerBuilder(IDataTypeService dataTypeService, Guid key)
+        public MultiNodeTreePickerBuilder(
+            IDataTypeService dataTypeService,
+            IContentService contentService,
+            IMediaService mediaService,
+            IMemberService memberService,
+            Guid key)
         {
-            Setup(dataTypeService);
+            _dataTypeService = dataTypeService;
+            _contentService = contentService;
+            _mediaService = mediaService;
             KeyValue = key;
-        }
-
-        public void Setup(IDataTypeService dataTypeService)
-        {
-            DataTypeService = dataTypeService;
-            KeyValue = Guid.Empty;
         }
 
         public MultiNodeTreePickerBuilder Name(string name)
         {
             NameValue = name;
-            return this;
-        }
-
-        public MultiNodeTreePickerBuilder NodeType(MultiNodeTreePickerNodeType nodeTye)
-        {
             return this;
         }
 
@@ -76,9 +94,69 @@ namespace DeployCmsData.UmbracoCms.Builders
             return this;
         }
 
+        public MultiNodeTreePickerBuilder StartNodeContent(string contentId)
+        {
+            if (!int.TryParse(contentId, out int id))
+            {
+                throw new ArgumentException($"This isn't a valid a valid integer - {contentId}", nameof(contentId));
+            }
+
+            return StartNodeContent(id);
+        }
+
+        public MultiNodeTreePickerBuilder StartNodeContent(int contentId)
+        {
+            return StartNodeContent(_contentService.GetById(contentId).Key);
+        }
+
+        public MultiNodeTreePickerBuilder StartNodeContent(Guid contentId)
+        {
+            _startNodepreValue = new MultiNodeTreePickerStartNodePreValue()
+            {
+                Type = nameof(StartNodeType.Content).ToLower(),
+                Query = $"umb://document/{contentId}"
+            };
+            return this;
+        }
+
+        public MultiNodeTreePickerBuilder StartNodeMedia(string mediaId)
+        {
+            if (!int.TryParse(mediaId, out int id))
+            {
+                throw new ArgumentException($"This isn't a valid a valid integer - {mediaId}", nameof(mediaId));
+            }
+
+            return StartNodeMedia(id);
+        }
+
+        public MultiNodeTreePickerBuilder StartNodeMedia(int mediaId)
+        {
+            return StartNodeMedia(_mediaService.GetById(mediaId).Key);
+        }
+
+        public MultiNodeTreePickerBuilder StartNodeMedia(Guid mediaId)
+        {
+            _startNodepreValue = new MultiNodeTreePickerStartNodePreValue()
+            {
+                Type = nameof(StartNodeType.Media).ToLower(),
+                Query = $"umb://media/{mediaId}"
+            };
+            return this;
+        }
+
+        public MultiNodeTreePickerBuilder StartNodeMember()
+        {
+            _startNodepreValue = new MultiNodeTreePickerStartNodePreValue()
+            {
+                Type = nameof(StartNodeType.Member).ToLower(),
+                Id = "-1"
+            };
+            return this;
+        }
+
         public IDataTypeDefinition Build()
         {
-            var preValues = new System.Collections.Generic.Dictionary<string, PreValue>();
+            var preValues = new Dictionary<string, PreValue>();
 
             var newGridDataType = new DataTypeDefinition(-1, ProperyEditors.MultiNodeTreePicker2Alias)
             {
@@ -90,21 +168,13 @@ namespace DeployCmsData.UmbracoCms.Builders
                 newGridDataType.Key = KeyValue;
             }
 
-            preValues.Add("filter", new PreValue(string.Join(",", _filter)));
-            preValues.Add("minNumber", new PreValue(_minimumItems.ToString()));
-            preValues.Add("maxNumber", new PreValue(_maximumItems.ToString()));
-            preValues.Add("showOpenButton", new PreValue(_showOpenButton ? "1" : "0"));
-
-            // Content
-            // startNode / {"type": "content",  "id": "umb://document/c9fb075f50b64460bcf79459eb7893bf"}             
-
-            // Media
-            // startNode / {"type": "media",  "id": "umb://media/c30d8961adc64078a051a0b555c96465"}
-
-            // Member
-            // startNode / {"type": "member",  "id": -1,  "query": ""}
-
-            DataTypeService.SaveDataTypeAndPreValues(newGridDataType, preValues);
+            preValues.Add(PreValueStartNode, new PreValue(JsonHelper.SerializePreValueObject(_startNodepreValue)));
+            preValues.Add(PreValueFilter, new PreValue(string.Join(",", _filter)));
+            preValues.Add(PreValueMinNumber, new PreValue(_minimumItems.ToString()));
+            preValues.Add(PreValueMaxNumber, new PreValue(_maximumItems.ToString()));
+            preValues.Add(PreValueShowOpenButton, new PreValue(_showOpenButton ? "1" : "0"));
+            
+            _dataTypeService.SaveDataTypeAndPreValues(newGridDataType, preValues);
 
             return newGridDataType;
         }

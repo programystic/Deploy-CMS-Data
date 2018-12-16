@@ -3,7 +3,7 @@ using RestSharp;
 
 namespace DeployCmsData.IntegrationTest.Tests
 {
-    [TestFixture]
+    [TestFixture, Explicit]
     class IntegrationTests
     {
         [TestCase("ClearTheDecks")]

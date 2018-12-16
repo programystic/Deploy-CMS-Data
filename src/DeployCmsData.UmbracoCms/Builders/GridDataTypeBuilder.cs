@@ -1,7 +1,6 @@
 ﻿using System;
 using DeployCmsData.UmbracoCms.Models;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using DeployCmsData.UmbracoCms.Services;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
@@ -18,10 +17,11 @@ namespace DeployCmsData.UmbracoCms.Builders
         public GridItemsPreValue GridItemsPreValue { get; set; }
         public GridRtePreValue GridRtePreValue { get; set; }
 
-        IDataTypeService DataTypeService { get; set; }
-        string NameValue { get; set; }
-        Guid KeyValue { get; set; }
-        DataTypeBuilder _dataTypeBuilder;
+        private IDataTypeService DataTypeService { get; set; }
+        private string NameValue { get; set; }
+        private Guid KeyValue { get; set; }
+
+        private DataTypeBuilder _dataTypeBuilder;
 
         public GridDataTypeBuilder(Guid key)
         {
@@ -79,7 +79,9 @@ namespace DeployCmsData.UmbracoCms.Builders
             };
 
             foreach (var column in gridColumns)
+            {
                 template.Sections.Add(new Models.Section(column));
+            }
 
             GridItemsPreValue.Layouts.Add(template);
 
@@ -95,7 +97,9 @@ namespace DeployCmsData.UmbracoCms.Builders
             };
 
             foreach (var area in areas)
+            {
                 layout.Areas.Add(new Area(area));
+            }
 
             return this;
         }
@@ -164,30 +168,21 @@ namespace DeployCmsData.UmbracoCms.Builders
             {
                 Name = NameValue
             };
-            if (KeyValue != Guid.Empty) newGridDataType.Key = KeyValue;
 
-            var itemsJson = SerializeObject(GridItemsPreValue);
-            var rteJson = SerializeObject(GridRtePreValue);
+            if (KeyValue != Guid.Empty)
+            {
+                newGridDataType.Key = KeyValue;
+            }
 
             var preValues = new System.Collections.Generic.Dictionary<string, PreValue>
             {
-                { PreValueItemsName, new PreValue(itemsJson) },
-                { PreValueRteName, new PreValue(rteJson) }
+                { PreValueItemsName, new PreValue(JsonHelper.SerializePreValueObject(GridItemsPreValue)) },
+                { PreValueRteName, new PreValue(JsonHelper.SerializePreValueObject(GridRtePreValue)) }
             };
 
             DataTypeService.SaveDataTypeAndPreValues(newGridDataType, preValues);
 
             return newGridDataType;
-        }
-
-        private string SerializeObject(object value)
-        {
-            var serializerSettings = new JsonSerializerSettings
-            {
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
-            };
-
-            return JsonConvert.SerializeObject(value, serializerSettings);
         }
     }
 }
