@@ -18,10 +18,17 @@ namespace DeployCmsData.UmbracoCms.Builders
 
     public class MultiNodeTreePickerBuilder
     {
+        public const string PreValueFilter = "filter";
+        public const string PreValueMinNumber = "minNumber";
+        public const string PreValueMaxNumber = "maxNumber";
+        public const string PreValueShowOpenButton = "showOpenButton";
+        public const string PreValueStartNode = "startNode";
+
+        public Dictionary<string, PreValue> PreValues { get; }
+
         private IDataTypeService _dataTypeService;
         private IContentService _contentService;
         private IMediaService _mediaService;
-
         private string NameValue { get; set; }
         private Guid KeyValue { get; set; }
         private string[] _filter;
@@ -30,12 +37,6 @@ namespace DeployCmsData.UmbracoCms.Builders
         private bool _showOpenButton;
         private MultiNodeTreePickerStartNodePreValue _startNodepreValue;
 
-        public const string PreValueFilter = "filter";
-        public const string PreValueMinNumber = "minNumber";
-        public const string PreValueMaxNumber = "maxNumber";
-        public const string PreValueShowOpenButton = "showOpenButton";
-        public const string PreValueStartNode = "startNode";
-
         public MultiNodeTreePickerBuilder(Guid key)
         {
             _dataTypeService = UmbracoContext.Current.Application.Services.DataTypeService;
@@ -43,19 +44,21 @@ namespace DeployCmsData.UmbracoCms.Builders
             _mediaService = UmbracoContext.Current.Application.Services.MediaService;
             KeyValue = key;
             _startNodepreValue = new MultiNodeTreePickerStartNodePreValue() { Type = nameof(StartNodeType.Content).ToLower() };
+            PreValues = new Dictionary<string, PreValue>();
         }
 
         public MultiNodeTreePickerBuilder(
             IDataTypeService dataTypeService,
             IContentService contentService,
             IMediaService mediaService,
-            IMemberService memberService,
             Guid key)
         {
             _dataTypeService = dataTypeService;
             _contentService = contentService;
             _mediaService = mediaService;
             KeyValue = key;
+            _startNodepreValue = new MultiNodeTreePickerStartNodePreValue() { Type = nameof(StartNodeType.Content).ToLower() };
+            PreValues = new Dictionary<string, PreValue>();
         }
 
         public MultiNodeTreePickerBuilder Name(string name)
@@ -156,8 +159,6 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public IDataTypeDefinition Build()
         {
-            var preValues = new Dictionary<string, PreValue>();
-
             var newGridDataType = new DataTypeDefinition(-1, ProperyEditors.MultiNodeTreePicker2Alias)
             {
                 Name = NameValue
@@ -168,13 +169,13 @@ namespace DeployCmsData.UmbracoCms.Builders
                 newGridDataType.Key = KeyValue;
             }
 
-            preValues.Add(PreValueStartNode, new PreValue(JsonHelper.SerializePreValueObject(_startNodepreValue)));
-            preValues.Add(PreValueFilter, new PreValue(string.Join(",", _filter)));
-            preValues.Add(PreValueMinNumber, new PreValue(_minimumItems.ToString()));
-            preValues.Add(PreValueMaxNumber, new PreValue(_maximumItems.ToString()));
-            preValues.Add(PreValueShowOpenButton, new PreValue(_showOpenButton ? "1" : "0"));
+            PreValues.Add(PreValueStartNode, new PreValue(JsonHelper.SerializePreValueObject(_startNodepreValue)));
+            PreValues.Add(PreValueFilter, new PreValue(string.Join(",", _filter)));
+            PreValues.Add(PreValueMinNumber, new PreValue(_minimumItems.ToString()));
+            PreValues.Add(PreValueMaxNumber, new PreValue(_maximumItems.ToString()));
+            PreValues.Add(PreValueShowOpenButton, new PreValue(_showOpenButton ? "1" : "0"));
             
-            _dataTypeService.SaveDataTypeAndPreValues(newGridDataType, preValues);
+            _dataTypeService.SaveDataTypeAndPreValues(newGridDataType, PreValues);
 
             return newGridDataType;
         }

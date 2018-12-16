@@ -1,11 +1,9 @@
 ﻿using System;
 using DeployCmsData.UmbracoCms.Builders;
-using DeployCmsData.UmbracoCms.UnitTest.Builders;
 using Moq;
 using NUnit.Framework;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
-using Umbraco.Web;
 
 namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 {
@@ -21,17 +19,15 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var content = new Mock<IContent>();
             content.Setup(x => x.Key).Returns(contentGuid);
 
-            var memberService = new Mock<IMemberService>();
             var mediaService = new Mock<IMediaService>();
             var dataTypeService = new Mock<IDataTypeService>();
             var contentService = new Mock<IContentService>();
             contentService.Setup(x => x.GetById(contentId)).Returns(content.Object);
 
             var builder = new MultiNodeTreePickerBuilder(
-                dataTypeService.Object, 
-                contentService.Object, 
-                mediaService.Object, 
-                memberService.Object, 
+                dataTypeService.Object,
+                contentService.Object,
+                mediaService.Object,
                 Guid.NewGuid());
 
             var dataType = builder
@@ -43,7 +39,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .ShowOpenButton()
                 .Build();
 
-            var xyz = dataType.AdditionalData;
+            // TODO: Assert builder.PreValues
         }
     }
 }
