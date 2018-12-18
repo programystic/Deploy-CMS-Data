@@ -225,6 +225,7 @@
     <Compile Include="Constants\Umbraco.cs" />
     <Compile Include="Data\RepositoryConfiguration.cs" />
     <Compile Include="Data\UpgradeLogRepository.cs" />
+    <Compile Include="Enums\StartNodeType.cs" />
     <Compile Include="Models\GridItemsPreValue.cs" />
     <Compile Include="Models\GridRtePreValue.cs" />
     <Compile Include="Models\MultiNodeTreePickerStartNodePreValue.cs" />

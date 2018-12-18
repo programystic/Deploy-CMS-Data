@@ -9,13 +9,6 @@ using ProperyEditors = Umbraco.Core.Constants.PropertyEditors;
 
 namespace DeployCmsData.UmbracoCms.Builders
 {
-    public enum StartNodeType
-    {
-        Content,
-        Media,
-        Member
-    }
-
     public class MultiNodeTreePickerBuilder
     {
         public const string PreValueFilter = "filter";
@@ -43,7 +36,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             _contentService = UmbracoContext.Current.Application.Services.ContentService;
             _mediaService = UmbracoContext.Current.Application.Services.MediaService;
             KeyValue = key;
-            _startNodepreValue = new MultiNodeTreePickerStartNodePreValue() { Type = nameof(StartNodeType.Content).ToLower() };
+            _startNodepreValue = new MultiNodeTreePickerStartNodePreValue() { Type = Enums.StartNodeType.Content };
             PreValues = new Dictionary<string, PreValue>();
         }
 
@@ -57,7 +50,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             _contentService = contentService;
             _mediaService = mediaService;
             KeyValue = key;
-            _startNodepreValue = new MultiNodeTreePickerStartNodePreValue() { Type = nameof(StartNodeType.Content).ToLower() };
+            _startNodepreValue = new MultiNodeTreePickerStartNodePreValue() { Type = Enums.StartNodeType.Content };
             PreValues = new Dictionary<string, PreValue>();
         }
 
@@ -116,8 +109,18 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             _startNodepreValue = new MultiNodeTreePickerStartNodePreValue()
             {
-                Type = nameof(StartNodeType.Content).ToLower(),
+                Type = Enums.StartNodeType.Content,
                 Query = $"umb://document/{contentId}"
+            };
+            return this;
+        }
+
+        public MultiNodeTreePickerBuilder StartNodeXPath(string xPath)
+        {
+            _startNodepreValue = new MultiNodeTreePickerStartNodePreValue()
+            {
+                Type = Enums.StartNodeType.Content,
+                Query = xPath
             };
             return this;
         }
@@ -141,7 +144,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             _startNodepreValue = new MultiNodeTreePickerStartNodePreValue()
             {
-                Type = nameof(StartNodeType.Media).ToLower(),
+                Type = Enums.StartNodeType.Media,
                 Query = $"umb://media/{mediaId}"
             };
             return this;
@@ -151,7 +154,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             _startNodepreValue = new MultiNodeTreePickerStartNodePreValue()
             {
-                Type = nameof(StartNodeType.Member).ToLower(),
+                Type = Enums.StartNodeType.Member,
                 Id = "-1"
             };
             return this;
@@ -159,14 +162,17 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public IDataTypeDefinition Build()
         {
-            var newGridDataType = new DataTypeDefinition(-1, ProperyEditors.MultiNodeTreePicker2Alias)
+            var dataType = _dataTypeService.GetDataTypeDefinitionById(KeyValue);
+            if (dataType == null)
             {
-                Name = NameValue
-            };
+                dataType = new DataTypeDefinition(-1, ProperyEditors.MultiNodeTreePicker2Alias);
+            }
+
+            dataType.Name = NameValue;
 
             if (KeyValue != Guid.Empty)
             {
-                newGridDataType.Key = KeyValue;
+                dataType.Key = KeyValue;
             }
 
             PreValues.Add(PreValueStartNode, new PreValue(JsonHelper.SerializePreValueObject(_startNodepreValue)));
@@ -174,10 +180,10 @@ namespace DeployCmsData.UmbracoCms.Builders
             PreValues.Add(PreValueMinNumber, new PreValue(_minimumItems.ToString()));
             PreValues.Add(PreValueMaxNumber, new PreValue(_maximumItems.ToString()));
             PreValues.Add(PreValueShowOpenButton, new PreValue(_showOpenButton ? "1" : "0"));
-            
-            _dataTypeService.SaveDataTypeAndPreValues(newGridDataType, PreValues);
 
-            return newGridDataType;
+            _dataTypeService.SaveDataTypeAndPreValues(dataType, PreValues);
+
+            return dataType;
         }
     }
 }

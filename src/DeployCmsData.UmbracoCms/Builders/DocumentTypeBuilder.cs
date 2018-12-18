@@ -136,6 +136,15 @@ namespace DeployCmsData.UmbracoCms.Builders
             return documentType;
         }
 
+        public IContentType Build()
+        {
+            var documentType = _contentTypeService.GetContentType(_alias);
+            AddNewFields(documentType);
+            _contentTypeService.Save(documentType);
+
+            return documentType;
+        }
+
         private IContentType CreateNewDocumentType(int parentId)
         {
             var documentType = _contentTypeService.GetContentType(_alias);

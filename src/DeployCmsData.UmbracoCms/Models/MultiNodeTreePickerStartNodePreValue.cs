@@ -1,8 +1,10 @@
-﻿namespace DeployCmsData.UmbracoCms.Models
+﻿using DeployCmsData.UmbracoCms.Enums;
+
+namespace DeployCmsData.UmbracoCms.Models
 {
-    internal class MultiNodeTreePickerStartNodePreValue
+    public class MultiNodeTreePickerStartNodePreValue
     {
-        public string Type { get; set; }
+        public StartNodeType Type { get; set; }
         public string Id { get; set; }
         public string Query { get; set; }
     }

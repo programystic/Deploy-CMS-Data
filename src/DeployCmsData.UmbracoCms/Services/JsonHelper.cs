@@ -1,18 +1,25 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 
 namespace DeployCmsData.UmbracoCms.Services
 {
-    static class JsonHelper
+    internal static class JsonHelper
     {
         public static string SerializePreValueObject(object value)
         {
             var serializerSettings = new JsonSerializerSettings
             {
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
+                ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                Converters = new List<JsonConverter> { new StringEnumConverter { CamelCaseText = true } },
+                NullValueHandling = NullValueHandling.Ignore,
+
             };
 
-            return JsonConvert.SerializeObject(value, serializerSettings);
+            var jsonString = JsonConvert.SerializeObject(value, serializerSettings);
+
+            return jsonString;
         }
     }
 }

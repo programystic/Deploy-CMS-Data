@@ -245,6 +245,7 @@
     <Compile Include="Tests\DeleteDocumentType.cs" />
     <Compile Include="Tests\MultiNodeTreePicker.cs" />
     <Compile Include="Tests\UmbracoUpgradeLog.cs" />
+    <Compile Include="Tests\UpdateDocumentType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DeployCmsData.Core\DeployCmsData.Core.csproj">
