@@ -17,7 +17,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
         public Mock<IUmbracoFactory> UmbracoFactory { get; }
         public Mock<IContentType> ContentType = new Mock<IContentType>();
 
-        public DocumentTypeTestBuilder()
+        public DocumentTypeTestBuilder(string alias)
         {
             UmbracoFactory = new Mock<IUmbracoFactory>();
             _contentTypeService = new Mock<IContentTypeService>();
@@ -26,7 +26,8 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
             _documentTypeBuilder = new DocumentTypeBuilder(
                 _contentTypeService.Object,
                 UmbracoFactory.Object,
-                _dataTypeService.Object);
+                _dataTypeService.Object,
+                alias);
 
             var dataTypeDefinition = new Mock<IDataTypeDefinition>();
             var propertyType = new Mock<PropertyType>(dataTypeDefinition.Object);

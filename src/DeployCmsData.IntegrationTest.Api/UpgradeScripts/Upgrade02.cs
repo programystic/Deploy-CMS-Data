@@ -18,10 +18,9 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
 
         public void BuildContentBase()
         {
-            var builder = new DocumentTypeBuilder();
+            var builder = new DocumentTypeBuilder("contentBase");
 
             builder
-                .Alias("contentBase")
                 .Name("Content Base")
                 .Icon(Icons.Document);
 
@@ -40,10 +39,9 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
 
         public void BuildNavigationBase()
         {
-            var builder = new DocumentTypeBuilder();
+            var builder = new DocumentTypeBuilder("navigationBase");
 
             builder
-                .Alias("navigationBase")
                 .Name("Navigation Base")
                 .Icon(Icons.Nodes);
 

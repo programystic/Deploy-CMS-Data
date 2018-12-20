@@ -14,21 +14,21 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         [Test]
         public static void DeleteDocumentTypeFailsWhenItDoesNotExist()
         {
-            var builder = new DocumentTypeTestBuilder()
+            var builder = new DocumentTypeTestBuilder(Alias)
                 .Build();
 
             Assert.Throws<ArgumentException>(
-                () => builder.DeleteDocumentType(Alias));
+                () => builder.DeleteDocumentType());
         }
 
         [Test]
         public static void DeleteExistingDocumentType()
         {
-            var builder = new DocumentTypeTestBuilder()
+            var builder = new DocumentTypeTestBuilder(Alias)
                 .ReturnsExistingContentType(Alias)
                 .Build();
 
-            builder.DeleteDocumentType(Alias);
+            builder.DeleteDocumentType();
         }
 
         [Test]

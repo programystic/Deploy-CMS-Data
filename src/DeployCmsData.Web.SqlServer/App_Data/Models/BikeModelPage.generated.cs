@@ -21,11 +21,11 @@ using Umbraco.ModelsBuilder.Umbraco;
 namespace Umbraco.Web.PublishedContentModels
 {
 	/// <summary>bike Model Page</summary>
-	[PublishedContentModel("BikeModelPage")]
+	[PublishedContentModel("bikeModelPage")]
 	public partial class BikeModelPage : PublishedContentModel
 	{
 #pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "BikeModelPage";
+		public new const string ModelTypeAlias = "bikeModelPage";
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 #pragma warning restore 0109
 

@@ -21,11 +21,10 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         [Test]
         public static void CreateWithInvalidParent()
         {
-            var builder = new DocumentTypeTestBuilder().Build();
+            var builder = new DocumentTypeTestBuilder(Alias).Build();
 
             Assert.Throws<ArgumentException>(
                 () => builder
-                    .Alias(Alias)
                     .Icon(Icon)
                     .Name(Name)
                     .Description(Description)
@@ -35,13 +34,12 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         [Test]
         public static void CreateWithParent()
         {
-            var builder = new DocumentTypeTestBuilder()
+            var builder = new DocumentTypeTestBuilder(Alias)
                 .ReturnsNewContentType(ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
                 .Build();
 
             var documentType = builder
-                .Alias(Alias)
                 .Icon(Icon)
                 .Name(Name)
                 .Description(Description)
@@ -59,12 +57,11 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         [Test]
         public static void CreateAtRoot()
         {
-            var builder = new DocumentTypeTestBuilder()
-                .ReturnsNewContentType(UmbracoCms.Constants.Umbraco.RootFolder)
+            var builder = new DocumentTypeTestBuilder(Alias)
+                .ReturnsNewContentType(Constants.Umbraco.RootFolder)
                 .Build();
 
             Umbraco.Core.Models.IContentType documentType = builder
-                .Alias(Alias)
                 .Icon(Icon)
                 .Name(Name)
                 .Description(Description)
@@ -82,13 +79,12 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         [Test]
         public static void CreateInFolderWithLevel()
         {
-            var builder = new DocumentTypeTestBuilder()
+            var builder = new DocumentTypeTestBuilder(Alias)
                 .ReturnsNewContentType(ParentFolderId)
                 .ReturnsFolder(ParentFolderName, ParentFolderLevel, ParentFolderId)
                 .Build();
 
             var documentType = builder
-                .Alias(Alias)
                 .Icon(Icon)
                 .Name(Name)
                 .Description(Description)
@@ -106,7 +102,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         [Test]
         public static void CreateInFolderWithNoLevel()
         {
-            var setup = new DocumentTypeTestBuilder();
+            var setup = new DocumentTypeTestBuilder(Alias);
 
             var builder = setup
                 .ReturnsNewContentType(ParentFolderId)
@@ -114,7 +110,6 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .Build();
 
             var folder = builder
-                .Alias(Alias)
                 .Icon(Icon)
                 .Name(Name)
                 .Description(Description)
@@ -138,7 +133,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         [Test]
         public static void SetAllowedChildNodeTypes()
         {
-            var setup = new DocumentTypeTestBuilder();
+            var setup = new DocumentTypeTestBuilder(Alias);
 
             var builder = setup
                 .ReturnsNewContentType(ParentFolderId)
@@ -146,7 +141,6 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .Build();
 
             var folder = builder
-                .Alias(Alias)
                 .Icon(Icon)
                 .Name(Name)
                 .Description(Description)

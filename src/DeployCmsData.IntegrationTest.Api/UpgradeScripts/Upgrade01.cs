@@ -31,9 +31,8 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
 
         public void CreatePageMetaData()
         {
-            var builder = new DocumentTypeBuilder();
+            var builder = new DocumentTypeBuilder("pageMetaData");
             builder
-                .Alias("pageMetaData")
                 .Name("Page Meta Data")
                 .Icon(Icons.MindMap)
                 .BuildInFolder("Compositions");

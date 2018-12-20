@@ -11,10 +11,9 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
     {
         public override bool RunScript(IUpgradeLogRepository upgradeLog)
         {
-            var builder = new DocumentTypeBuilder();
+            var builder = new DocumentTypeBuilder("homePage");
 
             builder
-                .Alias("homePage")
                 .Name("Home Page")
                 .Icon(Icons.Home)
                 .AddComposition("pageMetaData")

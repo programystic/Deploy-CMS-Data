@@ -19,7 +19,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         [Test]
         public static void CreateNewPropertyWithTab()
         {
-            var setup = new DocumentTypeTestBuilder();
+            var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
                 .ReturnsNewContentType(ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
@@ -28,7 +28,6 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .Build();
 
             builder
-                .Alias(Alias)
                 .Icon(Icon)
                 .Name(Name)
                 .Description(Description);
@@ -54,7 +53,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         [Test]
         public static void CreateNewPropertyWithNoTab()
         {
-            var setup = new DocumentTypeTestBuilder();
+            var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
                 .ReturnsNewContentType(ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
@@ -63,7 +62,6 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .Build();
 
             builder
-                .Alias(Alias)
                 .Icon(Icon)
                 .Name(Name)
                 .Description(Description);
@@ -87,7 +85,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         [Test]
         public static void CreateNewPropertyWithDefaults()
         {
-            var setup = new DocumentTypeTestBuilder();
+            var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
                 .ReturnsNewContentType(ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
@@ -96,7 +94,6 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .Build();
 
             builder
-                .Alias(Alias)
                 .Icon(Icon)
                 .Name(Name)
                 .Description(Description);

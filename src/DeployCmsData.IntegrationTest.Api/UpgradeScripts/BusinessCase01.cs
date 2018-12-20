@@ -16,17 +16,15 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
             NewSubTypeBikeSelector();
             NewTabsForBikeModelPage();
 
+            var docType = new DocumentTypeBuilder("myLovelyNewDocumentType").BuildAtRoot();
+            
             return true;
         }
 
         private void CreateBikeModelPage()
         {
-            var builder = new DocumentTypeBuilder();
-            builder
-                .Alias("BikeModelPage")
-                .Name("bike Model Page")
-                .Icon(Icons.Document)
-                .BuildAtRoot();
+            var builder = new DocumentTypeBuilder("bikeModelPage");
+            builder.BuildAtRoot();
         }
 
         private void NewSubTypeBikeSelector()
@@ -43,13 +41,12 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
 
         private void NewTabsForBikeModelPage()
         {
-            var builder = new DocumentTypeBuilder();
-            builder.Alias("bikeModelPage");
+            var builder = new DocumentTypeBuilder("bikeModelPage");
 
             ModelLevelSpecificationTab(builder);
             SubModuleDefinitionTab(builder);
 
-            builder.Build();
+            builder.ReBuild();
         }
 
         private void ModelLevelSpecificationTab(DocumentTypeBuilder builder)
@@ -63,7 +60,7 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
 
             builder.AddField("subTypes")
                 .DataType(BikePickerId)
-                .Tab("Model Level Specification");
+                .Tab(tabName);
         }
 
         private void SubModuleDefinitionTab(DocumentTypeBuilder builder)
@@ -85,6 +82,8 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
                 .DataType(DataType.Richtexteditor)
                 .Tab(tabName);
 
+            builder.AddField("propertyDefaultTest");
+            builder.AddField("propertyDefaultTest");
             builder.AddField("propertyDefaultTest");
         }
     }

@@ -29,36 +29,26 @@ namespace DeployCmsData.UmbracoCms.Builders
         internal readonly IList<ContentTypeSort> AllowedChildNodeTypes = new List<ContentTypeSort>();
         internal readonly IList<IContentTypeComposition> Compositions = new List<IContentTypeComposition>();
 
-        public DocumentTypeBuilder()
+        public DocumentTypeBuilder(string alias)
         {
-            Initialise(UmbracoContext.Current.Application);
-        }
-
-        public DocumentTypeBuilder(ApplicationContext applicationContext)
-        {
-            Initialise(applicationContext);
-        }
-
-        private void Initialise(ApplicationContext applicationContext)
-        {
-            if (applicationContext == null)
-            {
-                throw new ArgumentNullException(nameof(applicationContext));
-            }
+            var applicationContext = UmbracoContext.Current.Application;
 
             _dataTypeService = applicationContext.Services.DataTypeService;
             _contentTypeService = applicationContext.Services.ContentTypeService;
             _factory = new UmbracoFactory(_contentTypeService);
+            _alias = alias;
         }
 
         public DocumentTypeBuilder(
             IContentTypeService contentTypeService,
             IUmbracoFactory factory,
-            IDataTypeService dataTypeService)
+            IDataTypeService dataTypeService,
+            string alias)
         {
             _dataTypeService = dataTypeService;
             _contentTypeService = contentTypeService;
             _factory = factory;
+            _alias = alias;
         }
 
         public IContentType BuildWithParent(string parentAlias)
@@ -134,7 +124,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             return documentType;
         }
 
-        public IContentType Build()
+        public IContentType ReBuild()
         {
             var documentType = _contentTypeService.GetContentType(_alias);
             if (documentType == null)
@@ -173,8 +163,8 @@ namespace DeployCmsData.UmbracoCms.Builders
         private void SetDocumentTypeProperties(IContentType documentType, int parentId)
         {
             documentType.Alias = _alias;
-            documentType.Icon = _icon;
-            documentType.Name = _name;
+            documentType.Icon = string.IsNullOrEmpty(_icon) ? Constants.Icons.Document : _icon;
+            documentType.Name = string.IsNullOrEmpty(_name) ? AliasToName(_alias) : _name;
             documentType.Description = _description;
             documentType.AllowedAsRoot = (parentId == Constants.Umbraco.RootFolder);
             documentType.IsContainer = false;
@@ -214,7 +204,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             {
                 field.NameValue = AliasToName(field.AliasValue);
             }
-            
+
             dataTypeDefinition = _dataTypeService.GetDataTypeDefinitionById(field.DataTypeValue);
 
             if (dataTypeDefinition == null)
@@ -236,7 +226,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             {
                 documentType.AddPropertyType(propertyType, field.TabValue);
             }
-            
+
             return propertyType;
         }
 
@@ -245,21 +235,15 @@ namespace DeployCmsData.UmbracoCms.Builders
             return Regex.Replace(value, "(\\B[A-Z])", " $1").ToFirstUpperInvariant();
         }
 
-        public void DeleteDocumentType(string alias)
+        public void DeleteDocumentType()
         {
-            var documentType = _contentTypeService.GetContentType(alias);
+            var documentType = _contentTypeService.GetContentType(_alias);
             if (documentType == null)
             {
-                throw new ArgumentException(ExceptionMessages.DocumentTypeNotFound + ":" + alias);
+                throw new ArgumentException(ExceptionMessages.DocumentTypeNotFound + ":" + _alias);
             }
 
             _contentTypeService.Delete(documentType);
-        }
-
-        public DocumentTypeBuilder Alias(string documentTypeAlias)
-        {
-            _alias = documentTypeAlias;
-            return this;
         }
 
         public DocumentTypeBuilder Name(string documentTypeName)

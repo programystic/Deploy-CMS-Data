@@ -11,9 +11,8 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
     {
         public override bool RunScript(IUpgradeLogRepository upgradeLog)
         {
-            var builder = new DocumentTypeBuilder();
+            var builder = new DocumentTypeBuilder("websiteRoot");
             builder
-                .Alias("websiteRoot")
                 .Name("Website")
                 .Icon(Icons.Globe)
                 .AddAllowedChildNodeType("homePage")
