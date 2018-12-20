@@ -8,7 +8,7 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
 {
     public class BusinessCase01 : UmbracoUpgradeScript
     {
-        public const string BikePickerName = "SubType Bike Picker";
+        public Guid BikePickerId = new Guid("{77F278EB-9D34-42E4-8C3B-7444BEC29A11}");
 
         public override bool RunScript(IUpgradeLogRepository upgradeLog)
         {
@@ -24,18 +24,17 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
             var builder = new DocumentTypeBuilder();
             builder
                 .Alias("BikeModelPage")
-                .Name("Bike Model Page")
+                .Name("bike Model Page")
                 .Icon(Icons.Document)
                 .BuildAtRoot();
         }
 
         private void NewSubTypeBikeSelector()
         {
-            var id = Guid.Parse("{77F278EB-9D34-42E4-8C3B-7444BEC29A11}");
-            var builder = new MultiNodeTreePickerBuilder(id);
+            var builder = new MultiNodeTreePickerBuilder(BikePickerId);
 
             builder
-                .Name(BikePickerName)
+                .Name("Bike Picker Name")
                 .AllowItemsOfType("BikeModelPage")
                 .ShowOpenButton()
                 .StartNodeXPath("$root/BikeListingPage")
@@ -45,7 +44,7 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
         private void NewTabsForBikeModelPage()
         {
             var builder = new DocumentTypeBuilder();
-            builder.Alias("BikeModelPage");
+            builder.Alias("bikeModelPage");
 
             ModelLevelSpecificationTab(builder);
             SubModuleDefinitionTab(builder);
@@ -57,17 +56,13 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
         {
             const string tabName = "Model Level Specification";
 
-            builder.AddField()
-                .Alias("isLeadingModel")
-                .Name("Is leading model")
+            builder.AddField("isLeadingModel")
                 .Description("Check if this is main model for submodels")
-                .DataType(CmsDataType.Checkbox)
+                .DataType(DataType.Checkbox)
                 .Tab(tabName);
 
-            builder.AddField()
-                .Alias("subTypes")
-                .Name("Sub types")
-                .DataType(BikePickerName)
+            builder.AddField("subTypes")
+                .DataType(BikePickerId)
                 .Tab("Model Level Specification");
         }
 
@@ -75,30 +70,22 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
         {
             const string tabName = "Sub Model Definition";
 
-            builder.AddField()
-                .Alias("bikeImage")
-                .Name("Bike Image")
+            builder.AddField("bikeImage")
                 .Description("Select image to be displayed on a card")
-                .DataType(CmsDataType.MediaPicker2)
+                .DataType(DataType.MediaPicker)
                 .Tab(tabName);
 
-            builder.AddField()
-                .Alias("overrideFromLabel")
-                .Name("Override from label")
-                .DataType(CmsDataType.TextString)
+            builder.AddField("overrideFromLabel")
                 .Tab(tabName);
 
-            builder.AddField()
-                .Alias("overrideSpecificationLabel")
-                .Name("Override specification label")
-                .DataType(CmsDataType.TextString)
+            builder.AddField("overrideSpecificationLabel")
                 .Tab(tabName);
 
-            builder.AddField()
-                .Alias("specificationContent")
-                .Name("Specification content")
-                .DataType(CmsDataType.RichTextEditor)
+            builder.AddField("specificationContent")
+                .DataType(DataType.Richtexteditor)
                 .Tab(tabName);
+
+            builder.AddField("propertyDefaultTest");
         }
     }
 }

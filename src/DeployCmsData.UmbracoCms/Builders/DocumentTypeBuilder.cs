@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using DeployCmsData.Core.Constants;
 using DeployCmsData.UmbracoCms.Interfaces;
 using DeployCmsData.UmbracoCms.Services;
@@ -22,13 +23,11 @@ namespace DeployCmsData.UmbracoCms.Builders
         private string _name;
         private string _icon;
         private string _description;
-        internal readonly IList<PropertyBuilder> AddFieldList = new List<PropertyBuilder>();
+        public readonly IList<PropertyBuilder> AddFieldList = new List<PropertyBuilder>();
         internal readonly IList<PropertyBuilder> UpdateFieldList = new List<PropertyBuilder>();
         internal readonly IList<PropertyBuilder> RemoveFieldList = new List<PropertyBuilder>();
         internal readonly IList<ContentTypeSort> AllowedChildNodeTypes = new List<ContentTypeSort>();
         internal readonly IList<IContentTypeComposition> Compositions = new List<IContentTypeComposition>();
-        //internal readonly IList<string> TabListAdd = new List<string>();
-        //internal readonly IList<string> TabListRemove = new List<string>();
 
         public DocumentTypeBuilder()
         {
@@ -49,7 +48,6 @@ namespace DeployCmsData.UmbracoCms.Builders
 
             _dataTypeService = applicationContext.Services.DataTypeService;
             _contentTypeService = applicationContext.Services.ContentTypeService;
-            //_factory = new UmbracoFactory(_contentTypeService, _dataTypeService);
             _factory = new UmbracoFactory(_contentTypeService);
         }
 
@@ -139,6 +137,11 @@ namespace DeployCmsData.UmbracoCms.Builders
         public IContentType Build()
         {
             var documentType = _contentTypeService.GetContentType(_alias);
+            if (documentType == null)
+            {
+                throw new ArgumentException(ExceptionMessages.DocumentTypeNotFound + ":" + _alias);
+            }
+
             AddNewFields(documentType);
             _contentTypeService.Save(documentType);
 
@@ -187,27 +190,59 @@ namespace DeployCmsData.UmbracoCms.Builders
                     continue;
                 }
 
-                IDataTypeDefinition dataTypeDefinition = null;
+                propertyType = AddNewField(documentType, field);
+            }
+        }
 
-                if (!string.IsNullOrEmpty(field.DataTypeValue))
-                {
-                    dataTypeDefinition = _dataTypeService.GetDataTypeDefinitionByName(field.DataTypeValue);
-                }
+        private PropertyType AddNewField(IContentType documentType, PropertyBuilder field)
+        {
+            PropertyType propertyType;
+            IDataTypeDefinition dataTypeDefinition = null;
 
-                if (dataTypeDefinition == null)
-                {
-                    throw new ArgumentException(ExceptionMessages.CannotFindDataType + field.DataTypeValue);
-                }
+            propertyType = documentType.PropertyTypes.FirstOrDefault(x => x.Alias == field.AliasValue);
+            if (propertyType != null)
+            {
+                return propertyType;
+            }
 
-                propertyType = _factory.NewPropertyType(dataTypeDefinition, field.AliasValue);
+            if (field.DataTypeValue == null || field.DataTypeValue == Guid.Empty)
+            {
+                field.DataTypeValue = Constants.DataType.Textstring;
+            }
 
-                propertyType.Name = field.NameValue;
-                propertyType.Description = field.DescriptionValue;
-                propertyType.ValidationRegExp = field.RegularExpressionValue;
-                propertyType.Mandatory = field.MandatoryValue;
+            if (string.IsNullOrEmpty(field.NameValue))
+            {
+                field.NameValue = AliasToName(field.AliasValue);
+            }
+            
+            dataTypeDefinition = _dataTypeService.GetDataTypeDefinitionById(field.DataTypeValue);
 
+            if (dataTypeDefinition == null)
+            {
+                throw new ArgumentException(ExceptionMessages.CannotFindDataType + field.DataTypeValue);
+            }
+
+            propertyType = _factory.NewPropertyType(dataTypeDefinition, field.AliasValue);
+            propertyType.Name = field.NameValue;
+            propertyType.Description = field.DescriptionValue;
+            propertyType.ValidationRegExp = field.RegularExpressionValue;
+            propertyType.Mandatory = field.MandatoryValue;
+
+            if (string.IsNullOrEmpty(field.TabValue))
+            {
+                documentType.AddPropertyType(propertyType);
+            }
+            else
+            {
                 documentType.AddPropertyType(propertyType, field.TabValue);
             }
+            
+            return propertyType;
+        }
+
+        private static string AliasToName(string value)
+        {
+            return Regex.Replace(value, "(\\B[A-Z])", " $1").ToFirstUpperInvariant();
         }
 
         public void DeleteDocumentType(string alias)
@@ -267,23 +302,24 @@ namespace DeployCmsData.UmbracoCms.Builders
             return this;
         }
 
-        public PropertyBuilder AddField()
+        public PropertyBuilder AddField(string alias)
         {
-            var fieldBuilder = new PropertyBuilder();
+            var fieldBuilder = new PropertyBuilder(alias);
+
             AddFieldList.Add(fieldBuilder);
             return fieldBuilder;
         }
 
-        public PropertyBuilder RemoveField()
+        public PropertyBuilder RemoveField(string alias)
         {
-            var fieldBuilder = new PropertyBuilder();
+            var fieldBuilder = new PropertyBuilder(alias);
             RemoveFieldList.Add(fieldBuilder);
             return fieldBuilder;
         }
 
-        public PropertyBuilder UpdateField()
+        public PropertyBuilder UpdateField(string alias)
         {
-            var fieldBuilder = new PropertyBuilder();
+            var fieldBuilder = new PropertyBuilder(alias);
             UpdateFieldList.Add(fieldBuilder);
             return fieldBuilder;
         }

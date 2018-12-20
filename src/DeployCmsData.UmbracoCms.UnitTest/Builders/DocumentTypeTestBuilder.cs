@@ -1,4 +1,5 @@
-﻿using DeployCmsData.UmbracoCms.Builders;
+﻿using System;
+using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Constants;
 using DeployCmsData.UmbracoCms.Interfaces;
 using Moq;
@@ -69,11 +70,12 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
             return this;
         }
 
-        public DocumentTypeTestBuilder ReturnsDataType(CmsDataType dataType)
+        public DocumentTypeTestBuilder ReturnsDataType(Guid dataTypeId)
         {
             var dataTypeDefinition = new Mock<IDataTypeDefinition>();
+            dataTypeDefinition.Setup(x => x.Key).Returns(dataTypeId);
 
-            _dataTypeService.Setup(x => x.GetDataTypeDefinitionByName(dataType.ToString()))
+            _dataTypeService.Setup(x => x.GetDataTypeDefinitionById(dataTypeId))
                 .Returns(dataTypeDefinition.Object);
 
             return this;

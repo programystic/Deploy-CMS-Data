@@ -219,7 +219,7 @@
     <Compile Include="Builders\GridDataTypeBuilder.cs" />
     <Compile Include="Constants\AppSettings.cs" />
     <Compile Include="Constants\Data.cs" />
-    <Compile Include="Constants\Enums.cs" />
+    <Compile Include="Constants\DataType.cs" />
     <Compile Include="Constants\ExceptionMessages.cs" />
     <Compile Include="Constants\Icons.cs" />
     <Compile Include="Constants\Umbraco.cs" />

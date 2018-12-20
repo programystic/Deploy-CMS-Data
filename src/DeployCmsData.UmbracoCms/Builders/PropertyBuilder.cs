@@ -1,39 +1,32 @@
-﻿using DeployCmsData.UmbracoCms.Constants;
+﻿using System;
 
 namespace DeployCmsData.UmbracoCms.Builders
 {
     public class PropertyBuilder
     {
-        internal string AliasValue;
-        internal string NameValue;
-        internal string TabValue;
-        internal string DataTypeValue;
-        internal string DescriptionValue;
-        internal string RegularExpressionValue;
-        internal bool MandatoryValue;
-        internal string PropertyEditorAliasValue;
+        public string AliasValue;
+        public string NameValue;
+        public string TabValue;
+        public Guid DataTypeValue;
+        public string DescriptionValue;
+        public string RegularExpressionValue;
+        public bool MandatoryValue;
+        public string PropertyEditorAliasValue;
 
-        public PropertyBuilder DataType(CmsDataType dataTypeName)
+        public PropertyBuilder(string alias)
         {
-            DataTypeValue = dataTypeName.ToString();
-            return this;
+            AliasValue = alias;
         }
 
-        public PropertyBuilder DataType(string dataTypeName)
+        public PropertyBuilder DataType(Guid dataType)
         {
-            DataTypeValue = dataTypeName;
+            DataTypeValue = dataType;
             return this;
         }
 
         public PropertyBuilder PropertyEditorAlias(string propertyEditorAlias)
         {
             PropertyEditorAliasValue = propertyEditorAlias;
-            return this;
-        }
-
-        public PropertyBuilder Alias(string fieldAlias)
-        {
-            AliasValue = fieldAlias;
             return this;
         }
 

@@ -20,7 +20,7 @@ using Umbraco.ModelsBuilder.Umbraco;
 
 namespace Umbraco.Web.PublishedContentModels
 {
-	/// <summary>Bike Model Page</summary>
+	/// <summary>bike Model Page</summary>
 	[PublishedContentModel("BikeModelPage")]
 	public partial class BikeModelPage : PublishedContentModel
 	{
@@ -43,6 +43,69 @@ namespace Umbraco.Web.PublishedContentModels
 		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<BikeModelPage, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Bike Image: Select image to be displayed on a card
+		///</summary>
+		[ImplementPropertyType("bikeImage")]
+		public IPublishedContent BikeImage
+		{
+			get { return this.GetPropertyValue<IPublishedContent>("bikeImage"); }
+		}
+
+		///<summary>
+		/// Is Leading Model: Check if this is main model for submodels
+		///</summary>
+		[ImplementPropertyType("isLeadingModel")]
+		public bool IsLeadingModel
+		{
+			get { return this.GetPropertyValue<bool>("isLeadingModel"); }
+		}
+
+		///<summary>
+		/// Override From Label
+		///</summary>
+		[ImplementPropertyType("overrideFromLabel")]
+		public string OverrideFromLabel
+		{
+			get { return this.GetPropertyValue<string>("overrideFromLabel"); }
+		}
+
+		///<summary>
+		/// Override Specification Label
+		///</summary>
+		[ImplementPropertyType("overrideSpecificationLabel")]
+		public string OverrideSpecificationLabel
+		{
+			get { return this.GetPropertyValue<string>("overrideSpecificationLabel"); }
+		}
+
+		///<summary>
+		/// Property Default Test
+		///</summary>
+		[ImplementPropertyType("propertyDefaultTest")]
+		public string PropertyDefaultTest
+		{
+			get { return this.GetPropertyValue<string>("propertyDefaultTest"); }
+		}
+
+		///<summary>
+		/// Specification Content
+		///</summary>
+		[ImplementPropertyType("specificationContent")]
+		public IHtmlString SpecificationContent
+		{
+			get { return this.GetPropertyValue<IHtmlString>("specificationContent"); }
+		}
+
+		///<summary>
+		/// Sub Types
+		///</summary>
+		[ImplementPropertyType("subTypes")]
+		public IEnumerable<IPublishedContent> SubTypes
+		{
+			get { return this.GetPropertyValue<IEnumerable<IPublishedContent>>("subTypes"); }
 		}
 	}
 }
