@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using RestSharp;
+using RestSharp.Authenticators;
 
 namespace DeployCmsData.IntegrationTest.Tests
 {
@@ -15,6 +16,7 @@ namespace DeployCmsData.IntegrationTest.Tests
         [TestCase("CreateContent")]
         [TestCase("MultiNodeTreePicker")]
         [TestCase("BusinessCase01")]
+        [TestCase("AllDataTypes")]
         public void CallUpgradeScriptApi(string apiMethodName)
         {
             Assert.IsTrue(GetResponse2(apiMethodName));
@@ -24,8 +26,9 @@ namespace DeployCmsData.IntegrationTest.Tests
         public bool GetResponse1(string method)
         {
             var client = new RestClient("http://deploycms.sqlce");
-            var request = new RestRequest($"/umbraco/api/tests/runscript/?scriptName={method}", Method.GET);
+            //client.Authenticator = new HttpBasicAuthenticator("peter@programystic.com", "tennesee55");
 
+            var request = new RestRequest($"/umbraco/api/tests/runscript/?scriptName={method}", Method.GET);
             var response = client.Execute<bool>(request);
 
             return response.Data;
@@ -34,8 +37,9 @@ namespace DeployCmsData.IntegrationTest.Tests
         public bool GetResponse2(string method)
         {
             var client = new RestClient("http://deploycms.sqlserver");
-            var request = new RestRequest($"/umbraco/api/tests/runscript/?scriptName={method}", Method.GET);
+            //client.Authenticator = new HttpBasicAuthenticator("peter@programystic.com", "tennesee55");
 
+            var request = new RestRequest($"/umbraco/api/tests/runscript/?scriptName={method}", Method.GET);
             var response = client.Execute<bool>(request);
 
             return response.Data;

@@ -11,11 +11,11 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
         private readonly DocumentTypeFolderBuilder _documentTypeFolderBuilder;
         public Mock<IUmbracoFactory> UmbracoFactory { get; }
 
-        public DocumentTypeFolderTestBuilder()
+        public DocumentTypeFolderTestBuilder(string name)
         {
             UmbracoFactory = new Mock<IUmbracoFactory>();
             Mock<IContentTypeService> contentTypeService = new Mock<IContentTypeService>();
-            _documentTypeFolderBuilder = new DocumentTypeFolderBuilder(contentTypeService.Object, UmbracoFactory.Object);
+            _documentTypeFolderBuilder = new DocumentTypeFolderBuilder(contentTypeService.Object, UmbracoFactory.Object, name);
 
         }
 

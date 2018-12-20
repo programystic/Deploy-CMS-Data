@@ -15,6 +15,7 @@ namespace DeployCmsData.UmbracoCms.Services
             ContentService = ApplicationContext.Current.Services.ContentService;
         }
 
+        
         public virtual bool RunScript(IUpgradeLogRepository upgradeLog)
         {
             return true;

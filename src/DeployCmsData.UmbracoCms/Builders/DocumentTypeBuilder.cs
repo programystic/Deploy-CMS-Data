@@ -23,6 +23,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         private string _name;
         private string _icon;
         private string _description;
+        private string _tab;
         public readonly IList<PropertyBuilder> AddFieldList = new List<PropertyBuilder>();
         internal readonly IList<PropertyBuilder> UpdateFieldList = new List<PropertyBuilder>();
         internal readonly IList<PropertyBuilder> RemoveFieldList = new List<PropertyBuilder>();
@@ -66,7 +67,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             if (string.IsNullOrEmpty(folderName))
             {
-                throw new ArgumentException(ExceptionMessages.ParentFolderNameNotDefined);
+                throw new ArgumentException(ExceptionMessages.ParentFolderNameNotDefined, nameof(folderName));
             }
 
             var parentFolder = _factory.GetContainer(folderName, folderLevel);
@@ -163,7 +164,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         private void SetDocumentTypeProperties(IContentType documentType, int parentId)
         {
             documentType.Alias = _alias;
-            documentType.Icon = string.IsNullOrEmpty(_icon) ? Constants.Icons.Document : _icon;
+            documentType.Icon = string.IsNullOrEmpty(_icon) ? Constants.Icons.RoadSign : _icon;
             documentType.Name = string.IsNullOrEmpty(_name) ? AliasToName(_alias) : _name;
             documentType.Description = _description;
             documentType.AllowedAsRoot = (parentId == Constants.Umbraco.RootFolder);
@@ -195,15 +196,7 @@ namespace DeployCmsData.UmbracoCms.Builders
                 return propertyType;
             }
 
-            if (field.DataTypeValue == null || field.DataTypeValue == Guid.Empty)
-            {
-                field.DataTypeValue = Constants.DataType.Textstring;
-            }
-
-            if (string.IsNullOrEmpty(field.NameValue))
-            {
-                field.NameValue = AliasToName(field.AliasValue);
-            }
+            SetDefaultFieldValues(field);
 
             dataTypeDefinition = _dataTypeService.GetDataTypeDefinitionById(field.DataTypeValue);
 
@@ -228,6 +221,24 @@ namespace DeployCmsData.UmbracoCms.Builders
             }
 
             return propertyType;
+        }
+
+        private void SetDefaultFieldValues(PropertyBuilder field)
+        {
+            if (field.DataTypeValue == null || field.DataTypeValue == Guid.Empty)
+            {
+                field.DataTypeValue = Constants.DataType.Textstring;
+            }
+
+            if (string.IsNullOrEmpty(field.NameValue))
+            {
+                field.NameValue = AliasToName(field.AliasValue);
+            }
+
+            if (string.IsNullOrEmpty(field.TabValue))
+            {
+                field.TabValue = _tab;
+            }
         }
 
         private static string AliasToName(string value)
@@ -306,6 +317,12 @@ namespace DeployCmsData.UmbracoCms.Builders
             var fieldBuilder = new PropertyBuilder(alias);
             UpdateFieldList.Add(fieldBuilder);
             return fieldBuilder;
+        }
+
+        public DocumentTypeBuilder DefaultTab(string tab)
+        {
+            _tab = tab;
+            return this;
         }
     }
 }

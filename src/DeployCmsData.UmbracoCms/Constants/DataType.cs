@@ -18,9 +18,9 @@ namespace DeployCmsData.UmbracoCms.Constants
         public static Guid Dropdown = new Guid("0B6A45E7-44BA-430D-9DA5-4E46060B9E03");
         public static Guid DatePicker = new Guid("5046194E-4237-453C-A547-15DB3A07C4E1");
         public static Guid Radiobox = new Guid("BB5F57C9-CE2B-4BB9-B697-4CACA783A805");
-        public static Guid Dropdownmultiple = new Guid("F38F0AC7-1D27-439C-9F3F-089CD8825A53");
+        public static Guid DropdownMultiple = new Guid("F38F0AC7-1D27-439C-9F3F-089CD8825A53");
         public static Guid ApprovedColor = new Guid("0225AF17-B302-49CB-9176-B9F35CAB9C17");
-        public static Guid DatePickerwithtime = new Guid("E4D66C0F-B935-4200-81F0-025F7256B89A");
+        public static Guid DatePickerWithTime = new Guid("E4D66C0F-B935-4200-81F0-025F7256B89A");
         public static Guid Tags = new Guid("B6B73142-B9C1-4BF8-A16D-E1C23320B549");
         public static Guid ImageCropper = new Guid("1DF9F033-E6D4-451F-B8D2-E0CBC50A836F");
         public static Guid ContentPicker = new Guid("FD1E0DA5-5606-4862-B679-5D0CF3A52A59");

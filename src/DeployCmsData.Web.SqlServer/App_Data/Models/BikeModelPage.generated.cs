@@ -20,7 +20,7 @@ using Umbraco.ModelsBuilder.Umbraco;
 
 namespace Umbraco.Web.PublishedContentModels
 {
-	/// <summary>bike Model Page</summary>
+	/// <summary>Bike Model Page</summary>
 	[PublishedContentModel("bikeModelPage")]
 	public partial class BikeModelPage : PublishedContentModel
 	{

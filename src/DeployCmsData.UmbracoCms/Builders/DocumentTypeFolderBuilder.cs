@@ -1,7 +1,7 @@
-﻿using DeployCmsData.Core.Constants;
+﻿using System;
+using DeployCmsData.Core.Constants;
 using DeployCmsData.UmbracoCms.Interfaces;
 using DeployCmsData.UmbracoCms.Services;
-using System;
 using Umbraco.Core.Models.EntityBase;
 using Umbraco.Core.Services;
 using Umbraco.Web;
@@ -14,32 +14,28 @@ namespace DeployCmsData.UmbracoCms.Builders
         private readonly IUmbracoFactory _factory;
         private string _name { get; set; }
 
-        public DocumentTypeFolderBuilder()
+        public DocumentTypeFolderBuilder(string name)
         {
             var applicationContext = UmbracoContext.Current.Application;
-
-            //var dataTypeService = applicationContext.Services.DataTypeService;
             _contentTypeService = applicationContext.Services.ContentTypeService;
-            //_factory = new UmbracoFactory(_contentTypeService, dataTypeService);
             _factory = new UmbracoFactory(_contentTypeService);
+            _name = name;
         }
 
-        public DocumentTypeFolderBuilder(IContentTypeService contentTypeService, IUmbracoFactory factory)
+        public DocumentTypeFolderBuilder(IContentTypeService contentTypeService, IUmbracoFactory factory, string name)
         {
             _contentTypeService = contentTypeService;
             _factory = factory;
-        }
-
-        public DocumentTypeFolderBuilder Name(string documentTypeName)
-        {
-            _name = documentTypeName;
-            return this;
+            _name = name;
         }
 
         public IUmbracoEntity BuildAtRoot()
         {
             var container = _factory.GetContainer(_name, 1);
-            if (container != null) return container;
+            if (container != null)
+            {
+                return container;
+            }
 
             var newContainer = _factory.NewContainer(Constants.Umbraco.RootFolder, _name, 1);
             return newContainer;
@@ -49,7 +45,9 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             var parent = _factory.GetContainer(parentFolderName, parentFolderLevel);
             if (parent == null)
+            {
                 throw new ArgumentException(ExceptionMessages.ParentFolderNotFound, parentFolderName);
+            }
 
             var container = _factory.NewContainer(parent.Id, _name, parentFolderLevel);
             return container;
@@ -61,7 +59,9 @@ namespace DeployCmsData.UmbracoCms.Builders
             IUmbracoEntity parentFolder = null;
 
             if (string.IsNullOrEmpty(parentFolderName))
+            {
                 throw new ArgumentException(ExceptionMessages.ParentFolderNameNotDefined);
+            }
 
             while (folderLevel < Constants.Umbraco.MaximumFolderLevel && parentFolder == null)
             {
@@ -70,7 +70,9 @@ namespace DeployCmsData.UmbracoCms.Builders
             }
 
             if (parentFolder == null)
+            {
                 throw new ArgumentException(ExceptionMessages.ParentFolderNotFound, parentFolderName);
+            }
 
             var container = _factory.NewContainer(parentFolder.Id, _name, folderLevel);
             return container;

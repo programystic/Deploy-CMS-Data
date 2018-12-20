@@ -19,14 +19,11 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
 
         public void CreateFolders()
         {
-            new DocumentTypeFolderBuilder()
-                .Name("Compositions")
+            new DocumentTypeFolderBuilder("Compositions")
                 .BuildAtRoot();
 
-            new DocumentTypeFolderBuilder()
-                .Name("Pages")
+            new DocumentTypeFolderBuilder("Pages")
                 .BuildAtRoot();
-
         }
 
         public void CreatePageMetaData()

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Web.Http;
 using DeployCmsData.Core.Data;
 using DeployCmsData.Core.Interfaces;
@@ -9,6 +8,7 @@ using Umbraco.Web.WebApi;
 
 namespace DeployCmsData.IntegrationTest.Api.ApiControllers
 {
+    // TODO : secure this controller - UmbracoAuthorizedApiController
     public class TestsController : UmbracoApiController
     {
         private readonly UpgradeLogRepository _logRepository;
@@ -20,7 +20,6 @@ namespace DeployCmsData.IntegrationTest.Api.ApiControllers
             _logRepository = new UpgradeLogRepository();
             _scriptRepository = new UpgradeScriptRepository();
             _upgradeScriptManager = new UpgradeScriptManager(_logRepository, _scriptRepository);
-
         }
 
         [HttpGet]

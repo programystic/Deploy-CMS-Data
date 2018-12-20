@@ -20,22 +20,16 @@ using Umbraco.ModelsBuilder.Umbraco;
 
 namespace Umbraco.Web.PublishedContentModels
 {
-	// Mixin content Type 2251 with alias "pageMetaData"
-	/// <summary>Page Meta Data</summary>
-	public partial interface IPageMetaData : IPublishedContent
-	{
-	}
-
-	/// <summary>Page Meta Data</summary>
-	[PublishedContentModel("pageMetaData")]
-	public partial class PageMetaData : PublishedContentModel, IPageMetaData
+	/// <summary>asdsaasd</summary>
+	[PublishedContentModel("asdsaasd")]
+	public partial class Asdsaasd : PublishedContentModel
 	{
 #pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "pageMetaData";
+		public new const string ModelTypeAlias = "asdsaasd";
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 #pragma warning restore 0109
 
-		public PageMetaData(IPublishedContent content)
+		public Asdsaasd(IPublishedContent content)
 			: base(content)
 		{ }
 
@@ -46,9 +40,18 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 #pragma warning restore 0109
 
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<PageMetaData, TValue>> selector)
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Asdsaasd, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// asdasd
+		///</summary>
+		[ImplementPropertyType("asdasd")]
+		public IPublishedContent Asdasd
+		{
+			get { return this.GetPropertyValue<IPublishedContent>("asdasd"); }
 		}
 	}
 }
