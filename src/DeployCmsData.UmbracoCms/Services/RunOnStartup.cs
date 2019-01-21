@@ -45,6 +45,9 @@ namespace DeployCmsData.UmbracoCms.Services
             return disableRunAtStartup;
         }
 
+        // Take a look at Umbraco.Core.Persistence.Migrations source code
+        // See what it can do
+
         private static void RunMigrations()
         {
             const string productName = "DeployCmsData";
