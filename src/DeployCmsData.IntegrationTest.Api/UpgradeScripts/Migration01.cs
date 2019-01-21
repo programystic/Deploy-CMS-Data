@@ -5,7 +5,7 @@ using Umbraco.Core.Persistence.SqlSyntax;
 namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
 {
     [Migration("1.0.0", 1, "DeployCmsData")]
-    internal class Migration01 : MigrationBase
+    public  class Migration01 : MigrationBase
     {
         public Migration01(ISqlSyntaxProvider sqlSyntax, ILogger logger) : base(sqlSyntax, logger)
         {
@@ -20,10 +20,10 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
         }
     }
 
-    [Migration("1.1.0", 2, "DeployCmsData")]
-    internal class Migration02 : MigrationBase
+    [Migration("1.3.0", 2, "DeployCmsData")]
+    public class Migration03 : MigrationBase
     {
-        public Migration02(ISqlSyntaxProvider sqlSyntax, ILogger logger) : base(sqlSyntax, logger)
+        public Migration03(ISqlSyntaxProvider sqlSyntax, ILogger logger) : base(sqlSyntax, logger)
         {
         }
 
