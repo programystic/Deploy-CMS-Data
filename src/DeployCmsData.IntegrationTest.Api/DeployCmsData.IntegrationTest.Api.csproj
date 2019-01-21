@@ -217,6 +217,7 @@
     <Compile Include="UpgradeScripts\BusinessCase01.cs" />
     <Compile Include="UpgradeScripts\ClearTheDecks.cs" />
     <Compile Include="UpgradeScripts\CreateContent.cs" />
+    <Compile Include="UpgradeScripts\Migration01.cs" />
     <Compile Include="UpgradeScripts\MultiNodeTreePicker.cs" />
     <Compile Include="UpgradeScripts\Upgrade01.cs" />
     <Compile Include="UpgradeScripts\Upgrade02.cs" />
