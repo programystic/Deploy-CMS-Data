@@ -29,13 +29,11 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
 
         public override void Down()
         {
-            throw new System.NotImplementedException();
         }
 
 
         public override void Up()
         {
-            throw new System.NotImplementedException();
         }
     }
 
