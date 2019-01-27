@@ -16,13 +16,13 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
             builder.DefaultTab("All The Data Types");
 
             builder.AddField("textArea").DataType(DataType.ApprovedColor);
-            builder.AddField("checkBox").DataType(DataType.Checkbox);
-            builder.AddField("checkBox").DataType(DataType.Checkboxlist);
+            builder.AddField("checkBox").DataType(DataType.CheckBox);
+            builder.AddField("checkBox").DataType(DataType.CheckBoxList);
             builder.AddField("contentPicker").DataType(DataType.ContentPicker);
             builder.AddField("datePicker").DataType(DataType.DatePicker);
             builder.AddField("contentPicker").DataType(DataType.DatePickerWithTime);
-            builder.AddField("dropDown").DataType(DataType.Dropdown);
-            builder.AddField("dropDownMultiple").DataType(DataType.DropdownMultiple);
+            builder.AddField("dropDown").DataType(DataType.DropDown);
+            builder.AddField("dropDownMultiple").DataType(DataType.DropDownMultiple);
             builder.AddField("imageCropper").DataType(DataType.ImageCropper);
             builder.AddField("label").DataType(DataType.Label);
             builder.AddField("listViewContent").DataType(DataType.ListViewContent);            
@@ -32,12 +32,12 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
             builder.AddField("memberPicker").DataType(DataType.MemberPicker);
             builder.AddField("multipleMediaPicker").DataType(DataType.MultipleMediaPicker);
             builder.AddField("numeric").DataType(DataType.Numeric);
-            builder.AddField("radioBox").DataType(DataType.Radiobox);
+            builder.AddField("radioBox").DataType(DataType.RadioBox);
             builder.AddField("relatedLinks").DataType(DataType.RelatedLinks);
-            builder.AddField("richTextEditor").DataType(DataType.Richtexteditor);
+            builder.AddField("richTextEditor").DataType(DataType.RichTextEditor);
             builder.AddField("tags").DataType(DataType.Tags);
-            builder.AddField("textArea").DataType(DataType.Textarea);
-            builder.AddField("textString").DataType(DataType.Textstring);
+            builder.AddField("textArea").DataType(DataType.TextArea);
+            builder.AddField("textString").DataType(DataType.TextString);
             builder.AddField("upload").DataType(DataType.Upload);
 
             builder.BuildInFolder("Testing");

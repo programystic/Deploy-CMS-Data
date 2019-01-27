@@ -1,7 +1,7 @@
-﻿using System;
-using DeployCmsData.UmbracoCms.UnitTest.Builders;
+﻿using DeployCmsData.UmbracoCms.UnitTest.Builders;
 using Moq;
 using NUnit.Framework;
+using System;
 
 namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 {
@@ -147,6 +147,8 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .AddAllowedChildNodeType("homePage")
                 .AddAllowedChildNodeType("abourPage")
                 .BuildInFolder(ParentFolderName);
+
+            Assert.AreEqual(Name, folder.Name);
         }
     }
 }

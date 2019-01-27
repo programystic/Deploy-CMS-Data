@@ -55,6 +55,7 @@
     <Compile Include="ActionFilters\RunScriptEveryTimeAttribute.cs" />
     <Compile Include="Constants\ExceptionMessages.cs" />
     <Compile Include="Data\UpgradeScriptRepository.cs" />
+    <Compile Include="Extensions\StringFormat.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\IUpgradeLog.cs" />
     <Compile Include="Interfaces\IUpgradeLogRepository.cs" />
@@ -69,7 +70,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <CodeAnalysisDictionary Include="CustomDictionary.xml" />
+    <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+      <SubType>Designer</SubType>
+    </CodeAnalysisDictionary>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

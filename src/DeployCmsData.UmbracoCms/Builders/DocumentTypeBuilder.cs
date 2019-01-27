@@ -1,11 +1,11 @@
-﻿using System;
+﻿using DeployCmsData.Core.Constants;
+using DeployCmsData.UmbracoCms.Interfaces;
+using DeployCmsData.UmbracoCms.Services;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using DeployCmsData.Core.Constants;
-using DeployCmsData.UmbracoCms.Interfaces;
-using DeployCmsData.UmbracoCms.Services;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.EntityBase;
@@ -19,19 +19,26 @@ namespace DeployCmsData.UmbracoCms.Builders
         private IContentTypeService _contentTypeService;
         private IDataTypeService _dataTypeService;
         private IUmbracoFactory _factory;
-        private string _alias;
+        private readonly string _alias;
         private string _name;
         private string _icon;
         private string _description;
         private string _tab;
-        public readonly IList<PropertyBuilder> AddFieldList = new List<PropertyBuilder>();
+
         internal readonly IList<PropertyBuilder> UpdateFieldList = new List<PropertyBuilder>();
         internal readonly IList<PropertyBuilder> RemoveFieldList = new List<PropertyBuilder>();
         internal readonly IList<ContentTypeSort> AllowedChildNodeTypes = new List<ContentTypeSort>();
         internal readonly IList<IContentTypeComposition> Compositions = new List<IContentTypeComposition>();
 
+        public IList<PropertyBuilder> AddFieldList { get; } = new List<PropertyBuilder>();
+
         public DocumentTypeBuilder(string alias)
         {
+            if (string.IsNullOrWhiteSpace(alias))
+            {
+                throw new ArgumentException("The alias is blank");
+            }
+
             var applicationContext = UmbracoContext.Current.Application;
 
             _dataTypeService = applicationContext.Services.DataTypeService;
@@ -46,10 +53,10 @@ namespace DeployCmsData.UmbracoCms.Builders
             IDataTypeService dataTypeService,
             string alias)
         {
-            _dataTypeService = dataTypeService;
-            _contentTypeService = contentTypeService;
-            _factory = factory;
-            _alias = alias;
+            _dataTypeService = dataTypeService ?? throw new ArgumentNullException(nameof(dataTypeService));
+            _contentTypeService = contentTypeService ?? throw new ArgumentNullException(nameof(contentTypeService));
+            _factory = factory ?? throw new ArgumentNullException(nameof(factory));
+            _alias = alias ?? throw new ArgumentNullException(nameof(alias));
         }
 
         public IContentType BuildWithParent(string parentAlias)
@@ -125,7 +132,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             return documentType;
         }
 
-        public IContentType ReBuild()
+        public IContentType Rebuild()
         {
             var documentType = _contentTypeService.GetContentType(_alias);
             if (documentType == null)
@@ -227,7 +234,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             if (field.DataTypeValue == null || field.DataTypeValue == Guid.Empty)
             {
-                field.DataTypeValue = Constants.DataType.Textstring;
+                field.DataTypeValue = Constants.DataType.TextString;
             }
 
             if (string.IsNullOrEmpty(field.NameValue))

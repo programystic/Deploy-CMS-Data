@@ -1,28 +1,28 @@
 ﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DeployCmsData.UmbracoCms.Models
 {
 
     public class GridItemsPreValue
-    {        
-        public List<Style> Styles { get; set; }
-        public List<Config> Config { get; set; }
+    {
+        public Collection<Style> Styles { get; }
+        public Collection<Config> Config { get; }
         public int Columns { get; set; }
 
         [JsonProperty("Templates")]
-        public List<Template> Layouts { get; set; }
+        public Collection<Template> Layouts { get; }
 
         [JsonProperty("Layouts")]
-        public List<Layout> Rows { get; set; }
+        public Collection<GridLayout> Rows { get; }
 
         public GridItemsPreValue()
         {
-            Styles = new List<Style>();
-            Config = new List<Config>();
-            Layouts = new List<Template>();
-            Rows = new List<Layout>();
+            Styles = new Collection<Style>();
+            Config = new Collection<Config>();
+            Layouts = new Collection<Template>();
+            Rows = new Collection<GridLayout>();
         }
     }
 
@@ -47,30 +47,30 @@ namespace DeployCmsData.UmbracoCms.Models
     {
         public int Grid { get; set; }
 
-        public Section (int gridValue)
+        public Section(int gridValue)
         {
             Grid = gridValue;
-        }        
+        }
     }
 
     public class Template
     {
         public string Name { get; set; }
-        public List<Section> Sections { get; set; }
+        public Collection<Section> Sections { get; }
 
         public Template()
         {
-            Sections = new List<Section>();
+            Sections = new Collection<Section>();
         }
     }
 
     public class Area
     {
         public int Grid { get; set; }
-        public List<string> Editors { get; set; }
+        public Collection<string> Editors { get; }
         public int MaxItems { get; set; }
         public bool AllowAll { get; set; }
-        public List<string> Allowed { get; set; }
+        public Collection<string> Allowed { get; }
 
         public Area(int grid)
         {
@@ -80,19 +80,7 @@ namespace DeployCmsData.UmbracoCms.Models
         public Area(int grid, params string[] editors)
         {
             Grid = grid;
-            Editors = editors.ToList();
+            Editors = new Collection<string>(editors.ToList());
         }
     }
-
-    public class Layout
-    {
-        public string Label { get; set; }
-        public string Name { get; set; }
-        public List<Area> Areas { get; set; }
-
-        public Layout()
-        {
-            Areas = new List<Area>();
-        }
-    } 
 }

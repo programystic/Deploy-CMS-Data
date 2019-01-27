@@ -1,11 +1,11 @@
-﻿using System;
-using DeployCmsData.Core.Interfaces;
+﻿using DeployCmsData.Core.Interfaces;
+using System;
 using Umbraco.Core.Persistence;
 using Umbraco.Core.Persistence.DatabaseAnnotations;
 
 namespace DeployCmsData.UmbracoCms.Models
 {
-    [TableName(Constants.Data.LogsTableName)]
+    [TableName(Constants.Database.LogsTableName)]
     [PrimaryKey(nameof(Id), autoIncrement = true)]
     public class UmbracoUpgradeLog : IUpgradeLog
     {
@@ -27,6 +27,11 @@ namespace DeployCmsData.UmbracoCms.Models
 
         public UmbracoUpgradeLog(IUpgradeLog upgradeLog)
         {
+            if (upgradeLog == null)
+            {
+                throw new ArgumentNullException(nameof(upgradeLog));
+            }
+
             Id = upgradeLog.Id;
             Success = upgradeLog.Success;
             Timestamp = upgradeLog.Timestamp;

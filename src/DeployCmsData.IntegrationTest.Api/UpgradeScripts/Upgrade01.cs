@@ -13,11 +13,11 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
         public override bool RunScript(IUpgradeLogRepository upgradeLog)
         {
             CreateFolders();
-            CreatePageMetaData();
+            CreatePageMetadata();
             return true;
         }
 
-        public void CreateFolders()
+        public static void CreateFolders()
         {
             new DocumentTypeFolderBuilder("Compositions")
                 .BuildAtRoot();
@@ -26,7 +26,7 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
                 .BuildAtRoot();
         }
 
-        public void CreatePageMetaData()
+        public static void CreatePageMetadata()
         {
             var builder = new DocumentTypeBuilder("pageMetaData");
             builder

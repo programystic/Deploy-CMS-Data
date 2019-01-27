@@ -20,7 +20,7 @@ using Umbraco.ModelsBuilder.Umbraco;
 
 namespace Umbraco.Web.PublishedContentModels
 {
-	// Mixin content Type 2251 with alias "pageMetaData"
+	// Mixin content Type 2315 with alias "pageMetaData"
 	/// <summary>Page Meta Data</summary>
 	public partial interface IPageMetaData : IPublishedContent
 	{

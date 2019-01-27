@@ -6,6 +6,7 @@ using DeployCmsData.Core.Services;
 using Moq;
 using static System.FormattableString;
 
+[assembly: CLSCompliant(true)]
 namespace DeployCmsData.UnitTest.Builders
 {
     internal class UpgradeScriptManagerBuilder

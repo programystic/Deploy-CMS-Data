@@ -1,6 +1,7 @@
 <Dictionary>
   <Words>
     <Recognized>
+      <Word>multi</Word>
       <Word>cms</Word>
       <Word>umbraco</Word>
       <Word>usb</Word>
@@ -19,9 +20,14 @@
       <Word>dna</Word>
       <Word>flag</Word>
       <Word>gps</Word>
-      <Word>initialise</Word>
-      <Word>multi</Word>
+      <Word>initialise</Word>      
       <Word>accordian</Word>
+      <Word>rte</Word>
+      <Word>xpath</Word>
+      <Word>api</Word>
     </Recognized>
+    <Deprecated>
+      <Term PreferredAlternate="Multi">multi</Term>      
+    </Deprecated>
   </Words>
 </Dictionary>

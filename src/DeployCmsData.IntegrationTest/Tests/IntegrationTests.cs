@@ -1,16 +1,17 @@
 ﻿using NUnit.Framework;
 using RestSharp;
-using RestSharp.Authenticators;
+using System;
 
+[assembly: CLSCompliant(true)]
 namespace DeployCmsData.IntegrationTest.Tests
 {
     [TestFixture, Explicit]
-    class IntegrationTests
+    internal class IntegrationTests
     {
         [TestCase("ClearTheDecks")]
         [TestCase("Upgrade01")]
         [TestCase("Upgrade02")]
-        [TestCase("Upgrade04")]        
+        [TestCase("Upgrade04")]
         [TestCase("BuildHomePage")]
         [TestCase("BuildWebsite")]
         [TestCase("CreateContent")]
@@ -20,7 +21,7 @@ namespace DeployCmsData.IntegrationTest.Tests
         public void CallUpgradeScriptApi(string apiMethodName)
         {
             Assert.IsTrue(GetResponse2(apiMethodName));
-            Assert.IsTrue(GetResponse1(apiMethodName));            
+            Assert.IsTrue(GetResponse1(apiMethodName));
         }
 
         public bool GetResponse1(string method)
@@ -34,7 +35,7 @@ namespace DeployCmsData.IntegrationTest.Tests
             return response.Data;
         }
 
-        public bool GetResponse2(string method)
+        public static bool GetResponse2(string method)
         {
             var client = new RestClient("http://deploycms.sqlserver");
             //client.Authenticator = new HttpBasicAuthenticator("peter@programystic.com", "tennesee55");

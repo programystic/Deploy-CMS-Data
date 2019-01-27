@@ -1,9 +1,11 @@
-﻿using System;
+﻿using DeployCmsData.Core.Extensions;
 using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Models;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
+using System;
+using System.Globalization;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
@@ -17,10 +19,10 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         {
             const int contentId = 1234;
             const int maxNumber = 5;
-            const int minNumber = 1;            
+            const int minNumber = 1;
 
             var contentGuid = new Guid("{50CC58EB-19A7-4165-B74F-BD9FA0A4F6BD}");
-            var expectedJson = $"{{\"type\":\"content\",\"query\":\"umb://document/{contentGuid}\"}}";
+            var expectedJson = StringFormat.ToInvariant($"{{\"type\":\"content\",\"query\":\"umb://document/{contentGuid}\"}}");
 
             var content = new Mock<IContent>();
             content.Setup(x => x.Key).Returns(contentGuid);
@@ -36,7 +38,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 mediaService.Object,
                 Guid.NewGuid());
 
-            var dataType = builder
+            builder
                 .Name("My New Tree Picker")
                 .StartNodeContent(contentId)
                 .AllowItemsOfType("type1", "type2")
@@ -45,16 +47,16 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .ShowOpenButton()
                 .Build();
 
-            var preValueJson = builder.PreValues[MultiNodeTreePickerBuilder.PreValueStartNode].Value;
+            var preValueJson = builder.GetPreValues()[MultiNodeTreePickerBuilder.PreValueStartNode].Value;
             var preValue = JsonConvert.DeserializeObject<MultiNodeTreePickerStartNodePreValue>(preValueJson);
 
             Assert.AreEqual(expectedJson, preValueJson);
-            Assert.AreEqual(5, builder.PreValues.Count);
-            Assert.IsTrue(preValue.Query.EndsWith(contentGuid.ToString()));
-            Assert.AreEqual(Enums.StartNodeType.Content, preValue.Type);
-            Assert.AreEqual(minNumber.ToString(), builder.PreValues[MultiNodeTreePickerBuilder.PreValueMinNumber].Value);
-            Assert.AreEqual(maxNumber.ToString(), builder.PreValues[MultiNodeTreePickerBuilder.PreValueMaxNumber].Value);
-            Assert.AreEqual("1", builder.PreValues[MultiNodeTreePickerBuilder.PreValueShowOpenButton].Value);
+            Assert.AreEqual(5, builder.GetPreValues().Count);
+            Assert.IsTrue(preValue.Query.EndsWith(contentGuid.ToString(), StringComparison.Ordinal));
+            Assert.AreEqual(Enums.StartNodeType.Content, preValue.StartNodeType);
+            Assert.AreEqual(minNumber.ToString(CultureInfo.InvariantCulture), builder.GetPreValues()[MultiNodeTreePickerBuilder.PreValueMinNumber].Value);
+            Assert.AreEqual(maxNumber.ToString(CultureInfo.InvariantCulture), builder.GetPreValues()[MultiNodeTreePickerBuilder.PreValueMaxNumber].Value);
+            Assert.AreEqual("1", builder.GetPreValues()[MultiNodeTreePickerBuilder.PreValueShowOpenButton].Value);
         }
 
         [Test]
@@ -82,20 +84,20 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 mediaService.Object,
                 Guid.NewGuid());
 
-            var dataType = builder
+            builder
                 .Name("My New Tree Picker")
-                .StartNodeXPath(xPath)
+                .StartNodeXpath(xPath)
                 .AllowItemsOfType("type1", "type2")
                 .MinimumNumberOfItems(minNumber)
                 .MaximumNumberOfItems(maxNumber)
                 .ShowOpenButton()
                 .Build();
 
-            var preValueJson = builder.PreValues[MultiNodeTreePickerBuilder.PreValueStartNode].Value;
+            var preValueJson = builder.GetPreValues()[MultiNodeTreePickerBuilder.PreValueStartNode].Value;
             var preValue = JsonConvert.DeserializeObject<MultiNodeTreePickerStartNodePreValue>(preValueJson);
 
             Assert.AreEqual(expectedJson, preValueJson);
-            Assert.IsTrue(preValue.Query.EndsWith(xPath));
+            Assert.IsTrue(preValue.Query.EndsWith(xPath, StringComparison.Ordinal));
         }
     }
 }

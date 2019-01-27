@@ -23,7 +23,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var builder = setup
                 .ReturnsNewContentType(ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
-                .ReturnsDataType(DataType.Textstring)
+                .ReturnsDataType(DataType.TextString)
                 .ReturnsDataType(DataType.Numeric)
                 .Build();
 
@@ -34,7 +34,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             builder.AddField("name")
                 .Name("The Name")
-                .DataType(DataType.Textstring)
+                .DataType(DataType.TextString)
                 .Tab("The First 1");
 
             builder.AddField("theNumber")
@@ -57,7 +57,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var builder = setup
                 .ReturnsNewContentType(ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
-                .ReturnsDataType(DataType.Textstring)
+                .ReturnsDataType(DataType.TextString)
                 .ReturnsDataType(DataType.Numeric)
                 .Build();
 
@@ -68,7 +68,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             builder.AddField("name")
                 .Name("The Name")
-                .DataType(DataType.Textstring);
+                .DataType(DataType.TextString);
 
             builder.AddField("theNumber")
                 .Name("The Number")
@@ -89,7 +89,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var builder = setup
                 .ReturnsNewContentType(ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
-                .ReturnsDataType(DataType.Textstring)
+                .ReturnsDataType(DataType.TextString)
                 .ReturnsDataType(DataType.Numeric)
                 .Build();
 

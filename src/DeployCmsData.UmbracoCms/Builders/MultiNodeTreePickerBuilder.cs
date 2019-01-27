@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DeployCmsData.Core.Extensions;
 using DeployCmsData.UmbracoCms.Models;
 using DeployCmsData.UmbracoCms.Services;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
-using ProperyEditors = Umbraco.Core.Constants.PropertyEditors;
 
 namespace DeployCmsData.UmbracoCms.Builders
 {
@@ -16,9 +17,6 @@ namespace DeployCmsData.UmbracoCms.Builders
         public const string PreValueMaxNumber = "maxNumber";
         public const string PreValueShowOpenButton = "showOpenButton";
         public const string PreValueStartNode = "startNode";
-
-        public Dictionary<string, PreValue> PreValues { get; }
-
         private IDataTypeService _dataTypeService;
         private IContentService _contentService;
         private IMediaService _mediaService;
@@ -29,6 +27,12 @@ namespace DeployCmsData.UmbracoCms.Builders
         private int _maximumItems;
         private bool _showOpenButton;
         private MultiNodeTreePickerStartNodePreValue _startNodepreValue;
+        private readonly Dictionary<string, PreValue> preValues;
+
+        public Dictionary<string, PreValue> GetPreValues()
+        {
+            return preValues;
+        }
 
         public MultiNodeTreePickerBuilder(Guid key)
         {
@@ -36,8 +40,8 @@ namespace DeployCmsData.UmbracoCms.Builders
             _contentService = UmbracoContext.Current.Application.Services.ContentService;
             _mediaService = UmbracoContext.Current.Application.Services.MediaService;
             KeyValue = key;
-            _startNodepreValue = new MultiNodeTreePickerStartNodePreValue() { Type = Enums.StartNodeType.Content };
-            PreValues = new Dictionary<string, PreValue>();
+            _startNodepreValue = new MultiNodeTreePickerStartNodePreValue() { StartNodeType = Enums.StartNodeType.Content };
+            preValues = new Dictionary<string, PreValue>();
         }
 
         public MultiNodeTreePickerBuilder(
@@ -50,13 +54,13 @@ namespace DeployCmsData.UmbracoCms.Builders
             _contentService = contentService;
             _mediaService = mediaService;
             KeyValue = key;
-            _startNodepreValue = new MultiNodeTreePickerStartNodePreValue() { Type = Enums.StartNodeType.Content };
-            PreValues = new Dictionary<string, PreValue>();
+            _startNodepreValue = new MultiNodeTreePickerStartNodePreValue() { StartNodeType = Enums.StartNodeType.Content };
+            preValues = new Dictionary<string, PreValue>();
         }
 
-        public MultiNodeTreePickerBuilder Name(string name)
+        public MultiNodeTreePickerBuilder Name(string multiNodeTreePickerName)
         {
-            NameValue = name;
+            NameValue = multiNodeTreePickerName;
             return this;
         }
 
@@ -109,18 +113,18 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             _startNodepreValue = new MultiNodeTreePickerStartNodePreValue()
             {
-                Type = Enums.StartNodeType.Content,
-                Query = $"umb://document/{contentId}"
+                StartNodeType = Enums.StartNodeType.Content,
+                Query = StringFormat.ToInvariant($"umb://document/{contentId}")
             };
             return this;
         }
 
-        public MultiNodeTreePickerBuilder StartNodeXPath(string xPath)
+        public MultiNodeTreePickerBuilder StartNodeXpath(string xpath)
         {
             _startNodepreValue = new MultiNodeTreePickerStartNodePreValue()
             {
-                Type = Enums.StartNodeType.Content,
-                Query = xPath
+                StartNodeType = Enums.StartNodeType.Content,
+                Query = xpath
             };
             return this;
         }
@@ -144,8 +148,8 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             _startNodepreValue = new MultiNodeTreePickerStartNodePreValue()
             {
-                Type = Enums.StartNodeType.Media,
-                Query = $"umb://media/{mediaId}"
+                StartNodeType = Enums.StartNodeType.Media,
+                Query = StringFormat.ToInvariant($"umb://media/{mediaId}")
             };
             return this;
         }
@@ -154,7 +158,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             _startNodepreValue = new MultiNodeTreePickerStartNodePreValue()
             {
-                Type = Enums.StartNodeType.Member,
+                StartNodeType = Enums.StartNodeType.Member,
                 Id = "-1"
             };
             return this;
@@ -165,7 +169,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             var dataType = _dataTypeService.GetDataTypeDefinitionById(KeyValue);
             if (dataType == null)
             {
-                dataType = new DataTypeDefinition(-1, ProperyEditors.MultiNodeTreePicker2Alias);
+                dataType = new DataTypeDefinition(-1, Umbraco.Core.Constants.PropertyEditors.MultiNodeTreePicker2Alias);
             }
 
             dataType.Name = NameValue;
@@ -175,13 +179,13 @@ namespace DeployCmsData.UmbracoCms.Builders
                 dataType.Key = KeyValue;
             }
 
-            PreValues.Add(PreValueStartNode, new PreValue(JsonHelper.SerializePreValueObject(_startNodepreValue)));
-            PreValues.Add(PreValueFilter, new PreValue(string.Join(",", _filter)));
-            PreValues.Add(PreValueMinNumber, new PreValue(_minimumItems.ToString()));
-            PreValues.Add(PreValueMaxNumber, new PreValue(_maximumItems.ToString()));
-            PreValues.Add(PreValueShowOpenButton, new PreValue(_showOpenButton ? "1" : "0"));
+            GetPreValues().Add(PreValueStartNode, new PreValue(JsonHelper.SerializePreValueObject(_startNodepreValue)));
+            GetPreValues().Add(PreValueFilter, new PreValue(string.Join(",", _filter)));
+            GetPreValues().Add(PreValueMinNumber, new PreValue(_minimumItems.ToString(CultureInfo.InvariantCulture)));
+            GetPreValues().Add(PreValueMaxNumber, new PreValue(_maximumItems.ToString(CultureInfo.InvariantCulture)));
+            GetPreValues().Add(PreValueShowOpenButton, new PreValue(_showOpenButton ? "1" : "0"));
 
-            _dataTypeService.SaveDataTypeAndPreValues(dataType, PreValues);
+            _dataTypeService.SaveDataTypeAndPreValues(dataType, GetPreValues());
 
             return dataType;
         }

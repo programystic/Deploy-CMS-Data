@@ -89,7 +89,7 @@ namespace DeployCmsData.Core.Services
             return atLeastOneSuccessfulLog;
         }
 
-        private bool ScriptShouldntBeRunEveryTime(IUpgradeScript upgradeScript)
+        private static bool ScriptShouldntBeRunEveryTime(IUpgradeScript upgradeScript)
         {
             return !ScriptHasAttribute<RunScriptEveryTimeAttribute>(upgradeScript);
         }

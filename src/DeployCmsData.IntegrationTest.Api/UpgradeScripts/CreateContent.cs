@@ -9,12 +9,12 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
     {
         public override bool RunScript(IUpgradeLogRepository upgradeLog)
         {
-            var website = ContentService.CreateContent("My Website", -1, "websiteRoot");
-            ContentService.SaveAndPublishWithStatus(website);
+            var website = GetContentService().CreateContent("My Website", -1, "websiteRoot");
+            GetContentService().SaveAndPublishWithStatus(website);
 
-            var homePage = ContentService.CreateContent("Home", website.Id, "homePage");
+            var homePage = GetContentService().CreateContent("Home", website.Id, "homePage");
             homePage.SetValue("pageTitle", "Hello World");
-            ContentService.SaveAndPublishWithStatus(homePage);
+            GetContentService().SaveAndPublishWithStatus(homePage);
 
             return true;
         }

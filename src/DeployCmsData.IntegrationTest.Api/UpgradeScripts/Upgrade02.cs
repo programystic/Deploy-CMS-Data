@@ -16,7 +16,7 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
             return true;
         }
 
-        public void BuildContentBase()
+        public static void BuildContentBase()
         {
             var builder = new DocumentTypeBuilder("contentBase");
 
@@ -37,7 +37,7 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
             builder.BuildInFolder("Compositions");
         }
 
-        public void BuildNavigationBase()
+        public static void BuildNavigationBase()
         {
             var builder = new DocumentTypeBuilder("navigationBase");
 
@@ -48,7 +48,7 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
             builder.AddField("seoMetaDescription")
                 .Name("Description")
                 .Description("A brief description of the content on your page. This text is shown below the title in a google search result and also used for Social Sharing Cards. The ideal length is between 130")
-                .DataType(DataType.Textarea)
+                .DataType(DataType.TextArea)
                 .Tab("Navigation & SEO");
 
             builder.AddField("keywords")
@@ -60,7 +60,7 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
             builder.AddField("umbracoNavihide")
                 .Name("Hide in Navigation")
                 .Description("If you don't want this page to appear in the navigation, check this box")
-                .DataType(DataType.Checkbox)
+                .DataType(DataType.CheckBox)
                 .Tab("Navigation & SEO");
 
             builder.BuildInFolder("Compositions");

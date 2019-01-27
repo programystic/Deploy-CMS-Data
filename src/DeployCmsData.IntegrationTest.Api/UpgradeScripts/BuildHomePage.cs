@@ -7,7 +7,7 @@ using DeployCmsData.UmbracoCms.Services;
 namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
 {
     [RunScriptEveryTime]
-    public class BuildHomePage : UmbracoUpgradeScript
+    public class BuildHomepage : UmbracoUpgradeScript
     {
         public override bool RunScript(IUpgradeLogRepository upgradeLog)
         {

@@ -232,11 +232,11 @@
     <Compile Include="Builders\DocumentTypeFolderTestBuilder.cs" />
     <Compile Include="Builders\DocumentTypeTestBuilder.cs" />
     <Compile Include="Builders\GridDataTypeTestBuilder.cs" />
-    <Compile Include="Builders\UmbracoContextBuilder.cs" />
     <Compile Include="Builders\UmbracoLibraryTestBuilder.cs" />
     <Compile Include="Constants\DocumentTypeAlias.cs" />
     <Compile Include="Constants\Enums.cs" />
     <Compile Include="Constants\PropertyAlias.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\CreateNewDocumentType.cs" />
     <Compile Include="Tests\CreateNewDocumentTypeFolder.cs" />
@@ -262,7 +262,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CustomDictionary.xml" />
+    <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </CodeAnalysisDictionary>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

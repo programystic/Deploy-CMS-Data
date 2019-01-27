@@ -1,8 +1,8 @@
-﻿using System;
-using DeployCmsData.Core.ActionFilters;
+﻿using DeployCmsData.Core.ActionFilters;
 using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Services;
+using System;
 
 namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
 {

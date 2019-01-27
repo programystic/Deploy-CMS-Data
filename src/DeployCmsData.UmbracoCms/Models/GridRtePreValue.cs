@@ -1,18 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 
 namespace DeployCmsData.UmbracoCms.Models
 {
     public class GridRtePreValue
     {
-        public List<string> Toolbar { get; set; }
-        public List<object> Stylesheets { get; set; }
+        public Collection<string> ToolBar { get; }
+        public Collection<object> StyleSheets { get; }
         public Dimensions Dimensions { get; set; }
         public int MaxImageSize { get; set; }
 
         public GridRtePreValue()
         {
-            Toolbar = new List<string>();
-            Stylesheets = new List<object>();
+            ToolBar = new Collection<string>();
+            StyleSheets = new Collection<object>();
         }
     }
 

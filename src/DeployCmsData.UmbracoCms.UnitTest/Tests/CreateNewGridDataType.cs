@@ -17,13 +17,13 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             var gridDataType = builder
                 .Name("My New Grid View")
-                .AddStandardToolbar()
+                .AddStandardToolBar()
                 .Build();
 
             Assert.IsInstanceOf<IDataTypeDefinition>(gridDataType);
             Assert.AreEqual("My New Grid View", gridDataType.Name);
             Assert.AreEqual(PropertyEditors.GridAlias, gridDataType.PropertyEditorAlias);
-            Assert.AreEqual(15, builder.GridRtePreValue.Toolbar.Count);
+            Assert.AreEqual(15, builder.GridRtePreValue.ToolBar.Count);
         }
 
         [Test]

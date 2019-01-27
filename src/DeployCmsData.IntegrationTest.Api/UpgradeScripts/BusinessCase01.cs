@@ -1,14 +1,16 @@
-﻿using System;
-using DeployCmsData.Core.Interfaces;
+﻿using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Constants;
 using DeployCmsData.UmbracoCms.Services;
+using System;
 
 namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
 {
     public class BusinessCase01 : UmbracoUpgradeScript
     {
-        public Guid BikePickerId = new Guid("{77F278EB-9D34-42E4-8C3B-7444BEC29A11}");
+        private Guid bikePickerId = new Guid("{77F278EB-9D34-42E4-8C3B-7444BEC29A11}");
+
+        public Guid BikePickerId { get => bikePickerId; set => bikePickerId = value; }
 
         public override bool RunScript(IUpgradeLogRepository upgradeLog)
         {
@@ -16,12 +18,12 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
             NewSubTypeBikeSelector();
             NewTabsForBikeModelPage();
 
-            var docType = new DocumentTypeBuilder("myLovelyNewDocumentType").BuildAtRoot();
-            
+            new DocumentTypeBuilder("myLovelyNewDocumentType").BuildAtRoot();
+
             return true;
         }
 
-        private void CreateBikeModelPage()
+        private static void CreateBikeModelPage()
         {
             var builder = new DocumentTypeBuilder("bikeModelPage");
             builder.BuildAtRoot();
@@ -35,7 +37,7 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
                 .Name("Bike Picker Name")
                 .AllowItemsOfType("BikeModelPage")
                 .ShowOpenButton()
-                .StartNodeXPath("$root/BikeListingPage")
+                .StartNodeXpath("$root/BikeListingPage")
                 .Build();
         }
 
@@ -46,7 +48,7 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
             ModelLevelSpecificationTab(builder);
             SubModuleDefinitionTab(builder);
 
-            builder.ReBuild();
+            builder.Rebuild();
         }
 
         private void ModelLevelSpecificationTab(DocumentTypeBuilder builder)
@@ -55,7 +57,7 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
 
             builder.AddField("isLeadingModel")
                 .Description("Check if this is main model for submodels")
-                .DataType(DataType.Checkbox)
+                .DataType(DataType.CheckBox)
                 .Tab(tabName);
 
             builder.AddField("subTypes")
@@ -63,7 +65,7 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
                 .Tab(tabName);
         }
 
-        private void SubModuleDefinitionTab(DocumentTypeBuilder builder)
+        private static void SubModuleDefinitionTab(DocumentTypeBuilder builder)
         {
             const string tabName = "Sub Model Definition";
 
@@ -79,7 +81,7 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
                 .Tab(tabName);
 
             builder.AddField("specificationContent")
-                .DataType(DataType.Richtexteditor)
+                .DataType(DataType.RichTextEditor)
                 .Tab(tabName);
 
             builder.AddField("propertyDefaultTest");

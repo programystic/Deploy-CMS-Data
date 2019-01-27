@@ -6,16 +6,22 @@ namespace DeployCmsData.UmbracoCms.Services
 {
     public class UmbracoUpgradeScript : IUpgradeScript
     {
-        public readonly UmbracoLibrary Library;
-        public readonly IContentService ContentService;
+        private readonly UmbracoLibrary library;
+        private readonly IContentService contentService;
+
+        public UmbracoLibrary Library => library;
+
+        public IContentService GetContentService()
+        {
+            return contentService;
+        }
 
         public UmbracoUpgradeScript()
         {
-            Library = new UmbracoLibrary();
-            ContentService = ApplicationContext.Current.Services.ContentService;
+            library = new UmbracoLibrary();
+            contentService = ApplicationContext.Current.Services.ContentService;
         }
 
-        
         public virtual bool RunScript(IUpgradeLogRepository upgradeLog)
         {
             return true;

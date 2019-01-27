@@ -127,12 +127,111 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
+		/// List View Members
+		///</summary>
+		[ImplementPropertyType("listViewMembers")]
+		public object ListViewMembers
+		{
+			get { return this.GetPropertyValue("listViewMembers"); }
+		}
+
+		///<summary>
+		/// Media Picker
+		///</summary>
+		[ImplementPropertyType("mediaPicker")]
+		public IPublishedContent MediaPicker
+		{
+			get { return this.GetPropertyValue<IPublishedContent>("mediaPicker"); }
+		}
+
+		///<summary>
+		/// Member Picker
+		///</summary>
+		[ImplementPropertyType("memberPicker")]
+		public IPublishedContent MemberPicker
+		{
+			get { return this.GetPropertyValue<IPublishedContent>("memberPicker"); }
+		}
+
+		///<summary>
+		/// Multiple Media Picker
+		///</summary>
+		[ImplementPropertyType("multipleMediaPicker")]
+		public IEnumerable<IPublishedContent> MultipleMediaPicker
+		{
+			get { return this.GetPropertyValue<IEnumerable<IPublishedContent>>("multipleMediaPicker"); }
+		}
+
+		///<summary>
+		/// Numeric
+		///</summary>
+		[ImplementPropertyType("numeric")]
+		public int Numeric
+		{
+			get { return this.GetPropertyValue<int>("numeric"); }
+		}
+
+		///<summary>
+		/// Radio Box
+		///</summary>
+		[ImplementPropertyType("radioBox")]
+		public int RadioBox
+		{
+			get { return this.GetPropertyValue<int>("radioBox"); }
+		}
+
+		///<summary>
+		/// Related Links
+		///</summary>
+		[ImplementPropertyType("relatedLinks")]
+		public Umbraco.Web.Models.RelatedLinks RelatedLinks
+		{
+			get { return this.GetPropertyValue<Umbraco.Web.Models.RelatedLinks>("relatedLinks"); }
+		}
+
+		///<summary>
+		/// Rich Text Editor
+		///</summary>
+		[ImplementPropertyType("richTextEditor")]
+		public IHtmlString RichTextEditor
+		{
+			get { return this.GetPropertyValue<IHtmlString>("richTextEditor"); }
+		}
+
+		///<summary>
+		/// Tags
+		///</summary>
+		[ImplementPropertyType("tags")]
+		public IEnumerable<string> Tags
+		{
+			get { return this.GetPropertyValue<IEnumerable<string>>("tags"); }
+		}
+
+		///<summary>
 		/// Text Area
 		///</summary>
 		[ImplementPropertyType("textArea")]
 		public string TextArea
 		{
 			get { return this.GetPropertyValue<string>("textArea"); }
+		}
+
+		///<summary>
+		/// Text String
+		///</summary>
+		[ImplementPropertyType("textString")]
+		public string TextString
+		{
+			get { return this.GetPropertyValue<string>("textString"); }
+		}
+
+		///<summary>
+		/// Upload
+		///</summary>
+		[ImplementPropertyType("upload")]
+		public string Upload
+		{
+			get { return this.GetPropertyValue<string>("upload"); }
 		}
 	}
 }

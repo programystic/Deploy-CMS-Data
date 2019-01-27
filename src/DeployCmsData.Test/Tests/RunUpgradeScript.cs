@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using DeployCmsData.Core.Constants;
+﻿using DeployCmsData.Core.Constants;
 using DeployCmsData.Core.Interfaces;
 using DeployCmsData.Core.Models;
 using DeployCmsData.Core.Services;
@@ -8,8 +6,9 @@ using DeployCmsData.UnitTest.Builders;
 using DeployCmsData.UnitTest.UpgradeScripts;
 using Moq;
 using NUnit.Framework;
+using System;
+using System.Linq;
 
-[assembly: CLSCompliant(true)]
 namespace DeployCmsData.UnitTest.Tests
 {
     public static class RunUpgradeScript

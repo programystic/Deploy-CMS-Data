@@ -1,14 +1,12 @@
 ﻿using DeployCmsData.UmbracoCms.Constants;
 using DeployCmsData.UmbracoCms.UnitTest.Builders;
-using Moq;
 using NUnit.Framework;
-using Umbraco.Core.Models;
 using System.Linq;
 
 namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 {
     [TestFixture()]
-    class UpdateDocumentType
+    public static class UpdateDocumentType
     {
         private const string Alias = "myAlias";
         private const string Name = "myName";
@@ -24,7 +22,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
                 .ReturnsExistingContentType(Alias, Id)
-                .ReturnsDataType(DataType.Textstring)
+                .ReturnsDataType(DataType.TextString)
                 .ReturnsDataType(DataType.Numeric)
                 .Build();
 
@@ -35,7 +33,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             builder.AddField("name")
                 .Name("The Name")
-                .DataType(DataType.Textstring)
+                .DataType(DataType.TextString)
                 .Tab("The First 1");
 
             builder.AddField("theNumber")
@@ -43,28 +41,28 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .DataType(DataType.Numeric)
                 .IsMandatory();
 
-            builder.ReBuild();
+            builder.Rebuild();
         }
 
         [Test]
-        public static void AddNewProperty_DefaultDatType_TextString()
+        public static void AddNewProperty_DefaultDataType_TextString()
         {
             const string fieldAlias = "myNewProperty";
 
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
                 .ReturnsExistingContentType(Alias, Id)
-                .ReturnsDataType(DataType.Textstring)
+                .ReturnsDataType(DataType.TextString)
                 .ReturnsDataType(DataType.Numeric)
                 .Build();
 
             builder
                 .AddField(fieldAlias);
 
-            builder.ReBuild();
+            builder.Rebuild();
 
             var field = builder.AddFieldList.FirstOrDefault(x => x.AliasValue == fieldAlias);
-            Assert.AreEqual(DataType.Textstring, field.DataTypeValue);
+            Assert.AreEqual(DataType.TextString, field.DataTypeValue);
         }
 
         [Test]
@@ -76,12 +74,12 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
                 .ReturnsExistingContentType(Alias, Id)
-                .ReturnsDataType(DataType.Textstring)
+                .ReturnsDataType(DataType.TextString)
                 .ReturnsDataType(DataType.Numeric)
                 .Build();
 
             builder.AddField(fieldAlias);
-            builder.ReBuild();
+            builder.Rebuild();
 
             var field = builder.AddFieldList.FirstOrDefault(x => x.AliasValue == fieldAlias);
             Assert.AreEqual(fieldName, field.NameValue);

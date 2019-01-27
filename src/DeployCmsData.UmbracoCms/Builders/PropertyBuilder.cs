@@ -4,29 +4,38 @@ namespace DeployCmsData.UmbracoCms.Builders
 {
     public class PropertyBuilder
     {
-        public string AliasValue;
-        public string NameValue;
-        public string TabValue;
-        public Guid DataTypeValue;
-        public string DescriptionValue;
-        public string RegularExpressionValue;
-        public bool MandatoryValue;
-        public string PropertyEditorAliasValue;
+        private string aliasValue;
+        private string nameValue;
+        private string tabValue;
+        private Guid dataTypeValue;
+        private string descriptionValue;
+        private string regularExpressionValue;
+        private bool mandatoryValue;
+        private string propertyEditorAliasValue;
+
+        public string AliasValue { get => aliasValue; set => aliasValue = value; }
+        public string NameValue { get => nameValue; set => nameValue = value; }
+        public string TabValue { get => tabValue; set => tabValue = value; }
+        public Guid DataTypeValue { get => dataTypeValue; set => dataTypeValue = value; }
+        public string DescriptionValue { get => descriptionValue; set => descriptionValue = value; }
+        public string RegularExpressionValue { get => regularExpressionValue; set => regularExpressionValue = value; }
+        public bool MandatoryValue { get => mandatoryValue; set => mandatoryValue = value; }
+        public string PropertyEditorAliasValue { get => propertyEditorAliasValue; set => propertyEditorAliasValue = value; }
 
         public PropertyBuilder(string alias)
         {
             AliasValue = alias;
         }
 
-        public PropertyBuilder DataType(Guid dataType)
+        public PropertyBuilder DataType(Guid propertyDataType)
         {
-            DataTypeValue = dataType;
+            DataTypeValue = propertyDataType;
             return this;
         }
 
-        public PropertyBuilder PropertyEditorAlias(string propertyEditorAlias)
+        public PropertyBuilder PropertyEditorAlias(string alias)
         {
-            PropertyEditorAliasValue = propertyEditorAlias;
+            PropertyEditorAliasValue = alias;
             return this;
         }
 

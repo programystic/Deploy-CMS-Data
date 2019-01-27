@@ -1,6 +1,6 @@
-﻿using System;
-using DeployCmsData.UmbracoCms.Models;
+﻿using DeployCmsData.UmbracoCms.Models;
 using DeployCmsData.UmbracoCms.Services;
+using System;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
@@ -21,8 +21,6 @@ namespace DeployCmsData.UmbracoCms.Builders
         private string NameValue { get; set; }
         private Guid KeyValue { get; set; }
 
-        private DataTypeBuilder _dataTypeBuilder;
-
         public GridDataTypeBuilder(Guid key)
         {
             Setup(UmbracoContext.Current.Application.Services.DataTypeService);
@@ -37,7 +35,6 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public void Setup(IDataTypeService dataTypeService)
         {
-            _dataTypeBuilder = new DataTypeBuilder();
             DataTypeService = dataTypeService;
             GridItemsPreValue = new GridItemsPreValue();
             GridRtePreValue = new GridRtePreValue();
@@ -65,14 +62,19 @@ namespace DeployCmsData.UmbracoCms.Builders
             GridRtePreValue.MaxImageSize = 500;
         }
 
-        public GridDataTypeBuilder Name(string name)
+        public GridDataTypeBuilder Name(string gridName)
         {
-            NameValue = name;
+            NameValue = gridName;
             return this;
         }
 
         public GridDataTypeBuilder AddLayout(string layoutName, params int[] gridColumns)
         {
+            if (gridColumns == null)
+            {
+                throw new ArgumentNullException(nameof(gridColumns));
+            }
+
             var template = new Models.Template
             {
                 Name = layoutName
@@ -90,7 +92,12 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public GridDataTypeBuilder AddRow(string rowName, params int[] areas)
         {
-            var layout = new Layout
+            if (areas == null)
+            {
+                throw new ArgumentNullException(nameof(areas));
+            }
+
+            var layout = new GridLayout
             {
                 Label = rowName,
                 Name = rowName
@@ -120,46 +127,41 @@ namespace DeployCmsData.UmbracoCms.Builders
             return this;
         }
 
-        public GridDataTypeBuilder AddStandardToolbar()
+        public GridDataTypeBuilder AddStandardToolBar()
         {
-            GridRtePreValue.Toolbar.Add("code");
-            GridRtePreValue.Toolbar.Add("styleselect");
-            GridRtePreValue.Toolbar.Add("bold");
-            GridRtePreValue.Toolbar.Add("italic");
-            GridRtePreValue.Toolbar.Add("alignleft");
-            GridRtePreValue.Toolbar.Add("aligncenter");
-            GridRtePreValue.Toolbar.Add("alignright");
-            GridRtePreValue.Toolbar.Add("bullist");
-            GridRtePreValue.Toolbar.Add("numlist");
-            GridRtePreValue.Toolbar.Add("outdent");
-            GridRtePreValue.Toolbar.Add("indent");
-            GridRtePreValue.Toolbar.Add("link");
-            GridRtePreValue.Toolbar.Add("umbmediapicker");
-            GridRtePreValue.Toolbar.Add("umbmacro");
-            GridRtePreValue.Toolbar.Add("umbembeddialog");
+            GridRtePreValue.ToolBar.Add("code");
+            GridRtePreValue.ToolBar.Add("styleselect");
+            GridRtePreValue.ToolBar.Add("bold");
+            GridRtePreValue.ToolBar.Add("italic");
+            GridRtePreValue.ToolBar.Add("alignleft");
+            GridRtePreValue.ToolBar.Add("aligncenter");
+            GridRtePreValue.ToolBar.Add("alignright");
+            GridRtePreValue.ToolBar.Add("bullist");
+            GridRtePreValue.ToolBar.Add("numlist");
+            GridRtePreValue.ToolBar.Add("outdent");
+            GridRtePreValue.ToolBar.Add("indent");
+            GridRtePreValue.ToolBar.Add("link");
+            GridRtePreValue.ToolBar.Add("umbmediapicker");
+            GridRtePreValue.ToolBar.Add("umbmacro");
+            GridRtePreValue.ToolBar.Add("umbembeddialog");
             return this;
         }
 
-        public GridDataTypeBuilder AddToolbarOption(string option)
+        public GridDataTypeBuilder AddToolBarOption(string option)
         {
-            GridRtePreValue.Toolbar.Add(option);
+            GridRtePreValue.ToolBar.Add(option);
             return this;
         }
 
         public GridDataTypeBuilder DeleteGrid(string gridName)
         {
-            _dataTypeBuilder.DeleteDataTypeByName(gridName, DataTypeService);
+            DataTypeBuilder.DeleteDataTypeByName(gridName, DataTypeService);
             return this;
         }
 
         public void DeleteGrid(Guid id)
         {
-            _dataTypeBuilder.DeleteDataTypeById(id, DataTypeService);
-        }
-
-        public void BuildInFolder(string folderName)
-        {
-            // returns IDataTypeDefinition
+            DataTypeBuilder.DeleteDataTypeById(id, DataTypeService);
         }
 
         public IDataTypeDefinition Build()

@@ -20,7 +20,7 @@ using Umbraco.ModelsBuilder.Umbraco;
 
 namespace Umbraco.Web.PublishedContentModels
 {
-	// Mixin content Type 2252 with alias "contentBase"
+	// Mixin content Type 2316 with alias "contentBase"
 	/// <summary>Content Base</summary>
 	public partial interface IContentBase : IPublishedContent
 	{
