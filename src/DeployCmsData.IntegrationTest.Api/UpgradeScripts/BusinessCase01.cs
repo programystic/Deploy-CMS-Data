@@ -73,6 +73,10 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
                 .Description("Select image to be displayed on a card")
                 .DataType(DataType.MediaPicker)
                 .Tab(tabName);
+            builder.AddField("bikeImage")
+                            .Description("Select image to be displayed on a card")
+                            .DataType(DataType.MediaPicker)
+                            .Tab(tabName);
 
             builder.AddField("overrideFromLabel")
                 .Tab(tabName);
