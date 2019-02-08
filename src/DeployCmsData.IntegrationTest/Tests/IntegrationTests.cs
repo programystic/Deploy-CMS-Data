@@ -12,7 +12,7 @@ namespace DeployCmsData.IntegrationTest.Tests
         [TestCase("Upgrade01")]
         [TestCase("Upgrade02")]
         [TestCase("Upgrade04")]
-        [TestCase("BuildHomePage")]
+        [TestCase("BuildHomepage")]
         [TestCase("BuildWebsite")]
         [TestCase("CreateContent")]
         [TestCase("MultiNodeTreePicker")]
