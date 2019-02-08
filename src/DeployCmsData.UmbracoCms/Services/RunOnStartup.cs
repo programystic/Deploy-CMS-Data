@@ -3,20 +3,29 @@ using DeployCmsData.Core.Services;
 using DeployCmsData.UmbracoCms.Data;
 using Semver;
 using System.Linq;
-using System.Web.Configuration;
 using Umbraco.Core;
+using Umbraco.Core.Logging;
 using Umbraco.Core.Persistence.Migrations;
+using Umbraco.Core.Persistence.SqlSyntax;
 using Umbraco.Web;
+using WebConfigHelper;
 
 namespace DeployCmsData.UmbracoCms.Services
 {
     internal class RunOnStartup : ApplicationEventHandler
     {
+        private WebConfigValues _webConfigValues;
+
+        public RunOnStartup()
+        {
+            _webConfigValues = new WebConfigValues();
+        }
+
         // TODO - What is the correct event to use that runs when Umbraco is setting up for the first time and fires after the install is fininished>
         // Because this event didn't fire - I think.
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
-            if (IsRunAtStartupDisabled())
+            if (RunAtStartupIsDisabled())
             {
                 return;
             }
@@ -36,16 +45,9 @@ namespace DeployCmsData.UmbracoCms.Services
             upgradeScriptManager.RunAllScriptsIfNeeded();
         }
 
-        private static bool IsRunAtStartupDisabled()
+        private bool RunAtStartupIsDisabled()
         {
-            if (!bool.TryParse(
-                WebConfigurationManager.AppSettings[Constants.AppSettings.DisableRunAtStartup],
-                out bool disableRunAtStartup))
-            {
-                disableRunAtStartup = false;
-            }
-
-            return disableRunAtStartup;
+            return _webConfigValues.GetAppSetting(Constants.AppSettings.DisableRunAtStartup, false);
         }
 
         // Take a look at Umbraco.Core.Persistence.Migrations source code
@@ -67,7 +69,7 @@ namespace DeployCmsData.UmbracoCms.Services
                 currentVersion = latestMigration.Version;
             }
 
-            var targetVersion = new SemVersion(1, 0, 0);
+            var targetVersion = new SemVersion(2, 0, 0);
             if (targetVersion == currentVersion)
             {
                 return;
@@ -81,6 +83,39 @@ namespace DeployCmsData.UmbracoCms.Services
               productName);
 
             migrationsRunner.Execute(UmbracoContext.Current.Application.DatabaseContext.Database);
+        }
+
+        [Migration("1.0.0", 1, "DeployCmsData")]
+        public class Migration01 : MigrationBase
+        {
+            public Migration01(ISqlSyntaxProvider sqlSyntax, ILogger logger) : base(sqlSyntax, logger)
+            {
+            }
+
+            public override void Down()
+            {
+            }
+
+            public override void Up()
+            {
+            }
+        }
+
+        [Migration("1.3.0", 2, "DeployCmsData")]
+        public class Migration03 : MigrationBase
+        {
+            public Migration03(ISqlSyntaxProvider sqlSyntax, ILogger logger) : base(sqlSyntax, logger)
+            {
+            }
+
+            public override void Down()
+            {
+            }
+
+
+            public override void Up()
+            {
+            }
         }
     }
 }
