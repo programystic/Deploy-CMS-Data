@@ -27,12 +27,12 @@ namespace DeployCmsData.UmbracoCms.Builders
         private int _maximumItems;
         private bool _showOpenButton;
         private MultiNodeTreePickerStartNodePreValue _startNodepreValue;
-        private readonly Dictionary<string, PreValue> preValues;
+        private readonly Dictionary<string, PreValue> _preValues;
 
-        public Dictionary<string, PreValue> GetPreValues()
-        {
-            return preValues;
-        }
+        private Dictionary<string, PreValue> PreValues => _preValues;
+
+        public int PreValueCount => PreValues.Count;
+        public string PreValue(string key) => PreValues[key].Value;
 
         public MultiNodeTreePickerBuilder(Guid key)
         {
@@ -41,7 +41,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             _mediaService = UmbracoContext.Current.Application.Services.MediaService;
             KeyValue = key;
             _startNodepreValue = new MultiNodeTreePickerStartNodePreValue() { StartNodeType = Enums.StartNodeType.Content };
-            preValues = new Dictionary<string, PreValue>();
+            _preValues = new Dictionary<string, PreValue>();
         }
 
         public MultiNodeTreePickerBuilder(
@@ -55,7 +55,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             _mediaService = mediaService;
             KeyValue = key;
             _startNodepreValue = new MultiNodeTreePickerStartNodePreValue() { StartNodeType = Enums.StartNodeType.Content };
-            preValues = new Dictionary<string, PreValue>();
+            _preValues = new Dictionary<string, PreValue>();
         }
 
         public MultiNodeTreePickerBuilder Name(string multiNodeTreePickerName)
@@ -179,13 +179,13 @@ namespace DeployCmsData.UmbracoCms.Builders
                 dataType.Key = KeyValue;
             }
 
-            GetPreValues().Add(PreValueStartNode, new PreValue(JsonHelper.SerializePreValueObject(_startNodepreValue)));
-            GetPreValues().Add(PreValueFilter, new PreValue(string.Join(",", _filter)));
-            GetPreValues().Add(PreValueMinNumber, new PreValue(_minimumItems.ToString(CultureInfo.InvariantCulture)));
-            GetPreValues().Add(PreValueMaxNumber, new PreValue(_maximumItems.ToString(CultureInfo.InvariantCulture)));
-            GetPreValues().Add(PreValueShowOpenButton, new PreValue(_showOpenButton ? "1" : "0"));
+            PreValues.Add(PreValueStartNode, new PreValue(JsonHelper.SerializePreValueObject(_startNodepreValue)));
+            PreValues.Add(PreValueFilter, new PreValue(string.Join(",", _filter)));
+            PreValues.Add(PreValueMinNumber, new PreValue(_minimumItems.ToString(CultureInfo.InvariantCulture)));
+            PreValues.Add(PreValueMaxNumber, new PreValue(_maximumItems.ToString(CultureInfo.InvariantCulture)));
+            PreValues.Add(PreValueShowOpenButton, new PreValue(_showOpenButton ? "1" : "0"));
 
-            _dataTypeService.SaveDataTypeAndPreValues(dataType, GetPreValues());
+            _dataTypeService.SaveDataTypeAndPreValues(dataType, PreValues);
 
             return dataType;
         }

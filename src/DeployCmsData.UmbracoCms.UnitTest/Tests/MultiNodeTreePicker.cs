@@ -47,16 +47,16 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .ShowOpenButton()
                 .Build();
 
-            var preValueJson = builder.GetPreValues()[MultiNodeTreePickerBuilder.PreValueStartNode].Value;
+            var preValueJson = builder.PreValue(MultiNodeTreePickerBuilder.PreValueStartNode);
             var preValue = JsonConvert.DeserializeObject<MultiNodeTreePickerStartNodePreValue>(preValueJson);
 
             Assert.AreEqual(expectedJson, preValueJson);
-            Assert.AreEqual(5, builder.GetPreValues().Count);
+            Assert.AreEqual(5, builder.PreValueCount);
             Assert.IsTrue(preValue.Query.EndsWith(contentGuid.ToString(), StringComparison.Ordinal));
             Assert.AreEqual(Enums.StartNodeType.Content, preValue.StartNodeType);
-            Assert.AreEqual(minNumber.ToString(CultureInfo.InvariantCulture), builder.GetPreValues()[MultiNodeTreePickerBuilder.PreValueMinNumber].Value);
-            Assert.AreEqual(maxNumber.ToString(CultureInfo.InvariantCulture), builder.GetPreValues()[MultiNodeTreePickerBuilder.PreValueMaxNumber].Value);
-            Assert.AreEqual("1", builder.GetPreValues()[MultiNodeTreePickerBuilder.PreValueShowOpenButton].Value);
+            Assert.AreEqual(minNumber.ToString(CultureInfo.InvariantCulture), builder.PreValue(MultiNodeTreePickerBuilder.PreValueMinNumber));
+            Assert.AreEqual(maxNumber.ToString(CultureInfo.InvariantCulture), builder.PreValue(MultiNodeTreePickerBuilder.PreValueMaxNumber));
+            Assert.AreEqual("1", builder.PreValue(MultiNodeTreePickerBuilder.PreValueShowOpenButton));
         }
 
         [Test]
@@ -93,7 +93,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .ShowOpenButton()
                 .Build();
 
-            var preValueJson = builder.GetPreValues()[MultiNodeTreePickerBuilder.PreValueStartNode].Value;
+            var preValueJson = builder.PreValue(MultiNodeTreePickerBuilder.PreValueStartNode);
             var preValue = JsonConvert.DeserializeObject<MultiNodeTreePickerStartNodePreValue>(preValueJson);
 
             Assert.AreEqual(expectedJson, preValueJson);
