@@ -223,6 +223,7 @@
     <Compile Include="Builders\MultiNodeTreePickerBuilder.cs" />
     <Compile Include="Builders\PropertyBuilder.cs" />
     <Compile Include="Builders\GridDataTypeBuilder.cs" />
+    <Compile Include="Builders\TemplateBuilder.cs" />
     <Compile Include="Constants\AppSettings.cs" />
     <Compile Include="Constants\Data.cs" />
     <Compile Include="Constants\DataType.cs" />

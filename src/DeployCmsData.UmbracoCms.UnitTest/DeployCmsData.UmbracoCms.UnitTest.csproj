@@ -244,6 +244,7 @@
     <Compile Include="Tests\CreateNewProperties.cs" />
     <Compile Include="Tests\DeleteDocumentType.cs" />
     <Compile Include="Tests\MultiNodeTreePicker.cs" />
+    <Compile Include="Tests\Templates.cs" />
     <Compile Include="Tests\UmbracoUpgradeLog.cs" />
     <Compile Include="Tests\UpdateDocumentType.cs" />
   </ItemGroup>

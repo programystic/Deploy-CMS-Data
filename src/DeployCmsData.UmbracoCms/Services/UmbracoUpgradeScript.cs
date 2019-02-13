@@ -1,9 +1,11 @@
-﻿using DeployCmsData.Core.Interfaces;
+﻿using DeployCmsData.Core.Attributes;
+using DeployCmsData.Core.Interfaces;
 using Umbraco.Core;
 using Umbraco.Core.Services;
 
 namespace DeployCmsData.UmbracoCms.Services
 {
+    [DoNotAutoRun]
     public class UmbracoUpgradeScript : IUpgradeScript
     {
         public UmbracoLibrary Library { get; }

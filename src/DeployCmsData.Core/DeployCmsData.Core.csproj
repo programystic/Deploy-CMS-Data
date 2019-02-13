@@ -46,8 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionFilters\DoNotAutoRunAttribute.cs" />
-    <Compile Include="ActionFilters\RunScriptEveryTimeAttribute.cs" />
+    <Compile Include="Attributes\DoNotAutoRunAttribute.cs" />
+    <Compile Include="Attributes\RunScriptEveryTimeAttribute.cs" />
     <Compile Include="Constants\ExceptionMessages.cs" />
     <Compile Include="Data\UpgradeScriptRepository.cs" />
     <Compile Include="Extensions\StringFormat.cs" />

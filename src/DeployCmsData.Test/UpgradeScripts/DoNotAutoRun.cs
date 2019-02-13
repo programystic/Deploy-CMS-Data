@@ -1,4 +1,4 @@
-﻿using DeployCmsData.Core.ActionFilters;
+﻿using DeployCmsData.Core.Attributes;
 using DeployCmsData.Core.Interfaces;
 
 namespace DeployCmsData.UnitTest.UpgradeScripts
