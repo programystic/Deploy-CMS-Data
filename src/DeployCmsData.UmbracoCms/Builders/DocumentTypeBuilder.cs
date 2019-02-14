@@ -11,6 +11,7 @@ using Umbraco.Core.Models;
 using Umbraco.Core.Models.EntityBase;
 using Umbraco.Core.Services;
 using Umbraco.Web;
+using Validation;
 
 namespace DeployCmsData.UmbracoCms.Builders
 {
@@ -34,10 +35,7 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public DocumentTypeBuilder(string alias)
         {
-            if (string.IsNullOrWhiteSpace(alias))
-            {
-                throw new ArgumentException("The alias is blank");
-            }
+            Requires.NotNullOrWhiteSpace(alias, nameof(alias));
 
             var applicationContext = UmbracoContext.Current.Application;
 
@@ -62,10 +60,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         public IContentType BuildWithParent(string parentAlias)
         {
             var parent = _contentTypeService.GetContentType(parentAlias);
-            if (parent == null)
-            {
-                throw new ArgumentException(ExceptionMessages.ParentAliasNotFound, parentAlias);
-            }
+            Verify.Operation(parent != null, ExceptionMessages.ParentAliasNotFound);            
 
             return BuildDocumentType(parent.Id);
         }

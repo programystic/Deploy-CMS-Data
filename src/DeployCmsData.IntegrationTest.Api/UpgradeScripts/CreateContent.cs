@@ -8,7 +8,7 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
     public class CreateContent : UmbracoUpgradeScript
     {
         public override bool RunScript(IUpgradeLogRepository upgradeLog)
-        {
+        {            
             var website = ContentService.CreateContent("My Website", -1, "websiteRoot");
             ContentService.SaveAndPublishWithStatus(website);
 

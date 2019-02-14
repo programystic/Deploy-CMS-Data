@@ -227,11 +227,15 @@
     <Reference Include="UmbracoExamine, Version=0.7.0.12340, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\UmbracoCms.Core.7.12.3\lib\net45\UmbracoExamine.dll</HintPath>
     </Reference>
+    <Reference Include="Validation, Version=2.4.0.0, Culture=neutral, PublicKeyToken=2fc06f0d701809a7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Validation.2.4.18\lib\net45\Validation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builders\DocumentTypeFolderTestBuilder.cs" />
     <Compile Include="Builders\DocumentTypeTestBuilder.cs" />
     <Compile Include="Builders\GridDataTypeTestBuilder.cs" />
+    <Compile Include="Builders\TemplateTestBuilder.cs" />
     <Compile Include="Builders\UmbracoLibraryTestBuilder.cs" />
     <Compile Include="Constants\DocumentTypeAlias.cs" />
     <Compile Include="Constants\Enums.cs" />

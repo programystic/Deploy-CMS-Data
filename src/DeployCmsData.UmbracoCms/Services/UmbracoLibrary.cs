@@ -10,10 +10,11 @@ namespace DeployCmsData.UmbracoCms.Services
 {
     public class UmbracoLibrary
     {
-        IContentTypeService _contentTypeService;
-        IContentService _contentService;
-        IUmbracoFactory _umbracoFactory;
-        IDataTypeService _dataTypeService;
+        private IContentTypeService _contentTypeService;
+        private IContentService _contentService;
+        private IUmbracoFactory _umbracoFactory;
+        private IDataTypeService _dataTypeService;
+        private IFileService _fileService;
 
         public UmbracoLibrary()
         {
@@ -22,10 +23,13 @@ namespace DeployCmsData.UmbracoCms.Services
             _contentService = applicationContext.Services.ContentService;
             _umbracoFactory = new UmbracoFactory(_contentTypeService);
             _dataTypeService = applicationContext.Services.DataTypeService;
+            _fileService = applicationContext.Services.FileService;
         }
 
-        public UmbracoLibrary(IContentTypeService contentTypeService, IContentService contentService, IUmbracoFactory umbracoFactory)
-        {            
+        public UmbracoLibrary(IContentTypeService contentTypeService, 
+            IContentService contentService, 
+            IUmbracoFactory umbracoFactory)
+        {
             _contentTypeService = contentTypeService;
             _contentService = contentService;
             _umbracoFactory = umbracoFactory;
@@ -34,8 +38,11 @@ namespace DeployCmsData.UmbracoCms.Services
         public void DeleteAllDocumentTypes()
         {
             var documentTypes = _contentTypeService.GetAllContentTypes();
-            if (documentTypes == null || documentTypes.Count() == 0) return;
-            
+            if (documentTypes == null || documentTypes.Count() == 0)
+            {
+                return;
+            }
+
             _contentTypeService.Delete(documentTypes);
         }
 
@@ -47,7 +54,7 @@ namespace DeployCmsData.UmbracoCms.Services
             {
                 _contentTypeService.DeleteContentTypeContainer(folder.Id);
             }
-            
+
         }
 
         public void DeleteAllContent()
@@ -67,7 +74,25 @@ namespace DeployCmsData.UmbracoCms.Services
         public void DeleteDataTypeById(Guid id)
         {
             var dataType = _dataTypeService.GetDataTypeDefinitionById(id);
-            if (dataType != null) _dataTypeService.Delete(dataType);
+            if (dataType != null)
+            {
+                _dataTypeService.Delete(dataType);
+            }
+        }
+
+        public void DeleteAllTemplates()
+        {
+            DeleteTemplateAndChildren(-1);
+        }
+
+        private void DeleteTemplateAndChildren(int templateId)
+        {
+            var templates = _fileService.GetTemplateChildren(templateId);
+            foreach (var template in templates)
+            {
+                DeleteTemplateAndChildren(template.Id);
+                _fileService.DeleteTemplate(template.Alias);
+            }
         }
     }
 }

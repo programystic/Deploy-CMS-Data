@@ -12,6 +12,7 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
             Library.DeleteAllContent();
             Library.DeleteAllDocumentTypes();
             Library.DeleteAllDocumentTypeFolders();
+            Library.DeleteAllTemplates();
 
             return true;
         }

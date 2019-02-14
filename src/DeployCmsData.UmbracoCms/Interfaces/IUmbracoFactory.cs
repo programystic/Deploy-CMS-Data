@@ -11,5 +11,6 @@ namespace DeployCmsData.UmbracoCms.Interfaces
         IUmbracoEntity GetContainer(string name, int level);
         PropertyType NewPropertyType(IDataTypeDefinition dataTypeDefinition, string propertyAlias);
         IEnumerable<IContent> GetChildren(IContent content);
+        ITemplate NewTemplate(string name, string templateAlias);
     }
 }

@@ -11,5 +11,6 @@
         public const string ParentFolderNameNotDefined = "Parent folder name cannot be empty";
         public const string UpgradeScriptIsNull = "Upgrade script is null";
         public const string CannotFindDataType = "Cannot find the data type: ";
+        public const string TemplateNotFound = "Template not found";
     }
 }

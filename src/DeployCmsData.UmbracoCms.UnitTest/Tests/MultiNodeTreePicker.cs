@@ -12,7 +12,7 @@ using Umbraco.Core.Services;
 namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 {
     [TestFixture]
-    internal class MultiNodeTreePicker
+    public static class MultiNodeTreePicker
     {
         [Test]
         public static void CreateSimplePicker()
@@ -60,7 +60,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         }
 
         [Test]
-        public static void XPath()
+        public static void Xpath()
         {
             const int contentId = 1234;
             const int maxNumber = 5;

@@ -60,5 +60,10 @@ namespace DeployCmsData.UmbracoCms.Services
         {
             return content.Children();
         }
+
+        public ITemplate NewTemplate(string name, string templateAlias)
+        {
+            return new Template(name, templateAlias);
+        }
     }
 }

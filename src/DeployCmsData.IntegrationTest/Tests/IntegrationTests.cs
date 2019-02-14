@@ -18,6 +18,7 @@ namespace DeployCmsData.IntegrationTest.Tests
         [TestCase("MultiNodeTreePicker")]
         [TestCase("BusinessCase01")]
         [TestCase("AllDataTypes")]
+        [TestCase("Templates")]
         public void CallUpgradeScriptApi(string apiMethodName)
         {
             Assert.IsTrue(GetResponse2(apiMethodName));
