@@ -48,7 +48,7 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
             ModelLevelSpecificationTab(builder);
             SubModuleDefinitionTab(builder);
 
-            builder.Rebuild();
+            builder.Update();
         }
 
         private void ModelLevelSpecificationTab(DocumentTypeBuilder builder)

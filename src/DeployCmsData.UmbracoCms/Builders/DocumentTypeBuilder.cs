@@ -25,11 +25,12 @@ namespace DeployCmsData.UmbracoCms.Builders
         private string _icon;
         private string _description;
         private string _tab;
+        private ITemplate _defaultTemplate;
 
         internal readonly IList<PropertyBuilder> UpdateFieldList = new List<PropertyBuilder>();
-        internal readonly IList<PropertyBuilder> RemoveFieldList = new List<PropertyBuilder>();
-        internal readonly IList<ContentTypeSort> AllowedChildNodeTypes = new List<ContentTypeSort>();
+        internal readonly IList<PropertyBuilder> RemoveFieldList = new List<PropertyBuilder>();        
         internal readonly IList<IContentTypeComposition> Compositions = new List<IContentTypeComposition>();
+        internal readonly IList<ContentTypeSort> AllowedChildNodeTypes = new List<ContentTypeSort>();
 
         public IList<PropertyBuilder> AddFieldList { get; } = new List<PropertyBuilder>();
 
@@ -113,7 +114,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         private IContentType BuildDocumentType(int parentId)
         {
             var documentType = CreateNewDocumentType(parentId);
-            SetDocumentTypeProperties(documentType, parentId);
+            SetNewDocumentTypeProperties(documentType, parentId);
             AddNewFields(documentType);
             documentType.AllowedContentTypes = AllowedChildNodeTypes;
 
@@ -121,13 +122,13 @@ namespace DeployCmsData.UmbracoCms.Builders
             {
                 documentType.AddContentType(composition);
             }
-
+            
             _contentTypeService.Save(documentType);
 
             return documentType;
         }
 
-        public IContentType Rebuild()
+        public IContentType Update()
         {
             var documentType = _contentTypeService.GetContentType(_alias);
             if (documentType == null)
@@ -135,6 +136,7 @@ namespace DeployCmsData.UmbracoCms.Builders
                 throw new ArgumentException(ExceptionMessages.DocumentTypeNotFound + ":" + _alias);
             }
 
+            UpdateDocumentTypeProperties(documentType);
             AddNewFields(documentType);
             _contentTypeService.Save(documentType);
 
@@ -163,7 +165,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             return documentType;
         }
 
-        private void SetDocumentTypeProperties(IContentType documentType, int parentId)
+        private void SetNewDocumentTypeProperties(IContentType documentType, int parentId)
         {
             documentType.Alias = _alias;
             documentType.Icon = string.IsNullOrEmpty(_icon) ? Constants.Icons.RoadSign : _icon;
@@ -171,6 +173,24 @@ namespace DeployCmsData.UmbracoCms.Builders
             documentType.Description = _description;
             documentType.AllowedAsRoot = (parentId == Constants.Umbraco.RootFolder);
             documentType.IsContainer = false;
+
+            if (_defaultTemplate != null)
+            {
+                documentType.SetDefaultTemplate(_defaultTemplate);
+            }
+        }
+
+        private void UpdateDocumentTypeProperties(IContentType documentType)
+        {
+            documentType.Alias = !string.IsNullOrWhiteSpace(_alias) ? _alias : documentType.Alias;
+            documentType.Icon = !string.IsNullOrEmpty(_icon) ? _icon : documentType.Icon;
+            documentType.Name = !string.IsNullOrEmpty(_name) ? _name : documentType.Name;
+            documentType.Description = !string.IsNullOrEmpty(_description) ? _description : documentType.Description;
+
+            if (_defaultTemplate != null)
+            {
+                documentType.SetDefaultTemplate(_defaultTemplate);
+            }
         }
 
         private void AddNewFields(IContentType documentType)
@@ -279,7 +299,8 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public DocumentTypeBuilder AddAllowedChildNodeType(string alias)
         {
-            var documentType = _contentTypeService.GetContentType(alias);
+            var documentType = _contentTypeService.GetContentType(alias);            
+
             if (documentType != null)
             {
                 AllowedChildNodeTypes.Add(new ContentTypeSort(documentType.Id, AllowedChildNodeTypes.Count + 1));
@@ -325,6 +346,18 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             _tab = tab;
             return this;
+        }
+
+        public DocumentTypeBuilder DefaultTemplate(ITemplate template)
+        {
+            _defaultTemplate = template;
+
+            return this;
+        }
+
+        public bool AllowedContentTypesAreEqual(IEnumerable<ContentTypeSort> toCompare)
+        {
+            return AllowedChildNodeTypes.Equals(toCompare);
         }
     }
 }

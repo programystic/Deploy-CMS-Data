@@ -1,7 +1,9 @@
 ﻿using DeployCmsData.UmbracoCms.Constants;
 using DeployCmsData.UmbracoCms.UnitTest.Builders;
+using Moq;
 using NUnit.Framework;
 using System.Linq;
+using Umbraco.Core.Models;
 
 namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 {
@@ -41,7 +43,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .DataType(DataType.Numeric)
                 .IsMandatory();
 
-            builder.Rebuild();
+            builder.Update();
         }
 
         [Test]
@@ -59,7 +61,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             builder
                 .AddField(fieldAlias);
 
-            builder.Rebuild();
+            builder.Update();
 
             var field = builder.AddFieldList.FirstOrDefault(x => x.AliasValue == fieldAlias);
             Assert.AreEqual(DataType.TextString, field.DataTypeValue);
@@ -79,10 +81,99 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .Build();
 
             builder.AddField(fieldAlias);
-            builder.Rebuild();
+            builder.Update();
 
             var field = builder.AddFieldList.FirstOrDefault(x => x.AliasValue == fieldAlias);
             Assert.AreEqual(fieldName, field.NameValue);
+        }
+
+        [Test]
+        public static void NoUpdates()
+        {
+            const string icon = "icon";
+            const string name = "name";
+            const string description = "description";
+
+            var setup = new DocumentTypeTestBuilder(Alias);
+            var builder = setup
+                .ReturnsExistingContentType(Alias, Id)
+                .Build();
+
+            var docType = setup.ContentTypeService.Object.GetContentType(Alias);            
+            docType.Icon = icon;
+            docType.Name = name;
+            docType.Description = description;
+
+            var updatedDocType = builder.Update();
+
+            Assert.AreEqual(Alias, updatedDocType.Alias);
+            Assert.AreEqual(icon, updatedDocType.Icon);
+            Assert.AreEqual(name, updatedDocType.Name);
+            Assert.AreEqual(description, updatedDocType.Description);
+        }
+
+        [Test]
+        public static void WithUpdates()
+        {
+            const string icon = "icon";
+            const string name = "name";
+            const string description = "description";
+
+            const string newIcon = "new-icon";
+            const string newName = "new-name";
+            const string newDescription = "new-description";
+
+            var setup = new DocumentTypeTestBuilder(Alias);
+            var builder = setup
+                .ReturnsExistingContentType(Alias, Id)
+                .Build();
+
+            var docType = setup.ContentTypeService.Object.GetContentType(Alias);
+            docType.Icon = icon;
+            docType.Name = name;
+            docType.Description = description;
+
+            var updatedDocType = builder
+                .Icon(newIcon)
+                .Name(newName)
+                .Description(newDescription)
+                .Update();
+
+            Assert.AreEqual(Alias, updatedDocType.Alias);
+            Assert.AreEqual(newIcon, updatedDocType.Icon);
+            Assert.AreEqual(newName, updatedDocType.Name);
+            Assert.AreEqual(newDescription, updatedDocType.Description);
+        }
+
+        [Test]
+        public static void SetDefaultTemplate()
+        {
+            const string icon = "icon";
+            const string name = "name";
+            const string description = "description";
+
+            var template = new Mock<ITemplate>();
+
+            var setup = new DocumentTypeTestBuilder(Alias);
+            var builder = setup
+                .ReturnsDefaultContentType(Alias, Id)
+                .Build();
+
+            var docType = setup.ContentTypeService.Object.GetContentType(Alias);
+            docType.Icon = icon;
+            docType.Name = name;
+            docType.Description = description;
+
+            var updatedDocType = builder
+                .DefaultTemplate(template.Object)
+                .Update();
+
+            Assert.AreEqual(Alias, updatedDocType.Alias);
+            Assert.AreEqual(icon, updatedDocType.Icon);
+            Assert.AreEqual(name, updatedDocType.Name);
+            Assert.AreEqual(description, updatedDocType.Description);
+
+            setup.ContentType.Verify(x => x.SetDefaultTemplate(template.Object), Times.Once);
         }
     }
 }

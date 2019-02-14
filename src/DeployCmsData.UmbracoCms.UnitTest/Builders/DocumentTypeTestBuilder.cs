@@ -10,20 +10,21 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
 {
     internal class DocumentTypeTestBuilder
     {
-        private readonly DocumentTypeBuilder _documentTypeBuilder;
-        private readonly Mock<IContentTypeService> _contentTypeService;
-        private readonly Mock<IDataTypeService> _dataTypeService;
         public Mock<IUmbracoFactory> UmbracoFactory { get; }
         public Mock<IContentType> ContentType = new Mock<IContentType>();
+        public readonly Mock<IContentTypeService> ContentTypeService;
+
+        private readonly DocumentTypeBuilder _documentTypeBuilder;
+        private readonly Mock<IDataTypeService> _dataTypeService;
 
         public DocumentTypeTestBuilder(string alias)
         {
             UmbracoFactory = new Mock<IUmbracoFactory>();
-            _contentTypeService = new Mock<IContentTypeService>();
+            ContentTypeService = new Mock<IContentTypeService>();
             _dataTypeService = new Mock<IDataTypeService>();
 
             _documentTypeBuilder = new DocumentTypeBuilder(
-                _contentTypeService.Object,
+                ContentTypeService.Object,
                 UmbracoFactory.Object,
                 _dataTypeService.Object,
                 alias);
@@ -46,13 +47,26 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
             return this;
         }
 
+        public DocumentTypeTestBuilder ReturnsDefaultContentType(string alias, int id = 0)
+        {
+            ContentType = new Mock<IContentType>();
+            ContentType.SetupAllProperties();
+            ContentType.SetupGet(x => x.Alias).Returns(alias);
+            ContentType.SetupGet(x => x.Id).Returns(id);
+
+            ContentTypeService.Setup(x => x.GetContentType(alias)).Returns(ContentType.Object);
+
+            return this;
+        }
+
         public DocumentTypeTestBuilder ReturnsExistingContentType(string alias, int id = 0)
         {
             var contentType = new Mock<IContentType>();
+            contentType.SetupAllProperties();
             contentType.SetupGet(x => x.Alias).Returns(alias);
             contentType.SetupGet(x => x.Id).Returns(id);
 
-            _contentTypeService.Setup(x => x.GetContentType(alias)).Returns(contentType.Object);
+            ContentTypeService.Setup(x => x.GetContentType(alias)).Returns(contentType.Object);            
 
             return this;
         }
