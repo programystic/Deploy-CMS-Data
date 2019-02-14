@@ -1,6 +1,7 @@
 ﻿using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Interfaces;
 using Moq;
+using System.Web;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
@@ -13,6 +14,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
         public Mock<IFileService> FileService;
         public Mock<IUmbracoFactory> UmbracoFactory;
 
+        private Mock<IHttpServerUtility> _serverUtility;
         private TemplateBuilder _templateBuilder;
         private string _templateAlias;
 
@@ -20,7 +22,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
         {
             UmbracoFactory = new Mock<IUmbracoFactory>();
             FileService = new Mock<IFileService>();
-
+            _serverUtility = new Mock<IHttpServerUtility>();
         }
 
         internal TemplateTestBuilder NewTemplate(string templateAlias)
@@ -60,7 +62,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
 
         internal TemplateBuilder Build()
         {
-            _templateBuilder = new TemplateBuilder(FileService.Object, UmbracoFactory.Object, _templateAlias);
+            _templateBuilder = new TemplateBuilder(FileService.Object, UmbracoFactory.Object, _serverUtility.Object, _templateAlias);
             return _templateBuilder;
         }
     }

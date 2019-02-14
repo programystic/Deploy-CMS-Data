@@ -14,11 +14,11 @@ namespace DeployCmsData.IntegrationTest.Tests
         [TestCase("Upgrade04")]
         [TestCase("BuildHomepage")]
         [TestCase("BuildWebsite")]
+        [TestCase("Templates")]
         [TestCase("CreateContent")]
         [TestCase("MultiNodeTreePicker")]
         [TestCase("BusinessCase01")]
-        [TestCase("AllDataTypes")]
-        [TestCase("Templates")]
+        [TestCase("AllDataTypes")]        
         public void CallUpgradeScriptApi(string apiMethodName)
         {
             Assert.IsTrue(GetResponse2(apiMethodName));

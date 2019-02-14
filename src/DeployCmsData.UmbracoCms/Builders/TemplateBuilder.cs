@@ -1,6 +1,7 @@
 ﻿using DeployCmsData.UmbracoCms.Constants;
 using DeployCmsData.UmbracoCms.Interfaces;
 using DeployCmsData.UmbracoCms.Services;
+using System.Web;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
@@ -14,20 +15,23 @@ namespace DeployCmsData.UmbracoCms.Builders
         private string _masterTemplateAlias;
         private IFileService _fileService;
         private IUmbracoFactory _umbracoFactory;
+        private IHttpServerUtility _httpServerUtility;
 
         public TemplateBuilder(string alias)
         {
             var applicationContext = UmbracoContext.Current.Application;
             _umbracoFactory = new UmbracoFactory(applicationContext.Services.ContentTypeService);
             _fileService = applicationContext.Services.FileService;
+            _httpServerUtility = new Server();
 
             _alias = alias;
         }
 
-        public TemplateBuilder(IFileService fileService, IUmbracoFactory umbracoFactory, string alias)
+        public TemplateBuilder(IFileService fileService, IUmbracoFactory umbracoFactory, IHttpServerUtility httpServerUtility, string alias)
         {
             _umbracoFactory = umbracoFactory;
             _fileService = fileService;
+            _httpServerUtility = httpServerUtility;
 
             _alias = alias;
         }
@@ -52,6 +56,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             if (template == null)
             {
                 template = _umbracoFactory.NewTemplate(alias, alias);
+                template.Content = _httpServerUtility.ReadAllText($"~/Views/{alias}.cshtml");
                 newTemplate = true;
             }
 

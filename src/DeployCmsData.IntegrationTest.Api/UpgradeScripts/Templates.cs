@@ -15,6 +15,10 @@ namespace DeployCmsData.IntegrationTest.Api.UpgradeScripts
                 .WithMasterTemplate("Master")
                 .Build();
 
+            new TemplateBuilder("TheSpecialOne")
+                .WithMasterTemplate("Master")
+                .Build();
+
             var homePageDocType = new DocumentTypeBuilder("homePage")
                 .DefaultTemplate(template)
                 .Update();
