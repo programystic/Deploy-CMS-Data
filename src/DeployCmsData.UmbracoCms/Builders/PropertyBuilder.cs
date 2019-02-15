@@ -4,23 +4,14 @@ namespace DeployCmsData.UmbracoCms.Builders
 {
     public class PropertyBuilder
     {
-        private string aliasValue;
-        private string nameValue;
-        private string tabValue;
-        private Guid dataTypeValue;
-        private string descriptionValue;
-        private string regularExpressionValue;
-        private bool mandatoryValue;
-        private string propertyEditorAliasValue;
-
-        public string AliasValue { get => aliasValue; set => aliasValue = value; }
-        public string NameValue { get => nameValue; set => nameValue = value; }
-        public string TabValue { get => tabValue; set => tabValue = value; }
-        public Guid DataTypeValue { get => dataTypeValue; set => dataTypeValue = value; }
-        public string DescriptionValue { get => descriptionValue; set => descriptionValue = value; }
-        public string RegularExpressionValue { get => regularExpressionValue; set => regularExpressionValue = value; }
-        public bool MandatoryValue { get => mandatoryValue; set => mandatoryValue = value; }
-        public string PropertyEditorAliasValue { get => propertyEditorAliasValue; set => propertyEditorAliasValue = value; }
+        public string AliasValue { get; set; }
+        public string NameValue { get; set; }
+        public string TabValue { get; set; }
+        public Guid DataTypeValue { get; set; }
+        public string DescriptionValue { get; set; }
+        public string RegularExpressionValue { get; set; }
+        public bool MandatoryValue { get; set; }
+        public string PropertyEditorAliasValue { get; set; }
 
         public PropertyBuilder(string alias)
         {

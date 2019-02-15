@@ -2,6 +2,7 @@
 using DeployCmsData.UmbracoCms.UnitTest.Builders;
 using Moq;
 using NUnit.Framework;
+using System.Linq;
 using Umbraco.Core.Models;
 
 namespace DeployCmsData.UmbracoCms.UnitTest.Tests
@@ -107,6 +108,31 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             setup.ContentType.Verify(x => x.AddPropertyType(
                     It.IsAny<PropertyType>()),
                 Times.Exactly(3));
+        }
+
+        [Test]
+        public static void CreateNewPropertyWithName()
+        {
+            var setup = new DocumentTypeTestBuilder(Alias);
+            var builder = setup
+                .ReturnsNewContentType(ParentId)
+                .ReturnsExistingContentType(ParentAlias, ParentId)
+                .ReturnsDataType(DataType.TextString)
+                .ReturnsDataType(DataType.Numeric)
+                .Build();
+
+            builder
+                .Icon(Icon)
+                .Name(Name)
+                .Description(Description);
+
+            builder.AddField("theNewField").Name("This is my name");
+            var docType = builder.BuildWithParent(ParentAlias);
+                        
+            var newProperty = builder.AddFieldList.First();
+
+            Assert.AreEqual("theNewField", newProperty.AliasValue);
+            Assert.AreEqual("This is my name", newProperty.NameValue);
         }
     }
 }
