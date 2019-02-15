@@ -113,7 +113,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
 
         public DocumentTypeBuilder Build()
         {
-            _documentTypeBuilder.AllowedChildNodeTypes = _allowedChildNodeTypes;
+            ContentType.Object.AllowedContentTypes = _allowedChildNodeTypes;
             return _documentTypeBuilder;
         }
     }

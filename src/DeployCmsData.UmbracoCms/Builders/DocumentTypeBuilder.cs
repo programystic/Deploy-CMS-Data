@@ -29,8 +29,8 @@ namespace DeployCmsData.UmbracoCms.Builders
         internal readonly IList<PropertyBuilder> UpdateFieldList = new List<PropertyBuilder>();
         internal readonly IList<PropertyBuilder> RemoveFieldList = new List<PropertyBuilder>();
         internal readonly IList<IContentTypeComposition> Compositions = new List<IContentTypeComposition>();
+        internal IList<ContentTypeSort> AllowedChildNodeTypes = new List<ContentTypeSort>();
 
-        public IList<ContentTypeSort> AllowedChildNodeTypes = new List<ContentTypeSort>();
         public IList<PropertyBuilder> AddFieldList { get; } = new List<PropertyBuilder>();
 
         public DocumentTypeBuilder(string alias)
@@ -142,22 +142,33 @@ namespace DeployCmsData.UmbracoCms.Builders
         }
 
         private void UpdateAllowedContentTypes(IContentType documentType)
-        {
+        {                       
             bool updated = false;
-
-            foreach (var allowedType in documentType.AllowedContentTypes)
+            foreach (var item in AllowedChildNodeTypes)
             {
-                if (!AllowedChildNodeTypes.Contains(allowedType))
+                if (!documentType.AllowedContentTypes.Contains(item))
                 {
-                    AllowedChildNodeTypes.Add(allowedType);
                     updated = true;
+                    break;
                 }
             }
 
             if (updated)
             {
+                CopyExistingAllowedTypes(documentType);
                 documentType.AllowedContentTypes = AllowedChildNodeTypes;
-            }            
+            }
+        }
+
+        private void CopyExistingAllowedTypes(IContentType documentType)
+        {
+            foreach (var allowedType in documentType.AllowedContentTypes)
+            {
+                if (!AllowedChildNodeTypes.Contains(allowedType))
+                {
+                    AllowedChildNodeTypes.Add(allowedType);
+                }
+            }
         }
 
         private IContentType CreateNewDocumentType(int parentId)
@@ -366,6 +377,11 @@ namespace DeployCmsData.UmbracoCms.Builders
         public bool AllowedContentTypesAreEqual(IEnumerable<ContentTypeSort> toCompare)
         {
             return AllowedChildNodeTypes.Equals(toCompare);
+        }
+
+        public int AllowedChildNodeTypesCount()
+        {
+            return AllowedChildNodeTypes.Count;
         }
     }
 }

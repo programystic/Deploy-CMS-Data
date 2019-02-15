@@ -179,8 +179,6 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         [Test]
         public static void AddAllowedChildNodeType()
         {
-            var template = new Mock<ITemplate>();
-
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
                 .ReturnsDefaultContentType(Alias, Id)                
@@ -195,14 +193,32 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .AddAllowedChildNodeType("type4")
                 .Update();
 
-            Assert.AreEqual(4, builder.AllowedChildNodeTypes.Count());
+            Assert.AreEqual(4, builder.AllowedChildNodeTypesCount());
+            Assert.AreEqual(4, updatedDocType.AllowedContentTypes.Count());
+        }
+
+        [Test]
+        public static void AddAllowedChildNodeTypeWhenNoneSetAlready()
+        {
+            var setup = new DocumentTypeTestBuilder(Alias);
+            var builder = setup
+                .ReturnsDefaultContentType(Alias, Id)
+                .ReturnsExistingContentType("type1", 10)
+                .ReturnsExistingContentType("type2", 20)
+                .Build();
+
+            var updatedDocType = builder
+                .AddAllowedChildNodeType("type1")
+                .AddAllowedChildNodeType("type2")
+                .Update();
+
+            Assert.AreEqual(2, builder.AllowedChildNodeTypesCount());
+            Assert.AreEqual(2, updatedDocType.AllowedContentTypes.Count());
         }
 
         [Test]
         public static void AddAllowedChildNodeTypeDuplicates()
         {
-            var template = new Mock<ITemplate>();
-
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
                 .ReturnsDefaultContentType(Alias, Id)
@@ -215,7 +231,8 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .AddAllowedChildNodeType("type2")
                 .Update();
 
-            Assert.AreEqual(2, builder.AllowedChildNodeTypes.Count());
+            Assert.AreEqual(2, builder.AllowedChildNodeTypesCount());
+            Assert.AreEqual(2, updatedDocType.AllowedContentTypes.Count());
         }
     }
 }
