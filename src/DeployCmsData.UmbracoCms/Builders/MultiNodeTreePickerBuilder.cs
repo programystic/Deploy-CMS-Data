@@ -186,15 +186,9 @@ namespace DeployCmsData.UmbracoCms.Builders
         private void SetPreValues(IDataTypeDefinition dataType)
         {
             PreValues.Add(PreValueStartNode, new PreValue(JsonHelper.SerializePreValueObject(_startNodepreValue)));
-
-            if (_filter != null)
-            {
-                PreValues.Add(PreValueFilter, new PreValue(string.Join(",", _filter)));
-            }
-
-            PreValues.Add(PreValueMinNumber, new PreValue(_minimumItems.ToString(CultureInfo.InvariantCulture)));
-            PreValues.Add(PreValueMaxNumber, new PreValue(_maximumItems.ToString(CultureInfo.InvariantCulture)));
-
+            PreValues.Add(PreValueFilter, new PreValue(_filter == null ? null : string.Join(",", _filter)));
+            PreValues.Add(PreValueMinNumber, new PreValue(_minimumItems == 0 ? null : _minimumItems.ToString(CultureInfo.InvariantCulture)));
+            PreValues.Add(PreValueMaxNumber, new PreValue(_maximumItems == 0 ? null : _maximumItems.ToString(CultureInfo.InvariantCulture)));
             PreValues.Add(PreValueShowOpenButton, new PreValue(_showOpenButton ? "1" : "0"));
 
             _dataTypeService.SaveDataTypeAndPreValues(dataType, PreValues);
