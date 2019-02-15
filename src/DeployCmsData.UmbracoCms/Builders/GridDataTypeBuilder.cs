@@ -36,6 +36,8 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public void Setup(IDataTypeService dataTypeService)
         {
+            Requires.NotNull(dataTypeService, nameof(dataTypeService));
+
             DataTypeService = dataTypeService;
             GridItemsPreValue = new GridItemsPreValue();
             GridRtePreValue = new GridRtePreValue();
@@ -65,12 +67,15 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public GridDataTypeBuilder Name(string gridName)
         {
+            Requires.NotNullOrWhiteSpace(gridName, nameof(gridName));
+
             NameValue = gridName;
             return this;
         }
 
         public GridDataTypeBuilder AddLayout(string layoutName, params int[] gridColumns)
         {
+            Requires.NotNullOrWhiteSpace(layoutName, nameof(layoutName));
             Requires.NotNull(gridColumns, nameof(gridColumns));
 
             var template = new Models.Template
@@ -151,13 +156,15 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public GridDataTypeBuilder DeleteGrid(string gridName)
         {
+            Requires.NotNullOrWhiteSpace(gridName, nameof(gridName));
+
             DataTypeBuilder.DeleteDataTypeByName(gridName, DataTypeService);
             return this;
         }
 
-        public void DeleteGrid(Guid id)
+        public void DeleteGrid(Guid gridId)
         {
-            DataTypeBuilder.DeleteDataTypeById(id, DataTypeService);
+            DataTypeBuilder.DeleteDataTypeById(gridId, DataTypeService);
         }
 
         public IDataTypeDefinition Build()

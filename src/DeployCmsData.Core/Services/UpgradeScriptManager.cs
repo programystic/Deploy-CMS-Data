@@ -37,7 +37,7 @@ namespace DeployCmsData.Core.Services
             return RunScript(upgradeScript);
         }
 
-        // We need a catch-all exception here as we don't want to raise an exception during startup.
+        // We need a catch-all exception here as we don't want to raise an exception during umbraco startup.
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public UpgradeLog RunScript(IUpgradeScript upgradeScript)
         {
