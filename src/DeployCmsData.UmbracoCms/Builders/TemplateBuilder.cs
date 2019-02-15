@@ -1,4 +1,5 @@
 ﻿using DeployCmsData.UmbracoCms.Constants;
+using DeployCmsData.UmbracoCms.Extensions;
 using DeployCmsData.UmbracoCms.Interfaces;
 using DeployCmsData.UmbracoCms.Services;
 using System.Web;
@@ -55,7 +56,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             var template = _fileService.GetTemplate(alias);
             if (template == null)
             {
-                template = _umbracoFactory.NewTemplate(alias, alias);
+                template = _umbracoFactory.NewTemplate(alias.AliasToName(), alias);
                 template.Content = _httpServerUtility.ReadAllText($"~/Views/{alias}.cshtml");
                 newTemplate = true;
             }

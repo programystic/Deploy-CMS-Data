@@ -234,5 +234,24 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             Assert.AreEqual(2, builder.AllowedChildNodeTypesCount());
             Assert.AreEqual(2, updatedDocType.AllowedContentTypes.Count());
         }
+
+        [Test]
+        public static void RemoveAllowedChildNodeType()
+        {
+            var setup = new DocumentTypeTestBuilder(Alias);
+            var builder = setup
+                .ReturnsDefaultContentType(Alias, Id)
+                .HasAllowedContentType("type1", 10)
+                .HasAllowedContentType("type2", 20)
+                .HasAllowedContentType("type3", 30)
+                .Build();
+
+            var updatedDocType = builder
+                .RemoveAllowedChildNodeType("type2")
+                .Update();
+
+            Assert.AreEqual(2, builder.AllowedChildNodeTypesCount());
+            Assert.AreEqual(2, updatedDocType.AllowedContentTypes.Count());
+        }
     }
 }

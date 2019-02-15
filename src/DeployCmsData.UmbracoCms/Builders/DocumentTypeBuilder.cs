@@ -1,4 +1,5 @@
 ﻿using DeployCmsData.Core.Constants;
+using DeployCmsData.UmbracoCms.Extensions;
 using DeployCmsData.UmbracoCms.Interfaces;
 using DeployCmsData.UmbracoCms.Services;
 using System;
@@ -30,6 +31,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         internal readonly IList<PropertyBuilder> RemoveFieldList = new List<PropertyBuilder>();
         internal readonly IList<IContentTypeComposition> Compositions = new List<IContentTypeComposition>();
         internal IList<ContentTypeSort> AllowedChildNodeTypes = new List<ContentTypeSort>();
+        internal IList<ContentTypeSort> RemoveAllowedChildNodeTypes = new List<ContentTypeSort>();
 
         public IList<PropertyBuilder> AddFieldList { get; } = new List<PropertyBuilder>();
 
@@ -99,7 +101,7 @@ namespace DeployCmsData.UmbracoCms.Builders
 
             if (parentFolder == null)
             {
-                throw new ArgumentException(ExceptionMessages.ParentFolderNotFound, folderName);
+                parentFolder = new DocumentTypeFolderBuilder(folderName).BuildAtRoot();
             }
 
             return BuildDocumentType(parentFolder.Id);
@@ -153,9 +155,10 @@ namespace DeployCmsData.UmbracoCms.Builders
                 }
             }
 
-            if (updated)
+            if (updated || RemoveAllowedChildNodeTypes.Count > 0)
             {
                 CopyExistingAllowedTypes(documentType);
+                RemoveNotAllowedTypes();
                 documentType.AllowedContentTypes = AllowedChildNodeTypes;
             }
         }
@@ -164,9 +167,20 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             foreach (var allowedType in documentType.AllowedContentTypes)
             {
-                if (!AllowedChildNodeTypes.Contains(allowedType))
+                if (!AllowedChildNodeTypes.Any(x => x.Id.Value == allowedType.Id.Value))
                 {
                     AllowedChildNodeTypes.Add(allowedType);
+                }
+            }
+        }
+
+        private void RemoveNotAllowedTypes()
+        {
+            foreach (var allowedType in RemoveAllowedChildNodeTypes)
+            {
+                if (AllowedChildNodeTypes.Any(x => x.Id.Value == allowedType.Id.Value))
+                {
+                    AllowedChildNodeTypes.Remove(allowedType);
                 }
             }
         }
@@ -191,7 +205,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             documentType.Alias = _alias;
             documentType.Icon = string.IsNullOrEmpty(_icon) ? Constants.Icons.RoadSign : _icon;
-            documentType.Name = string.IsNullOrEmpty(_name) ? AliasToName(_alias) : _name;
+            documentType.Name = string.IsNullOrEmpty(_name) ? _alias.AliasToName() : _name;
             documentType.Description = _description;
             documentType.AllowedAsRoot = (parentId == Constants.Umbraco.RootFolder);
             documentType.IsContainer = false;
@@ -272,18 +286,13 @@ namespace DeployCmsData.UmbracoCms.Builders
 
             if (string.IsNullOrEmpty(field.NameValue))
             {
-                field.NameValue = AliasToName(field.AliasValue);
+                field.NameValue = field.AliasValue.AliasToName();
             }
 
             if (string.IsNullOrEmpty(field.TabValue))
             {
                 field.TabValue = _tab;
             }
-        }
-
-        private static string AliasToName(string value)
-        {
-            return Regex.Replace(value, "(\\B[A-Z])", " $1").ToFirstUpperInvariant();
         }
 
         public void DeleteDocumentType()
@@ -323,6 +332,17 @@ namespace DeployCmsData.UmbracoCms.Builders
                 {
                     AllowedChildNodeTypes.Add(new ContentTypeSort(documentType.Id, AllowedChildNodeTypes.Count + 1));
                 }                
+            }
+
+            return this;
+        }
+
+        public DocumentTypeBuilder RemoveAllowedChildNodeType(string alias)
+        {
+            var documentType = _contentTypeService.GetContentType(alias);
+            if (documentType != null)
+            {                                
+                RemoveAllowedChildNodeTypes.Add(new ContentTypeSort(documentType.Id, RemoveAllowedChildNodeTypes.Count + 1));                
             }
 
             return this;

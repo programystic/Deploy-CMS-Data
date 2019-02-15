@@ -233,6 +233,7 @@
     <Compile Include="Data\RepositoryConfiguration.cs" />
     <Compile Include="Data\UpgradeLogRepository.cs" />
     <Compile Include="Enums\StartNodeType.cs" />
+    <Compile Include="Extensions\StringHelper.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\IHttpServerUtility.cs" />
     <Compile Include="Models\GridItemsPreValue.cs" />
