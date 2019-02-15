@@ -188,5 +188,43 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             setup.ContentType.Verify(x => x.SetDefaultTemplate(template.Object), Times.Once);
         }
+
+        [Test]
+        public static void SetIconNoColour()
+        {
+            var setup = new DocumentTypeTestBuilder(Alias);
+
+            var builder = setup
+                .ReturnsNewContentType(ParentFolderId)
+                .ReturnsFolder(ParentFolderName, ParentFolderLevel, ParentFolderId)
+                .Build();
+
+            var docType = builder
+                .Icon("icon-wheel")
+                .Name(Name)
+                .Description(Description)
+                .BuildInFolder(ParentFolderName);
+
+            Assert.AreEqual("icon-wheel", docType.Icon);
+        }
+
+        [Test]
+        public static void SetIconColour()
+        {
+            var setup = new DocumentTypeTestBuilder(Alias);
+
+            var builder = setup
+                .ReturnsNewContentType(ParentFolderId)
+                .ReturnsFolder(ParentFolderName, ParentFolderLevel, ParentFolderId)
+                .Build();
+
+            var docType = builder
+                .Icon("icon-wheel", "colour-blue-green")
+                .Name(Name)
+                .Description(Description)
+                .BuildInFolder(ParentFolderName);
+
+            Assert.AreEqual("icon-wheel colour-blue-green", docType.Icon);
+        }
     }
 }

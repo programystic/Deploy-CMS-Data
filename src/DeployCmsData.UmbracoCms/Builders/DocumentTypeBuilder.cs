@@ -23,6 +23,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         private readonly string _alias;
         private string _name;
         private string _icon;
+        private string _iconColour;
         private string _description;
         private string _tab;
         private ITemplate _defaultTemplate;
@@ -204,7 +205,11 @@ namespace DeployCmsData.UmbracoCms.Builders
         private void SetNewDocumentTypeProperties(IContentType documentType, int parentId)
         {
             documentType.Alias = _alias;
-            documentType.Icon = string.IsNullOrEmpty(_icon) ? Constants.Icons.RoadSign : _icon;
+
+            documentType.Icon = 
+                (string.IsNullOrEmpty(_icon) ? Constants.Icons.RoadSign : _icon) 
+                + (!string.IsNullOrEmpty(_iconColour) ? " " + _iconColour : "");
+
             documentType.Name = string.IsNullOrEmpty(_name) ? _alias.AliasToName() : _name;
             documentType.Description = _description;
             documentType.AllowedAsRoot = (parentId == Constants.Umbraco.RootFolder);
@@ -312,6 +317,13 @@ namespace DeployCmsData.UmbracoCms.Builders
         public DocumentTypeBuilder Icon(string documentTypeIcon)
         {
             _icon = documentTypeIcon;
+            return this;
+        }
+
+        public DocumentTypeBuilder Icon(string documentTypeIcon, string iconColour)
+        {
+            _icon = documentTypeIcon;
+            _iconColour = iconColour;
             return this;
         }
 

@@ -25,6 +25,7 @@
       <Word>rte</Word>
       <Word>xpath</Word>
       <Word>api</Word>
+      <Word>colour</Word>
     </Recognized>
     <Deprecated>
       <Term PreferredAlternate="Multi">multi</Term>      
