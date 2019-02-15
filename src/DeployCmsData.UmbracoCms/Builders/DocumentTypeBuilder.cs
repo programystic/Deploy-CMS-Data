@@ -3,7 +3,6 @@ using DeployCmsData.UmbracoCms.Interfaces;
 using DeployCmsData.UmbracoCms.Services;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Umbraco.Core;
@@ -28,10 +27,10 @@ namespace DeployCmsData.UmbracoCms.Builders
         private ITemplate _defaultTemplate;
 
         internal readonly IList<PropertyBuilder> UpdateFieldList = new List<PropertyBuilder>();
-        internal readonly IList<PropertyBuilder> RemoveFieldList = new List<PropertyBuilder>();        
+        internal readonly IList<PropertyBuilder> RemoveFieldList = new List<PropertyBuilder>();
         internal readonly IList<IContentTypeComposition> Compositions = new List<IContentTypeComposition>();
-        internal readonly IList<ContentTypeSort> AllowedChildNodeTypes = new List<ContentTypeSort>();
 
+        public IList<ContentTypeSort> AllowedChildNodeTypes = new List<ContentTypeSort>();
         public IList<PropertyBuilder> AddFieldList { get; } = new List<PropertyBuilder>();
 
         public DocumentTypeBuilder(string alias)
@@ -61,7 +60,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         public IContentType BuildWithParent(string parentAlias)
         {
             var parent = _contentTypeService.GetContentType(parentAlias);
-            Verify.Operation(parent != null, ExceptionMessages.ParentAliasNotFound);            
+            Verify.Operation(parent != null, ExceptionMessages.ParentAliasNotFound);
 
             return BuildDocumentType(parent.Id);
         }
@@ -122,7 +121,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             {
                 documentType.AddContentType(composition);
             }
-            
+
             _contentTypeService.Save(documentType);
 
             return documentType;
@@ -131,20 +130,40 @@ namespace DeployCmsData.UmbracoCms.Builders
         public IContentType Update()
         {
             var documentType = _contentTypeService.GetContentType(_alias);
-            if (documentType == null)
-            {
-                throw new ArgumentException(ExceptionMessages.DocumentTypeNotFound + ":" + _alias);
-            }
+            Verify.Operation(documentType != null, ExceptionMessages.DocumentTypeNotFound + ":" + _alias);
 
+            UpdateAllowedContentTypes(documentType);
             UpdateDocumentTypeProperties(documentType);
             AddNewFields(documentType);
+
             _contentTypeService.Save(documentType);
 
             return documentType;
         }
 
+        private void UpdateAllowedContentTypes(IContentType documentType)
+        {
+            bool updated = false;
+
+            foreach (var allowedType in documentType.AllowedContentTypes)
+            {
+                if (!AllowedChildNodeTypes.Contains(allowedType))
+                {
+                    AllowedChildNodeTypes.Add(allowedType);
+                    updated = true;
+                }
+            }
+
+            if (updated)
+            {
+                documentType.AllowedContentTypes = AllowedChildNodeTypes;
+            }            
+        }
+
         private IContentType CreateNewDocumentType(int parentId)
         {
+            Verify.Operation(!string.IsNullOrEmpty(_alias), ExceptionMessages.AliasNotDefined);
+
             var documentType = _contentTypeService.GetContentType(_alias);
             if (documentType != null)
             {
@@ -152,15 +171,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             }
 
             documentType = _factory.NewContentType(parentId);
-            if (documentType == null)
-            {
-                throw new ArgumentException(ExceptionMessages.CannotCreateDocumentType, parentId.ToString(CultureInfo.InvariantCulture));
-            }
-
-            if (string.IsNullOrEmpty(_alias))
-            {
-                throw new ArgumentException(ExceptionMessages.AliasNotDefined);
-            }
+            Verify.Operation(documentType != null, ExceptionMessages.CannotCreateDocumentType);            
 
             return documentType;
         }
@@ -221,11 +232,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             SetDefaultFieldValues(field);
 
             dataTypeDefinition = _dataTypeService.GetDataTypeDefinitionById(field.DataTypeValue);
-
-            if (dataTypeDefinition == null)
-            {
-                throw new ArgumentException(ExceptionMessages.CannotFindDataType + field.DataTypeValue);
-            }
+            Verify.Operation(dataTypeDefinition != null, ExceptionMessages.CannotFindDataType + field.DataTypeValue);
 
             propertyType = _factory.NewPropertyType(dataTypeDefinition, field.AliasValue);
             propertyType.Name = field.NameValue;
@@ -271,10 +278,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         public void DeleteDocumentType()
         {
             var documentType = _contentTypeService.GetContentType(_alias);
-            if (documentType == null)
-            {
-                throw new ArgumentException(ExceptionMessages.DocumentTypeNotFound + ":" + _alias);
-            }
+            Verify.Operation(documentType != null, ExceptionMessages.DocumentTypeNotFound + " : " + _alias);
 
             _contentTypeService.Delete(documentType);
         }
@@ -299,11 +303,15 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public DocumentTypeBuilder AddAllowedChildNodeType(string alias)
         {
-            var documentType = _contentTypeService.GetContentType(alias);            
+            var documentType = _contentTypeService.GetContentType(alias);
 
             if (documentType != null)
             {
-                AllowedChildNodeTypes.Add(new ContentTypeSort(documentType.Id, AllowedChildNodeTypes.Count + 1));
+                var newItem = new ContentTypeSort(documentType.Id, AllowedChildNodeTypes.Count + 1);
+                if (!AllowedChildNodeTypes.Contains(newItem))
+                {
+                    AllowedChildNodeTypes.Add(new ContentTypeSort(documentType.Id, AllowedChildNodeTypes.Count + 1));
+                }                
             }
 
             return this;

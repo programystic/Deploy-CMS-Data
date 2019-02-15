@@ -159,7 +159,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .ReturnsDefaultContentType(Alias, Id)
                 .Build();
 
-            var docType = setup.ContentTypeService.Object.GetContentType(Alias);
+            var docType = setup.ContentType.Object;
             docType.Icon = icon;
             docType.Name = name;
             docType.Description = description;
@@ -174,6 +174,48 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             Assert.AreEqual(description, updatedDocType.Description);
 
             setup.ContentType.Verify(x => x.SetDefaultTemplate(template.Object), Times.Once);
+        }
+
+        [Test]
+        public static void AddAllowedChildNodeType()
+        {
+            var template = new Mock<ITemplate>();
+
+            var setup = new DocumentTypeTestBuilder(Alias);
+            var builder = setup
+                .ReturnsDefaultContentType(Alias, Id)                
+                .HasAllowedContentType("type1", 10)
+                .HasAllowedContentType("type3", 30)
+                .ReturnsExistingContentType("type2", 20)
+                .ReturnsExistingContentType("type4", 40)
+                .Build();
+
+            var updatedDocType = builder
+                .AddAllowedChildNodeType("type2")
+                .AddAllowedChildNodeType("type4")
+                .Update();
+
+            Assert.AreEqual(4, builder.AllowedChildNodeTypes.Count());
+        }
+
+        [Test]
+        public static void AddAllowedChildNodeTypeDuplicates()
+        {
+            var template = new Mock<ITemplate>();
+
+            var setup = new DocumentTypeTestBuilder(Alias);
+            var builder = setup
+                .ReturnsDefaultContentType(Alias, Id)
+                .HasAllowedContentType("type1", 10)
+                .HasAllowedContentType("type2", 20)
+                .Build();
+
+            var updatedDocType = builder
+                .AddAllowedChildNodeType("type1")
+                .AddAllowedChildNodeType("type2")
+                .Update();
+
+            Assert.AreEqual(2, builder.AllowedChildNodeTypes.Count());
         }
     }
 }

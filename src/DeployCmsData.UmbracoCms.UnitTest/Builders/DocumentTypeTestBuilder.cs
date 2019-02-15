@@ -2,6 +2,7 @@
 using DeployCmsData.UmbracoCms.Interfaces;
 using Moq;
 using System;
+using System.Collections.Generic;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.EntityBase;
 using Umbraco.Core.Services;
@@ -16,12 +17,14 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
 
         private readonly DocumentTypeBuilder _documentTypeBuilder;
         private readonly Mock<IDataTypeService> _dataTypeService;
+        private IList<ContentTypeSort> _allowedChildNodeTypes;
 
         public DocumentTypeTestBuilder(string alias)
         {
             UmbracoFactory = new Mock<IUmbracoFactory>();
             ContentTypeService = new Mock<IContentTypeService>();
             _dataTypeService = new Mock<IDataTypeService>();
+            _allowedChildNodeTypes = new List<ContentTypeSort>();
 
             _documentTypeBuilder = new DocumentTypeBuilder(
                 ContentTypeService.Object,
@@ -71,6 +74,19 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
             return this;
         }
 
+        public DocumentTypeTestBuilder HasAllowedContentType(string alias, int id)
+        {
+            ReturnsExistingContentType(alias, id);
+            var contentType = new Mock<IContentType>();
+            contentType.SetupGet(x => x.Id).Returns(id);
+            contentType.SetupGet(x => x.Alias).Returns(alias);
+
+            ContentTypeService.Setup(x => x.GetContentType(alias)).Returns(contentType.Object);
+            _allowedChildNodeTypes.Add(new ContentTypeSort(id, _allowedChildNodeTypes.Count + 1));
+
+            return this;
+        }
+
         public DocumentTypeTestBuilder ReturnsFolder(string folderName, int folderLevel, int folderId)
         {
             var folder = new Mock<IUmbracoEntity>();
@@ -97,6 +113,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
 
         public DocumentTypeBuilder Build()
         {
+            _documentTypeBuilder.AllowedChildNodeTypes = _allowedChildNodeTypes;
             return _documentTypeBuilder;
         }
     }

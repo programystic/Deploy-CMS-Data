@@ -2,6 +2,7 @@ using DeployCmsData.UmbracoCms.Models;
 using System;
 using Umbraco.Core;
 using Umbraco.Core.Persistence;
+using Validation;
 
 namespace DeployCmsData.UmbracoCms.Data
 {
@@ -13,10 +14,7 @@ namespace DeployCmsData.UmbracoCms.Data
 
         public static void SetupDatabase(ApplicationContext applicationContext)
         {
-            if (applicationContext == null)
-            {
-                throw new ArgumentNullException(nameof(applicationContext));
-            }
+            Requires.NotNull(applicationContext, nameof(applicationContext));
 
             var context = applicationContext.DatabaseContext;
             var dbHelper = new DatabaseSchemaHelper(context.Database, applicationContext.ProfilingLogger.Logger, context.SqlSyntax);

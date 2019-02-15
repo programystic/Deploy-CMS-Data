@@ -5,6 +5,7 @@ using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
@@ -98,6 +99,32 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             Assert.AreEqual(expectedJson, preValueJson);
             Assert.IsTrue(preValue.Query.EndsWith(xPath, StringComparison.Ordinal));
+        }
+
+        [Test]
+        public static void PickerWithNoValues()
+        {
+            const int contentId = 1234;
+
+            var contentGuid = new Guid("{50CC58EB-19A7-4165-B74F-BD9FA0A4F6BD}");
+
+            var content = new Mock<IContent>();
+            content.Setup(x => x.Key).Returns(contentGuid);
+
+            var mediaService = new Mock<IMediaService>();
+            var dataTypeService = new Mock<IDataTypeService>();
+            var contentService = new Mock<IContentService>();
+            contentService.Setup(x => x.GetById(contentId)).Returns(content.Object);
+
+            var builder = new MultiNodeTreePickerBuilder(
+                dataTypeService.Object,
+                contentService.Object,
+                mediaService.Object,
+                Guid.NewGuid());
+
+            builder
+                .Name("My New Tree Picker")
+                .Build();
         }
     }
 }

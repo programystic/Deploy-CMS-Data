@@ -17,7 +17,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var builder = new DocumentTypeTestBuilder(Alias)
                 .Build();
 
-            Assert.Throws<ArgumentException>(
+            Assert.Throws<InvalidOperationException>(
                 () => builder.DeleteDocumentType());
         }
 
