@@ -127,12 +127,35 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .Description(Description);
 
             builder.AddField("theNewField").Name("This is my name");
-            var docType = builder.BuildWithParent(ParentAlias);
-                        
+            builder.BuildWithParent(ParentAlias);                        
             var newProperty = builder.AddFieldList.First();
 
             Assert.AreEqual("theNewField", newProperty.AliasValue);
             Assert.AreEqual("This is my name", newProperty.NameValue);
+        }
+
+        [Test]
+        public static void CreateNewPropertyWithNoName()
+        {
+            var setup = new DocumentTypeTestBuilder(Alias);
+            var builder = setup
+                .ReturnsNewContentType(ParentId)
+                .ReturnsExistingContentType(ParentAlias, ParentId)
+                .ReturnsDataType(DataType.TextString)
+                .ReturnsDataType(DataType.Numeric)
+                .Build();
+
+            builder
+                .Icon(Icon)
+                .Name(Name)
+                .Description(Description);
+
+            builder.AddField("theNewField");
+            builder.BuildWithParent(ParentAlias);
+            var newProperty = builder.AddFieldList.First();
+
+            Assert.AreEqual("theNewField", newProperty.AliasValue);
+            Assert.AreEqual("The New Field", newProperty.NameValue);
         }
     }
 }
