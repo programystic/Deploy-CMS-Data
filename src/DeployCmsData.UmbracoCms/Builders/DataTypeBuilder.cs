@@ -1,5 +1,6 @@
 ﻿using System;
 using Umbraco.Core.Services;
+using Validation;
 
 namespace DeployCmsData.UmbracoCms.Builders
 {
@@ -7,10 +8,7 @@ namespace DeployCmsData.UmbracoCms.Builders
     {
         public static void DeleteDataTypeByName(string dataTypeName, IDataTypeService dataTypeService)
         {
-            if (dataTypeService == null)
-            {
-                throw new ArgumentNullException(nameof(dataTypeService));
-            }
+            Requires.NotNull(dataTypeService, nameof(dataTypeService));
 
             var dataType = dataTypeService.GetDataTypeDefinitionByName(dataTypeName);
             if (dataType != null)
@@ -21,10 +19,7 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public static void DeleteDataTypeById(Guid id, IDataTypeService dataTypeService)
         {
-            if (dataTypeService == null)
-            {
-                throw new ArgumentNullException(nameof(dataTypeService));
-            }
+            Requires.NotNull(dataTypeService, nameof(dataTypeService));
 
             var dataType = dataTypeService.GetDataTypeDefinitionById(id);
             if (dataType != null)

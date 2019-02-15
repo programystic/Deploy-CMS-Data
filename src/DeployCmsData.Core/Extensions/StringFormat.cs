@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using Validation;
 
 namespace DeployCmsData.Core.Extensions
 {
@@ -7,10 +8,7 @@ namespace DeployCmsData.Core.Extensions
     {
         public static string ToInvariant(FormattableString formattableString)
         {
-            if (formattableString == null)
-            {
-                throw new ArgumentNullException(nameof(formattableString));
-            }
+            Requires.NotNull(formattableString, nameof(formattableString));
 
             return formattableString.ToString(CultureInfo.InvariantCulture);
         }

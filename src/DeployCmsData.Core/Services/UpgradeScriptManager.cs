@@ -6,6 +6,7 @@ using DeployCmsData.Core.Attributes;
 using DeployCmsData.Core.Constants;
 using DeployCmsData.Core.Interfaces;
 using DeployCmsData.Core.Models;
+using Validation;
 
 [assembly: CLSCompliant(true)]
 namespace DeployCmsData.Core.Services
@@ -105,10 +106,7 @@ namespace DeployCmsData.Core.Services
 
         public static string GetScriptName(IUpgradeScript upgradeScript)
         {
-            if (upgradeScript == null)
-            {
-                throw new ArgumentNullException(nameof(upgradeScript));
-            }
+            Requires.NotNull(upgradeScript, nameof(upgradeScript));
 
             return upgradeScript.GetType().FullName;
         }

@@ -2,6 +2,7 @@
 using System;
 using Umbraco.Core.Persistence;
 using Umbraco.Core.Persistence.DatabaseAnnotations;
+using Validation;
 
 namespace DeployCmsData.UmbracoCms.Models
 {
@@ -27,10 +28,7 @@ namespace DeployCmsData.UmbracoCms.Models
 
         public UmbracoUpgradeLog(IUpgradeLog upgradeLog)
         {
-            if (upgradeLog == null)
-            {
-                throw new ArgumentNullException(nameof(upgradeLog));
-            }
+            Requires.NotNull(upgradeLog, nameof(upgradeLog));
 
             Id = upgradeLog.Id;
             Success = upgradeLog.Success;

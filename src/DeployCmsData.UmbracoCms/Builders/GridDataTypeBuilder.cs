@@ -4,6 +4,7 @@ using System;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
+using Validation;
 using ProperyEditors = Umbraco.Core.Constants.PropertyEditors;
 
 
@@ -70,10 +71,7 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public GridDataTypeBuilder AddLayout(string layoutName, params int[] gridColumns)
         {
-            if (gridColumns == null)
-            {
-                throw new ArgumentNullException(nameof(gridColumns));
-            }
+            Requires.NotNull(gridColumns, nameof(gridColumns));
 
             var template = new Models.Template
             {
@@ -92,10 +90,8 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public GridDataTypeBuilder AddRow(string rowName, params int[] areas)
         {
-            if (areas == null)
-            {
-                throw new ArgumentNullException(nameof(areas));
-            }
+            Requires.NotNull(rowName, nameof(rowName));
+            Requires.NotNull(areas, nameof(areas));
 
             var layout = new GridLayout
             {

@@ -54,10 +54,12 @@ namespace DeployCmsData.UmbracoCms.Builders
             IDataTypeService dataTypeService,
             string alias)
         {
-            _dataTypeService = dataTypeService ?? throw new ArgumentNullException(nameof(dataTypeService));
-            _contentTypeService = contentTypeService ?? throw new ArgumentNullException(nameof(contentTypeService));
-            _factory = factory ?? throw new ArgumentNullException(nameof(factory));
-            _alias = alias ?? throw new ArgumentNullException(nameof(alias));
+            Requires.NotNull(dataTypeService, nameof(dataTypeService));
+
+            _dataTypeService = Requires.NotNull(dataTypeService, nameof(dataTypeService));
+            _contentTypeService = Requires.NotNull(contentTypeService, nameof(contentTypeService));
+            _factory = Requires.NotNull(factory, nameof(factory));
+            _alias = Requires.NotNull(alias, nameof(alias));
         }
 
         public IContentType BuildWithParent(string parentAlias)
