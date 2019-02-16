@@ -228,7 +228,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             documentType.Alias = !string.IsNullOrWhiteSpace(_alias) ? _alias : documentType.Alias;
             documentType.Icon = !string.IsNullOrEmpty(_icon) ? _icon : documentType.Icon;
             documentType.Name = !string.IsNullOrEmpty(_name) ? _name : documentType.Name;
-            documentType.Description = !string.IsNullOrEmpty(_description) ? _description : documentType.Description;
+            documentType.Description = !string.IsNullOrEmpty(_description) ? _description : documentType.Description;            
 
             if (_defaultTemplate != null)
             {
@@ -416,6 +416,13 @@ namespace DeployCmsData.UmbracoCms.Builders
         public int AllowedChildNodeTypesCount()
         {
             return AllowedChildNodeTypes.Count;
+        }
+
+        public DocumentTypeBuilder TabSortOrder(string tab, int sortOrder)
+        {            
+            //documentType.PropertyGroups[tab].SortOrder = sortOrder;
+
+            return this;
         }
     }
 }

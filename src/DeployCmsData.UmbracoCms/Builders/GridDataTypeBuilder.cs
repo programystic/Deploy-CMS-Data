@@ -24,12 +24,16 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public GridDataTypeBuilder(Guid key)
         {
+            Verify.Operation(key != Guid.Empty, "key cannot be an empty guid");
+
             Setup(UmbracoContext.Current.Application.Services.DataTypeService);
             KeyValue = key;
         }
 
         public GridDataTypeBuilder(IDataTypeService dataTypeService, Guid key)
         {
+            Verify.Operation(key != Guid.Empty, "key cannot be an empty guid");
+
             Setup(dataTypeService);
             KeyValue = key;
         }
@@ -73,6 +77,14 @@ namespace DeployCmsData.UmbracoCms.Builders
             return this;
         }
 
+        public GridDataTypeBuilder Columns(int columns)
+        {
+            Requires.Range(columns > 0, nameof(columns), "Columns must be greater than 0");
+            GridItemsPreValue.Columns = columns;
+            
+            return this;
+        }
+
         public GridDataTypeBuilder AddLayout(string layoutName, params int[] gridColumns)
         {
             Requires.NotNullOrWhiteSpace(layoutName, nameof(layoutName));
@@ -106,8 +118,15 @@ namespace DeployCmsData.UmbracoCms.Builders
 
             foreach (var area in areas)
             {
-                layout.Areas.Add(new Area(area));
+                var newArea = new Area(area)
+                {
+                    AllowAll = true
+                };
+
+                layout.Areas.Add(newArea);
             }
+
+            GridItemsPreValue.Rows.Add(layout);
 
             return this;
         }
@@ -169,15 +188,18 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public IDataTypeDefinition Build()
         {
-            var newGridDataType = new DataTypeDefinition(-1, ProperyEditors.GridAlias)
-            {
-                Name = NameValue
-            };
+            var gridDataType = DataTypeService.GetDataTypeDefinitionById(KeyValue);
 
-            if (KeyValue != Guid.Empty)
+            if (gridDataType == null)
             {
-                newGridDataType.Key = KeyValue;
-            }
+                gridDataType = new DataTypeDefinition(-1, ProperyEditors.GridAlias)
+                {
+                    Name = NameValue
+                };
+
+                Verify.Operation(KeyValue != Guid.Empty, "key cannot be an empty guid");
+                gridDataType.Key = KeyValue;
+            }            
 
             var preValues = new System.Collections.Generic.Dictionary<string, PreValue>
             {
@@ -185,9 +207,9 @@ namespace DeployCmsData.UmbracoCms.Builders
                 { PreValueRteName, new PreValue(JsonHelper.SerializePreValueObject(GridRtePreValue)) }
             };
 
-            DataTypeService.SaveDataTypeAndPreValues(newGridDataType, preValues);
+            DataTypeService.SaveDataTypeAndPreValues(gridDataType, preValues);
 
-            return newGridDataType;
+            return gridDataType;
         }
     }
 }

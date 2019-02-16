@@ -1,6 +1,6 @@
-﻿using System;
-using DeployCmsData.UmbracoCms.UnitTest.Builders;
+﻿using DeployCmsData.UmbracoCms.UnitTest.Builders;
 using NUnit.Framework;
+using System;
 using Umbraco.Core.Models;
 using static Umbraco.Core.Constants;
 
@@ -80,6 +80,70 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .Build();
 
             Assert.AreEqual(key, gridDataType.Key);
+        }
+
+        [Test]
+        public static void GridViewRows()
+        {
+            var builder = new GridDataTypeTestBuilder(Guid.NewGuid())
+                .Build();
+
+            var gridDataType = builder
+                .Name("My New Grid View")
+                .AddRow("1 column", 12)
+                .AddRow("2 columns", 6, 6)
+                .AddRow("3 columns", 4, 4, 4)
+                .AddRow("4 columns", 3, 3, 3, 3)
+                .AddRow("5 columns", 1, 2, 3, 4, 5)
+                .Build();
+
+            Assert.IsInstanceOf<IDataTypeDefinition>(gridDataType);
+            Assert.AreEqual("My New Grid View", gridDataType.Name);
+            Assert.AreEqual(PropertyEditors.GridAlias, gridDataType.PropertyEditorAlias);
+
+            Assert.AreEqual(5, builder.GridItemsPreValue.Rows.Count);
+
+            Assert.AreEqual(1, builder.GridItemsPreValue.Rows[0].Areas.Count);
+            Assert.AreEqual(2, builder.GridItemsPreValue.Rows[1].Areas.Count);
+            Assert.AreEqual(3, builder.GridItemsPreValue.Rows[2].Areas.Count);
+            Assert.AreEqual(4, builder.GridItemsPreValue.Rows[3].Areas.Count);
+
+            Assert.AreEqual(1, builder.GridItemsPreValue.Rows[4].Areas[0].Grid);
+            Assert.AreEqual(2, builder.GridItemsPreValue.Rows[4].Areas[1].Grid);
+            Assert.AreEqual(3, builder.GridItemsPreValue.Rows[4].Areas[2].Grid);
+            Assert.AreEqual(4, builder.GridItemsPreValue.Rows[4].Areas[3].Grid);
+            Assert.AreEqual(5, builder.GridItemsPreValue.Rows[4].Areas[4].Grid);
+
+            Assert.IsTrue(builder.GridItemsPreValue.Rows[4].Areas[0].AllowAll);
+            Assert.IsTrue(builder.GridItemsPreValue.Rows[4].Areas[1].AllowAll);
+            Assert.IsTrue(builder.GridItemsPreValue.Rows[4].Areas[2].AllowAll);
+            Assert.IsTrue(builder.GridItemsPreValue.Rows[4].Areas[3].AllowAll);
+            Assert.IsTrue(builder.GridItemsPreValue.Rows[4].Areas[4].AllowAll);
+        }
+
+        [Test]
+        public static void Columns()
+        {
+            var builder = new GridDataTypeTestBuilder(Guid.NewGuid())
+                .Build();
+
+            builder
+                .Columns(12)
+                .Build();
+
+            Assert.AreEqual(12, builder.GridItemsPreValue.Columns);
+        }
+
+        [Test]
+        public static void InvalidColumns()
+        {
+            var builder = new GridDataTypeTestBuilder(Guid.NewGuid())
+                .Build();
+
+            Assert.Throws<ArgumentOutOfRangeException>(() 
+                => builder
+                    .Columns(0)
+                    .Build());
         }
     }
 }
