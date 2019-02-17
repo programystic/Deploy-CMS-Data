@@ -11,6 +11,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
     public static class CreateNewProperties
     {
         private const string Alias = "myAlias";
+        private const int Id = 99;
         private const string Name = "myName";
         private const string Description = "myDescription";
         private const string Icon = "myIcon";
@@ -22,7 +23,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         {
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
-                .ReturnsNewContentType(ParentId)
+                .SetupNewDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
                 .ReturnsDataType(DataType.TextString)
                 .ReturnsDataType(DataType.Numeric)
@@ -56,7 +57,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         {
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
-                .ReturnsNewContentType(ParentId)
+                .SetupNewDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
                 .ReturnsDataType(DataType.TextString)
                 .ReturnsDataType(DataType.Numeric)
@@ -88,7 +89,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         {
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
-                .ReturnsNewContentType(ParentId)
+                .SetupNewDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
                 .ReturnsDataType(DataType.TextString)
                 .ReturnsDataType(DataType.Numeric)
@@ -115,7 +116,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         {
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
-                .ReturnsNewContentType(ParentId)
+                .SetupNewDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
                 .ReturnsDataType(DataType.TextString)
                 .ReturnsDataType(DataType.Numeric)
@@ -139,7 +140,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         {
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
-                .ReturnsNewContentType(ParentId)
+                .SetupNewDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
                 .ReturnsDataType(DataType.TextString)
                 .ReturnsDataType(DataType.Numeric)

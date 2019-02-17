@@ -23,7 +23,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         {
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
-                .ReturnsExistingContentType(Alias, Id)
+                .SetupExistingDocumentType(Alias, Id, ParentId)
                 .ReturnsDataType(DataType.TextString)
                 .ReturnsDataType(DataType.Numeric)
                 .Build();
@@ -53,7 +53,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
-                .ReturnsExistingContentType(Alias, Id)
+                .SetupExistingDocumentType(Alias, Id, ParentId)
                 .ReturnsDataType(DataType.TextString)
                 .ReturnsDataType(DataType.Numeric)
                 .Build();
@@ -75,6 +75,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
+                .SetupExistingDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType(Alias, Id)
                 .ReturnsDataType(DataType.TextString)
                 .ReturnsDataType(DataType.Numeric)
@@ -96,6 +97,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
+                .SetupExistingDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType(Alias, Id)
                 .Build();
 
@@ -125,6 +127,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
+                .SetupExistingDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType(Alias, Id)
                 .Build();
 
@@ -156,7 +159,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
-                .ReturnsDefaultContentType(Alias, Id)
+                .SetupExistingDocumentType(Alias, Id, ParentId)
                 .Build();
 
             var docType = setup.ContentType.Object;
@@ -181,7 +184,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         {
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
-                .ReturnsDefaultContentType(Alias, Id)                
+                .SetupExistingDocumentType(Alias, Id, ParentId)
                 .HasAllowedContentType("type1", 10)
                 .HasAllowedContentType("type3", 30)
                 .ReturnsExistingContentType("type2", 20)
@@ -202,7 +205,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         {
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
-                .ReturnsDefaultContentType(Alias, Id)
+                .SetupExistingDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType("type1", 10)
                 .ReturnsExistingContentType("type2", 20)
                 .Build();
@@ -221,7 +224,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         {
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
-                .ReturnsDefaultContentType(Alias, Id)
+                .SetupExistingDocumentType(Alias, Id, ParentId)
                 .HasAllowedContentType("type1", 10)
                 .HasAllowedContentType("type2", 20)
                 .Build();
@@ -240,7 +243,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         {
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
-                .ReturnsDefaultContentType(Alias, Id)
+                .SetupExistingDocumentType(Alias, Id, ParentId)
                 .HasAllowedContentType("type1", 10)
                 .HasAllowedContentType("type2", 20)
                 .HasAllowedContentType("type3", 30)
@@ -252,6 +255,54 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             Assert.AreEqual(2, builder.AllowedChildNodeTypesCount());
             Assert.AreEqual(2, updatedDocType.AllowedContentTypes.Count());
+        }
+
+        [Test]
+        public static void SetNewTabSortOrder()
+        {
+            var setup = new DocumentTypeTestBuilder(Alias);
+            var builder = setup
+                .SetupExistingDocumentType(Alias, Id, ParentId)
+                .Build();
+
+            var updatedDocType = builder
+                .TabSortOrder("tab 1", 10)
+                .TabSortOrder("tab 2", 20)
+                .TabSortOrder("tab 3", 30)
+                .Update();
+
+            Assert.AreEqual(3, updatedDocType.PropertyGroups.Count);
+            Assert.AreEqual("tab 1", updatedDocType.PropertyGroups[0].Name);
+        }
+
+        [Test]
+        public static void UpdateTabSortOrder()
+        {
+            var setup = new DocumentTypeTestBuilder(Alias);
+            var builder = setup
+                .SetupExistingDocumentType(Alias, Id, ParentId)
+                .AddExistingTab("tab 1", 1)
+                .AddExistingTab("tab 2", 2)
+                .AddExistingTab("tab 3", 3)
+                .Build();
+
+            var updatedDocType = builder
+                .TabSortOrder("tab 1", 10)
+                .TabSortOrder("tab 2", 20)
+                .TabSortOrder("tab 3", 30)
+                .TabSortOrder("tab 4", 40)
+                .Update();
+
+            Assert.AreEqual(4, updatedDocType.PropertyGroups.Count);
+            Assert.AreEqual("tab 1", updatedDocType.PropertyGroups[0].Name);
+            Assert.AreEqual("tab 2", updatedDocType.PropertyGroups[1].Name);
+            Assert.AreEqual("tab 3", updatedDocType.PropertyGroups[2].Name);
+            Assert.AreEqual("tab 4", updatedDocType.PropertyGroups[3].Name);
+
+            Assert.AreEqual(10, updatedDocType.PropertyGroups[0].SortOrder);
+            Assert.AreEqual(20, updatedDocType.PropertyGroups[1].SortOrder);
+            Assert.AreEqual(30, updatedDocType.PropertyGroups[2].SortOrder);
+            Assert.AreEqual(40, updatedDocType.PropertyGroups[3].SortOrder);
         }
     }
 }

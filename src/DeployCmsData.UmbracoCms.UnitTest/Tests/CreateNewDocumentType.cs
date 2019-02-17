@@ -37,7 +37,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         public static void CreateWithParent()
         {
             var builder = new DocumentTypeTestBuilder(Alias)
-                .ReturnsNewContentType(ParentId)
+                .SetupNewDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
                 .Build();
 
@@ -60,10 +60,11 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         public static void CreateAtRoot()
         {
             var builder = new DocumentTypeTestBuilder(Alias)
-                .ReturnsNewContentType(Constants.Umbraco.RootFolder)
+                .SetupNewDocumentType(Alias,Id, Constants.Umbraco.RootFolder)
+                .ReturnsExistingContentType("RootFolder", Constants.Umbraco.RootFolder)
                 .Build();
 
-            Umbraco.Core.Models.IContentType documentType = builder
+            var documentType = builder
                 .Icon(Icon)
                 .Name(Name)
                 .Description(Description)
@@ -73,7 +74,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             Assert.AreEqual(Name, documentType.Name);
             Assert.AreEqual(Description, documentType.Description);
             Assert.AreEqual(Icon, documentType.Icon);
-            Assert.AreEqual(UmbracoCms.Constants.Umbraco.RootFolder, documentType.ParentId);
+            Assert.AreEqual(Constants.Umbraco.RootFolder, documentType.ParentId);
             Assert.IsTrue(documentType.AllowedAsRoot);
             Assert.IsFalse(documentType.IsContainer);
         }
@@ -82,7 +83,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         public static void CreateInFolderWithLevel()
         {
             var builder = new DocumentTypeTestBuilder(Alias)
-                .ReturnsNewContentType(ParentFolderId)
+                .SetupNewDocumentType(Alias, Id, ParentFolderId)
                 .ReturnsFolder(ParentFolderName, ParentFolderLevel, ParentFolderId)
                 .Build();
 
@@ -107,7 +108,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var setup = new DocumentTypeTestBuilder(Alias);
 
             var builder = setup
-                .ReturnsNewContentType(ParentFolderId)
+                .SetupNewDocumentType(Alias, Id, ParentFolderId)
                 .ReturnsFolder(ParentFolderName, ParentFolderLevel, ParentFolderId)
                 .Build();
 
@@ -145,7 +146,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var setup = new DocumentTypeTestBuilder(Alias);
 
             var builder = setup
-                .ReturnsNewContentType(ParentFolderId)
+                .SetupNewDocumentType(Alias, Id, ParentFolderId)
                 .ReturnsFolder(ParentFolderName, ParentFolderLevel, ParentFolderId)
                 .ReturnsExistingContentType(childType1, childId1)
                 .ReturnsExistingContentType(childType2, childId2)
@@ -175,7 +176,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var template = new Mock<ITemplate>();
 
             var builder = setup
-                .ReturnsNewContentType(ParentFolderId)
+                .SetupNewDocumentType(Alias, Id, ParentFolderId)
                 .ReturnsFolder(ParentFolderName, ParentFolderLevel, ParentFolderId)
                 .Build();
 
@@ -195,7 +196,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var setup = new DocumentTypeTestBuilder(Alias);
 
             var builder = setup
-                .ReturnsNewContentType(ParentFolderId)
+                .SetupNewDocumentType(Alias, Id, ParentFolderId)
                 .ReturnsFolder(ParentFolderName, ParentFolderLevel, ParentFolderId)
                 .Build();
 
@@ -214,7 +215,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var setup = new DocumentTypeTestBuilder(Alias);
 
             var builder = setup
-                .ReturnsNewContentType(ParentFolderId)
+                .SetupNewDocumentType(Alias, Id, ParentFolderId)
                 .ReturnsFolder(ParentFolderName, ParentFolderLevel, ParentFolderId)
                 .Build();
 

@@ -5,8 +5,6 @@ using DeployCmsData.UmbracoCms.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
-using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.EntityBase;
 using Umbraco.Core.Services;
@@ -27,6 +25,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         private string _description;
         private string _tab;
         private ITemplate _defaultTemplate;
+        private Dictionary<string, int> _tabSortOrder = new Dictionary<string, int>();
 
         internal readonly IList<PropertyBuilder> UpdateFieldList = new List<PropertyBuilder>();
         internal readonly IList<PropertyBuilder> RemoveFieldList = new List<PropertyBuilder>();
@@ -118,18 +117,41 @@ namespace DeployCmsData.UmbracoCms.Builders
         private IContentType BuildDocumentType(int parentId)
         {
             var documentType = CreateNewDocumentType(parentId);
+
             SetNewDocumentTypeProperties(documentType, parentId);
+            SetupTabs(documentType);
             AddNewFields(documentType);
             documentType.AllowedContentTypes = AllowedChildNodeTypes;
-
-            foreach (var composition in Compositions)
-            {
-                documentType.AddContentType(composition);
-            }
+            AddCompositions(documentType);
 
             _contentTypeService.Save(documentType);
 
             return documentType;
+        }
+
+        private void AddCompositions(IContentType documentType)
+        {
+            foreach (var composition in Compositions)
+            {
+                documentType.AddContentType(composition);
+            }
+        }
+
+        private void SetupTabs(IContentType documentType)
+        {
+            foreach (var tab in _tabSortOrder)
+            {
+                var propertyGroup = documentType.PropertyGroups.FirstOrDefault(x => x.Name == tab.Key);
+
+                if (propertyGroup == null)
+                {
+                    propertyGroup = new PropertyGroup();
+                    documentType.PropertyGroups.Add(propertyGroup);
+                }
+
+                propertyGroup.Name = tab.Key;
+                propertyGroup.SortOrder = tab.Value;
+            }
         }
 
         public IContentType Update()
@@ -140,6 +162,8 @@ namespace DeployCmsData.UmbracoCms.Builders
             UpdateAllowedContentTypes(documentType);
             UpdateDocumentTypeProperties(documentType);
             AddNewFields(documentType);
+            SetupTabs(documentType);
+            AddCompositions(documentType);
 
             _contentTypeService.Save(documentType);
 
@@ -147,7 +171,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         }
 
         private void UpdateAllowedContentTypes(IContentType documentType)
-        {                       
+        {
             bool updated = false;
             foreach (var item in AllowedChildNodeTypes)
             {
@@ -199,7 +223,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             }
 
             documentType = _factory.NewContentType(parentId);
-            Verify.Operation(documentType != null, ExceptionMessages.CannotCreateDocumentType);            
+            Verify.Operation(documentType != null, ExceptionMessages.CannotCreateDocumentType);
 
             return documentType;
         }
@@ -208,8 +232,8 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             documentType.Alias = _alias;
 
-            documentType.Icon = 
-                (string.IsNullOrEmpty(_icon) ? Constants.Icons.RoadSign : _icon) 
+            documentType.Icon =
+                (string.IsNullOrEmpty(_icon) ? Constants.Icons.RoadSign : _icon)
                 + (!string.IsNullOrEmpty(_iconColour) ? " " + _iconColour : "");
 
             documentType.Name = string.IsNullOrEmpty(_name) ? _alias.AliasToName() : _name;
@@ -228,7 +252,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             documentType.Alias = !string.IsNullOrWhiteSpace(_alias) ? _alias : documentType.Alias;
             documentType.Icon = !string.IsNullOrEmpty(_icon) ? _icon : documentType.Icon;
             documentType.Name = !string.IsNullOrEmpty(_name) ? _name : documentType.Name;
-            documentType.Description = !string.IsNullOrEmpty(_description) ? _description : documentType.Description;            
+            documentType.Description = !string.IsNullOrEmpty(_description) ? _description : documentType.Description;
 
             if (_defaultTemplate != null)
             {
@@ -345,7 +369,7 @@ namespace DeployCmsData.UmbracoCms.Builders
                 if (!AllowedChildNodeTypes.Contains(newItem))
                 {
                     AllowedChildNodeTypes.Add(new ContentTypeSort(documentType.Id, AllowedChildNodeTypes.Count + 1));
-                }                
+                }
             }
 
             return this;
@@ -355,8 +379,8 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             var documentType = _contentTypeService.GetContentType(alias);
             if (documentType != null)
-            {                                
-                RemoveAllowedChildNodeTypes.Add(new ContentTypeSort(documentType.Id, RemoveAllowedChildNodeTypes.Count + 1));                
+            {
+                RemoveAllowedChildNodeTypes.Add(new ContentTypeSort(documentType.Id, RemoveAllowedChildNodeTypes.Count + 1));
             }
 
             return this;
@@ -419,8 +443,15 @@ namespace DeployCmsData.UmbracoCms.Builders
         }
 
         public DocumentTypeBuilder TabSortOrder(string tab, int sortOrder)
-        {            
-            //documentType.PropertyGroups[tab].SortOrder = sortOrder;
+        {
+            if (_tabSortOrder.ContainsKey(tab))
+            {
+                _tabSortOrder[tab] = sortOrder;
+            }
+            else
+            {
+                _tabSortOrder.Add(tab, sortOrder);
+            }
 
             return this;
         }
