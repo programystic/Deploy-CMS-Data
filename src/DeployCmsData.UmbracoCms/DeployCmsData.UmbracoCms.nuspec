@@ -15,7 +15,7 @@
     <copyright>Copyright 2019</copyright>
     <tags>Tag1 Tag2</tags>
     <dependencies>
-    <dependency id="DeployCmsData.Core" version="[$version$]" />
+    <dependency id="DeployCmsData.Core" version="1.0.1" />
 </dependencies>
   </metadata>
 </package>
