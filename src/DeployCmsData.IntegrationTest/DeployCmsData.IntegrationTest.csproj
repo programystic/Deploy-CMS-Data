@@ -61,9 +61,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DeployCmsData.IntegrationTest.Api\DeployCmsData.IntegrationTest.Api.csproj">
+    <ProjectReference Include="..\DeployCmsData.IntegrationTest.Api\DeployCmsData.UmbracoCms.IntegrationTest.Api.csproj">
       <Project>{795af61c-0976-4f0b-bd33-5900435e23a0}</Project>
-      <Name>DeployCmsData.IntegrationTest.Api</Name>
+      <Name>DeployCmsData.UmbracoCms.IntegrationTest.Api</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
