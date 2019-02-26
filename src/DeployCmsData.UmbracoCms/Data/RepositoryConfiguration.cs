@@ -1,5 +1,4 @@
 using DeployCmsData.UmbracoCms.Models;
-using System;
 using Umbraco.Core;
 using Umbraco.Core.Persistence;
 using Validation;
@@ -19,7 +18,7 @@ namespace DeployCmsData.UmbracoCms.Data
             var context = applicationContext.DatabaseContext;
             var dbHelper = new DatabaseSchemaHelper(context.Database, applicationContext.ProfilingLogger.Logger, context.SqlSyntax);
 
-            if (!dbHelper.TableExist<UmbracoUpgradeLog>())
+            if (!dbHelper.TableExist(Constants.Database.LogsTableName))
             {
                 dbHelper.CreateTable<UmbracoUpgradeLog>();
             }
