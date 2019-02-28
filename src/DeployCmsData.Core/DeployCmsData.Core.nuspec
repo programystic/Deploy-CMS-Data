@@ -6,16 +6,11 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
     <iconUrl>https://programystic.blob.core.windows.net/images/cog.png</iconUrl>
     <license type="expression">MIT</license>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>$description$</description>
-    <releaseNotes></releaseNotes>
+    <description>$description$</description>    
     <copyright>Copyright 2019</copyright>
-    <tags>umbraco deployment startup</tags>
-    <dependencies>
-      <dependency id="DeployCmsData.Core" version="1.0.1" />
-    </dependencies>
+    <tags>startup</tags>
   </metadata>
 </package>
