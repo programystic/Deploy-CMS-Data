@@ -5,7 +5,6 @@ using System;
 [assembly: CLSCompliant(true)]
 namespace DeployCmsData.IntegrationTest.Tests
 {
-    [TestFixture, Explicit]
     internal class IntegrationTests
     {
         [TestCase("ClearTheDecks")]
@@ -18,33 +17,30 @@ namespace DeployCmsData.IntegrationTest.Tests
         [TestCase("CreateContent")]
         [TestCase("MultiNodeTreePicker")]
         [TestCase("BusinessCase01")]
-        [TestCase("AllDataTypes")]        
+        [TestCase("AllDataTypes")]
         public void CallUpgradeScriptApi(string apiMethodName)
         {
-            Assert.IsTrue(GetResponse2(apiMethodName));
-            Assert.IsTrue(GetResponse1(apiMethodName));
+            Assert.IsTrue(GetResponse(apiMethodName));
         }
 
-        public bool GetResponse1(string method)
+        public bool GetResponse(string method)
         {
-            var client = new RestClient("http://deploycms.sqlce");
+            var endpoints = new string[] { "http://deploycms.umb7.4" };
+
+            foreach (var endPoint in endpoints)
+            {
+                var client = new RestClient(endPoint);
+                var request = new RestRequest($"/umbraco/api/integrationtest/runscript/?scriptName={method}", Method.GET);
+                var response = client.Execute<bool>(request);
+
+                if (!response.Data)
+                {
+                    return false;
+                }
+            }
+
+            return true;
             //client.Authenticator = new HttpBasicAuthenticator("peter@programystic.com", "tennesee55");
-
-            var request = new RestRequest($"/umbraco/api/tests/runscript/?scriptName={method}", Method.GET);
-            var response = client.Execute<bool>(request);
-
-            return response.Data;
-        }
-
-        public static bool GetResponse2(string method)
-        {
-            var client = new RestClient("http://deploycms.sqlserver");
-            //client.Authenticator = new HttpBasicAuthenticator("peter@programystic.com", "tennesee55");
-
-            var request = new RestRequest($"/umbraco/api/tests/runscript/?scriptName={method}", Method.GET);
-            var response = client.Execute<bool>(request);
-
-            return response.Data;
         }
     }
 }
