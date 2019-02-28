@@ -254,6 +254,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="DeployCmsData.UmbracoCms.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
