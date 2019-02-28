@@ -39,10 +39,10 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             Requires.NotNullOrWhiteSpace(alias, nameof(alias));
 
-            var applicationContext = UmbracoContext.Current.Application;
+            var services = UmbracoContext.Current.Application.Services;
+            _dataTypeService = services.DataTypeService;
+            _contentTypeService = services.ContentTypeService;
 
-            _dataTypeService = applicationContext.Services.DataTypeService;
-            _contentTypeService = applicationContext.Services.ContentTypeService;
             _factory = new UmbracoFactory(_contentTypeService);
             _alias = alias;
         }
