@@ -22,7 +22,7 @@ using Umbraco.ModelsBuilder.Umbraco;
 
 namespace Umbraco.Web.PublishedContentModels
 {
-	// Mixin content Type 1054 with alias "pageMetaData"
+	// Mixin content Type 1121 with alias "pageMetaData"
 	/// <summary>Page Meta Data</summary>
 	public partial interface IPageMetaData : IPublishedContent
 	{
@@ -54,12 +54,12 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 	}
 
-	// Mixin content Type 1055 with alias "contentBase"
+	// Mixin content Type 1122 with alias "contentBase"
 	/// <summary>Content Base</summary>
 	public partial interface IContentBase : IPublishedContent
 	{
 		/// <summary>Content</summary>
-		string BodyText { get; }
+		IHtmlString BodyText { get; }
 
 		/// <summary>Page Title</summary>
 		string PageTitle { get; }
@@ -94,13 +94,13 @@ namespace Umbraco.Web.PublishedContentModels
 		/// Content
 		///</summary>
 		[ImplementPropertyType("bodyText")]
-		public string BodyText
+		public IHtmlString BodyText
 		{
 			get { return GetBodyText(this); }
 		}
 
 		/// <summary>Static getter for Content</summary>
-		public static string GetBodyText(IContentBase that) { return that.GetPropertyValue<string>("bodyText"); }
+		public static IHtmlString GetBodyText(IContentBase that) { return that.GetPropertyValue<IHtmlString>("bodyText"); }
 
 		///<summary>
 		/// Page Title: The title of the page, this is also the first text in a google search result. The ideal length is between 40 and 60 characters
@@ -115,7 +115,7 @@ namespace Umbraco.Web.PublishedContentModels
 		public static string GetPageTitle(IContentBase that) { return that.GetPropertyValue<string>("pageTitle"); }
 	}
 
-	// Mixin content Type 1056 with alias "navigationBase"
+	// Mixin content Type 1123 with alias "navigationBase"
 	/// <summary>Navigation Base</summary>
 	public partial interface INavigationBase : IPublishedContent
 	{
@@ -217,10 +217,19 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
+		/// Main Content
+		///</summary>
+		[ImplementPropertyType("mainContent")]
+		public Newtonsoft.Json.Linq.JToken MainContent
+		{
+			get { return this.GetPropertyValue<Newtonsoft.Json.Linq.JToken>("mainContent"); }
+		}
+
+		///<summary>
 		/// Content
 		///</summary>
 		[ImplementPropertyType("bodyText")]
-		public string BodyText
+		public IHtmlString BodyText
 		{
 			get { return ContentBase.GetBodyText(this); }
 		}
@@ -283,121 +292,6 @@ namespace Umbraco.Web.PublishedContentModels
 #pragma warning restore 0109
 
 		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<WebsiteRoot, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>Bike Model Page</summary>
-	[PublishedContentModel("bikeModelPage")]
-	public partial class BikeModelPage : PublishedContentModel
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "bikeModelPage";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public BikeModelPage(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<BikeModelPage, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-
-		///<summary>
-		/// Bike Image: Select image to be displayed on a card
-		///</summary>
-		[ImplementPropertyType("bikeImage")]
-		public object BikeImage
-		{
-			get { return this.GetPropertyValue("bikeImage"); }
-		}
-
-		///<summary>
-		/// Is Leading Model: Check if this is main model for submodels
-		///</summary>
-		[ImplementPropertyType("isLeadingModel")]
-		public bool IsLeadingModel
-		{
-			get { return this.GetPropertyValue<bool>("isLeadingModel"); }
-		}
-
-		///<summary>
-		/// Override From Label
-		///</summary>
-		[ImplementPropertyType("overrideFromLabel")]
-		public string OverrideFromLabel
-		{
-			get { return this.GetPropertyValue<string>("overrideFromLabel"); }
-		}
-
-		///<summary>
-		/// Override Specification Label
-		///</summary>
-		[ImplementPropertyType("overrideSpecificationLabel")]
-		public string OverrideSpecificationLabel
-		{
-			get { return this.GetPropertyValue<string>("overrideSpecificationLabel"); }
-		}
-
-		///<summary>
-		/// Property Default Test
-		///</summary>
-		[ImplementPropertyType("propertyDefaultTest")]
-		public string PropertyDefaultTest
-		{
-			get { return this.GetPropertyValue<string>("propertyDefaultTest"); }
-		}
-
-		///<summary>
-		/// Specification Content
-		///</summary>
-		[ImplementPropertyType("specificationContent")]
-		public IHtmlString SpecificationContent
-		{
-			get { return this.GetPropertyValue<IHtmlString>("specificationContent"); }
-		}
-
-		///<summary>
-		/// Sub Types
-		///</summary>
-		[ImplementPropertyType("subTypes")]
-		public string SubTypes
-		{
-			get { return this.GetPropertyValue<string>("subTypes"); }
-		}
-	}
-
-	/// <summary>My Lovely New Document Type</summary>
-	[PublishedContentModel("myLovelyNewDocumentType")]
-	public partial class MyLovelyNewDocumentType : PublishedContentModel
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "myLovelyNewDocumentType";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public MyLovelyNewDocumentType(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<MyLovelyNewDocumentType, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}

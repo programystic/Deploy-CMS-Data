@@ -3,7 +3,7 @@ using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Constants;
 using DeployCmsData.UmbracoCms.Services;
 
-namespace Integration.Web.Umb7._4.UpgradeScripts
+namespace Integration.Web.Umb7._6.UpgradeScripts
 {
     public class AllDataTypes : UmbracoUpgradeScript
     {
