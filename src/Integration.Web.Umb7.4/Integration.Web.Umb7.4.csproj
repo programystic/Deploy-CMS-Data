@@ -283,11 +283,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiController\IntegrationTestController.cs" />
+    <Compile Include="Constants\LocalDataTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UpgradeScripts\AllDataTypes.cs" />
     <Compile Include="UpgradeScripts\BuildHomePage.cs" />
     <Compile Include="UpgradeScripts\BuildWebsite.cs" />
-    <Compile Include="UpgradeScripts\BusinessCase01.cs" />
     <Compile Include="UpgradeScripts\ClearTheDecks.cs" />
     <Compile Include="UpgradeScripts\CreateContent.cs" />
     <Compile Include="UpgradeScripts\MultiNodeTreePicker.cs" />

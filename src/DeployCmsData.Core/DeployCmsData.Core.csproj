@@ -61,7 +61,7 @@
     <Compile Include="Services\UpgradeScriptManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="DeployCmsData.Core.nuspec" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

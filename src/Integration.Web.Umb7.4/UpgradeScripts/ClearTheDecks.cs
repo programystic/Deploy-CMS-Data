@@ -2,7 +2,7 @@
 using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Services;
 
-namespace Integration.Web.Umb7._4.ApiController.UpgradeScripts
+namespace Integration.Web.Umb7._4.UpgradeScripts
 {
     [DoNotAutoRun]
     public class ClearTheDecks : UmbracoUpgradeScript
