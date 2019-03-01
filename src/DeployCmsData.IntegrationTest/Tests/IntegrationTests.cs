@@ -5,6 +5,7 @@ using System;
 [assembly: CLSCompliant(true)]
 namespace DeployCmsData.IntegrationTest.Tests
 {
+    [Explicit]
     internal class IntegrationTests
     {
         [TestCase("ClearTheDecks")]
@@ -16,7 +17,6 @@ namespace DeployCmsData.IntegrationTest.Tests
         [TestCase("Templates")]
         [TestCase("CreateContent")]
         [TestCase("MultiNodeTreePicker")]
-        [TestCase("BusinessCase01")]
         [TestCase("AllDataTypes")]
         public void CallUpgradeScriptApi(string apiMethodName)
         {
@@ -25,7 +25,11 @@ namespace DeployCmsData.IntegrationTest.Tests
 
         public bool GetResponse(string method)
         {
-            var endpoints = new string[] { "http://deploycms.umb7.4" };
+            var endpoints = new string[] {
+                "http://deploycms.umb7.4",
+                "http://deploycms.umb7.6",
+                "http://deploycms.umb7.0"
+            };
 
             foreach (var endPoint in endpoints)
             {
@@ -40,7 +44,6 @@ namespace DeployCmsData.IntegrationTest.Tests
             }
 
             return true;
-            //client.Authenticator = new HttpBasicAuthenticator("peter@programystic.com", "tennesee55");
         }
     }
 }

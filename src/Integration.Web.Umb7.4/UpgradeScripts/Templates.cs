@@ -2,7 +2,7 @@
 using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Services;
 
-namespace Integration.Web.Umb7._4.ApiController.UpgradeScripts
+namespace Integration.Web.Umb7._4.UpgradeScripts
 {
     public class Templates : UmbracoUpgradeScript
     {

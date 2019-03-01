@@ -3,7 +3,7 @@ using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Constants;
 
-namespace Integration.Web.Umb7._4.ApiController.UpgradeScripts
+namespace Integration.Web.Umb7._4.UpgradeScripts
 {
     [RunScriptEveryTime]
     public class Upgrade02 : IUpgradeScript
@@ -32,6 +32,7 @@ namespace Integration.Web.Umb7._4.ApiController.UpgradeScripts
 
             builder.AddField("bodyText")
                 .Name("Content")
+                .DataType(DataType.RichTextEditor)
                 .Tab("Content");
 
             builder.BuildInFolder("Compositions");
