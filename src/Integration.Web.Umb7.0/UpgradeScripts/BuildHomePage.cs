@@ -3,9 +3,8 @@ using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Constants;
 using DeployCmsData.UmbracoCms.Services;
-using Integration.Web.Umb7._6.Constants;
 
-namespace Integration.Web.Umb7._6.UpgradeScripts
+namespace Integration.Web.Umb7._0.UpgradeScripts
 {
     [RunScriptEveryTime]
     public class BuildHomepage : UmbracoUpgradeScript
@@ -22,7 +21,7 @@ namespace Integration.Web.Umb7._6.UpgradeScripts
                 .AddComposition("navigationBase");
 
             builder.AddField("mainContent")
-                .DataType(LocalDataTypes.Grid)
+                .DataType(DataType.RichTextEditor)
                 .Tab("Content");
 
             builder.BuildInFolder("Pages");

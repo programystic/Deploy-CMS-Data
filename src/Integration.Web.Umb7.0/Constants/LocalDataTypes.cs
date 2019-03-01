@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Integration.Web.Umb7._6.Constants
+namespace Integration.Web.Umb7._0.Constants
 {
     public static class LocalDataTypes
     {
