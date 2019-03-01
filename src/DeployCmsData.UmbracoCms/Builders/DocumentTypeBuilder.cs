@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Umbraco.Core.Models;
-using Umbraco.Core.Models.EntityBase;
+using Umbraco.Core.Models.Entities;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 using Validation;
@@ -63,7 +63,7 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public IContentType BuildWithParent(string parentAlias)
         {
-            var parent = _contentTypeService.GetContentType(parentAlias);
+            var parent = _contentTypeService.Get(parentAlias);
             Verify.Operation(parent != null, ExceptionMessages.ParentAliasNotFound);
 
             return BuildDocumentType(parent.Id);
@@ -145,7 +145,7 @@ namespace DeployCmsData.UmbracoCms.Builders
 
                 if (propertyGroup == null)
                 {
-                    propertyGroup = new PropertyGroup();
+                    propertyGroup = new PropertyGroup(false);
                     documentType.PropertyGroups.Add(propertyGroup);
                 }
 
@@ -156,7 +156,7 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public IContentType Update()
         {
-            var documentType = _contentTypeService.GetContentType(_alias);
+            var documentType = _contentTypeService.Get(_alias);
             Verify.Operation(documentType != null, ExceptionMessages.DocumentTypeNotFound + ":" + _alias);
 
             UpdateAllowedContentTypes(documentType);
@@ -216,7 +216,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             Verify.Operation(!string.IsNullOrEmpty(_alias), ExceptionMessages.AliasNotDefined);
 
-            var documentType = _contentTypeService.GetContentType(_alias);
+            var documentType = _contentTypeService.Get(_alias);
             if (documentType != null)
             {
                 return documentType;
@@ -277,7 +277,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         private PropertyType AddNewField(IContentType documentType, PropertyBuilder field)
         {
             PropertyType propertyType;
-            IDataTypeDefinition dataTypeDefinition = null;
+            IDataType dataTypeDefinition = null;
 
             propertyType = documentType.PropertyTypes.FirstOrDefault(x => x.Alias == field.AliasValue);
             if (propertyType != null)
@@ -287,7 +287,7 @@ namespace DeployCmsData.UmbracoCms.Builders
 
             SetDefaultFieldValues(field);
 
-            dataTypeDefinition = _dataTypeService.GetDataTypeDefinitionById(field.DataTypeValue);
+            dataTypeDefinition = _dataTypeService.GetDataType(field.DataTypeValue);
             Verify.Operation(dataTypeDefinition != null, ExceptionMessages.CannotFindDataType + field.DataTypeValue);
 
             propertyType = _factory.NewPropertyType(dataTypeDefinition, field.AliasValue);
@@ -328,7 +328,7 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public void DeleteDocumentType()
         {
-            var documentType = _contentTypeService.GetContentType(_alias);
+            var documentType = _contentTypeService.Get(_alias);
             Verify.Operation(documentType != null, ExceptionMessages.DocumentTypeNotFound + " : " + _alias);
 
             _contentTypeService.Delete(documentType);
@@ -361,7 +361,7 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public DocumentTypeBuilder AddAllowedChildNodeType(string alias)
         {
-            var documentType = _contentTypeService.GetContentType(alias);
+            var documentType = _contentTypeService.Get(alias);
 
             if (documentType != null)
             {
@@ -377,7 +377,7 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public DocumentTypeBuilder RemoveAllowedChildNodeType(string alias)
         {
-            var documentType = _contentTypeService.GetContentType(alias);
+            var documentType = _contentTypeService.Get(alias);
             if (documentType != null)
             {
                 RemoveAllowedChildNodeTypes.Add(new ContentTypeSort(documentType.Id, RemoveAllowedChildNodeTypes.Count + 1));
@@ -388,7 +388,7 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public DocumentTypeBuilder AddComposition(string alias)
         {
-            var documentType = _contentTypeService.GetContentType(alias);
+            var documentType = _contentTypeService.Get(alias);
             if (documentType != null)
             {
                 Compositions.Add(documentType);

@@ -2,8 +2,11 @@
 using DeployCmsData.UmbracoCms.Services;
 using System;
 using Umbraco.Core.Models;
+using Umbraco.Core.PropertyEditors;
 using Umbraco.Core.Services;
 using Umbraco.Web;
+using Umbraco.Web.Composing;
+using Umbraco.Web.PropertyEditors;
 using Validation;
 using ProperyEditors = Umbraco.Core.Constants.PropertyEditors;
 
@@ -26,7 +29,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             Verify.Operation(key != Guid.Empty, "key cannot be an empty guid");
 
-            Setup(UmbracoContext.Current.Application.Services.DataTypeService);
+            Setup(Current.Services.DataTypeService);
             KeyValue = key;
         }
 
@@ -186,16 +189,16 @@ namespace DeployCmsData.UmbracoCms.Builders
             DataTypeBuilder.DeleteDataTypeById(gridId, DataTypeService);
         }
 
-        public IDataTypeDefinition Build()
+        public IDataType Build()
         {
-            var gridDataType = DataTypeService.GetDataTypeDefinitionById(KeyValue);
+            var gridDataType = DataTypeService.GetDataType(KeyValue);
 
             if (gridDataType == null)
             {
-                gridDataType = new DataTypeDefinition(-1, ProperyEditors.GridAlias)
-                {
-                    Name = NameValue
-                };
+                var editor = new GridPropertyEditor(Current.Logger);                
+
+                gridDataType = new DataType(editor);
+                gridDataType.Name = NameValue;
 
                 Verify.Operation(KeyValue != Guid.Empty, "key cannot be an empty guid");
                 gridDataType.Key = KeyValue;
@@ -207,7 +210,9 @@ namespace DeployCmsData.UmbracoCms.Builders
                 { PreValueRteName, new PreValue(JsonHelper.SerializePreValueObject(GridRtePreValue)) }
             };
 
-            DataTypeService.SaveDataTypeAndPreValues(gridDataType, preValues);
+
+            //DataTypeService.SaveDataTypeAndPreValues(gridDataType, preValues);
+            DataTypeService.Save(gridDataType);
 
             return gridDataType;
         }

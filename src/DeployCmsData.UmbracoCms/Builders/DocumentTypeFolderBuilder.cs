@@ -1,10 +1,10 @@
-﻿using System;
-using DeployCmsData.Core.Constants;
+﻿using DeployCmsData.Core.Constants;
 using DeployCmsData.UmbracoCms.Interfaces;
 using DeployCmsData.UmbracoCms.Services;
-using Umbraco.Core.Models.EntityBase;
+using System;
+using Umbraco.Core.Models.Entities;
 using Umbraco.Core.Services;
-using Umbraco.Web;
+using Umbraco.Web.Composing;
 
 namespace DeployCmsData.UmbracoCms.Builders
 {
@@ -16,8 +16,8 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public DocumentTypeFolderBuilder(string name)
         {
-            var applicationContext = UmbracoContext.Current.Application;
-            _contentTypeService = applicationContext.Services.ContentTypeService;
+            //var applicationContext = new UmbracoContext.Um
+            _contentTypeService = Current.Services.ContentTypeService;
             _factory = new UmbracoFactory(_contentTypeService);
             _name = name;
         }
