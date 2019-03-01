@@ -27,7 +27,8 @@ namespace DeployCmsData.IntegrationTest.Tests
         {
             var endpoints = new string[] {
                 "http://deploycms.umb7.4",
-                "http://deploycms.umb7.6"
+                "http://deploycms.umb7.6",
+                "http://deploycms.umb7.0"
             };
 
             foreach (var endPoint in endpoints)
