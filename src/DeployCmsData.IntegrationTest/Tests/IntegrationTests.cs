@@ -5,6 +5,7 @@ using System;
 [assembly: CLSCompliant(true)]
 namespace DeployCmsData.IntegrationTest.Tests
 {
+    [Explicit]
     internal class IntegrationTests
     {
         [TestCase("ClearTheDecks")]
@@ -16,7 +17,6 @@ namespace DeployCmsData.IntegrationTest.Tests
         [TestCase("Templates")]
         [TestCase("CreateContent")]
         [TestCase("MultiNodeTreePicker")]
-        [TestCase("BusinessCase01")]
         [TestCase("AllDataTypes")]
         public void CallUpgradeScriptApi(string apiMethodName)
         {
@@ -40,7 +40,6 @@ namespace DeployCmsData.IntegrationTest.Tests
             }
 
             return true;
-            //client.Authenticator = new HttpBasicAuthenticator("peter@programystic.com", "tennesee55");
         }
     }
 }
