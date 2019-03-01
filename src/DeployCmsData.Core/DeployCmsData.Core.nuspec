@@ -6,6 +6,7 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
+    <projectUrl>https://github.com/programystic/DeployCmsData</projectUrl>
     <iconUrl>https://programystic.blob.core.windows.net/images/cog.png</iconUrl>
     <license type="expression">MIT</license>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
