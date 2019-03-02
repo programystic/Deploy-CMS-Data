@@ -3,8 +3,9 @@ using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Constants;
 using DeployCmsData.UmbracoCms.Services;
+using Integration.Web.Umb7._4.Constants;
 
-namespace Integration.Web.Umb7._4.ApiController.UpgradeScripts
+namespace Integration.Web.Umb7._4.UpgradeScripts
 {
     [RunScriptEveryTime]
     public class BuildHomepage : UmbracoUpgradeScript
@@ -18,9 +19,13 @@ namespace Integration.Web.Umb7._4.ApiController.UpgradeScripts
                 .Icon(Icons.Home)
                 .AddComposition("pageMetaData")
                 .AddComposition("contentBase")
-                .AddComposition("navigationBase")
-                .BuildInFolder("Pages");
+                .AddComposition("navigationBase");
 
+            builder.AddField("mainContent")
+                .DataType(LocalDataTypes.Grid)
+                .Tab("Content");
+
+            builder.BuildInFolder("Pages");
             return true;
         }
     }

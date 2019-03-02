@@ -26,7 +26,7 @@ namespace Integration.Web.Umb7._4.ApiController
         public bool RunScript(string scriptName)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var upgradeScript = (IUpgradeScript)assembly.CreateInstance($"Integration.Web.Umb7._4.ApiController.UpgradeScripts.{scriptName}");
+            var upgradeScript = (IUpgradeScript)assembly.CreateInstance($"Integration.Web.Umb7._4.UpgradeScripts.{scriptName}");
             var log = _upgradeScriptManager.RunScript(upgradeScript);
             return log.Success;
         }
