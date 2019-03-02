@@ -193,7 +193,6 @@
     <Compile Include="Interfaces\IUmbracoFactory.cs" />
     <Compile Include="Services\RunOnStartup.cs" />
     <Compile Include="Services\UmbracoFactory.cs" />
-    <Compile Include="Services\UmbracoUpgradeScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DeployCmsData.UmbracoCms.nuspec" />
