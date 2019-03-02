@@ -1,13 +1,12 @@
 ﻿using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Constants;
-using DeployCmsData.UmbracoCms.Services;
 
 namespace Integration.Web.Umb7._6.UpgradeScripts
 {
-    public class AllDataTypes : UmbracoUpgradeScript
+    public class AllDataTypes : IUpgradeScript
     {
-        public override bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript(IUpgradeLogRepository upgradeLog)
         {
             new DocumentTypeFolderBuilder("Testing").BuildAtRoot();
             

@@ -1,12 +1,11 @@
 ﻿using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
-using DeployCmsData.UmbracoCms.Services;
 
 namespace Integration.Web.Umb7._6.UpgradeScripts
 {
-    public class Templates : UmbracoUpgradeScript
+    public class Templates : IUpgradeScript
     {
-        public override bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript(IUpgradeLogRepository upgradeLog)
         {
             var MasterTemplate = new TemplateBuilder("Master")
                 .Build();
