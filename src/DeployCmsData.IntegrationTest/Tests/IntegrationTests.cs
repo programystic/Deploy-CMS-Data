@@ -20,7 +20,6 @@ namespace DeployCmsData.IntegrationTest.Tests
         [TestCase("AllDataTypes")]
         public void CallUpgradeScriptApi(string apiMethodName)
         {
-            //Assert.IsTrue(GetResponse(apiMethodName));
             GetResponse(apiMethodName);
         }
 

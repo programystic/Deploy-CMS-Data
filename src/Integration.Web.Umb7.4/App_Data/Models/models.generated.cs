@@ -22,7 +22,7 @@ using Umbraco.ModelsBuilder.Umbraco;
 
 namespace Umbraco.Web.PublishedContentModels
 {
-	// Mixin content Type 1121 with alias "pageMetaData"
+	// Mixin content Type 1178 with alias "pageMetaData"
 	/// <summary>Page Meta Data</summary>
 	public partial interface IPageMetaData : IPublishedContent
 	{
@@ -54,7 +54,7 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 	}
 
-	// Mixin content Type 1122 with alias "contentBase"
+	// Mixin content Type 1179 with alias "contentBase"
 	/// <summary>Content Base</summary>
 	public partial interface IContentBase : IPublishedContent
 	{
@@ -115,7 +115,7 @@ namespace Umbraco.Web.PublishedContentModels
 		public static string GetPageTitle(IContentBase that) { return that.GetPropertyValue<string>("pageTitle"); }
 	}
 
-	// Mixin content Type 1123 with alias "navigationBase"
+	// Mixin content Type 1180 with alias "navigationBase"
 	/// <summary>Navigation Base</summary>
 	public partial interface INavigationBase : IPublishedContent
 	{
