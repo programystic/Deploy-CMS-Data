@@ -2,6 +2,6 @@
 {
     public static class Database
     {
-        public const string LogsTableName = "DeployCmsDataUpgradeLog";
+        public const string LogsTableName = "DeployCmsDataLog";
     }
 }

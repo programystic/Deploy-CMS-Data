@@ -2,9 +2,9 @@
 using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Services;
-using Integration.Web.Umb7._6.Constants;
+using Integration.Web.Umb7._13.Constants;
 
-namespace Integration.Web.Umb7._6.UpgradeScripts
+namespace Integration.Web.Umb7._13.UpgradeScripts
 {
     [RunScriptEveryTime]
     public class Upgrade04 : UmbracoUpgradeScript

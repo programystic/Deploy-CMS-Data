@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Web.Http;
 using Umbraco.Web.WebApi;
 
-namespace Integration.Web.Umb7._6.ApiController
+namespace Integration.Web.Umb7._0.ApiController
 {
     // TODO : secure this controller - UmbracoAuthorizedApiController
     public class IntegrationTestController : UmbracoApiController
@@ -26,7 +26,7 @@ namespace Integration.Web.Umb7._6.ApiController
         public bool RunScript(string scriptName)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var upgradeScript = (IUpgradeScript)assembly.CreateInstance($"Integration.Web.Umb7._6.UpgradeScripts.{scriptName}");
+            var upgradeScript = (IUpgradeScript)assembly.CreateInstance($"Integration.Web.Umb7._0.UpgradeScripts.{scriptName}");
             var log = _upgradeScriptManager.RunScript(upgradeScript);
             return log.Success;
         }

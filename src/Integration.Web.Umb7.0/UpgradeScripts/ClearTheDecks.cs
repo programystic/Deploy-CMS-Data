@@ -2,7 +2,7 @@
 using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Services;
 
-namespace Integration.Web.Umb7._6.UpgradeScripts
+namespace Integration.Web.Umb7._0.UpgradeScripts
 {
     [DoNotAutoRun]
     public class ClearTheDecks : UmbracoUpgradeScript
@@ -11,7 +11,7 @@ namespace Integration.Web.Umb7._6.UpgradeScripts
         {
             Library.DeleteAllContent();
             Library.DeleteAllDocumentTypes();
-            Library.DeleteAllDocumentTypeFolders();
+            //Library.DeleteAllDocumentTypeFolders();
             //Library.DeleteAllTemplates();
 
             return true;
