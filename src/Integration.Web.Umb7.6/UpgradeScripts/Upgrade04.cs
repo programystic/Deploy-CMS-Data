@@ -7,14 +7,14 @@ using Integration.Web.Umb7._6.Constants;
 namespace Integration.Web.Umb7._6.UpgradeScripts
 {
     [RunScriptEveryTime]
-    public class Upgrade04 : UmbracoUpgradeScript
+    public class Upgrade04 : IUpgradeScript
     {
-        public override bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript(IUpgradeLogRepository upgradeLog)
         {
-            Library.DeleteDataTypeById(LocalDataTypes.Grid);
-            var gridBuilder = new GridDataTypeBuilder(LocalDataTypes.Grid);
+            var library = new UmbracoLibrary();
+            library.DeleteDataTypeById(LocalDataTypes.Grid);
 
-            gridBuilder
+            new GridDataTypeBuilder(LocalDataTypes.Grid)
                 .Name("Another Grid View")
                 .AddStandardToolBar()
                 .AddStandardRows()

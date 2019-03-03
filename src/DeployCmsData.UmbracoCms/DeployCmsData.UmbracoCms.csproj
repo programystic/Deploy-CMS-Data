@@ -156,7 +156,7 @@
     <Compile Include="Builders\GridDataTypeBuilder.cs" />
     <Compile Include="Builders\TemplateBuilder.cs" />
     <Compile Include="Constants\AppSettings.cs" />
-    <Compile Include="Constants\Data.cs" />
+    <Compile Include="Constants\Database.cs" />
     <Compile Include="Constants\DataType.cs" />
     <Compile Include="Constants\ExceptionMessages.cs" />
     <Compile Include="Constants\IconColour.cs" />
