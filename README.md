@@ -124,3 +124,78 @@ builder.AddField("mainContent")
 
 builder.BuildInFolder("Pages");
 ```
+
+---
+
+## MultiNode TreePicker Builder
+To create a new MultiNode TreePicker data type:
+
+```csharp
+var myDataTypeid = Guid.Parse("{60FFCA99-3B98-49EA-9F64-E4C69BB00285}");
+
+new MultiNodeTreePickerBuilder(LocalDataTypes.MultiNodeTreePicker)
+    .Name("Multi Node Tree Picker")
+    .ShowOpenButton()
+    .Build();
+```
+And with more options:
+```csharp
+var myDataTypeid = Guid.Parse("{60FFCA99-3B98-49EA-9F64-E4C69BB00285}");
+
+new MultiNodeTreePickerBuilder(myDataTypeid)
+    .Name("Another Multi Node Tree Picker")
+    .AllowItemsOfType("type1", "type2")
+    .MinimumNumberOfItems(1)
+    .MaximumNumberOfItems(5)
+    .ShowOpenButton()
+    .Build();
+```
+---
+## Grid DataType Builder
+To create a new grid data type:
+```csharp
+var myDataTypeid = Guid.Parse("{3D7B34BF-1E2E-4D49-A040-1C25D14E2074}");
+
+new GridDataTypeBuilder(myDataTypeid)
+    .Name("Another Grid View")
+    .AddStandardToolBar()
+    .AddStandardRows()
+    .AddLayout("1 column layout", 12)
+    .AddLayout("2 column layout", 4, 8)
+    .AddLayout("3 column layout", 4, 4, 4)
+    .AddLayout("4 column layout", 3, 3, 3, 3)
+    .Build();
+```
+```csharp
+new GridDataTypeBuilder(LocalDataTypes.Grid)
+    .Name("Default Grid View")
+    .Columns(12)
+    .AddLayout("1 column layout", 12)
+    .AddLayout("2 column layout", 4, 8)
+    .AddLayout("3 column layout", 4, 4, 4)
+    .AddLayout("4 column layout", 3, 3, 3, 3)
+    .AddRow("1 column", 12)
+    .AddRow("2 columns", 6, 6)
+    .AddRow("2 columns (left)", 4, 8)
+    .AddRow("2 columns (right)", 8, 4)
+    .AddRow("3 columns", 4, 4, 4)
+    .AddRow("4 columns", 3, 3, 3, 3)
+    .AddStandardToolBar()
+    .Build();
+```
+---
+
+## Template Builder
+
+To add existing views:
+
+```csharp
+new TemplateBuilder("Master") // The alias must match the view name (master.cshtml)
+    .Build();
+```
+And to specify a master template:
+```csharp
+var homeTemplate = new TemplateBuilder("Home")
+    .WithMasterTemplate("Master")
+    .Build();
+```
