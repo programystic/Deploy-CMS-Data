@@ -2,14 +2,13 @@
 using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Constants;
-using DeployCmsData.UmbracoCms.Services;
 
 namespace Integration.Web.Umb7._13.UpgradeScripts
 {
     [RunScriptEveryTime]
-    public class BuildWebsite : UmbracoUpgradeScript
+    public class BuildWebsite : IUpgradeScript
     {
-        public override bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript(IUpgradeLogRepository upgradeLog)
         {
             var builder = new DocumentTypeBuilder("websiteRoot");
             builder
