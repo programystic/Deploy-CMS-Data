@@ -20,15 +20,17 @@ namespace DeployCmsData.IntegrationTest.Tests
         [TestCase("AllDataTypes")]
         public void CallUpgradeScriptApi(string apiMethodName)
         {
-            Assert.IsTrue(GetResponse(apiMethodName));
+            GetResponse(apiMethodName);
         }
 
-        public bool GetResponse(string method)
+        public void GetResponse(string method)
         {
-            var endpoints = new string[] {
+            // "http://deploycms.umb7.0"
+
+            var endpoints = new string[] {                
                 "http://deploycms.umb7.4",
                 "http://deploycms.umb7.6",
-                "http://deploycms.umb7.0"
+                "http://deploycms.umb7.13",
             };
 
             foreach (var endPoint in endpoints)
@@ -37,13 +39,8 @@ namespace DeployCmsData.IntegrationTest.Tests
                 var request = new RestRequest($"/umbraco/api/integrationtest/runscript/?scriptName={method}", Method.GET);
                 var response = client.Execute<bool>(request);
 
-                if (!response.Data)
-                {
-                    return false;
-                }
+                Assert.IsTrue(response.Data, endPoint);
             }
-
-            return true;
         }
     }
 }
