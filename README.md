@@ -1,12 +1,12 @@
-# Deploy CMS Data
-
-[![NuGet package](https://img.shields.io/nuget/v/DeployCmsData.UmbracoCms.svg)](https://nuget.org/packages/DeployCmsData.UmbracoCms)
+# Deploy CMS Data [![NuGet package](https://img.shields.io/nuget/v/DeployCmsData.UmbracoCms.svg)](https://nuget.org/packages/DeployCmsData.UmbracoCms)
 
 Deploy CMS Data is a component that you can use for your Umbraco application which allows you to build migrations that deploy CMS updates.
 
 The updates are run on startup, and the status is saved to the database so that once they are run successfully, they are never run again.
 
 ---
+
+## Versions
 
 Version|Umbraco Version|Status
 --- | --- | ---
