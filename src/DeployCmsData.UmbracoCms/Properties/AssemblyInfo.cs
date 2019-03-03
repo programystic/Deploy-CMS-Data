@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Programystic")]
 [assembly: AssemblyProduct("DeployCmsData.UmbracoCms")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCopyright("Copyright © 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,4 +32,4 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("7.6.0.3")]
-[assembly: AssemblyInformationalVersion("7.6.0.3-beta")]
+//[assembly: AssemblyInformationalVersion("7.6.0.3-beta")]
