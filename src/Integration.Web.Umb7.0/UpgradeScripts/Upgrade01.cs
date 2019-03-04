@@ -9,7 +9,7 @@ namespace Integration.Web.Umb7._0.UpgradeScripts
     public class Upgrade01 : IUpgradeScript
     {
         // TODO - Setup constants for all the magic strings below
-        public bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript()
         {
             CreatePageMetadata();
             return true;
