@@ -5,7 +5,7 @@ namespace DeployCmsData.UnitTest.UpgradeScripts
 {
     public class Sleeps : IUpgradeScript
     {
-        public bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript()
         {
             Thread.Sleep(1);
 
