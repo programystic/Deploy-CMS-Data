@@ -2,15 +2,14 @@
 using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Constants;
-using DeployCmsData.UmbracoCms.Services;
 
 namespace Integration.Web.Umb7._4.UpgradeScripts
 {
     [RunScriptEveryTime]
-    public class Upgrade01 : UmbracoUpgradeScript
+    public class Upgrade01 : IUpgradeScript
     {
         // TODO - Setup constants for all the magic strings below
-        public override bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript()
         {
             CreateFolders();
             CreatePageMetadata();

@@ -1,16 +1,13 @@
 ﻿using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Constants;
-using DeployCmsData.UmbracoCms.Services;
 
 namespace Integration.Web.Umb7._0.UpgradeScripts
 {
-    public class AllDataTypes : UmbracoUpgradeScript
+    public class AllDataTypes : IUpgradeScript
     {
-        public override bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript()
         {
-            new DocumentTypeFolderBuilder("Testing").BuildAtRoot();
-            
             var builder = new DocumentTypeBuilder("allDataTypes");
 
             builder.DefaultTab("All The Data Types");
@@ -25,7 +22,7 @@ namespace Integration.Web.Umb7._0.UpgradeScripts
             builder.AddField("dropDownMultiple").DataType(DataType.DropDownMultiple);
             builder.AddField("imageCropper").DataType(DataType.ImageCropper);
             builder.AddField("label").DataType(DataType.Label);
-            builder.AddField("listViewContent").DataType(DataType.ListViewContent);            
+            builder.AddField("listViewContent").DataType(DataType.ListViewContent);
             builder.AddField("listViewMedia").DataType(DataType.ListViewMedia);
             builder.AddField("listViewMembers").DataType(DataType.ListViewMembers);
             builder.AddField("mediaPicker").DataType(DataType.MediaPicker);
@@ -40,7 +37,7 @@ namespace Integration.Web.Umb7._0.UpgradeScripts
             builder.AddField("textString").DataType(DataType.TextString);
             builder.AddField("upload").DataType(DataType.Upload);
 
-            builder.BuildInFolder("Testing");
+            builder.Build();
 
             return true;
         }

@@ -20,13 +20,12 @@ namespace DeployCmsData.IntegrationTest.Tests
         [TestCase("AllDataTypes")]
         public void CallUpgradeScriptApi(string apiMethodName)
         {
-            //Assert.IsTrue(GetResponse(apiMethodName));
             GetResponse(apiMethodName);
         }
 
         public void GetResponse(string method)
         {
-            // "http://deploycms.umb7.0"
+            // http://deploycms.umb7.0
 
             var endpoints = new string[] {                
                 "http://deploycms.umb7.4",
