@@ -13,7 +13,6 @@ Version|Umbraco Version|Status
 7.13.0.2 | 7.13.0|Published to Nuget
 7.6.0.4 | 7.6.0|Published to Nuget
 7.4.0.2 | 7.4.0|Published to Nuget
-7.0.0.0 | 7.0.0|Work in progress
 8.0.0.0 | 8.0.0|Work in progress
 
 ---
@@ -21,10 +20,9 @@ Version|Umbraco Version|Status
 ## Creating an Upgrade script
 
 ### Install from Nuget
+```PM> Install-Package DeployCmsData.UmbracoCms```
 
-```PM> Install-Package DeployCmsData.UmbracoCms -Version 7.6.0.3```
-
-Create a new class that implements IUpgradeScript:
+Then create a new class that implements IUpgradeScript:
 
 ```csharp
 using DeployCmsData.Core.Interfaces;
@@ -32,7 +30,7 @@ using DeployCmsData.Core.Interfaces;
 public class Script01 : IUpgradeScript
 {
     public bool RunScript()
-    {        
+    {                
         return true;
     }
 }
@@ -59,7 +57,7 @@ public class Script01 : IUpgradeScript
 
 ## DeployCmsData Builders
 
-Within our upgrade script we can use builders to manipulate the CMS data.
+Within the ```RunScript``` method in the upgrade script we can use builders to manipulate the CMS data.
 
 ## Document Type Folder Builder
 
