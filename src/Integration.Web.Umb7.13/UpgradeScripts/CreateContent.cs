@@ -8,7 +8,7 @@ namespace Integration.Web.Umb7._13.UpgradeScripts
     [RunScriptEveryTime]
     public class CreateContent : IUpgradeScript
     {
-        public bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript()
         {
             var contentService = ApplicationContext.Current.Services.ContentService;
 

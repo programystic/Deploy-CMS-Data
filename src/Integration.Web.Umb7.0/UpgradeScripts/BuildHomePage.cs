@@ -8,7 +8,7 @@ namespace Integration.Web.Umb7._0.UpgradeScripts
     [RunScriptEveryTime]
     public class BuildHomepage : IUpgradeScript
     {
-        public bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript()
         {
 
             new DocumentTypeBuilder("bleugh").Build();

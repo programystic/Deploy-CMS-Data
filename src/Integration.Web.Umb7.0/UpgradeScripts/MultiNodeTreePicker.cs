@@ -9,7 +9,7 @@ namespace Integration.Web.Umb7._0.UpgradeScripts
     [RunScriptEveryTime]
     public class MultiNodeTreePicker : IUpgradeScript
     {
-        public bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript()
         {
             var id = Guid.Parse("{60FFCA99-3B98-49EA-9F64-E4C69BB00285}");
             var library = new UmbracoLibrary();

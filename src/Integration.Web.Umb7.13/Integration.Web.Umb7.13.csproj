@@ -65,8 +65,8 @@
     <Reference Include="controls, Version=1.0.6942.23081, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\UmbracoCms.Core.7.13.0\lib\net45\controls.dll</HintPath>
     </Reference>
-    <Reference Include="DeployCmsData.Core, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DeployCmsData.Core.1.0.1\lib\net461\DeployCmsData.Core.dll</HintPath>
+    <Reference Include="DeployCmsData.Core, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeployCmsData.Core.1.0.2\lib\net461\DeployCmsData.Core.dll</HintPath>
     </Reference>
     <Reference Include="DeployCmsData.UmbracoCms, Version=7.13.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DeployCmsData.UmbracoCms.7.13.0.1\lib\net461\DeployCmsData.UmbracoCms.dll</HintPath>
