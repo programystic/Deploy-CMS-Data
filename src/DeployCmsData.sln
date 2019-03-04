@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		DeployCmsData.ruleset = DeployCmsData.ruleset
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeployCmsData.Core.UnitTest", "DeployCmsData.Test\DeployCmsData.Core.UnitTest.csproj", "{5C9331F0-39C3-46BB-B75E-2E2C24486E5E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeployCmsData.Core.UnitTest", "DeployCmsData.Core.UnitTest\DeployCmsData.Core.UnitTest.csproj", "{5C9331F0-39C3-46BB-B75E-2E2C24486E5E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeployCmsData.UmbracoCms", "DeployCmsData.UmbracoCms\DeployCmsData.UmbracoCms.csproj", "{23962911-6A2C-4DCB-A7CA-4FEA0840D0B9}"
 EndProject
