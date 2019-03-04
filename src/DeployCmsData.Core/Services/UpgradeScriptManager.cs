@@ -56,7 +56,7 @@ namespace DeployCmsData.Core.Services
 
             try
             {
-                upgradeLog.Success = upgradeScript.RunScript(LogDataStore);
+                upgradeLog.Success = upgradeScript.RunScript();
             }
             catch (Exception e)
             {

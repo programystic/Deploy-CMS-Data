@@ -4,7 +4,7 @@ namespace DeployCmsData.UnitTest.UpgradeScripts
 {
     public class ReturnsFalse : IUpgradeScript
     {
-        public bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript()
         {
             return false;
         }

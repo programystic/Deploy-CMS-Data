@@ -6,7 +6,7 @@ namespace DeployCmsData.UnitTest.UpgradeScripts
     [DoNotAutoRun]
     public class DoNotAutoRun : IUpgradeScript
     {
-        public bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript()
         {
             return true;
         }

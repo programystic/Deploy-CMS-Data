@@ -2,6 +2,6 @@
 {
     public interface IUpgradeScript
     {
-        bool RunScript(IUpgradeLogRepository upgradeLog);
+        bool RunScript();
     }
 }
