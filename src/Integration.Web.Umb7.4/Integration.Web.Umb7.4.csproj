@@ -68,8 +68,8 @@
     <Reference Include="CookComputing.XmlRpcV2, Version=2.5.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
       <HintPath>..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
     </Reference>
-    <Reference Include="DeployCmsData.Core, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DeployCmsData.Core.1.0.1\lib\net461\DeployCmsData.Core.dll</HintPath>
+    <Reference Include="DeployCmsData.Core, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeployCmsData.Core.1.0.2\lib\net461\DeployCmsData.Core.dll</HintPath>
     </Reference>
     <Reference Include="DeployCmsData.UmbracoCms, Version=7.4.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DeployCmsData.UmbracoCms.7.4.0.1\lib\net461\DeployCmsData.UmbracoCms.dll</HintPath>
@@ -325,6 +325,9 @@
     <Content Include="Views\Partials\Grid\Editors\Base.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap3.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
+    <Content Include="Views\Home.cshtml" />
+    <Content Include="Views\Master.cshtml" />
+    <Content Include="Views\TheSpecialOne.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

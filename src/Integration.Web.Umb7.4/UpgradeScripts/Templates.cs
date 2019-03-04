@@ -5,7 +5,7 @@ namespace Integration.Web.Umb7._4.UpgradeScripts
 {
     public class Templates : IUpgradeScript
     {
-        public bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript()
         {
             var MasterTemplate = new TemplateBuilder("Master")
                 .Build();

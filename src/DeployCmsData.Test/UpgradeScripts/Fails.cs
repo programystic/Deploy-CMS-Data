@@ -1,11 +1,11 @@
-﻿using System;
-using DeployCmsData.Core.Interfaces;
+﻿using DeployCmsData.Core.Interfaces;
+using System;
 
 namespace DeployCmsData.UnitTest.UpgradeScripts
 {
     public class Fails : IUpgradeScript
     {
-        public bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript()
         {
             throw new InvalidProgramException();
         }

@@ -6,7 +6,7 @@ namespace Integration.Web.Umb7._4.UpgradeScripts
 {
     public class AllDataTypes : IUpgradeScript
     {
-        public bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript()
         {
             new DocumentTypeFolderBuilder("Testing").BuildAtRoot();
 

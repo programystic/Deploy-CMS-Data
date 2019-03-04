@@ -7,13 +7,14 @@ using System;
 namespace Integration.Web.Umb7._13.UpgradeScripts
 {
     [RunScriptEveryTime]
-    public class MultiNodeTreePicker : UmbracoUpgradeScript
+    public class MultiNodeTreePicker : IUpgradeScript
     {
-        public override bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript()
         {
             var id = Guid.Parse("{60FFCA99-3B98-49EA-9F64-E4C69BB00285}");
+            var library = new UmbracoLibrary();
 
-            Library.DeleteDataTypeById(id);
+            library.DeleteDataTypeById(id);
             var builder = new MultiNodeTreePickerBuilder(id);
 
             builder

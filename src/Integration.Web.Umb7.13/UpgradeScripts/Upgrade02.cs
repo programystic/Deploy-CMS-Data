@@ -8,7 +8,7 @@ namespace Integration.Web.Umb7._13.UpgradeScripts
     [RunScriptEveryTime]
     public class Upgrade02 : IUpgradeScript
     {
-        public bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript()
         {
             BuildContentBase();
             BuildNavigationBase();
