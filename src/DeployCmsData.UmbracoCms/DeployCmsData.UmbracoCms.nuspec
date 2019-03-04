@@ -14,7 +14,7 @@
     <copyright>Copyright 2019</copyright>
     <tags>umbraco deployment startup</tags>
     <dependencies>
-      <dependency id="DeployCmsData.Core" version="1.0.1" />
+      <dependency id="DeployCmsData.Core" version="1.0.3" />
     </dependencies>
   </metadata>
 </package>
