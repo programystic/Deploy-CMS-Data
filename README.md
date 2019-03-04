@@ -10,9 +10,9 @@ The updates are run on startup, and the status is saved to the database so that 
 
 Version|Umbraco Version|Status
 --- | --- | ---
-7.13.0.1 | 7.13.0|Published to Nuget
-7.6.0.3 | 7.6.0|Published to Nuget
-7.4.0.1 | 7.4.0|Published to Nuget
+7.13.0.2 | 7.13.0|Published to Nuget
+7.6.0.4 | 7.6.0|Published to Nuget
+7.4.0.2 | 7.4.0|Published to Nuget
 7.0.0.0 | 7.0.0|Work in progress
 8.0.0.0 | 8.0.0|Work in progress
 
