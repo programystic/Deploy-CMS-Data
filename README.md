@@ -24,15 +24,15 @@ Version|Umbraco Version|Status
 
 ```PM> Install-Package DeployCmsData.UmbracoCms -Version 7.6.0.3```
 
-Create a new class that implements IUpgradeScript
+Create a new class that implements IUpgradeScript:
 
 ```csharp
 using DeployCmsData.Core.Interfaces;
 
 public class Script01 : IUpgradeScript
 {
-    public bool RunScript(IUpgradeLogRepository upgradeLog)
-    {
+    public bool RunScript()
+    {        
         return true;
     }
 }
@@ -86,6 +86,12 @@ new DocumentTypeBuilder("pageMetaData")
                 .Name("Page Meta Data")
                 .Icon(Icons.MindMap)
                 .BuildInFolder("Compositions");
+```
+To update an existing document type:
+```csharp
+new DocumentTypeBuilder("pageMetaData")                
+                .Icon(Icons.MindMap)
+                .Build();
 ```
 
 To add fields to the document type:
@@ -155,19 +161,6 @@ new MultiNodeTreePickerBuilder(myDataTypeid)
 ---
 ## Grid DataType Builder
 To create a new grid data type:
-```csharp
-var myDataTypeid = Guid.Parse("{3D7B34BF-1E2E-4D49-A040-1C25D14E2074}");
-
-new GridDataTypeBuilder(myDataTypeid)
-    .Name("Another Grid View")
-    .AddStandardToolBar()
-    .AddStandardRows()
-    .AddLayout("1 column layout", 12)
-    .AddLayout("2 column layout", 4, 8)
-    .AddLayout("3 column layout", 4, 4, 4)
-    .AddLayout("4 column layout", 3, 3, 3, 3)
-    .Build();
-```
 ```csharp
 new GridDataTypeBuilder(LocalDataTypes.Grid)
     .Name("Default Grid View")
