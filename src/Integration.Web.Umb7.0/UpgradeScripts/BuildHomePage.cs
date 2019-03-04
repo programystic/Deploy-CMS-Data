@@ -10,14 +10,14 @@ namespace Integration.Web.Umb7._0.UpgradeScripts
     {
         public bool RunScript(IUpgradeLogRepository upgradeLog)
         {
+
+            new DocumentTypeBuilder("bleugh").Build();
+
             var builder = new DocumentTypeBuilder("homePage");
 
             builder
                 .Name("Home Page")
-                .Icon(Icons.Home)
-                .AddComposition("pageMetaData")
-                .AddComposition("contentBase")
-                .AddComposition("navigationBase");
+                .Icon(Icons.Home);
 
             builder.AddField("mainContent")
                 .DataType(DataType.RichTextEditor)
