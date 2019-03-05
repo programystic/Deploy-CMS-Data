@@ -123,6 +123,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             SetNewDocumentTypeProperties(documentType, parentId);
             SetupTabs(documentType);
             AddNewFields(documentType);
+            RemoveFields(documentType);
             documentType.AllowedContentTypes = AllowedChildNodeTypes;
             AddCompositions(documentType);
 
@@ -164,6 +165,8 @@ namespace DeployCmsData.UmbracoCms.Builders
             UpdateAllowedContentTypes(documentType);
             UpdateDocumentTypeProperties(documentType);
             AddNewFields(documentType);
+            UpdateFields(documentType);
+            RemoveFields(documentType);
             SetupTabs(documentType);
             AddCompositions(documentType);
 
@@ -284,6 +287,37 @@ namespace DeployCmsData.UmbracoCms.Builders
 
                 propertyType = AddNewField(documentType, field);
             }
+        }
+
+        private void RemoveFields(IContentType documentType)
+        {
+            foreach (var field in RemoveFieldList)
+            {
+                var propertyType = documentType.PropertyTypes.FirstOrDefault(x => x.Alias == field.AliasValue);
+                if (propertyType != null)
+                {
+                    documentType.RemovePropertyType(propertyType.Alias);
+                }
+            }
+        }
+
+        private void UpdateFields(IContentType documentType)
+        {
+            foreach (var field in UpdateFieldList)
+            {
+                var propertyType = documentType.PropertyTypes.FirstOrDefault(x => x.Alias == field.AliasValue);
+                if (propertyType != null)
+                {
+                    UpdateField(documentType, field, propertyType);
+                }
+            }
+        }
+
+        private void UpdateField(IContentType documentType, PropertyBuilder field, PropertyType propertyType)
+        {
+            propertyType.Name = field.NameValue ?? propertyType.Name;
+            propertyType.Description = field.DescriptionValue ?? propertyType.Description;
+            propertyType.ValidationRegExp = field.RegularExpressionValue ?? propertyType.ValidationRegExp;
         }
 
         private PropertyType AddNewField(IContentType documentType, PropertyBuilder field)
