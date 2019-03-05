@@ -30,7 +30,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         private bool _doNotAllowAtRoot;
 
         internal readonly IList<PropertyBuilder> UpdateFieldList = new List<PropertyBuilder>();
-        internal readonly IList<PropertyBuilder> RemoveFieldList = new List<PropertyBuilder>();
+        internal readonly IList<string> RemoveFieldList = new List<string>();
         internal readonly IList<IContentTypeComposition> Compositions = new List<IContentTypeComposition>();
         internal IList<ContentTypeSort> AllowedChildNodeTypes = new List<ContentTypeSort>();
         internal IList<ContentTypeSort> RemoveAllowedChildNodeTypes = new List<ContentTypeSort>();
@@ -291,12 +291,11 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         private void RemoveFields(IContentType documentType)
         {
-            foreach (var field in RemoveFieldList)
+            foreach (var alias in RemoveFieldList)
             {
-                var propertyType = documentType.PropertyTypes.FirstOrDefault(x => x.Alias == field.AliasValue);
-                if (propertyType != null)
+                if (documentType.PropertyTypeExists(alias))
                 {
-                    documentType.RemovePropertyType(propertyType.Alias);
+                    documentType.RemovePropertyType(alias);
                 }
             }
         }
@@ -305,9 +304,9 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             foreach (var field in UpdateFieldList)
             {
-                var propertyType = documentType.PropertyTypes.FirstOrDefault(x => x.Alias == field.AliasValue);
-                if (propertyType != null)
+                if (documentType.PropertyTypeExists(field.AliasValue))
                 {
+                    var propertyType = _factory.GetPropertyType(documentType, field.AliasValue);
                     UpdateField(documentType, field, propertyType);
                 }
             }
@@ -465,11 +464,11 @@ namespace DeployCmsData.UmbracoCms.Builders
             return fieldBuilder;
         }
 
-        public PropertyBuilder RemoveField(string alias)
+        public DocumentTypeBuilder RemoveField(string alias)
         {
-            var fieldBuilder = new PropertyBuilder(alias);
-            RemoveFieldList.Add(fieldBuilder);
-            return fieldBuilder;
+            RemoveFieldList.Add(alias);
+
+            return this;
         }
 
         public PropertyBuilder UpdateField(string alias)
