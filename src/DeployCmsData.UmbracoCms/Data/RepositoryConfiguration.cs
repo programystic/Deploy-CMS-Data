@@ -1,6 +1,7 @@
 using DeployCmsData.UmbracoCms.Models;
 using Umbraco.Core;
 using Umbraco.Core.Persistence;
+using Umbraco.Web.Composing;
 using Validation;
 
 namespace DeployCmsData.UmbracoCms.Data
@@ -11,7 +12,7 @@ namespace DeployCmsData.UmbracoCms.Data
         {
         }
 
-        public static void SetupDatabase(ApplicationContext applicationContext)
+        public static void SetupDatabase(Umbraco.Web.UmbracoApplication applicationContext)
         {
             Requires.NotNull(applicationContext, nameof(applicationContext));
 
