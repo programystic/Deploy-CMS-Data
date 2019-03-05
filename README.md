@@ -89,7 +89,7 @@ To update an existing document type:
 ```csharp
 new DocumentTypeBuilder("pageMetaData")                
                 .Icon(Icons.MindMap)
-                .Build();
+                .Update();
 ```
 
 To add fields to the document type:
