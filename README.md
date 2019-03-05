@@ -101,7 +101,7 @@ builder
     .Icon(Icons.Document);
 
 builder.AddField("pageDescription"); 
-// The default data type is text string and the name is generated from the alias - so in this case the name will be *Page Description*
+// The default data type is text string and the name is generated from the alias - so in this case the name will be Page Description
 
 builder.AddField("pageTitle")
     .Description("The title of the page, this is also the first text in a google search result. The ideal length is between 40 and 60 characters")
