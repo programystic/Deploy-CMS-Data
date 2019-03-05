@@ -9,7 +9,7 @@ namespace Integration.Web.Umb7._13.UpgradeScripts
     [RunScriptEveryTime]
     public class Upgrade04 : IUpgradeScript
     {
-        public bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript()
         {
             var library = new UmbracoLibrary();
 

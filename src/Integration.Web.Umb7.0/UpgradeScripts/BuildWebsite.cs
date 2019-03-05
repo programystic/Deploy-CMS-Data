@@ -8,7 +8,7 @@ namespace Integration.Web.Umb7._0.UpgradeScripts
     [RunScriptEveryTime]
     public class BuildWebsite : IUpgradeScript
     {
-        public bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript()
         {
             var builder = new DocumentTypeBuilder("websiteRoot");
             builder
