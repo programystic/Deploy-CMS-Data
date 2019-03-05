@@ -26,6 +26,8 @@ namespace DeployCmsData.UmbracoCms.Builders
         private string _tab;
         private ITemplate _defaultTemplate;
         private Dictionary<string, int> _tabSortOrder = new Dictionary<string, int>();
+        private bool _allowAtRoot;
+        private bool _doNotAllowAtRoot;
 
         internal readonly IList<PropertyBuilder> UpdateFieldList = new List<PropertyBuilder>();
         internal readonly IList<PropertyBuilder> RemoveFieldList = new List<PropertyBuilder>();
@@ -238,7 +240,7 @@ namespace DeployCmsData.UmbracoCms.Builders
 
             documentType.Name = string.IsNullOrEmpty(_name) ? _alias.AliasToName() : _name;
             documentType.Description = _description;
-            documentType.AllowedAsRoot = (parentId == Constants.Umbraco.RootFolder);
+            documentType.AllowedAsRoot = _allowAtRoot;
             documentType.IsContainer = false;
 
             if (_defaultTemplate != null)
@@ -253,6 +255,16 @@ namespace DeployCmsData.UmbracoCms.Builders
             documentType.Icon = !string.IsNullOrEmpty(_icon) ? _icon : documentType.Icon;
             documentType.Name = !string.IsNullOrEmpty(_name) ? _name : documentType.Name;
             documentType.Description = !string.IsNullOrEmpty(_description) ? _description : documentType.Description;
+
+            if (_allowAtRoot)
+            {
+                documentType.AllowedAsRoot = true;
+            }
+
+            if (_doNotAllowAtRoot)
+            {
+                documentType.AllowedAsRoot = false;
+            }
 
             if (_defaultTemplate != null)
             {
@@ -356,6 +368,20 @@ namespace DeployCmsData.UmbracoCms.Builders
         public DocumentTypeBuilder Description(string documentTypeDescription)
         {
             _description = documentTypeDescription;
+            return this;
+        }
+
+        public DocumentTypeBuilder AllowAtRoot()
+        {
+            _allowAtRoot = true;
+            _doNotAllowAtRoot = false;
+            return this;
+        }
+
+        public DocumentTypeBuilder DoNotAllowAtRoot()
+        {
+            _allowAtRoot = false;
+            _doNotAllowAtRoot = true;
             return this;
         }
 

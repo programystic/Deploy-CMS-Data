@@ -136,5 +136,11 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
 
             return this;
         }
+
+        public DocumentTypeTestBuilder AllowAtRoot()
+        {
+            ContentType.Object.AllowedAsRoot = true;
+            return this;
+        }
     }
 }

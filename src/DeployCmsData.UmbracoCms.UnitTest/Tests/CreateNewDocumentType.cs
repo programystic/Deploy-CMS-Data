@@ -75,7 +75,6 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             Assert.AreEqual(Description, documentType.Description);
             Assert.AreEqual(Icon, documentType.Icon);
             Assert.AreEqual(Constants.Umbraco.RootFolder, documentType.ParentId);
-            Assert.IsTrue(documentType.AllowedAsRoot);
             Assert.IsFalse(documentType.IsContainer);
         }
 
@@ -226,6 +225,39 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .BuildInFolder(ParentFolderName);
 
             Assert.AreEqual("icon-wheel colour-blue-green", docType.Icon);
+        }
+
+        [Test]
+        public static void AllowAtRoot()
+        {
+            var setup = new DocumentTypeTestBuilder(Alias);
+
+            var builder = setup
+                .SetupNewDocumentType(Alias, Id, ParentFolderId)
+                .ReturnsFolder(ParentFolderName, ParentFolderLevel, ParentFolderId)
+                .Build();
+
+            var docType = builder
+                .AllowAtRoot()
+                .BuildInFolder(ParentFolderName);
+
+            Assert.IsTrue(docType.AllowedAsRoot);
+        }
+
+        [Test]
+        public static void DoNotAllowAtRoot()
+        {
+            var setup = new DocumentTypeTestBuilder(Alias);
+
+            var builder = setup
+                .SetupNewDocumentType(Alias, Id, ParentFolderId)
+                .ReturnsFolder(ParentFolderName, ParentFolderLevel, ParentFolderId)
+                .Build();
+
+            var docType = builder
+                .BuildInFolder(ParentFolderName);
+
+            Assert.IsFalse(docType.AllowedAsRoot);
         }
     }
 }
