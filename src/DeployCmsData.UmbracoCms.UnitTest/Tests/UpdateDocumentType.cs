@@ -24,8 +24,8 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
                 .SetupExistingDocumentType(Alias, Id, ParentId)
-                .ReturnsDataType(DataType.TextString)
-                .ReturnsDataType(DataType.Numeric)
+                .ReturnsDataType(DataType.TextString, 1)
+                .ReturnsDataType(DataType.Numeric, 2)
                 .Build();
 
             builder
@@ -54,8 +54,8 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
                 .SetupExistingDocumentType(Alias, Id, ParentId)
-                .ReturnsDataType(DataType.TextString)
-                .ReturnsDataType(DataType.Numeric)
+                .ReturnsDataType(DataType.TextString, 1)
+                .ReturnsDataType(DataType.Numeric, 2)
                 .Build();
 
             builder
@@ -77,8 +77,8 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var builder = setup
                 .SetupExistingDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType(Alias, Id)
-                .ReturnsDataType(DataType.TextString)
-                .ReturnsDataType(DataType.Numeric)
+                .ReturnsDataType(DataType.TextString, 1)
+                .ReturnsDataType(DataType.Numeric, 2)
                 .Build();
 
             builder.AddField(fieldAlias);
@@ -101,7 +101,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .ReturnsExistingContentType(Alias, Id)
                 .Build();
 
-            var docType = setup.ContentTypeService.Object.GetContentType(Alias);            
+            var docType = setup.ContentTypeService.Object.GetContentType(Alias);
             docType.Icon = icon;
             docType.Name = name;
             docType.Description = description;
@@ -362,59 +362,6 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .Update();
 
             Assert.IsTrue(docType.AllowedAsRoot);
-        }
-
-        [Test]
-        public static void DeleteFields()
-        {
-            var setup = new DocumentTypeTestBuilder(Alias);
-
-            var builder = setup
-                .SetupExistingDocumentType(Alias, Id, ParentId)
-                .AddField("field1")
-                .AddField("field2")
-                .AddField("field3")
-                .AddField("field4")
-                .Build();
-
-            var docType = builder
-                .RemoveField("field2")
-                .RemoveField("field3")
-                .Update();
-
-            setup.ContentType.Verify(x => x.RemovePropertyType("field1"), Times.Never);
-            setup.ContentType.Verify(x => x.RemovePropertyType("field2"), Times.Once);
-            setup.ContentType.Verify(x => x.RemovePropertyType("field3"), Times.Once);
-            setup.ContentType.Verify(x => x.RemovePropertyType("field4"), Times.Never);
-        }
-
-        [Test]
-        public static void UpdateFields()
-        {
-            var setup = new DocumentTypeTestBuilder(Alias);
-
-            var builder = setup
-                .SetupExistingDocumentType(Alias, Id, ParentId)
-                .AddField("field1")
-                .AddField("field2")
-                .AddField("field3")
-                .AddField("field4")
-                .ReturnsDataType(DataType.TextArea)
-                .Build();
-
-            builder.AddField("field1")
-                .DataType(DataType.TextArea);
-
-            builder.AddField("field4")
-                .DataType(DataType.TextArea);
-
-            var docType = builder.Update();
-
-
-            setup.UmbracoFactory.Verify(x => x.GetPropertyType(It.IsAny<IContentType>(), "field1"), Times.Once);
-            setup.UmbracoFactory.Verify(x => x.GetPropertyType(It.IsAny<IContentType>(), "field2"), Times.Never);
-            setup.UmbracoFactory.Verify(x => x.GetPropertyType(It.IsAny<IContentType>(), "field3"), Times.Never);
-            setup.UmbracoFactory.Verify(x => x.GetPropertyType(It.IsAny<IContentType>(), "field4"), Times.Once);
         }
     }
 }

@@ -109,10 +109,11 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
             return this;
         }
 
-        public DocumentTypeTestBuilder ReturnsDataType(Guid dataTypeId)
+        public DocumentTypeTestBuilder ReturnsDataType(Guid dataTypeId, int id)
         {
             var dataTypeDefinition = new Mock<IDataTypeDefinition>();
             dataTypeDefinition.Setup(x => x.Key).Returns(dataTypeId);
+            dataTypeDefinition.SetupGet(x => x.Id).Returns(id);
 
             _dataTypeService.Setup(x => x.GetDataTypeDefinitionById(dataTypeId))
                 .Returns(dataTypeDefinition.Object);

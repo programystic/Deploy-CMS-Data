@@ -330,7 +330,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             propertyType.Name = field.NameValue;
             propertyType.Description = field.DescriptionValue;
             propertyType.ValidationRegExp = field.RegularExpressionValue;
-            propertyType.Mandatory = field.MandatoryValue.HasValue ? field.MandatoryValue.Value : false;
+            propertyType.Mandatory = field.MandatoryValue ?? false;
 
             if (string.IsNullOrEmpty(field.TabValue))
             {
