@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integration.Web.Umb7.0", "I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integration.Web.Umb7.13", "Integration.Web.Umb7.13\Integration.Web.Umb7.13.csproj", "{1689E079-E33E-4607-AA32-6256ACFF0C46}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeployCmsData.UpgradeScripts.7.0", "DeployCmsData.UpgradeScripts.7.0\DeployCmsData.UpgradeScripts.7.0.csproj", "{882C241D-E682-429C-8EF1-8F0796E6E958}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{1689E079-E33E-4607-AA32-6256ACFF0C46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1689E079-E33E-4607-AA32-6256ACFF0C46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1689E079-E33E-4607-AA32-6256ACFF0C46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{882C241D-E682-429C-8EF1-8F0796E6E958}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{882C241D-E682-429C-8EF1-8F0796E6E958}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{882C241D-E682-429C-8EF1-8F0796E6E958}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{882C241D-E682-429C-8EF1-8F0796E6E958}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
