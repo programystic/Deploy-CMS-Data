@@ -6,7 +6,7 @@ using DeployCmsData.UpgradeScripts_7.Constants;
 
 namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
 {
-    [RunScriptEveryTime]
+    [DoNotAutoRun]
     public class Upgrade04 : IUpgradeScript
     {
         public bool RunScript()

@@ -1,9 +1,11 @@
-﻿using DeployCmsData.Core.Interfaces;
+﻿using DeployCmsData.Core.Attributes;
+using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Constants;
 
 namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
 {
+    [DoNotAutoRun]
     public class AllDataTypes : IUpgradeScript
     {
         public bool RunScript()

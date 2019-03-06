@@ -6,7 +6,7 @@ using System;
 
 namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
 {
-    [RunScriptEveryTime]
+    [DoNotAutoRun]
     public class MultiNodeTreePicker : IUpgradeScript
     {
         public bool RunScript()

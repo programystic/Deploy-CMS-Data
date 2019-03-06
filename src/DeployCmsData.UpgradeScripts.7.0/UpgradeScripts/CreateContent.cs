@@ -4,7 +4,7 @@ using Umbraco.Core;
 
 namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
 {
-    [RunScriptEveryTime]
+    [DoNotAutoRun]
     public class CreateContent : IUpgradeScript
     {
         public bool RunScript()

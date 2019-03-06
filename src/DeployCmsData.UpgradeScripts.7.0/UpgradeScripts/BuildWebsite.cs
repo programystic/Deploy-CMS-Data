@@ -5,7 +5,7 @@ using DeployCmsData.UmbracoCms.Constants;
 
 namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
 {
-    [RunScriptEveryTime]
+    [DoNotAutoRun]
     public class BuildWebsite : IUpgradeScript
     {
         public bool RunScript()

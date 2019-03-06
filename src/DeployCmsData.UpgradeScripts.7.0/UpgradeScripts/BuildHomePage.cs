@@ -6,7 +6,7 @@ using DeployCmsData.UpgradeScripts_7.Constants;
 
 namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
 {
-    [RunScriptEveryTime]
+    [DoNotAutoRun]
     public class BuildHomepage : IUpgradeScript
     {
         public bool RunScript()
@@ -21,6 +21,10 @@ namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
                 .AddComposition("navigationBase");
 
             builder.AddField("mainContent")
+                .DataType(LocalDataTypes.Grid)
+                .Tab("Content");
+
+            builder.AddField("additionalContent")
                 .DataType(LocalDataTypes.Grid)
                 .Tab("Content");
 
