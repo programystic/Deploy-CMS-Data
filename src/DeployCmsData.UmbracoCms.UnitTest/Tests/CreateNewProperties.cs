@@ -129,7 +129,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             builder.AddField("theNewField").Name("This is my name");
             builder.BuildWithParent(ParentAlias);                        
-            var newProperty = builder.AddFieldList.First();
+            var newProperty = builder.FieldList.First();
 
             Assert.AreEqual("theNewField", newProperty.AliasValue);
             Assert.AreEqual("This is my name", newProperty.NameValue);
@@ -153,7 +153,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             builder.AddField("theNewField");
             builder.BuildWithParent(ParentAlias);
-            var newProperty = builder.AddFieldList.First();
+            var newProperty = builder.FieldList.First();
 
             Assert.AreEqual("theNewField", newProperty.AliasValue);
             Assert.AreEqual("The New Field", newProperty.NameValue);

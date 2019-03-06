@@ -63,7 +63,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             builder.Update();
 
-            var field = builder.AddFieldList.FirstOrDefault(x => x.AliasValue == fieldAlias);
+            var field = builder.FieldList.FirstOrDefault(x => x.AliasValue == fieldAlias);
             Assert.AreEqual(DataType.TextString, field.DataTypeValue);
         }
 
@@ -84,7 +84,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             builder.AddField(fieldAlias);
             builder.Update();
 
-            var field = builder.AddFieldList.FirstOrDefault(x => x.AliasValue == fieldAlias);
+            var field = builder.FieldList.FirstOrDefault(x => x.AliasValue == fieldAlias);
             Assert.AreEqual(fieldName, field.NameValue);
         }
 
@@ -342,7 +342,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .Build();
 
             var docType = builder
-                .DoNotAllowAtRoot()
+                .NoAllowedAsRoot()
                 .Update();
 
             Assert.IsFalse(docType.AllowedAsRoot);
@@ -358,7 +358,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .Build();
 
             var docType = builder
-                .AllowAtRoot()
+                .AllowedAsRoot()
                 .Update();
 
             Assert.IsTrue(docType.AllowedAsRoot);
@@ -399,12 +399,13 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .AddField("field2")
                 .AddField("field3")
                 .AddField("field4")
+                .ReturnsDataType(DataType.TextArea)
                 .Build();
 
-            builder.UpdateField("field1")
+            builder.AddField("field1")
                 .DataType(DataType.TextArea);
 
-            builder.UpdateField("field4")
+            builder.AddField("field4")
                 .DataType(DataType.TextArea);
 
             var docType = builder.Update();

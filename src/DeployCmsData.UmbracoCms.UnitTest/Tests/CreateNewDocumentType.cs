@@ -238,7 +238,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .Build();
 
             var docType = builder
-                .AllowAtRoot()
+                .AllowedAsRoot()
                 .BuildInFolder(ParentFolderName);
 
             Assert.IsTrue(docType.AllowedAsRoot);

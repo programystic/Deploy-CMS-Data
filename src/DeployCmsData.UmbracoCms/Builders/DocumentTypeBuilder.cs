@@ -26,16 +26,13 @@ namespace DeployCmsData.UmbracoCms.Builders
         private string _tab;
         private ITemplate _defaultTemplate;
         private Dictionary<string, int> _tabSortOrder = new Dictionary<string, int>();
-        private bool _allowAtRoot;
-        private bool _doNotAllowAtRoot;
+        private bool? _allowAtRoot;
 
-        internal readonly IList<PropertyBuilder> UpdateFieldList = new List<PropertyBuilder>();
         internal readonly IList<string> RemoveFieldList = new List<string>();
         internal readonly IList<IContentTypeComposition> Compositions = new List<IContentTypeComposition>();
         internal IList<ContentTypeSort> AllowedChildNodeTypes = new List<ContentTypeSort>();
         internal IList<ContentTypeSort> RemoveAllowedChildNodeTypes = new List<ContentTypeSort>();
-
-        public IList<PropertyBuilder> AddFieldList { get; } = new List<PropertyBuilder>();
+        public IList<PropertyBuilder> FieldList { get; } = new List<PropertyBuilder>();
 
         public DocumentTypeBuilder(string alias)
         {
@@ -122,7 +119,7 @@ namespace DeployCmsData.UmbracoCms.Builders
 
             SetNewDocumentTypeProperties(documentType, parentId);
             SetupTabs(documentType);
-            AddNewFields(documentType);
+            UpdateFields(documentType);
             RemoveFields(documentType);
             documentType.AllowedContentTypes = AllowedChildNodeTypes;
             AddCompositions(documentType);
@@ -164,7 +161,6 @@ namespace DeployCmsData.UmbracoCms.Builders
 
             UpdateAllowedContentTypes(documentType);
             UpdateDocumentTypeProperties(documentType);
-            AddNewFields(documentType);
             UpdateFields(documentType);
             RemoveFields(documentType);
             SetupTabs(documentType);
@@ -243,7 +239,7 @@ namespace DeployCmsData.UmbracoCms.Builders
 
             documentType.Name = string.IsNullOrEmpty(_name) ? _alias.AliasToName() : _name;
             documentType.Description = _description;
-            documentType.AllowedAsRoot = _allowAtRoot;
+            documentType.AllowedAsRoot = _allowAtRoot.HasValue ? _allowAtRoot.Value : false;
             documentType.IsContainer = false;
 
             if (_defaultTemplate != null)
@@ -258,16 +254,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             documentType.Icon = !string.IsNullOrEmpty(_icon) ? _icon : documentType.Icon;
             documentType.Name = !string.IsNullOrEmpty(_name) ? _name : documentType.Name;
             documentType.Description = !string.IsNullOrEmpty(_description) ? _description : documentType.Description;
-
-            if (_allowAtRoot)
-            {
-                documentType.AllowedAsRoot = true;
-            }
-
-            if (_doNotAllowAtRoot)
-            {
-                documentType.AllowedAsRoot = false;
-            }
+            documentType.AllowedAsRoot = _allowAtRoot.HasValue ? _allowAtRoot.Value : documentType.AllowedAsRoot;
 
             if (_defaultTemplate != null)
             {
@@ -275,17 +262,19 @@ namespace DeployCmsData.UmbracoCms.Builders
             }
         }
 
-        private void AddNewFields(IContentType documentType)
+        private void UpdateFields(IContentType documentType)
         {
-            foreach (var field in AddFieldList)
+            foreach (var field in FieldList)
             {
-                var propertyType = documentType.PropertyTypes.FirstOrDefault(x => x.Alias == field.AliasValue);
-                if (propertyType != null)
+                if (documentType.PropertyTypeExists(field.AliasValue))
                 {
-                    continue;
+                    var propertyType = _factory.GetPropertyType(documentType, field.AliasValue);
+                    UpdateField(documentType, field, propertyType);
                 }
-
-                propertyType = AddNewField(documentType, field);
+                else
+                {
+                    AddNewField(documentType, field);
+                }
             }
         }
 
@@ -300,23 +289,25 @@ namespace DeployCmsData.UmbracoCms.Builders
             }
         }
 
-        private void UpdateFields(IContentType documentType)
-        {
-            foreach (var field in UpdateFieldList)
-            {
-                if (documentType.PropertyTypeExists(field.AliasValue))
-                {
-                    var propertyType = _factory.GetPropertyType(documentType, field.AliasValue);
-                    UpdateField(documentType, field, propertyType);
-                }
-            }
-        }
-
         private void UpdateField(IContentType documentType, PropertyBuilder field, PropertyType propertyType)
         {
             propertyType.Name = field.NameValue ?? propertyType.Name;
             propertyType.Description = field.DescriptionValue ?? propertyType.Description;
             propertyType.ValidationRegExp = field.RegularExpressionValue ?? propertyType.ValidationRegExp;
+            propertyType.Mandatory = field.MandatoryValue ?? propertyType.Mandatory;
+
+            if (field.DataTypeValue != Guid.Empty)
+            {
+                var dataTypeDefinition = _dataTypeService.GetDataTypeDefinitionById(field.DataTypeValue);
+                Verify.Operation(dataTypeDefinition != null, ExceptionMessages.CannotFindDataType + field.DataTypeValue);
+
+                propertyType.DataTypeDefinitionId = dataTypeDefinition.Id;
+            }
+
+            if (field.TabValue != null)
+            {
+                documentType.MovePropertyType(field.AliasValue, field.TabValue);
+            }
         }
 
         private PropertyType AddNewField(IContentType documentType, PropertyBuilder field)
@@ -339,7 +330,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             propertyType.Name = field.NameValue;
             propertyType.Description = field.DescriptionValue;
             propertyType.ValidationRegExp = field.RegularExpressionValue;
-            propertyType.Mandatory = field.MandatoryValue;
+            propertyType.Mandatory = field.MandatoryValue.HasValue ? field.MandatoryValue.Value : false;
 
             if (string.IsNullOrEmpty(field.TabValue))
             {
@@ -404,17 +395,15 @@ namespace DeployCmsData.UmbracoCms.Builders
             return this;
         }
 
-        public DocumentTypeBuilder AllowAtRoot()
+        public DocumentTypeBuilder AllowedAsRoot()
         {
             _allowAtRoot = true;
-            _doNotAllowAtRoot = false;
             return this;
         }
 
-        public DocumentTypeBuilder DoNotAllowAtRoot()
+        public DocumentTypeBuilder NoAllowedAsRoot()
         {
             _allowAtRoot = false;
-            _doNotAllowAtRoot = true;
             return this;
         }
 
@@ -460,7 +449,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             var fieldBuilder = new PropertyBuilder(alias);
 
-            AddFieldList.Add(fieldBuilder);
+            FieldList.Add(fieldBuilder);
             return fieldBuilder;
         }
 
@@ -469,13 +458,6 @@ namespace DeployCmsData.UmbracoCms.Builders
             RemoveFieldList.Add(alias);
 
             return this;
-        }
-
-        public PropertyBuilder UpdateField(string alias)
-        {
-            var fieldBuilder = new PropertyBuilder(alias);
-            UpdateFieldList.Add(fieldBuilder);
-            return fieldBuilder;
         }
 
         public DocumentTypeBuilder DefaultTab(string tab)
