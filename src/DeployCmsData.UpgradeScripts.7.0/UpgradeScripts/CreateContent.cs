@@ -2,7 +2,7 @@
 using DeployCmsData.Core.Interfaces;
 using Umbraco.Core;
 
-namespace Integration.Web.Umb7._4.UpgradeScripts
+namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
 {
     [RunScriptEveryTime]
     public class CreateContent : IUpgradeScript

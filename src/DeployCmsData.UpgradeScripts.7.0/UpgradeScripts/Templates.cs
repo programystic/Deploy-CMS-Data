@@ -1,7 +1,7 @@
 ﻿using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
 
-namespace Integration.Web.Umb7._4.UpgradeScripts
+namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
 {
     public class Templates : IUpgradeScript
     {

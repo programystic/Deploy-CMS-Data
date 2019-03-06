@@ -4,7 +4,7 @@ using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Services;
 using System;
 
-namespace Integration.Web.Umb7._4.UpgradeScripts
+namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
 {
     [RunScriptEveryTime]
     public class MultiNodeTreePicker : IUpgradeScript

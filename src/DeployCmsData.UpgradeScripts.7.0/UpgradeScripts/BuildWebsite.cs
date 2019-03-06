@@ -3,7 +3,7 @@ using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Constants;
 
-namespace Integration.Web.Umb7._4.UpgradeScripts
+namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
 {
     [RunScriptEveryTime]
     public class BuildWebsite : IUpgradeScript
