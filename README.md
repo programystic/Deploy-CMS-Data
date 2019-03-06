@@ -4,15 +4,16 @@ Deploy CMS Data is a component that you can use for your Umbraco application whi
 
 The updates are run on startup, and the status is saved to the database so that once they are run successfully, they are never run again.
 
+This project is working but is still under active development so please raise any issues or feedback so we can improve it.
 ---
 
 ## Versions
 
 Version|Umbraco Version|Status
 --- | --- | ---
-7.13.0.2 | 7.13.0|Published to Nuget
-7.6.0.4 | 7.6.0|Published to Nuget
-7.4.0.2 | 7.4.0|Published to Nuget
+7.13.0.3 | 7.13.0|Published to Nuget
+7.6.0.5 | 7.6.0|Published to Nuget
+7.4.0.3 | 7.4.0|Published to Nuget
 8.0.0.0 | 8.0.0|Work in progress
 
 ---
