@@ -1,34 +1,8 @@
-﻿using DeployCmsData.Core.Data;
-using DeployCmsData.Core.Interfaces;
-using DeployCmsData.Core.Services;
-using DeployCmsData.UmbracoCms.Data;
-using System.Reflection;
-using System.Web.Http;
-using Umbraco.Web.WebApi;
+﻿using DeployCmsData.UpgradeScripts_7.ApiController;
 
 namespace Integration.Web.Umb7._13.ApiController
 {
-    // TODO : secure this controller - UmbracoAuthorizedApiController
-    public class IntegrationTestController : UmbracoApiController
+     public class IntegrationTestController : IntegrationTestBaseController
     {
-        private readonly UpgradeLogRepository _logRepository;
-        private readonly UpgradeScriptRepository _scriptRepository;
-        private UpgradeScriptManager _upgradeScriptManager;
-
-        public IntegrationTestController()
-        {
-            _logRepository = new UpgradeLogRepository();
-            _scriptRepository = new UpgradeScriptRepository();
-            _upgradeScriptManager = new UpgradeScriptManager(_logRepository, _scriptRepository);
-        }
-
-        [HttpGet]
-        public bool RunScript(string scriptName)
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-            var upgradeScript = (IUpgradeScript)assembly.CreateInstance($"Integration.Web.Umb7._13.UpgradeScripts.{scriptName}");
-            var log = _upgradeScriptManager.RunScript(upgradeScript);
-            return log.Success;
-        }
     }
 }

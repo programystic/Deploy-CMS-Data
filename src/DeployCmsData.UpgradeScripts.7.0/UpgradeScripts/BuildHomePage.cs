@@ -2,11 +2,11 @@
 using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Constants;
-using Integration.Web.Umb7._13.Constants;
+using DeployCmsData.UpgradeScripts_7.Constants;
 
-namespace Integration.Web.Umb7._13.UpgradeScripts
+namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
 {
-    [RunScriptEveryTime]
+    [DoNotAutoRun]
     public class BuildHomepage : IUpgradeScript
     {
         public bool RunScript()
@@ -24,8 +24,11 @@ namespace Integration.Web.Umb7._13.UpgradeScripts
                 .DataType(LocalDataTypes.Grid)
                 .Tab("Content");
 
-            builder.BuildInFolder("Pages");
+            builder.AddField("additionalContent")
+                .DataType(LocalDataTypes.Grid)
+                .Tab("Content");
 
+            builder.BuildInFolder("Pages");
             return true;
         }
     }

@@ -1,8 +1,10 @@
-﻿using DeployCmsData.Core.Interfaces;
+﻿using DeployCmsData.Core.Attributes;
+using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
 
-namespace Integration.Web.Umb7._6.UpgradeScripts
+namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
 {
+    [DoNotAutoRun]
     public class Templates : IUpgradeScript
     {
         public bool RunScript()

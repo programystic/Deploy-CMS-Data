@@ -3,9 +3,9 @@ using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Constants;
 
-namespace Integration.Web.Umb7._4.UpgradeScripts
+namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
 {
-    [RunScriptEveryTime]
+    [DoNotAutoRun]
     public class Upgrade02 : IUpgradeScript
     {
         public bool RunScript()

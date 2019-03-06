@@ -2,17 +2,16 @@
 using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Services;
-using Integration.Web.Umb7._13.Constants;
+using DeployCmsData.UpgradeScripts_7.Constants;
 
-namespace Integration.Web.Umb7._13.UpgradeScripts
+namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
 {
-    [RunScriptEveryTime]
+    [DoNotAutoRun]
     public class Upgrade04 : IUpgradeScript
     {
         public bool RunScript()
         {
             var library = new UmbracoLibrary();
-
             library.DeleteDataTypeById(LocalDataTypes.Grid);
             var gridBuilder = new GridDataTypeBuilder(LocalDataTypes.Grid);
 

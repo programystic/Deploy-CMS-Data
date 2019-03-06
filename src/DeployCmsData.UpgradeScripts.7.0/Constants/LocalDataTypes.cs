@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Integration.Web.Umb7._13.Constants
+namespace DeployCmsData.UpgradeScripts_7.Constants
 {
     public static class LocalDataTypes
     {
