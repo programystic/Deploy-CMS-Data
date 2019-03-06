@@ -7,7 +7,7 @@ namespace Integration.Web.Umb7._6.UpgradeScripts
     [DoNotAutoRun]
     public class ClearTheDecks : IUpgradeScript
     {
-        public bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript()
         {
             var library = new UmbracoLibrary();
 

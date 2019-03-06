@@ -1,4 +1,4 @@
-# Deploy CMS Data
+# Deploy CMS Data [![NuGet package](https://img.shields.io/nuget/v/DeployCmsData.UmbracoCms.svg)](https://nuget.org/packages/DeployCmsData.UmbracoCms)
 
 Deploy CMS Data is a component that you can use for your Umbraco application which allows you to build migrations that deploy CMS updates.
 
@@ -6,31 +6,31 @@ The updates are run on startup, and the status is saved to the database so that 
 
 ---
 
+## Versions
+
 Version|Umbraco Version|Status
 --- | --- | ---
-7.6.0.3 | 7.6.0|Published to Nuget
-8.0.0 | 8.0.0|Work in progress
-7.13.0 | 7.13.0|Work in progress
-7.4.0 | 7.4.0|Work in progress
-7.0.0 | 7.0.0|Work in progress
+7.13.0.2 | 7.13.0|Published to Nuget
+7.6.0.4 | 7.6.0|Published to Nuget
+7.4.0.2 | 7.4.0|Published to Nuget
+8.0.0.0 | 8.0.0|Work in progress
 
 ---
 
 ## Creating an Upgrade script
 
 ### Install from Nuget
+```PM> Install-Package DeployCmsData.UmbracoCms```
 
-```PM> Install-Package DeployCmsData.UmbracoCms -Version 7.6.0.3```
-
-Create a new class that implements IUpgradeScript
+Then create a new class that implements IUpgradeScript:
 
 ```csharp
 using DeployCmsData.Core.Interfaces;
 
 public class Script01 : IUpgradeScript
 {
-    public bool RunScript(IUpgradeLogRepository upgradeLog)
-    {
+    public bool RunScript()
+    {                
         return true;
     }
 }
@@ -57,7 +57,7 @@ public class Script01 : IUpgradeScript
 
 ## DeployCmsData Builders
 
-Within our upgrade script we can use builders to manipulate the CMS data.
+Within the ```RunScript``` method in the upgrade script we can use builders to manipulate the CMS data.
 
 ## Document Type Folder Builder
 
@@ -85,6 +85,12 @@ new DocumentTypeBuilder("pageMetaData")
                 .Icon(Icons.MindMap)
                 .BuildInFolder("Compositions");
 ```
+To update an existing document type:
+```csharp
+new DocumentTypeBuilder("pageMetaData")                
+                .Icon(Icons.MindMap)
+                .Update();
+```
 
 To add fields to the document type:
 ```csharp
@@ -93,6 +99,9 @@ To add fields to the document type:
 builder
     .Name("Content Base")
     .Icon(Icons.Document);
+
+builder.AddField("pageDescription"); 
+// The default data type is text string and the name is generated from the alias - so in this case the name will be Page Description
 
 builder.AddField("pageTitle")
     .Description("The title of the page, this is also the first text in a google search result. The ideal length is between 40 and 60 characters")
@@ -153,19 +162,6 @@ new MultiNodeTreePickerBuilder(myDataTypeid)
 ---
 ## Grid DataType Builder
 To create a new grid data type:
-```csharp
-var myDataTypeid = Guid.Parse("{3D7B34BF-1E2E-4D49-A040-1C25D14E2074}");
-
-new GridDataTypeBuilder(myDataTypeid)
-    .Name("Another Grid View")
-    .AddStandardToolBar()
-    .AddStandardRows()
-    .AddLayout("1 column layout", 12)
-    .AddLayout("2 column layout", 4, 8)
-    .AddLayout("3 column layout", 4, 4, 4)
-    .AddLayout("4 column layout", 3, 3, 3, 3)
-    .Build();
-```
 ```csharp
 new GridDataTypeBuilder(LocalDataTypes.Grid)
     .Name("Default Grid View")

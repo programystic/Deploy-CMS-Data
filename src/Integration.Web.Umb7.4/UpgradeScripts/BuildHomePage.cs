@@ -2,15 +2,14 @@
 using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Constants;
-using DeployCmsData.UmbracoCms.Services;
 using Integration.Web.Umb7._4.Constants;
 
 namespace Integration.Web.Umb7._4.UpgradeScripts
 {
     [RunScriptEveryTime]
-    public class BuildHomepage : UmbracoUpgradeScript
+    public class BuildHomepage : IUpgradeScript
     {
-        public override bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript()
         {
             var builder = new DocumentTypeBuilder("homePage");
 

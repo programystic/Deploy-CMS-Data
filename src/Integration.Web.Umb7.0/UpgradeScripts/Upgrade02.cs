@@ -8,7 +8,7 @@ namespace Integration.Web.Umb7._0.UpgradeScripts
     [RunScriptEveryTime]
     public class Upgrade02 : IUpgradeScript
     {
-        public bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript()
         {
             BuildContentBase();
             BuildNavigationBase();
@@ -35,7 +35,7 @@ namespace Integration.Web.Umb7._0.UpgradeScripts
                 .DataType(DataType.RichTextEditor)
                 .Tab("Content");
 
-            builder.BuildInFolder("Compositions");
+            builder.Build();
         }
 
         public static void BuildNavigationBase()
@@ -64,7 +64,7 @@ namespace Integration.Web.Umb7._0.UpgradeScripts
                 .DataType(DataType.CheckBox)
                 .Tab("Navigation & SEO");
 
-            builder.BuildInFolder("Compositions");
+            builder.Build();
         }
 
     }

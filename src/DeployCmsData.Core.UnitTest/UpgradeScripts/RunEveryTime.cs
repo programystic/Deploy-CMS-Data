@@ -3,10 +3,10 @@ using DeployCmsData.Core.Interfaces;
 
 namespace DeployCmsData.UnitTest.UpgradeScripts
 {
-    [DoNotAutoRun]
-    public class DoNotAutoRun : IUpgradeScript
+    [RunScriptEveryTime]
+    public class RunEveryTime : IUpgradeScript
     {
-        public bool RunScript(IUpgradeLogRepository upgradeLog)
+        public bool RunScript()
         {
             return true;
         }
