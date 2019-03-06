@@ -3,7 +3,7 @@ using DeployCmsData.Core.Interfaces;
 using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Constants;
 
-namespace DeployCmsData.UpgradeScripts._7._0.UpgradeScripts
+namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
 {
     [DoNotAutoRun]
     public class UpdateHomePage : IUpgradeScript
@@ -15,7 +15,9 @@ namespace DeployCmsData.UpgradeScripts._7._0.UpgradeScripts
             builder.AddField("additionalContent")
                 .DataType(DataType.RichTextEditor);
 
-            builder.Update();
+            builder
+                .AllowedAsRoot()
+                .Update();
 
             return true;
         }
