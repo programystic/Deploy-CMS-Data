@@ -9,8 +9,9 @@ namespace DeployCmsData.UmbracoCms.Interfaces
         IContentType NewContentType(int parentId);
         IUmbracoEntity NewContainer(int parentId, string name, int parentLevel);
         IUmbracoEntity GetContainer(string name, int level);
-        PropertyType NewPropertyType(IDataTypeDefinition dataTypeDefinition, string propertyAlias);
+        PropertyType NewPropertyType(IDataTypeDefinition dataTypeDefinition, string propertyAlias);        
         IEnumerable<IContent> GetChildren(IContent content);
         ITemplate NewTemplate(string name, string templateAlias);
+        PropertyType GetPropertyType(IContentType dataTypeDefinition, string propertyAlias);
     }
 }

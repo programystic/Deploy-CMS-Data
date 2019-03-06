@@ -24,8 +24,8 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
                 .SetupExistingDocumentType(Alias, Id, ParentId)
-                .ReturnsDataType(DataType.TextString)
-                .ReturnsDataType(DataType.Numeric)
+                .ReturnsDataType(DataType.TextString, 1)
+                .ReturnsDataType(DataType.Numeric, 2)
                 .Build();
 
             builder
@@ -54,8 +54,8 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
                 .SetupExistingDocumentType(Alias, Id, ParentId)
-                .ReturnsDataType(DataType.TextString)
-                .ReturnsDataType(DataType.Numeric)
+                .ReturnsDataType(DataType.TextString, 1)
+                .ReturnsDataType(DataType.Numeric, 2)
                 .Build();
 
             builder
@@ -63,7 +63,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             builder.Update();
 
-            var field = builder.AddFieldList.FirstOrDefault(x => x.AliasValue == fieldAlias);
+            var field = builder.FieldList.FirstOrDefault(x => x.AliasValue == fieldAlias);
             Assert.AreEqual(DataType.TextString, field.DataTypeValue);
         }
 
@@ -77,14 +77,14 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var builder = setup
                 .SetupExistingDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType(Alias, Id)
-                .ReturnsDataType(DataType.TextString)
-                .ReturnsDataType(DataType.Numeric)
+                .ReturnsDataType(DataType.TextString, 1)
+                .ReturnsDataType(DataType.Numeric, 2)
                 .Build();
 
             builder.AddField(fieldAlias);
             builder.Update();
 
-            var field = builder.AddFieldList.FirstOrDefault(x => x.AliasValue == fieldAlias);
+            var field = builder.FieldList.FirstOrDefault(x => x.AliasValue == fieldAlias);
             Assert.AreEqual(fieldName, field.NameValue);
         }
 
@@ -101,7 +101,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .ReturnsExistingContentType(Alias, Id)
                 .Build();
 
-            var docType = setup.ContentTypeService.Object.GetContentType(Alias);            
+            var docType = setup.ContentTypeService.Object.GetContentType(Alias);
             docType.Icon = icon;
             docType.Name = name;
             docType.Description = description;
@@ -303,6 +303,65 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             Assert.AreEqual(20, updatedDocType.PropertyGroups[1].SortOrder);
             Assert.AreEqual(30, updatedDocType.PropertyGroups[2].SortOrder);
             Assert.AreEqual(40, updatedDocType.PropertyGroups[3].SortOrder);
+        }
+
+        [Test]
+        public static void AllowAtRootRemainsTrue()
+        {
+            var setup = new DocumentTypeTestBuilder(Alias);
+            var builder = setup
+                .SetupExistingDocumentType(Alias, Id, ParentId)
+                .AllowAtRoot()
+                .Build();
+
+            var docType = builder.Update();
+
+            Assert.IsTrue(docType.AllowedAsRoot);
+        }
+
+        [Test]
+        public static void AllowAtRootRemainsFalse()
+        {
+            var setup = new DocumentTypeTestBuilder(Alias);
+            var builder = setup
+                .SetupExistingDocumentType(Alias, Id, ParentId)
+                .Build();
+
+            var docType = builder.Update();
+
+            Assert.IsFalse(docType.AllowedAsRoot);
+        }
+
+        [Test]
+        public static void AllowAtRootChangesFromTrueToFalse()
+        {
+            var setup = new DocumentTypeTestBuilder(Alias);
+            var builder = setup
+                .SetupExistingDocumentType(Alias, Id, ParentId)
+                .AllowAtRoot()
+                .Build();
+
+            var docType = builder
+                .NoAllowedAsRoot()
+                .Update();
+
+            Assert.IsFalse(docType.AllowedAsRoot);
+        }
+
+        [Test]
+        public static void AllowAtRootChangesFromFalseToTrue()
+        {
+            var setup = new DocumentTypeTestBuilder(Alias);
+
+            var builder = setup
+                .SetupExistingDocumentType(Alias, Id, ParentId)
+                .Build();
+
+            var docType = builder
+                .AllowedAsRoot()
+                .Update();
+
+            Assert.IsTrue(docType.AllowedAsRoot);
         }
     }
 }
