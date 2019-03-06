@@ -93,6 +93,12 @@ new DocumentTypeBuilder("pageMetaData")
                 .Icon(Icons.MindMap)
                 .Update();
 ```
+To allow the doctype as root content:
+```csharp
+new DocumentTypeBuilder("pageMetaData")                
+                .AllowedAsRoot()
+                .Update();
+```
 
 To add fields to the document type:
 ```csharp
@@ -117,7 +123,18 @@ builder.AddField("bodyText")
 
 builder.BuildInFolder("Compositions");
 ```
+To update existing properties/fields:
+```csharp
+var builder = new DocumentTypeBuilder("pageMetaData");
 
+// AddField() can be used to add new fields or update existing ones
+// Just set the things that need changing
+builder.AddField("pageTitle")
+    .DataType(DataType.TextArea)
+    .Tab("Meta Data");
+    
+builder.Update();
+```
 To add existing document types as compositions to the document type:
 ```csharp
 var builder = new DocumentTypeBuilder("homePage");
