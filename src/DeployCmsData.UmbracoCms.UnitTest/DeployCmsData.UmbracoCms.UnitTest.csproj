@@ -257,6 +257,7 @@
     <Compile Include="Tests\Templates.cs" />
     <Compile Include="Tests\UmbracoUpgradeLog.cs" />
     <Compile Include="Tests\UpdateDocumentType.cs" />
+    <Compile Include="Tests\UpdateProperties.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DeployCmsData.Core\DeployCmsData.Core.csproj">

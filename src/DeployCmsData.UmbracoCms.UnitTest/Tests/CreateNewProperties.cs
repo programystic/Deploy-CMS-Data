@@ -25,8 +25,8 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var builder = setup
                 .SetupNewDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
-                .ReturnsDataType(DataType.TextString)
-                .ReturnsDataType(DataType.Numeric)
+                .ReturnsDataType(DataType.TextString, 1)
+                .ReturnsDataType(DataType.Numeric, 2)
                 .Build();
 
             builder
@@ -59,8 +59,8 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var builder = setup
                 .SetupNewDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
-                .ReturnsDataType(DataType.TextString)
-                .ReturnsDataType(DataType.Numeric)
+                .ReturnsDataType(DataType.TextString, 1)
+                .ReturnsDataType(DataType.Numeric, 2)
                 .Build();
 
             builder
@@ -91,8 +91,8 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var builder = setup
                 .SetupNewDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
-                .ReturnsDataType(DataType.TextString)
-                .ReturnsDataType(DataType.Numeric)
+                .ReturnsDataType(DataType.TextString, 1)
+                .ReturnsDataType(DataType.Numeric, 2)
                 .Build();
 
             builder
@@ -118,8 +118,8 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var builder = setup
                 .SetupNewDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
-                .ReturnsDataType(DataType.TextString)
-                .ReturnsDataType(DataType.Numeric)
+                .ReturnsDataType(DataType.TextString, 1)
+                .ReturnsDataType(DataType.Numeric, 2)
                 .Build();
 
             builder
@@ -128,8 +128,8 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .Description(Description);
 
             builder.AddField("theNewField").Name("This is my name");
-            builder.BuildWithParent(ParentAlias);                        
-            var newProperty = builder.AddFieldList.First();
+            builder.BuildWithParent(ParentAlias);
+            var newProperty = builder.FieldList.First();
 
             Assert.AreEqual("theNewField", newProperty.AliasValue);
             Assert.AreEqual("This is my name", newProperty.NameValue);
@@ -142,8 +142,8 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var builder = setup
                 .SetupNewDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
-                .ReturnsDataType(DataType.TextString)
-                .ReturnsDataType(DataType.Numeric)
+                .ReturnsDataType(DataType.TextString, 1)
+                .ReturnsDataType(DataType.Numeric, 2)
                 .Build();
 
             builder
@@ -153,7 +153,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             builder.AddField("theNewField");
             builder.BuildWithParent(ParentAlias);
-            var newProperty = builder.AddFieldList.First();
+            var newProperty = builder.FieldList.First();
 
             Assert.AreEqual("theNewField", newProperty.AliasValue);
             Assert.AreEqual("The New Field", newProperty.NameValue);
