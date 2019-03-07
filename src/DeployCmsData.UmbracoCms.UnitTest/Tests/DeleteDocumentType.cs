@@ -42,19 +42,19 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             library.DeleteAllDocumentTypes();
         }
 
-        [Test]
-        public static void DeleteAllContent()
-        {
-            const int childCount = 10;
-            var builder = new UmbracoLibraryTestBuilder();
+        //[Test]
+        //public static void DeleteAllContent()
+        //{
+        //    const int childCount = 10;
+        //    var builder = new UmbracoLibraryTestBuilder();
 
-            var library = builder
-                .SetupRootContent(childCount)
-                .Build();
+        //    var library = builder
+        //        .SetupRootContent(childCount)
+        //        .Build();
 
-            library.DeleteAllContent();
+        //    library.DeleteAllContent();
 
-            builder.ContentService.Verify(x => x.Delete(It.IsAny<IContent>(), 0), Times.Exactly(childCount + 1));
-        }
+        //    builder.ContentService.Verify(x => x.Delete(It.IsAny<IContent>(), 0), Times.Exactly(childCount + 1));
+        //}
     }
 }

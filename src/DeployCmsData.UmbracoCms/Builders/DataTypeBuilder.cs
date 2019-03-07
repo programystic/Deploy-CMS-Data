@@ -10,7 +10,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             Requires.NotNull(dataTypeService, nameof(dataTypeService));
 
-            var dataType = dataTypeService.GetDataTypeDefinitionByName(dataTypeName);
+            var dataType = dataTypeService.GetDataType(dataTypeName);
             if (dataType != null)
             {
                 dataTypeService.Delete(dataType);
@@ -21,7 +21,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             Requires.NotNull(dataTypeService, nameof(dataTypeService));
 
-            var dataType = dataTypeService.GetDataTypeDefinitionById(id);
+            var dataType = dataTypeService.GetDataType(id);
             if (dataType != null)
             {
                 dataTypeService.Delete(dataType);

@@ -5,10 +5,10 @@ using DeployCmsData.UmbracoCms.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Umbraco.Core.Composing;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.Entities;
 using Umbraco.Core.Services;
-using Umbraco.Web;
 using Validation;
 
 namespace DeployCmsData.UmbracoCms.Builders
@@ -39,7 +39,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             Requires.NotNullOrWhiteSpace(alias, nameof(alias));
 
-            var services = UmbracoContext.Current.Application.Services;
+            var services = Current.Services;
             _dataTypeService = services.DataTypeService;
             _contentTypeService = services.ContentTypeService;
 

@@ -4,7 +4,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using Umbraco.Core.Models;
-using Umbraco.Core.Models.EntityBase;
+using Umbraco.Core.Models.Entities;
 using Umbraco.Core.Services;
 
 namespace DeployCmsData.UmbracoCms.UnitTest.Builders
@@ -32,16 +32,16 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
                 _dataTypeService.Object,
                 alias);
 
-            var dataTypeDefinition = new Mock<IDataTypeDefinition>();
+            var dataTypeDefinition = new Mock<IDataType>();
             var propertyType = new Mock<PropertyType>(dataTypeDefinition.Object);
-            UmbracoFactory.Setup(x => x.NewPropertyType(It.IsAny<IDataTypeDefinition>(), It.IsAny<string>()))
+            UmbracoFactory.Setup(x => x.NewPropertyType(It.IsAny<IDataType>(), It.IsAny<string>()))
                 .Returns(propertyType.Object);
         }
 
         public DocumentTypeTestBuilder SetupExistingDocumentType(string alias, int id, int parentId)
         {
             ContentType = CreateNewMockContentType(alias, id, parentId);
-            ContentTypeService.Setup(x => x.GetContentType(alias)).Returns(ContentType.Object);
+            ContentTypeService.Setup(x => x.Get(alias)).Returns(ContentType.Object);
 
             return this;
         }
@@ -62,7 +62,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
             contentType.SetupGet(x => x.Id).Returns(id);
             contentType.SetupGet(x => x.ParentId).Returns(parentId);
 
-            
+
             var propertyGroups = new PropertyGroupCollection(new List<PropertyGroup>());
             contentType.SetupGet(x => x.PropertyGroups).Returns(propertyGroups);
 
@@ -76,7 +76,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
             contentType.SetupGet(x => x.Alias).Returns(alias);
             contentType.SetupGet(x => x.Id).Returns(id);
 
-            ContentTypeService.Setup(x => x.GetContentType(alias)).Returns(contentType.Object);            
+            ContentTypeService.Setup(x => x.Get(alias)).Returns(contentType.Object);
 
             return this;
         }
@@ -88,7 +88,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
             contentType.SetupGet(x => x.Id).Returns(id);
             contentType.SetupGet(x => x.Alias).Returns(alias);
 
-            ContentTypeService.Setup(x => x.GetContentType(alias)).Returns(contentType.Object);
+            ContentTypeService.Setup(x => x.Get(alias)).Returns(contentType.Object);
             _allowedChildNodeTypes.Add(new ContentTypeSort(id, _allowedChildNodeTypes.Count + 1));
 
             return this;
@@ -109,10 +109,10 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
 
         public DocumentTypeTestBuilder ReturnsDataType(Guid dataTypeId)
         {
-            var dataTypeDefinition = new Mock<IDataTypeDefinition>();
+            var dataTypeDefinition = new Mock<IDataType>();
             dataTypeDefinition.Setup(x => x.Key).Returns(dataTypeId);
 
-            _dataTypeService.Setup(x => x.GetDataTypeDefinitionById(dataTypeId))
+            _dataTypeService.Setup(x => x.GetDataType(dataTypeId))
                 .Returns(dataTypeDefinition.Object);
 
             return this;
@@ -126,7 +126,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
 
         public DocumentTypeTestBuilder AddExistingTab(string name, int sortOrder)
         {
-            var propertyGroup = new PropertyGroup
+            var propertyGroup = new PropertyGroup(true)
             {
                 Name = name,
                 SortOrder = sortOrder

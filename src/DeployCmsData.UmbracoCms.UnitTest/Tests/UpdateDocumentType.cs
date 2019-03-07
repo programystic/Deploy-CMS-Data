@@ -1,9 +1,9 @@
-﻿using DeployCmsData.UmbracoCms.Constants;
-using DeployCmsData.UmbracoCms.UnitTest.Builders;
+﻿using DeployCmsData.UmbracoCms.UnitTest.Builders;
 using Moq;
 using NUnit.Framework;
 using System.Linq;
 using Umbraco.Core.Models;
+using DataType = DeployCmsData.UmbracoCms.Constants.DataType;
 
 namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 {
@@ -101,7 +101,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .ReturnsExistingContentType(Alias, Id)
                 .Build();
 
-            var docType = setup.ContentTypeService.Object.GetContentType(Alias);            
+            var docType = setup.ContentTypeService.Object.Get(Alias);
             docType.Icon = icon;
             docType.Name = name;
             docType.Description = description;
@@ -131,7 +131,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .ReturnsExistingContentType(Alias, Id)
                 .Build();
 
-            var docType = setup.ContentTypeService.Object.GetContentType(Alias);
+            var docType = setup.ContentTypeService.Object.Get(Alias);
             docType.Icon = icon;
             docType.Name = name;
             docType.Description = description;

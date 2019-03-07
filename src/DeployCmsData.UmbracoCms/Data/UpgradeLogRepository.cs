@@ -1,9 +1,9 @@
 ﻿using DeployCmsData.Core.Interfaces;
-using DeployCmsData.Core.Models;
 using DeployCmsData.UmbracoCms.Models;
 using System.Collections.Generic;
-using Umbraco.Core;
+using System.Linq;
 using Umbraco.Core.Composing;
+using Umbraco.Core.Persistence;
 
 namespace DeployCmsData.UmbracoCms.Data
 {
@@ -11,16 +11,23 @@ namespace DeployCmsData.UmbracoCms.Data
     {
         public IEnumerable<IUpgradeLog> GetLogsByScriptName(string upgradeScriptName)
         {
-            var db = Current.SqlContext.
-            return db.Fetch<UmbracoUpgradeLog>($"WHERE {nameof(UpgradeLog.UpgradeScriptName)}='{upgradeScriptName}'");
+            using (var scope = Current.ScopeProvider.CreateScope())
+            {
+                var sql = scope.SqlContext.Sql()
+                    .Select<UmbracoUpgradeLog>()
+                    .From<UmbracoUpgradeLog>()
+                    .Where<UmbracoUpgradeLog>(x => x.UpgradeScriptName == upgradeScriptName);
+
+                return scope.Database.Fetch<UmbracoUpgradeLog>(sql);
+            }
         }
 
         public void SaveLog(IUpgradeLog upgradeLog)
         {
-            var newLog = new UmbracoUpgradeLog(upgradeLog);
-
-            var db = ApplicationContext.Current.DatabaseContext.Database;
-            db.Insert(newLog);
+            using (var scope = Current.ScopeProvider.CreateScope())
+            {
+                scope.Database.Insert((UmbracoUpgradeLog)upgradeLog);
+            }
         }
     }
 }

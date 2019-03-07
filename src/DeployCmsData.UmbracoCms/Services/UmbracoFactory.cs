@@ -1,10 +1,8 @@
 ﻿using DeployCmsData.UmbracoCms.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.Entities;
-using Umbraco.Core.Models.EntityBase;
 using Umbraco.Core.Services;
 
 [assembly: CLSCompliant(true)]
@@ -55,11 +53,6 @@ namespace DeployCmsData.UmbracoCms.Services
         public PropertyType NewPropertyType(IDataType dataTypeDefinition, string propertyAlias)
         {
             return new PropertyType(dataTypeDefinition, propertyAlias);
-        }
-
-        public IEnumerable<IContent> GetChildren(IContent content)
-        {
-            return content.Children();
         }
 
         public ITemplate NewTemplate(string name, string templateAlias)

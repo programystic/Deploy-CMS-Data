@@ -4,6 +4,7 @@ using Moq;
 using NUnit.Framework;
 using System.Linq;
 using Umbraco.Core.Models;
+using DataType = DeployCmsData.UmbracoCms.Constants.DataType;
 
 namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 {

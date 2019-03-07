@@ -2,10 +2,9 @@
 using DeployCmsData.UmbracoCms.Extensions;
 using DeployCmsData.UmbracoCms.Interfaces;
 using DeployCmsData.UmbracoCms.Services;
-using System.Web;
+using Umbraco.Core.Composing;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
-using Umbraco.Web;
 using Validation;
 
 namespace DeployCmsData.UmbracoCms.Builders
@@ -20,9 +19,9 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public TemplateBuilder(string alias)
         {
-            var applicationContext = UmbracoContext.Current.Application;
-            _umbracoFactory = new UmbracoFactory(applicationContext.Services.ContentTypeService);
-            _fileService = applicationContext.Services.FileService;
+            var services = Current.Services;
+            _umbracoFactory = new UmbracoFactory(services.ContentTypeService);
+            _fileService = services.FileService;
             _httpServerUtility = new Server();
 
             _alias = alias;

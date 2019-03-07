@@ -4,7 +4,7 @@ using Umbraco.Core.Migrations;
 
 namespace DeployCmsData.UmbracoCms.UmbracoMigrations
 {
-    internal class AddLogTable : MigrationBase
+    public class AddLogTable : MigrationBase
     {
         public AddLogTable(IMigrationContext context) : base(context)
         {

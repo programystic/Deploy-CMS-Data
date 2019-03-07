@@ -2,7 +2,7 @@
 using DeployCmsData.UmbracoCms.Interfaces;
 using Moq;
 using System;
-using Umbraco.Core.Models.EntityBase;
+using Umbraco.Core.Models.Entities;
 using Umbraco.Core.Services;
 
 [assembly: CLSCompliant(true)]

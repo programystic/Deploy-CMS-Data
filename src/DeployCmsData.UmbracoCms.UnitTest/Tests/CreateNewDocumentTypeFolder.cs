@@ -1,7 +1,8 @@
-﻿using System;
-using DeployCmsData.UmbracoCms.UnitTest.Builders;
+﻿using DeployCmsData.UmbracoCms.UnitTest.Builders;
 using Moq;
 using NUnit.Framework;
+using System;
+using Umbraco.Core.Models.Entities;
 
 namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 {
@@ -18,7 +19,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .ReturnsNewFolder(folderName)
                 .Build();
 
-            Umbraco.Core.Models.EntityBase.IUmbracoEntity folder = builder
+            IUmbracoEntity folder = builder
                 .BuildAtRoot();
 
             setup.UmbracoFactory.Verify(x => x.NewContainer(UmbracoCms.Constants.Umbraco.RootFolder, folderName, 1), Times.Once);
@@ -39,7 +40,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .ReturnsExistingFolder(parentFolderName, parentFolderLevel)
                 .Build();
 
-            Umbraco.Core.Models.EntityBase.IUmbracoEntity folder = builder
+            IUmbracoEntity folder = builder
                 .BuildWithParentFolder(parentFolderName, parentFolderLevel);
 
             setup.UmbracoFactory.Verify(x => x.NewContainer(It.IsAny<int>(), folderName, parentFolderLevel), Times.Once);
@@ -60,7 +61,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .ReturnsExistingFolder(parentFolderName, parentFolderLevel)
                 .Build();
 
-            Umbraco.Core.Models.EntityBase.IUmbracoEntity folder = builder
+            IUmbracoEntity folder = builder
                 .BuildWithParentFolder(parentFolderName);
 
             setup.UmbracoFactory.Verify(x => x.NewContainer(It.IsAny<int>(), folderName, parentFolderLevel), Times.Once);
