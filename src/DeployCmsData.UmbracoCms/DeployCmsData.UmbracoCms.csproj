@@ -261,7 +261,6 @@
     <Compile Include="Constants\IconColour.cs" />
     <Compile Include="Constants\Icons.cs" />
     <Compile Include="Constants\Umbraco.cs" />
-    <Compile Include="Data\RepositoryConfiguration.cs" />
     <Compile Include="Data\UpgradeLogRepository.cs" />
     <Compile Include="Enums\StartNodeType.cs" />
     <Compile Include="Extensions\StringHelper.cs" />
@@ -281,6 +280,7 @@
     <Compile Include="Services\RunOnStartup.cs" />
     <Compile Include="Services\UmbracoFactory.cs" />
     <Compile Include="Services\UmbracoUpgradeScript.cs" />
+    <Compile Include="UmbracoMigrations\AddLogTable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -3,6 +3,7 @@ using DeployCmsData.Core.Models;
 using DeployCmsData.UmbracoCms.Models;
 using System.Collections.Generic;
 using Umbraco.Core;
+using Umbraco.Core.Composing;
 
 namespace DeployCmsData.UmbracoCms.Data
 {
@@ -10,7 +11,7 @@ namespace DeployCmsData.UmbracoCms.Data
     {
         public IEnumerable<IUpgradeLog> GetLogsByScriptName(string upgradeScriptName)
         {
-            var db = ApplicationContext.Current.DatabaseContext.Database;
+            var db = Current.SqlContext.
             return db.Fetch<UmbracoUpgradeLog>($"WHERE {nameof(UpgradeLog.UpgradeScriptName)}='{upgradeScriptName}'");
         }
 

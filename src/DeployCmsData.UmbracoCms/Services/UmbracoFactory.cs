@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Umbraco.Core.Models;
+using Umbraco.Core.Models.Entities;
 using Umbraco.Core.Models.EntityBase;
 using Umbraco.Core.Services;
 
@@ -26,14 +27,14 @@ namespace DeployCmsData.UmbracoCms.Services
                 return container;
             }
 
-            var result = _contentTypeService.CreateContentTypeContainer(parentId, name);
+            var result = _contentTypeService.CreateContainer(parentId, name);
             if (!result.Success)
             {
                 return null;
             }
 
             var newContainer = result.Result.Entity;
-            _contentTypeService.SaveContentTypeContainer(newContainer);
+            _contentTypeService.SaveContainer(newContainer);
 
             return newContainer;
         }
@@ -45,13 +46,13 @@ namespace DeployCmsData.UmbracoCms.Services
 
         public IUmbracoEntity GetContainer(string name, int level)
         {
-            var containers = _contentTypeService.GetContentTypeContainers(name, level);
+            var containers = _contentTypeService.GetContainers(name, level);
             var container = containers.FirstOrDefault();
 
             return container;
         }
 
-        public PropertyType NewPropertyType(IDataTypeDefinition dataTypeDefinition, string propertyAlias)
+        public PropertyType NewPropertyType(IDataType dataTypeDefinition, string propertyAlias)
         {
             return new PropertyType(dataTypeDefinition, propertyAlias);
         }

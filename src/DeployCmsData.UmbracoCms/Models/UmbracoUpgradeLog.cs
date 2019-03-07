@@ -1,13 +1,13 @@
 ﻿using DeployCmsData.Core.Interfaces;
+using NPoco;
 using System;
-using Umbraco.Core.Persistence;
 using Umbraco.Core.Persistence.DatabaseAnnotations;
 using Validation;
 
 namespace DeployCmsData.UmbracoCms.Models
 {
     [TableName(Constants.Database.LogsTableName)]
-    [PrimaryKey(nameof(Id), autoIncrement = true)]
+    [PrimaryKey(nameof(Id), AutoIncrement = true)]
     public class UmbracoUpgradeLog : IUpgradeLog
     {
         [PrimaryKeyColumn(AutoIncrement = true)]
