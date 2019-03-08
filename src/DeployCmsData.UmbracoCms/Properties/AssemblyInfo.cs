@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("DeployCmsData.UmbracoCms")]
-[assembly: AssemblyDescription("Umbraco CMS deployment")]
+[assembly: AssemblyDescription("Build deployment scripts for your Umbraco 8.0 CMS updates")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Programystic")]
 [assembly: AssemblyProduct("DeployCmsData.UmbracoCms")]
@@ -33,4 +33,4 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("8.0.0.0")]
-[assembly: AssemblyInformationalVersion("8.0.0.0-beta")]
+[assembly: AssemblyInformationalVersion("8.0.0.0")]
