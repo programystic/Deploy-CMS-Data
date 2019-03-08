@@ -65,11 +65,11 @@
     <Reference Include="controls, Version=1.0.6942.23081, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\UmbracoCms.Core.7.13.0\lib\net45\controls.dll</HintPath>
     </Reference>
-    <Reference Include="DeployCmsData.Core, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DeployCmsData.Core.1.0.1\lib\net461\DeployCmsData.Core.dll</HintPath>
+    <Reference Include="DeployCmsData.Core, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeployCmsData.Core.1.0.2\lib\net461\DeployCmsData.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DeployCmsData.UmbracoCms, Version=7.13.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DeployCmsData.UmbracoCms.7.13.0-beta\lib\net461\DeployCmsData.UmbracoCms.dll</HintPath>
+    <Reference Include="DeployCmsData.UmbracoCms, Version=7.13.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeployCmsData.UmbracoCms.7.13.0.3\lib\net461\DeployCmsData.UmbracoCms.dll</HintPath>
     </Reference>
     <Reference Include="Examine, Version=0.1.89.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Examine.0.1.89\lib\net45\Examine.dll</HintPath>
@@ -292,18 +292,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiController\IntegrationTestController.cs" />
-    <Compile Include="Constants\LocalDataTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UpgradeScripts\AllDataTypes.cs" />
-    <Compile Include="UpgradeScripts\BuildHomePage.cs" />
-    <Compile Include="UpgradeScripts\BuildWebsite.cs" />
-    <Compile Include="UpgradeScripts\ClearTheDecks.cs" />
-    <Compile Include="UpgradeScripts\CreateContent.cs" />
-    <Compile Include="UpgradeScripts\MultiNodeTreePicker.cs" />
-    <Compile Include="UpgradeScripts\Templates.cs" />
-    <Compile Include="UpgradeScripts\Upgrade01.cs" />
-    <Compile Include="UpgradeScripts\Upgrade02.cs" />
-    <Compile Include="UpgradeScripts\Upgrade04.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="config\imageprocessor\security.config" />
@@ -340,6 +329,9 @@
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
+    <Content Include="Views\Home.cshtml" />
+    <Content Include="Views\Master.cshtml" />
+    <Content Include="Views\TheSpecialOne.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -350,6 +342,12 @@
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DeployCmsData.UpgradeScripts.7.0\DeployCmsData.UpgradeScripts.7.0.csproj">
+      <Project>{882c241d-e682-429c-8ef1-8f0796e6e958}</Project>
+      <Name>DeployCmsData.UpgradeScripts.7.0</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

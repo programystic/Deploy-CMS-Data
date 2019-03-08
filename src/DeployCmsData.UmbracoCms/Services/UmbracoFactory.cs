@@ -59,5 +59,10 @@ namespace DeployCmsData.UmbracoCms.Services
         {
             return new Template(name, templateAlias);
         }
+
+        public PropertyType GetPropertyType(IContentType dataTypeDefinition, string propertyAlias)
+        {
+            return dataTypeDefinition.PropertyTypes.FirstOrDefault(x => x.Alias == propertyAlias);
+        }
     }
 }

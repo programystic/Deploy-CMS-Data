@@ -18,6 +18,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
         private readonly DocumentTypeBuilder _documentTypeBuilder;
         private readonly Mock<IDataTypeService> _dataTypeService;
         private IList<ContentTypeSort> _allowedChildNodeTypes;
+        private IList<PropertyType> _propertyTypes;
 
         public DocumentTypeTestBuilder(string alias)
         {
@@ -25,6 +26,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
             ContentTypeService = new Mock<IContentTypeService>();
             _dataTypeService = new Mock<IDataTypeService>();
             _allowedChildNodeTypes = new List<ContentTypeSort>();
+            _propertyTypes = new List<PropertyType>();
 
             _documentTypeBuilder = new DocumentTypeBuilder(
                 ContentTypeService.Object,
@@ -107,10 +109,11 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
             return this;
         }
 
-        public DocumentTypeTestBuilder ReturnsDataType(Guid dataTypeId)
+        public DocumentTypeTestBuilder ReturnsDataType(Guid dataTypeId, int id)
         {
             var dataTypeDefinition = new Mock<IDataType>();
             dataTypeDefinition.Setup(x => x.Key).Returns(dataTypeId);
+            dataTypeDefinition.SetupGet(x => x.Id).Returns(id);
 
             _dataTypeService.Setup(x => x.GetDataType(dataTypeId))
                 .Returns(dataTypeDefinition.Object);
@@ -133,6 +136,24 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
             };
 
             ContentType.Object.PropertyGroups.Add(propertyGroup);
+
+            return this;
+        }
+
+        public DocumentTypeTestBuilder AllowAtRoot()
+        {
+            ContentType.Object.AllowedAsRoot = true;
+            return this;
+        }
+
+        public DocumentTypeTestBuilder AddField(string alias)
+        {
+            ContentType.Setup(x => x.PropertyTypeExists(alias)).Returns(true);
+
+            var dataDefinition = new Mock<IDataType>();
+            var propertyType = new PropertyType(dataDefinition.Object);
+
+            UmbracoFactory.Setup(x => x.GetPropertyType(It.IsAny<IContentType>(), alias)).Returns(propertyType);
 
             return this;
         }

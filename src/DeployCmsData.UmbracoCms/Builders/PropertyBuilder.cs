@@ -10,9 +10,20 @@ namespace DeployCmsData.UmbracoCms.Builders
         public Guid DataTypeValue { get; set; }
         public string DescriptionValue { get; set; }
         public string RegularExpressionValue { get; set; }
-        public bool MandatoryValue { get; set; }
+        public bool? MandatoryValue { get; set; }
         public string PropertyEditorAliasValue { get; set; }
 
+        public PropertyBuilder()
+        {
+            AliasValue = null;
+            NameValue = null;
+            TabValue = null;
+            DataTypeValue = Guid.Empty;
+            DescriptionValue = null;
+            RegularExpressionValue = null;
+            MandatoryValue = null;
+            PropertyEditorAliasValue = null;
+        }
         public PropertyBuilder(string alias)
         {
             AliasValue = alias;

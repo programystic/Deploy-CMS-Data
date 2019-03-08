@@ -24,8 +24,8 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
                 .SetupExistingDocumentType(Alias, Id, ParentId)
-                .ReturnsDataType(DataType.TextString)
-                .ReturnsDataType(DataType.Numeric)
+                .ReturnsDataType(DataType.TextString, 1)
+                .ReturnsDataType(DataType.Numeric, 2)
                 .Build();
 
             builder
@@ -54,8 +54,8 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
                 .SetupExistingDocumentType(Alias, Id, ParentId)
-                .ReturnsDataType(DataType.TextString)
-                .ReturnsDataType(DataType.Numeric)
+                .ReturnsDataType(DataType.TextString, 1)
+                .ReturnsDataType(DataType.Numeric, 2)
                 .Build();
 
             builder
@@ -63,7 +63,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             builder.Update();
 
-            var field = builder.AddFieldList.FirstOrDefault(x => x.AliasValue == fieldAlias);
+            var field = builder.FieldList.FirstOrDefault(x => x.AliasValue == fieldAlias);
             Assert.AreEqual(DataType.TextString, field.DataTypeValue);
         }
 
@@ -77,14 +77,14 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var builder = setup
                 .SetupExistingDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType(Alias, Id)
-                .ReturnsDataType(DataType.TextString)
-                .ReturnsDataType(DataType.Numeric)
+                .ReturnsDataType(DataType.TextString, 1)
+                .ReturnsDataType(DataType.Numeric, 2)
                 .Build();
 
             builder.AddField(fieldAlias);
             builder.Update();
 
-            var field = builder.AddFieldList.FirstOrDefault(x => x.AliasValue == fieldAlias);
+            var field = builder.FieldList.FirstOrDefault(x => x.AliasValue == fieldAlias);
             Assert.AreEqual(fieldName, field.NameValue);
         }
 

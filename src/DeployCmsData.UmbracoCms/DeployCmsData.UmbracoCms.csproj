@@ -258,7 +258,7 @@
     <Compile Include="Builders\GridDataTypeBuilder.cs" />
     <Compile Include="Builders\TemplateBuilder.cs" />
     <Compile Include="Constants\AppSettings.cs" />
-    <Compile Include="Constants\Data.cs" />
+    <Compile Include="Constants\Database.cs" />
     <Compile Include="Constants\DataType.cs" />
     <Compile Include="Constants\ExceptionMessages.cs" />
     <Compile Include="Constants\IconColour.cs" />
@@ -282,7 +282,6 @@
     <Compile Include="Interfaces\IUmbracoFactory.cs" />
     <Compile Include="Services\RunOnStartup.cs" />
     <Compile Include="Services\UmbracoFactory.cs" />
-    <Compile Include="Services\UmbracoUpgradeScript.cs" />
     <Compile Include="UmbracoMigrations\AddLogTable.cs" />
   </ItemGroup>
   <ItemGroup>
