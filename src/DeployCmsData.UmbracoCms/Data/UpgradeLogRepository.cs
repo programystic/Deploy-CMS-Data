@@ -24,9 +24,11 @@ namespace DeployCmsData.UmbracoCms.Data
 
         public void SaveLog(IUpgradeLog upgradeLog)
         {
+            var umbracoUpgradeLog = new UmbracoUpgradeLog(upgradeLog);
+
             using (var scope = Current.ScopeProvider.CreateScope())
             {
-                scope.Database.Insert((UmbracoUpgradeLog)upgradeLog);
+                scope.Database.Insert(umbracoUpgradeLog);
             }
         }
     }

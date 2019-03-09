@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Umbraco.Core;
+﻿using DeployCmsData.UmbracoCms.Models;
 using Umbraco.Core.Migrations;
 
 namespace DeployCmsData.UmbracoCms.UmbracoMigrations
@@ -12,14 +11,10 @@ namespace DeployCmsData.UmbracoCms.UmbracoMigrations
 
         public override void Migrate()
         {
-            var tables = SqlSyntax.GetTablesInSchema(Context.Database).ToArray();
-
-            if (tables.InvariantContains(Constants.Database.LogsTableName))
+            if (!TableExists(Constants.Database.LogsTableName))
             {
-                return;
+                Create.Table<UmbracoUpgradeLog>();
             }
-
-            Create.Table<Models.UmbracoUpgradeLog>().Do();
         }
     }
 }
