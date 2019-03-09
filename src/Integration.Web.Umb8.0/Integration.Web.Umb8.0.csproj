@@ -57,6 +57,12 @@
     <Reference Include="CSharpTest.Net.Collections, Version=14.906.1403.1082, Culture=neutral, PublicKeyToken=06aee00cce822474, processorArchitecture=MSIL">
       <HintPath>..\packages\CSharpTest.Net.Collections.14.906.1403.1082\lib\net40\CSharpTest.Net.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="DeployCmsData.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeployCmsData.Core.2.0.0\lib\net472\DeployCmsData.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DeployCmsData.UmbracoCms, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeployCmsData.UmbracoCms.8.0.0\lib\net472\DeployCmsData.UmbracoCms.dll</HintPath>
+    </Reference>
     <Reference Include="Examine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Examine.1.0.0\lib\net452\Examine.dll</HintPath>
     </Reference>
@@ -389,6 +395,12 @@
     </Reference>
     <Reference Include="Umbraco.Web.UI, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\UmbracoCms.Web.8.0.0\lib\net472\Umbraco.Web.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Validation, Version=2.4.0.0, Culture=neutral, PublicKeyToken=2fc06f0d701809a7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Validation.2.4.18\lib\net45\Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="WebConfigHelper, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebConfigHelper.1.0.3\lib\net461\WebConfigHelper.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
