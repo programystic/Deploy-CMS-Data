@@ -2,6 +2,7 @@
 using DeployCmsData.Core.Interfaces;
 using DeployCmsData.Core.Services;
 using DeployCmsData.UmbracoCms.Data;
+using System.Diagnostics;
 using System.Reflection;
 using System.Web.Http;
 using Umbraco.Web.WebApi;
@@ -28,6 +29,9 @@ namespace DeployCmsData.UpgradeScripts_8.ApiController
             var assembly = Assembly.GetExecutingAssembly();
             var upgradeScript = (IUpgradeScript)assembly.CreateInstance($"DeployCmsData.UpgradeScripts_8.UpgradeScripts.{scriptName}");
             var log = _upgradeScriptManager.RunScript(upgradeScript);
+
+            Debug.WriteLineIf(!log.Success, log.Exception);
+
             return log.Success;
         }
     }
