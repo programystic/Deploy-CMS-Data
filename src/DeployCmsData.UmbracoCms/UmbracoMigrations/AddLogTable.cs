@@ -13,7 +13,7 @@ namespace DeployCmsData.UmbracoCms.UmbracoMigrations
         {
             if (!TableExists(Constants.Database.LogsTableName))
             {
-                Create.Table<UmbracoUpgradeLog>();
+                Create.Table<UmbracoUpgradeLog>().Do();
             }
         }
     }

@@ -161,14 +161,17 @@
     <Compile Include="Models\MultiNodeTreePickerStartNodePreValue.cs" />
     <Compile Include="Models\UmbracoUpgradeLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UmbracoComponents\Composer.cs" />
     <Compile Include="Services\Server.cs" />
     <Compile Include="Services\JsonHelper.cs" />
     <Compile Include="Services\UmbracoLibrary.cs" />
     <Compile Include="Interfaces\IContentPropertiesService.cs" />
     <Compile Include="Interfaces\IUmbracoFactory.cs" />
-    <Compile Include="Services\RunOnStartup.cs" />
+    <Compile Include="UmbracoComponents\RunOnStartup.cs" />
     <Compile Include="Services\UmbracoFactory.cs" />
     <Compile Include="UmbracoMigrations\AddLogTable.cs" />
+    <Compile Include="UmbracoMigrations\UpgradePlan.cs" />
+    <Compile Include="UmbracoComponents\RunMigrations.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
