@@ -23,6 +23,8 @@ namespace DeployCmsData.UmbracoCms.Builders
         private string NameValue { get; set; }
         private Guid KeyValue { get; set; }
 
+        public GridConfiguration Configuration { get; private set; }
+
         public GridDataTypeBuilder(Guid key)
         {
             Verify.Operation(key != Guid.Empty, "key cannot be an empty guid");
@@ -99,7 +101,7 @@ namespace DeployCmsData.UmbracoCms.Builders
 
             foreach (var column in gridColumns)
             {
-                template.Sections.Add(new Models.Section(column));
+                template.Sections.Add(new Section(column));
             }
 
             GridItemsPreValue.Layouts.Add(template);
@@ -224,13 +226,13 @@ namespace DeployCmsData.UmbracoCms.Builders
                 gridDataType.Key = KeyValue;
             }
 
-            var configuration = new GridConfiguration
+            Configuration = new GridConfiguration
             {
                 Items = JObject.FromObject(GridItemsPreValue),
                 Rte = JObject.FromObject(GridRtePreValue)
             };
 
-            gridDataType.Configuration = configuration;
+            gridDataType.Configuration = Configuration;
 
             DataTypeService.Save(gridDataType);
 

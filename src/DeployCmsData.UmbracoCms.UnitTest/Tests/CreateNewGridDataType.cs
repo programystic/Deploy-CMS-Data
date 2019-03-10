@@ -1,4 +1,6 @@
 ﻿using DeployCmsData.UmbracoCms.UnitTest.Builders;
+using DeployCmsData.UmbracoCms.UnitTest.Helpers;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
 using Umbraco.Core.Models;
@@ -179,10 +181,31 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var builder = new GridDataTypeTestBuilder(Guid.NewGuid())
                 .Build();
 
-            builder                
+            builder
                 .Build();
 
             Assert.AreEqual("classic", builder.GridRtePreValue.Mode);
         }
+
+        //[Test]
+        //public static void Json()
+        //{
+        //    var expectedJson = ResourceHelper.GetEmbeddedResource("GridConfig.txt");
+
+        //    var builder = new GridDataTypeTestBuilder(Guid.NewGuid())
+        //        .Build();
+
+        //    builder
+        //        .AddLayout("Headline", 12)
+        //        .AddLayout("Article", 4, 8)
+        //        .AddLayout("Article", 4)
+        //        .AddLayout("", 4)
+        //        .Build();
+
+        //    var items = JsonConvert.SerializeObject(builder.Configuration.Items);
+        //    var rte = JsonConvert.SerializeObject(builder.Configuration.Rte);
+
+        //    Assert.AreEqual(expectedJson, $"{{\"items\":{items},\"rte\":{rte}}}");
+        //}
     }
 }
