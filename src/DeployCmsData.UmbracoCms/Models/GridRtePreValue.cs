@@ -8,6 +8,7 @@ namespace DeployCmsData.UmbracoCms.Models
         public Collection<object> StyleSheets { get; }
         public Dimensions Dimensions { get; set; }
         public int MaxImageSize { get; set; }
+        public string Mode { get; set; }
 
         public GridRtePreValue()
         {

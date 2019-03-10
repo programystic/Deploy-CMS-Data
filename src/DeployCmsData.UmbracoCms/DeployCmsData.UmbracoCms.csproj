@@ -151,6 +151,7 @@
     <Compile Include="Constants\Icons.cs" />
     <Compile Include="Constants\Umbraco.cs" />
     <Compile Include="Data\UpgradeLogRepository.cs" />
+    <Compile Include="Enums\GridMode.cs" />
     <Compile Include="Enums\StartNodeType.cs" />
     <Compile Include="Extensions\StringHelper.cs" />
     <Compile Include="GlobalSuppressions.cs" />
