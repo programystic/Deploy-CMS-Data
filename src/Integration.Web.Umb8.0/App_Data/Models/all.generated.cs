@@ -8,8 +8,8 @@ using  Umbraco.Web;
 using  Umbraco.ModelsBuilder;
 using  Umbraco.ModelsBuilder.Umbraco;
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "1c51bc858a15640a")]
-[assembly:System.Reflection.AssemblyVersion("0.0.0.10")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "5ddb3e8e181423df")]
+[assembly:System.Reflection.AssemblyVersion("0.0.0.14")]
 
 
 // FILE: models.generated.cs
@@ -242,11 +242,18 @@ namespace Umbraco.Web.PublishedModels
 		public IHtmlString AdditionalContent => this.Value<IHtmlString>("additionalContent");
 
 		///<summary>
+		/// grid 2
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.0.1")]
+		[ImplementPropertyType("grid2")]
+		public Newtonsoft.Json.Linq.JToken Grid2 => this.Value<Newtonsoft.Json.Linq.JToken>("grid2");
+
+		///<summary>
 		/// Main Content
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.0.1")]
 		[ImplementPropertyType("mainContent")]
-		public IHtmlString MainContent => this.Value<IHtmlString>("mainContent");
+		public Newtonsoft.Json.Linq.JToken MainContent => this.Value<Newtonsoft.Json.Linq.JToken>("mainContent");
 
 		///<summary>
 		/// Content
