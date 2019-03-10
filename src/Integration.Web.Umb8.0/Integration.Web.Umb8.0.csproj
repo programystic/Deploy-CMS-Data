@@ -60,8 +60,8 @@
     <Reference Include="DeployCmsData.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DeployCmsData.Core.2.0.0\lib\net472\DeployCmsData.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DeployCmsData.UmbracoCms, Version=8.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DeployCmsData.UmbracoCms.8.0.0.1\lib\net472\DeployCmsData.UmbracoCms.dll</HintPath>
+    <Reference Include="DeployCmsData.UmbracoCms, Version=8.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeployCmsData.UmbracoCms.8.0.0.2\lib\net472\DeployCmsData.UmbracoCms.dll</HintPath>
     </Reference>
     <Reference Include="Examine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Examine.1.0.0\lib\net452\Examine.dll</HintPath>
@@ -459,6 +459,9 @@
     <Content Include="Views\Partials\Grid\Editors\Base.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap3.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
+    <Content Include="Views\Home.cshtml" />
+    <Content Include="Views\Master.cshtml" />
+    <Content Include="Views\TheSpecialOne.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />

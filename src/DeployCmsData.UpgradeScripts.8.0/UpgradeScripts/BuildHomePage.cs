@@ -21,14 +21,15 @@ namespace DeployCmsData.UpgradeScripts_8.UpgradeScripts
                 .AddComposition("navigationBase");
 
             builder.AddField("mainContent")
-                .DataType(LocalDataTypes.Grid)
+                .DataType(DataType.RichTextEditor)
                 .Tab("Content");
 
             builder.AddField("additionalContent")
-                .DataType(LocalDataTypes.Grid)
+                .DataType(DataType.TextArea)
                 .Tab("Content 2");
 
             builder.BuildInFolder("Pages");
+
             return true;
         }
     }
