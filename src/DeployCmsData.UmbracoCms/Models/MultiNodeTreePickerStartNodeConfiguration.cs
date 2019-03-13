@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace DeployCmsData.UmbracoCms.Models
 {
-    public class MultiNodeTreePickerStartNodePreValue
+    public class MultiNodeTreePickerStartNodeConfiguration
     {
         [JsonProperty("type")]
         public StartNodeType StartNodeType { get; set; }

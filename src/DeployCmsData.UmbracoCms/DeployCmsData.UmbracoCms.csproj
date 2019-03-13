@@ -159,7 +159,7 @@
     <Compile Include="Models\GridItemsPreValue.cs" />
     <Compile Include="Models\GridLayout.cs" />
     <Compile Include="Models\GridRtePreValue.cs" />
-    <Compile Include="Models\MultiNodeTreePickerStartNodePreValue.cs" />
+    <Compile Include="Models\MultiNodeTreePickerStartNodeConfiguration.cs" />
     <Compile Include="Models\UmbracoUpgradeLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UmbracoComponents\Composer.cs" />
