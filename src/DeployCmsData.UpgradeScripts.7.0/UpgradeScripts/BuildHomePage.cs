@@ -26,7 +26,7 @@ namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
 
             builder.AddField("additionalContent")
                 .DataType(LocalDataTypes.Grid)
-                .Tab("Content");
+                .Tab("Content 2");
 
             builder.BuildInFolder("Pages");
             return true;

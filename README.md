@@ -4,15 +4,17 @@ Deploy CMS Data is a component that you can use for your Umbraco application whi
 
 The updates are run on startup, and the status is saved to the database so that once they are run successfully, they are never run again.
 
+This project is working but is still under active development so please raise any [issues](https://github.com/programystic/DeployCmsData/issues) or feedback so we can improve it.
+
 ---
 
 ## Versions
 
 Version|Umbraco Version|Status
 --- | --- | ---
-7.13.0.2 | 7.13.0|Published to Nuget
-7.6.0.4 | 7.6.0|Published to Nuget
-7.4.0.2 | 7.4.0|Published to Nuget
+7.13.0.3 | 7.13.0|Published to Nuget
+7.6.0.5 | 7.6.0|Published to Nuget
+7.4.0.3 | 7.4.0|Published to Nuget
 8.0.0.0 | 8.0.0|Work in progress
 
 ---
@@ -91,6 +93,12 @@ new DocumentTypeBuilder("pageMetaData")
                 .Icon(Icons.MindMap)
                 .Update();
 ```
+To allow the doctype as root content:
+```csharp
+new DocumentTypeBuilder("pageMetaData")                
+                .AllowedAsRoot()
+                .Update();
+```
 
 To add fields to the document type:
 ```csharp
@@ -115,7 +123,18 @@ builder.AddField("bodyText")
 
 builder.BuildInFolder("Compositions");
 ```
+To update existing properties/fields:
+```csharp
+var builder = new DocumentTypeBuilder("pageMetaData");
 
+// AddField() can be used to add new fields or update existing ones
+// Just set the things that need changing
+builder.AddField("pageTitle")
+    .DataType(DataType.TextArea)
+    .Tab("Meta Data");
+    
+builder.Update();
+```
 To add existing document types as compositions to the document type:
 ```csharp
 var builder = new DocumentTypeBuilder("homePage");

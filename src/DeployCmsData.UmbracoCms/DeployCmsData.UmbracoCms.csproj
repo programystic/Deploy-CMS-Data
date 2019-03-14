@@ -183,6 +183,7 @@
     <Compile Include="Extensions\StringHelper.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\IHttpServerUtility.cs" />
+    <Compile Include="Models\GridArea.cs" />
     <Compile Include="Models\GridItemsPreValue.cs" />
     <Compile Include="Models\GridLayout.cs" />
     <Compile Include="Models\GridRtePreValue.cs" />
