@@ -244,7 +244,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\CreateNewDocumentType.cs" />
     <Compile Include="Tests\CreateNewDocumentTypeFolder.cs" />
-    <Compile Include="Tests\CreateNewGridDataType.cs" />
+    <Compile Include="Tests\GridDataTypeBuilder.cs" />
     <Compile Include="Tests\CreateNewProperties.cs" />
     <Compile Include="Tests\DeleteDocumentType.cs" />
     <Compile Include="Tests\MultiNodeTreePicker.cs" />

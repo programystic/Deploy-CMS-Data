@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace DeployCmsData.UmbracoCms.Models
 {
@@ -61,26 +60,6 @@ namespace DeployCmsData.UmbracoCms.Models
         public Template()
         {
             Sections = new Collection<Section>();
-        }
-    }
-
-    public class Area
-    {
-        public int Grid { get; set; }
-        public Collection<string> Editors { get; }
-        public int MaxItems { get; set; }
-        public bool AllowAll { get; set; }
-        public Collection<string> Allowed { get; }
-
-        public Area(int grid)
-        {
-            Grid = grid;
-        }
-
-        public Area(int grid, params string[] editors)
-        {
-            Grid = grid;
-            Editors = new Collection<string>(editors.ToList());
         }
     }
 }
