@@ -8,7 +8,7 @@ using  Umbraco.Web;
 using  Umbraco.ModelsBuilder;
 using  Umbraco.ModelsBuilder.Umbraco;
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "1a53288712edc5d2")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "34be42f57a10cb74")]
 [assembly:System.Reflection.AssemblyVersion("0.0.0.1")]
 
 
@@ -40,7 +40,7 @@ using  Umbraco.ModelsBuilder.Umbraco;
 
 namespace Umbraco.Web.PublishedContentModels
 {
-	// Mixin content Type 1094 with alias "pageMetaData"
+	// Mixin content Type 1374 with alias "pageMetaData"
 	/// <summary>Page Meta Data</summary>
 	public partial interface IPageMetaData : IPublishedContent
 	{
@@ -72,7 +72,7 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 	}
 
-	// Mixin content Type 1095 with alias "contentBase"
+	// Mixin content Type 1375 with alias "contentBase"
 	/// <summary>Content Base</summary>
 	public partial interface IContentBase : IPublishedContent
 	{
@@ -133,7 +133,7 @@ namespace Umbraco.Web.PublishedContentModels
 		public static string GetPageTitle(IContentBase that) { return that.GetPropertyValue<string>("pageTitle"); }
 	}
 
-	// Mixin content Type 1096 with alias "navigationBase"
+	// Mixin content Type 1376 with alias "navigationBase"
 	/// <summary>Navigation Base</summary>
 	public partial interface INavigationBase : IPublishedContent
 	{
@@ -232,6 +232,15 @@ namespace Umbraco.Web.PublishedContentModels
 		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HomePage, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Additional Content
+		///</summary>
+		[ImplementPropertyType("additionalContent")]
+		public IHtmlString AdditionalContent
+		{
+			get { return this.GetPropertyValue<IHtmlString>("additionalContent"); }
 		}
 
 		///<summary>
@@ -344,18 +353,18 @@ namespace Umbraco.Web.PublishedContentModels
 		/// Check Box
 		///</summary>
 		[ImplementPropertyType("checkBox")]
-		public bool CheckBox
+		public IEnumerable<string> CheckBox
 		{
-			get { return this.GetPropertyValue<bool>("checkBox"); }
+			get { return this.GetPropertyValue<IEnumerable<string>>("checkBox"); }
 		}
 
 		///<summary>
 		/// Content Picker
 		///</summary>
 		[ImplementPropertyType("contentPicker")]
-		public IPublishedContent ContentPicker
+		public DateTime ContentPicker
 		{
-			get { return this.GetPropertyValue<IPublishedContent>("contentPicker"); }
+			get { return this.GetPropertyValue<DateTime>("contentPicker"); }
 		}
 
 		///<summary>

@@ -1,6 +1,7 @@
 ﻿using DeployCmsData.UmbracoCms.Models;
 using DeployCmsData.UmbracoCms.Services;
 using System;
+using System.Linq;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
@@ -81,7 +82,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             Requires.Range(columns > 0, nameof(columns), "Columns must be greater than 0");
             GridItemsPreValue.Columns = columns;
-            
+
             return this;
         }
 
@@ -118,15 +119,38 @@ namespace DeployCmsData.UmbracoCms.Builders
 
             foreach (var area in areas)
             {
-                var newArea = new Area(area)
-                {
-                    AllowAll = true
-                };
-
-                layout.Areas.Add(newArea);
+                layout.Areas.Add(new GridArea(area));
             }
 
             GridItemsPreValue.Rows.Add(layout);
+
+            return this;
+        }
+
+        public GridDataTypeBuilder AddAreaToRow(string rowName, int width)
+        {
+            return AddAreaToRow(rowName, width, 0);
+        }
+
+        public GridDataTypeBuilder AddAreaToRow(string rowName, int width, int maximumItems)
+        {
+            return AddAreaToRow(rowName, width, maximumItems, null);
+        }
+
+        public GridDataTypeBuilder AddAreaToRow(string rowName, int width, int maximumItems, params string[] editors)
+        {
+            var row = GridItemsPreValue.Rows.FirstOrDefault(x => x.Name == rowName);
+            if (row == null)
+            {
+                row = new GridLayout
+                {
+                    Label = rowName,
+                    Name = rowName
+                };
+                GridItemsPreValue.Rows.Add(row);
+            }
+
+            row.Areas.Add(new GridArea(width, maximumItems, editors));
 
             return this;
         }
@@ -199,7 +223,7 @@ namespace DeployCmsData.UmbracoCms.Builders
 
                 Verify.Operation(KeyValue != Guid.Empty, "key cannot be an empty guid");
                 gridDataType.Key = KeyValue;
-            }            
+            }
 
             var preValues = new System.Collections.Generic.Dictionary<string, PreValue>
             {
