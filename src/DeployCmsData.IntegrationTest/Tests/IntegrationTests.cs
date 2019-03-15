@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using RestSharp;
 using System;
+using System.Diagnostics;
 
 [assembly: CLSCompliant(true)]
 namespace DeployCmsData.IntegrationTest.Tests
@@ -26,18 +27,20 @@ namespace DeployCmsData.IntegrationTest.Tests
 
         public void GetResponse(string method)
         {
-            // http://deploycms.umb7.0
-
-            var endpoints = new string[] {                
+            var endPoints = new string[] {                
                 "http://deploycms.umb7.4",
                 "http://deploycms.umb7.6",
                 "http://deploycms.umb7.13",
+                "http://deploycms.umb8.0"
             };
 
-            foreach (var endPoint in endpoints)
+            foreach (var endPoint in endPoints)
             {
                 var client = new RestClient(endPoint);
-                var request = new RestRequest($"/umbraco/api/integrationtest/runscript/?scriptName={method}", Method.GET);
+                var resource = $"/umbraco/api/integrationtest/runscript/?scriptName={method}";
+                var request = new RestRequest(resource, Method.GET);
+
+                Debug.WriteLine($"Calling: {endPoint}{resource}");
                 var response = client.Execute<bool>(request);
 
                 Assert.IsTrue(response.Data, endPoint);

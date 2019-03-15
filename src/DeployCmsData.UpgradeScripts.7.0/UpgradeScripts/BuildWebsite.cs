@@ -15,6 +15,7 @@ namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
                 .Name("Website")
                 .Icon(Icons.Globe)
                 .AddAllowedChildNodeType("homePage")
+                .AllowedAsRoot()
                 .BuildAtRoot();
 
             return true;
