@@ -1,22 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\NUnit3TestAdapter.3.11.2\build\net35\NUnit3TestAdapter.props" Condition="Exists('..\packages\NUnit3TestAdapter.3.11.2\build\net35\NUnit3TestAdapter.props')" />
-  <Import Project="..\packages\NUnit.3.11.0\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.11.0\build\NUnit.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4983C311-7D2C-4503-9F3A-0D356CDE98C7}</ProjectGuid>
+    <ProjectGuid>{0D911F58-879A-4553-9AC1-0D0DD53250F1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DeployCmsData.UmbracoCms.UnitTest</RootNamespace>
-    <AssemblyName>DeployCmsData.UmbracoCms.UnitTest</AssemblyName>
+    <RootNamespace>DeployCmsData.UpgradeScripts._8._0</RootNamespace>
+    <AssemblyName>DeployCmsData.UpgradeScripts.8.0</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -26,8 +23,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>..\DeployCmsData.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -41,9 +36,6 @@
     <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Core.4.3.1\lib\net45\Castle.Core.dll</HintPath>
-    </Reference>
     <Reference Include="ClientDependency.Core, Version=1.9.7.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ClientDependency.1.9.7\lib\net45\ClientDependency.Core.dll</HintPath>
     </Reference>
@@ -52,6 +44,12 @@
     </Reference>
     <Reference Include="CSharpTest.Net.Collections, Version=14.906.1403.1082, Culture=neutral, PublicKeyToken=06aee00cce822474, processorArchitecture=MSIL">
       <HintPath>..\packages\CSharpTest.Net.Collections.14.906.1403.1082\lib\net40\CSharpTest.Net.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="DeployCmsData.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeployCmsData.Core.2.0.0\lib\net472\DeployCmsData.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DeployCmsData.UmbracoCms, Version=8.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeployCmsData.UmbracoCms.8.0.0.3\lib\net472\DeployCmsData.UmbracoCms.dll</HintPath>
     </Reference>
     <Reference Include="Examine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Examine.1.0.0\lib\net452\Examine.dll</HintPath>
@@ -122,17 +120,11 @@
     <Reference Include="MiniProfiler.Shared, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
       <HintPath>..\packages\MiniProfiler.Shared.4.0.138\lib\net461\MiniProfiler.Shared.dll</HintPath>
     </Reference>
-    <Reference Include="Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\packages\Moq.4.9.0\lib\net45\Moq.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NPoco, Version=3.9.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NPoco.3.9.4\lib\net45\NPoco.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework, Version=3.11.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.3.11.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -194,9 +186,6 @@
     <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Dataflow.4.9.0\lib\netstandard2.0\System.Threading.Tasks.Dataflow.dll</HintPath>
     </Reference>
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
     <Reference Include="System.Transactions" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
@@ -248,60 +237,38 @@
     <Reference Include="Validation, Version=2.4.0.0, Culture=neutral, PublicKeyToken=2fc06f0d701809a7, processorArchitecture=MSIL">
       <HintPath>..\packages\Validation.2.4.18\lib\net45\Validation.dll</HintPath>
     </Reference>
+    <Reference Include="WebConfigHelper, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebConfigHelper.1.0.3\lib\net461\WebConfigHelper.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Builders\DocumentTypeFolderTestBuilder.cs" />
-    <Compile Include="Builders\DocumentTypeTestBuilder.cs" />
-    <Compile Include="Builders\GridDataTypeTestBuilder.cs" />
-    <Compile Include="Builders\TemplateTestBuilder.cs" />
-    <Compile Include="Builders\UmbracoLibraryTestBuilder.cs" />
-    <Compile Include="Constants\DocumentTypeAlias.cs" />
-    <Compile Include="Constants\Enums.cs" />
-    <Compile Include="Constants\PropertyAlias.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Helpers\ResourceHelper.cs" />
+    <Compile Include="ApiController\IntegrationTestBaseController.cs" />
+    <Compile Include="Constants\LocalDataTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tests\CreateNewDocumentType.cs" />
-    <Compile Include="Tests\CreateNewDocumentTypeFolder.cs" />
-    <Compile Include="Tests\GridDataTypeBuilder.cs" />
-    <Compile Include="Tests\CreateNewProperties.cs" />
-    <Compile Include="Tests\DeleteDocumentType.cs" />
-    <Compile Include="Tests\MultiNodeTreePicker.cs" />
-    <Compile Include="Tests\Templates.cs" />
-    <Compile Include="Tests\UmbracoUpgradeLog.cs" />
-    <Compile Include="Tests\UpdateDocumentType.cs" />
-    <Compile Include="Tests\UpdateProperties.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DeployCmsData.Core\DeployCmsData.Core.csproj">
-      <Project>{c3d50060-ee8d-4f4c-81df-1d8dbd665bd2}</Project>
-      <Name>DeployCmsData.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DeployCmsData.UmbracoCms\DeployCmsData.UmbracoCms.csproj">
-      <Project>{23962911-6a2c-4dcb-a7ca-4fea0840d0b9}</Project>
-      <Name>DeployCmsData.UmbracoCms</Name>
-    </ProjectReference>
+    <Compile Include="UpgradeScripts\AllDataTypes.cs" />
+    <Compile Include="UpgradeScripts\BuildHomePage.cs" />
+    <Compile Include="UpgradeScripts\BuildWebsite.cs" />
+    <Compile Include="UpgradeScripts\ClearTheDecks.cs" />
+    <Compile Include="UpgradeScripts\CreateContent.cs" />
+    <Compile Include="UpgradeScripts\MultiNodeTreePicker.cs" />
+    <Compile Include="UpgradeScripts\Templates.cs" />
+    <Compile Include="UpgradeScripts\UpdateHomePage.cs" />
+    <Compile Include="UpgradeScripts\Upgrade01.cs" />
+    <Compile Include="UpgradeScripts\Upgrade02.cs" />
+    <Compile Include="UpgradeScripts\Upgrade04.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
-      <Link>CustomDictionary.xml</Link>
-    </CodeAnalysisDictionary>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Constants\GridConfig.txt" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets" Condition="Exists('..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\NUnit.3.11.0\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit.3.11.0\build\NUnit.props'))" />
-    <Error Condition="!Exists('..\packages\NUnit3TestAdapter.3.11.2\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit3TestAdapter.3.11.2\build\net35\NUnit3TestAdapter.props'))" />
     <Error Condition="!Exists('..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets'))" />
   </Target>
-  <Import Project="..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets" Condition="Exists('..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" />
 </Project>
