@@ -78,29 +78,4 @@ namespace DeployCmsData.UmbracoCms.Models
             Sections = new Collection<Section>();
         }
     }
-
-    public class Area
-    {
-        [JsonProperty("grid")]
-        public int Grid { get; set; }
-        [JsonProperty("editors")]
-        public Collection<string> Editors { get; }
-        [JsonProperty("maxItems")]
-        public int MaxItems { get; set; }
-        [JsonProperty("allowAll")]
-        public bool AllowAll { get; set; }
-        [JsonProperty("allowed")]
-        public Collection<string> Allowed { get; }
-
-        public Area(int grid)
-        {
-            Grid = grid;
-        }
-
-        public Area(int grid, params string[] editors)
-        {
-            Grid = grid;
-            Editors = new Collection<string>(editors.ToList());
-        }
-    }
 }

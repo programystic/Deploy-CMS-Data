@@ -10,11 +10,11 @@ namespace DeployCmsData.UmbracoCms.Models
         [JsonProperty("name")]
         public string Name { get; set; }
         [JsonProperty("areas")]
-        public Collection<Area> Areas { get; }
+        public Collection<GridArea> Areas { get; }
 
         public GridLayout()
         {
-            Areas = new Collection<Area>();
+            Areas = new Collection<GridArea>();
         }
     }
 }
