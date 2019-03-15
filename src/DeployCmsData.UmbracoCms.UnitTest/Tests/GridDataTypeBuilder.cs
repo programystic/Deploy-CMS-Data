@@ -3,13 +3,14 @@ using DeployCmsData.UmbracoCms.UnitTest.Helpers;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
+using System.Linq;
 using Umbraco.Core.Models;
 using static Umbraco.Core.Constants;
 
 namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 {
     [TestFixture]
-    public static class CreateNewGridDataType
+    public static class GridDataTypeBuilder
     {
         [Test]
         public static void DefaultGridView()
@@ -187,25 +188,114 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             Assert.AreEqual("classic", builder.GridRtePreValue.Mode);
         }
 
-        //[Test]
-        //public static void Json()
-        //{
-        //    var expectedJson = ResourceHelper.GetEmbeddedResource("GridConfig.txt");
+        [Test]
+        public static void AddAreaToRowWidthOnlyExistingRow()
+        {
+            var builder = new GridDataTypeTestBuilder(Guid.NewGuid())
+                .Build();
 
-        //    var builder = new GridDataTypeTestBuilder(Guid.NewGuid())
-        //        .Build();
+            builder
+                .AddRow("row 1", 2, 4)
+                .AddAreaToRow("row 1", 6)
+                .Build();
 
-        //    builder
-        //        .AddLayout("Headline", 12)
-        //        .AddLayout("Article", 4, 8)
-        //        .AddLayout("Article", 4)
-        //        .AddLayout("", 4)
-        //        .Build();
+            var row = builder.GridItemsPreValue.Rows.FirstOrDefault(x => x.Name == "row 1");
 
-        //    var items = JsonConvert.SerializeObject(builder.Configuration.Items);
-        //    var rte = JsonConvert.SerializeObject(builder.Configuration.Rte);
+            Assert.IsNotNull(row);
+            Assert.AreEqual(3, row.Areas.Count);
 
-        //    Assert.AreEqual(expectedJson, $"{{\"items\":{items},\"rte\":{rte}}}");
-        //}
+            Assert.AreEqual(2, row.Areas[0].Grid);
+            Assert.AreEqual(4, row.Areas[1].Grid);
+            Assert.AreEqual(6, row.Areas[2].Grid);
+
+            Assert.AreEqual(true, row.Areas[0].AllowAll);
+            Assert.AreEqual(true, row.Areas[1].AllowAll);
+            Assert.AreEqual(true, row.Areas[2].AllowAll);
+
+            Assert.AreEqual(null, row.Areas[0].Editors);
+            Assert.AreEqual(null, row.Areas[1].Editors);
+            Assert.AreEqual(null, row.Areas[2].Editors);
+
+            Assert.AreEqual(0, row.Areas[0].MaxItems);
+            Assert.AreEqual(0, row.Areas[1].MaxItems);
+            Assert.AreEqual(0, row.Areas[2].MaxItems);
+        }
+
+        [Test]
+        public static void AddAreaToRowWidthAndMaxItemsNewRow()
+        {
+            var builder = new GridDataTypeTestBuilder(Guid.NewGuid())
+                .Build();
+
+            builder
+                .AddAreaToRow("row 1", 2, 10)
+                .AddAreaToRow("row 1", 4, 20)
+                .AddAreaToRow("row 1", 6, 30)
+                .Build();
+
+            var row = builder.GridItemsPreValue.Rows.FirstOrDefault(x => x.Name == "row 1");
+
+            Assert.IsNotNull(row);
+            Assert.AreEqual(3, row.Areas.Count);
+
+            Assert.AreEqual(2, row.Areas[0].Grid);
+            Assert.AreEqual(4, row.Areas[1].Grid);
+            Assert.AreEqual(6, row.Areas[2].Grid);
+
+            Assert.AreEqual(true, row.Areas[0].AllowAll);
+            Assert.AreEqual(true, row.Areas[1].AllowAll);
+            Assert.AreEqual(true, row.Areas[2].AllowAll);
+
+            Assert.AreEqual(null, row.Areas[0].Editors);
+            Assert.AreEqual(null, row.Areas[1].Editors);
+            Assert.AreEqual(null, row.Areas[2].Editors);
+
+            Assert.AreEqual(10, row.Areas[0].MaxItems);
+            Assert.AreEqual(20, row.Areas[1].MaxItems);
+            Assert.AreEqual(30, row.Areas[2].MaxItems);
+        }
+
+        [Test]
+        public static void AddAreaToRowWidthAndMaxItemsAndEditorsNewRow()
+        {
+            var builder = new GridDataTypeTestBuilder(Guid.NewGuid())
+                .Build();
+
+            builder
+                .AddAreaToRow("row 1", 2, 10, "rte", "headline", "image")
+                .AddAreaToRow("row 1", 4, 20, "image")
+                .AddAreaToRow("row 1", 6, 30, "headline", "rte")
+                .Build();
+
+            var row = builder.GridItemsPreValue.Rows.FirstOrDefault(x => x.Name == "row 1");
+
+            Assert.IsNotNull(row);
+            Assert.AreEqual(3, row.Areas.Count);
+
+            Assert.AreEqual(2, row.Areas[0].Grid);
+            Assert.AreEqual(4, row.Areas[1].Grid);
+            Assert.AreEqual(6, row.Areas[2].Grid);
+
+            Assert.AreEqual(10, row.Areas[0].MaxItems);
+            Assert.AreEqual(20, row.Areas[1].MaxItems);
+            Assert.AreEqual(30, row.Areas[2].MaxItems);
+
+            Assert.AreEqual(false, row.Areas[0].AllowAll);
+            Assert.AreEqual(false, row.Areas[1].AllowAll);
+            Assert.AreEqual(false, row.Areas[2].AllowAll);
+
+            Assert.AreEqual(3, row.Areas[0].Editors.Count);
+            Assert.AreEqual(1, row.Areas[1].Editors.Count);
+            Assert.AreEqual(2, row.Areas[2].Editors.Count);
+
+            Assert.AreEqual("rte", row.Areas[0].Editors[0]);
+            Assert.AreEqual("headline", row.Areas[0].Editors[1]);
+            Assert.AreEqual("image", row.Areas[0].Editors[2]);
+
+            Assert.AreEqual("image", row.Areas[1].Editors[0]);
+
+            Assert.AreEqual("headline", row.Areas[2].Editors[0]);
+            Assert.AreEqual("rte", row.Areas[2].Editors[1]);
+        }
     }
 }

@@ -18,14 +18,14 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             const int maxNumber = 5;
             const int minNumber = 1;
 
-            var contentGuid = new Guid("{50CC58EB-19A7-4165-B74F-BD9FA0A4F6BD}");
-            var expectedJson = StringFormat.ToInvariant($"{{\"type\":\"content\",\"query\":\"umb://document/{contentGuid}\"}}");
+            var contentGuid = new Guid("{50CC58EB-19A7-4165-B74F-BD9FA0A4F6BD}");           
 
             var content = new Mock<IContent>();
             content.Setup(x => x.Key).Returns(contentGuid);
 
             var mediaService = new Mock<IMediaService>();
             var dataTypeService = new Mock<IDataTypeService>();
+
             var contentService = new Mock<IContentService>();
             contentService.Setup(x => x.GetById(contentId)).Returns(content.Object);
 
@@ -61,7 +61,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             Assert.IsTrue(builder.Configuration.ShowOpen);
             Assert.AreEqual("type1,type2", builder.Configuration.Filter);
             Assert.AreEqual("Content", builder.Configuration.TreeSource.ObjectType);
-            Assert.AreEqual("Content", builder.Configuration.TreeSource.StartNodeId.ToString());
+            Assert.AreEqual("umb://document/50cc58eb-19a7-4165-b74f-bd9fa0a4f6bd", builder.Configuration.TreeSource.StartNodeQuery);
         }
 
         [Test]
