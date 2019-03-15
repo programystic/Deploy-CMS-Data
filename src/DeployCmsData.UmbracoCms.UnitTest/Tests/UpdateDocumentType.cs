@@ -304,5 +304,64 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             Assert.AreEqual(30, updatedDocType.PropertyGroups[2].SortOrder);
             Assert.AreEqual(40, updatedDocType.PropertyGroups[3].SortOrder);
         }
+
+        [Test]
+        public static void AllowAtRootRemainsTrue()
+        {
+            var setup = new DocumentTypeTestBuilder(Alias);
+            var builder = setup
+                .SetupExistingDocumentType(Alias, Id, ParentId)
+                .AllowAtRoot()
+                .Build();
+
+            var docType = builder.Update();
+
+            Assert.IsTrue(docType.AllowedAsRoot);
+        }
+
+        [Test]
+        public static void AllowAtRootRemainsFalse()
+        {
+            var setup = new DocumentTypeTestBuilder(Alias);
+            var builder = setup
+                .SetupExistingDocumentType(Alias, Id, ParentId)
+                .Build();
+
+            var docType = builder.Update();
+
+            Assert.IsFalse(docType.AllowedAsRoot);
+        }
+
+        [Test]
+        public static void AllowAtRootChangesFromTrueToFalse()
+        {
+            var setup = new DocumentTypeTestBuilder(Alias);
+            var builder = setup
+                .SetupExistingDocumentType(Alias, Id, ParentId)
+                .AllowAtRoot()
+                .Build();
+
+            var docType = builder
+                .NoAllowedAsRoot()
+                .Update();
+
+            Assert.IsFalse(docType.AllowedAsRoot);
+        }
+
+        [Test]
+        public static void AllowAtRootChangesFromFalseToTrue()
+        {
+            var setup = new DocumentTypeTestBuilder(Alias);
+
+            var builder = setup
+                .SetupExistingDocumentType(Alias, Id, ParentId)
+                .Build();
+
+            var docType = builder
+                .AllowedAsRoot()
+                .Update();
+
+            Assert.IsTrue(docType.AllowedAsRoot);
+        }
     }
 }
