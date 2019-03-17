@@ -126,5 +126,32 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .Name("My New Tree Picker")
                 .Build();
         }
+
+        [Test]
+        public static void SetStartNodeContentWithId()
+        {
+            const int contentId = 1234;
+
+            var contentGuid = new Guid("{50CC58EB-19A7-4165-B74F-BD9FA0A4F6BD}");
+
+            var content = new Mock<IContent>();
+            content.Setup(x => x.Key).Returns(contentGuid);
+
+            var mediaService = new Mock<IMediaService>();
+            var dataTypeService = new Mock<IDataTypeService>();
+            var contentService = new Mock<IContentService>();
+            contentService.Setup(x => x.GetById(contentId)).Returns(content.Object);
+
+            var builder = new MultiNodeTreePickerBuilder(
+                dataTypeService.Object,
+                contentService.Object,
+                mediaService.Object,
+                Guid.NewGuid());
+
+            builder
+                .Name("My New Tree Picker")
+                .StartNodeContent(contentId)
+                .Build();            
+        }
     }
 }
