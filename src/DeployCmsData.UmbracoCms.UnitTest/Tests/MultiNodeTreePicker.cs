@@ -1,11 +1,11 @@
 ﻿using DeployCmsData.Core.Extensions;
 using DeployCmsData.UmbracoCms.Builders;
 using DeployCmsData.UmbracoCms.Models;
+using DeployCmsData.UmbracoCms.UnitTest.Builders;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
@@ -131,27 +131,32 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         public static void SetStartNodeContentWithId()
         {
             const int contentId = 1234;
+            Guid key = new Guid("{FD16566D-C9A8-4053-88DF-14EBB3938171}");
 
-            var contentGuid = new Guid("{50CC58EB-19A7-4165-B74F-BD9FA0A4F6BD}");
+            var builder = new MultiNodeTreePickerTestBuilder(Guid.NewGuid())
+                .ContentServiceReturnsContent(contentId, key)
+                .Build();
 
-            var content = new Mock<IContent>();
-            content.Setup(x => x.Key).Returns(contentGuid);
-
-            var mediaService = new Mock<IMediaService>();
-            var dataTypeService = new Mock<IDataTypeService>();
-            var contentService = new Mock<IContentService>();
-            contentService.Setup(x => x.GetById(contentId)).Returns(content.Object);
-
-            var builder = new MultiNodeTreePickerBuilder(
-                dataTypeService.Object,
-                contentService.Object,
-                mediaService.Object,
-                Guid.NewGuid());
-
-            builder
+            var dataType = builder
                 .Name("My New Tree Picker")
                 .StartNodeContent(contentId)
-                .Build();            
+                .Build();
+
+            var preValueStartNode = builder.PreValue(MultiNodeTreePickerBuilder.PreValueStartNode);
+
+            Assert.AreEqual("{\"type\":\"content\",\"query\":null,\"id\":\"umb://document/fd16566d-c9a8-4053-88df-14ebb3938171\"}",
+                preValueStartNode);
+
+            Assert.IsNull(builder.PreValue(MultiNodeTreePickerBuilder.PreValueFilter));
+            Assert.IsNull(builder.PreValue(MultiNodeTreePickerBuilder.PreValueMinNumber));
+            Assert.IsNull(builder.PreValue(MultiNodeTreePickerBuilder.PreValueMaxNumber));
+            Assert.AreEqual("0", builder.PreValue(MultiNodeTreePickerBuilder.PreValueShowOpenButton));
         }
+
+        // If node type is members then there's no start node
+
+        // {"startNode":{"type":"content","query":null,"id":"umb://document/484ddb7750334c61acf60a24d69d4488"},"filter":null,"minNumber":0,"maxNumber":0,"showOpenButton":false}
+        // {"startNode":{"type":"media","query":null,"id":"umb://media/6e764dfa15674c26ab3b48b121ec0bed"},"filter":null,"minNumber":0,"maxNumber":0,"showOpenButton":false}
+        // {"startNode":{"type":"content","query":"$parent/newsArticle","id":null},"filter":null,"minNumber":0,"maxNumber":0,"showOpenButton":false} 
     }
 }
