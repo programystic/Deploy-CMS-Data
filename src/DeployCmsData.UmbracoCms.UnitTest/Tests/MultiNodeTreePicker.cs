@@ -23,7 +23,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             const int minNumber = 1;
 
             var contentGuid = new Guid("{50CC58EB-19A7-4165-B74F-BD9FA0A4F6BD}");
-            var expectedJson = StringFormat.ToInvariant($"{{\"type\":\"content\",\"query\":\"umb://document/{contentGuid}\"}}");
+            var expectedJson = StringFormat.ToInvariant($"{{\"type\":\"content\",\"query\":null,\"id\":\"umb://document/{contentGuid}\"}}");
 
             var content = new Mock<IContent>();
             content.Setup(x => x.Key).Returns(contentGuid);
@@ -53,7 +53,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             Assert.AreEqual(expectedJson, preValueJson);
             Assert.AreEqual(5, builder.PreValueCount);
-            Assert.IsTrue(preValue.Query.EndsWith(contentGuid.ToString(), StringComparison.Ordinal));
+            Assert.IsTrue(preValue.Id.EndsWith(contentGuid.ToString(), StringComparison.Ordinal));
             Assert.AreEqual(Enums.StartNodeType.Content, preValue.StartNodeType);
             Assert.AreEqual(minNumber.ToString(CultureInfo.InvariantCulture), builder.PreValue(MultiNodeTreePickerBuilder.PreValueMinNumber));
             Assert.AreEqual(maxNumber.ToString(CultureInfo.InvariantCulture), builder.PreValue(MultiNodeTreePickerBuilder.PreValueMaxNumber));
@@ -69,7 +69,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             const string xPath = "$parent/newsArticle";
 
             var contentGuid = new Guid("{50CC58EB-19A7-4165-B74F-BD9FA0A4F6BD}");
-            var expectedJson = $"{{\"type\":\"content\",\"query\":\"{xPath}\"}}";
+            var expectedJson = $"{{\"type\":\"content\",\"query\":\"{xPath}\",\"id\":null}}";
 
             var content = new Mock<IContent>();
             content.Setup(x => x.Key).Returns(contentGuid);
