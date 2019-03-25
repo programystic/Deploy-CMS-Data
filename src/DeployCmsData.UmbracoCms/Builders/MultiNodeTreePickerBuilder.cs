@@ -17,6 +17,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         public const string PreValueMaxNumber = "maxNumber";
         public const string PreValueShowOpenButton = "showOpenButton";
         public const string PreValueStartNode = "startNode";
+        public const string PreValueShowPathOnHover = "showPathOnHover";
 
         private IDataTypeService _dataTypeService;
         private IContentService _contentService;
@@ -31,7 +32,10 @@ namespace DeployCmsData.UmbracoCms.Builders
         private Dictionary<string, PreValue> PreValues { get; }
 
         public int PreValueCount => PreValues.Count;
-        public string PreValue(string key) => PreValues[key].Value;
+        public string PreValue(string key)
+        {
+            return PreValues[key].Value;
+        }
 
         public MultiNodeTreePickerBuilder(Guid key)
         {
@@ -113,7 +117,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             _startNodepreValue = new MultiNodeTreePickerStartNodePreValue()
             {
                 StartNodeType = Enums.StartNodeType.Content,
-                Id = StringFormat.ToInvariant($"umb://document/{contentId}")
+                Id = _contentService.GetById(contentId).Id.ToString()
             };
             return this;
         }
@@ -148,18 +152,8 @@ namespace DeployCmsData.UmbracoCms.Builders
             _startNodepreValue = new MultiNodeTreePickerStartNodePreValue()
             {
                 StartNodeType = Enums.StartNodeType.Media,
-                Id = StringFormat.ToInvariant($"umb://media/{mediaId}"),
+                Id = StringFormat.ToInvariant($"{_mediaService.GetById(mediaId).Id}"),
                 Query = null
-            };
-            return this;
-        }
-
-        public MultiNodeTreePickerBuilder StartNodeMember()
-        {
-            _startNodepreValue = new MultiNodeTreePickerStartNodePreValue()
-            {
-                StartNodeType = Enums.StartNodeType.Member,
-                Id = "-1"
             };
             return this;
         }
@@ -191,6 +185,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             PreValues.Add(PreValueMinNumber, new PreValue(_minimumItems == 0 ? null : _minimumItems.ToString(CultureInfo.InvariantCulture)));
             PreValues.Add(PreValueMaxNumber, new PreValue(_maximumItems == 0 ? null : _maximumItems.ToString(CultureInfo.InvariantCulture)));
             PreValues.Add(PreValueShowOpenButton, new PreValue(_showOpenButton ? "1" : "0"));
+            PreValues.Add(PreValueShowPathOnHover, new PreValue("0"));
 
             _dataTypeService.SaveDataTypeAndPreValues(dataType, PreValues);
         }
