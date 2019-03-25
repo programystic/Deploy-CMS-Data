@@ -152,11 +152,5 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             Assert.IsNull(builder.PreValue(MultiNodeTreePickerBuilder.PreValueMaxNumber));
             Assert.AreEqual("0", builder.PreValue(MultiNodeTreePickerBuilder.PreValueShowOpenButton));
         }
-
-        // If node type is members then there's no start node
-
-        // {"startNode":{"type":"content","query":null,"id":"umb://document/484ddb7750334c61acf60a24d69d4488"},"filter":null,"minNumber":0,"maxNumber":0,"showOpenButton":false}
-        // {"startNode":{"type":"media","query":null,"id":"umb://media/6e764dfa15674c26ab3b48b121ec0bed"},"filter":null,"minNumber":0,"maxNumber":0,"showOpenButton":false}
-        // {"startNode":{"type":"content","query":"$parent/newsArticle","id":null},"filter":null,"minNumber":0,"maxNumber":0,"showOpenButton":false} 
     }
 }
