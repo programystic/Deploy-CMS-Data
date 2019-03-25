@@ -241,6 +241,7 @@
     <Compile Include="Builders\DocumentTypeFolderTestBuilder.cs" />
     <Compile Include="Builders\DocumentTypeTestBuilder.cs" />
     <Compile Include="Builders\GridDataTypeTestBuilder.cs" />
+    <Compile Include="Builders\MultiNodeTreePickerTestBuilder.cs" />
     <Compile Include="Builders\TemplateTestBuilder.cs" />
     <Compile Include="Builders\UmbracoLibraryTestBuilder.cs" />
     <Compile Include="Constants\DocumentTypeAlias.cs" />

@@ -12,9 +12,8 @@ namespace DeployCmsData.UmbracoCms.Services
             var serializerSettings = new JsonSerializerSettings
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                Converters = new List<JsonConverter> { new StringEnumConverter { CamelCaseText = true } },
-                NullValueHandling = NullValueHandling.Ignore,
-
+                Converters = new List<JsonConverter> { new StringEnumConverter { CamelCaseText = true } }
+                //NullValueHandling = NullValueHandling.Ignore                 
             };
 
             var jsonString = JsonConvert.SerializeObject(value, serializerSettings);

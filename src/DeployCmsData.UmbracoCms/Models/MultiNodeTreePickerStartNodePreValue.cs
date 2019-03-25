@@ -7,7 +7,7 @@ namespace DeployCmsData.UmbracoCms.Models
     {
         [JsonProperty("type")]
         public StartNodeType StartNodeType { get; set; }
-        public string Id { get; set; }
         public string Query { get; set; }
+        public string Id { get; set; }
     }
 }
