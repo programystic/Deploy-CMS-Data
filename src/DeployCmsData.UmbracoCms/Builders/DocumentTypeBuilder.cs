@@ -31,7 +31,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         internal readonly IList<string> RemoveFieldList = new List<string>();
         internal readonly IList<IContentTypeComposition> Compositions = new List<IContentTypeComposition>();
         internal IList<ContentTypeSort> AllowedChildNodeTypes = new List<ContentTypeSort>();
-        internal IList<ContentTypeSort> RemoveAllowedChildNodeTypes = new List<ContentTypeSort>();
+        internal IList<int> RemoveAllowedChildNodeTypes = new List<int>();
         public IList<PropertyBuilder> FieldList { get; } = new List<PropertyBuilder>();
 
         public DocumentTypeBuilder(string alias)
@@ -204,11 +204,12 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         private void RemoveNotAllowedTypes()
         {
-            foreach (var allowedType in RemoveAllowedChildNodeTypes)
+            foreach (var typeIdToRemove in RemoveAllowedChildNodeTypes)
             {
-                if (AllowedChildNodeTypes.Any(x => x.Id.Value == allowedType.Id.Value))
+                var typeToRemove = AllowedChildNodeTypes.FirstOrDefault(x => x.Id.Value == typeIdToRemove);
+                if (typeToRemove != null)
                 {
-                    AllowedChildNodeTypes.Remove(allowedType);
+                    AllowedChildNodeTypes.Remove(typeToRemove);
                 }
             }
         }
@@ -428,7 +429,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             var documentType = _contentTypeService.GetContentType(alias);
             if (documentType != null)
             {
-                RemoveAllowedChildNodeTypes.Add(new ContentTypeSort(documentType.Id, RemoveAllowedChildNodeTypes.Count + 1));
+                RemoveAllowedChildNodeTypes.Add(documentType.Id);
             }
 
             return this;

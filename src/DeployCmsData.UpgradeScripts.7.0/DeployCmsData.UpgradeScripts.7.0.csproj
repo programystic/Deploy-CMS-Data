@@ -222,6 +222,7 @@
     <Compile Include="UpgradeScripts\ClearTheDecks.cs" />
     <Compile Include="UpgradeScripts\CreateContent.cs" />
     <Compile Include="UpgradeScripts\MultiNodeTreePicker.cs" />
+    <Compile Include="UpgradeScripts\RemoveAllowedDocType.cs" />
     <Compile Include="UpgradeScripts\Templates.cs" />
     <Compile Include="UpgradeScripts\UpdateHomePage.cs" />
     <Compile Include="UpgradeScripts\Upgrade01.cs" />
