@@ -79,7 +79,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .StartNodeContent(key)
                 .Build();
             
-            Assert.AreEqual("Content", builder.Configuration.TreeSource.ObjectType);
+            Assert.AreEqual("content", builder.Configuration.TreeSource.ObjectType);
             Assert.AreEqual($"umb://document/{key.ToString().ToLower().Replace("-", "")}", builder.Configuration.TreeSource.StartNodeId.ToString());
             Assert.AreEqual("document", builder.Configuration.TreeSource.StartNodeId.EntityType);
             Assert.IsNull(builder.Configuration.TreeSource.StartNodeQuery);
@@ -100,7 +100,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .StartNodeContent(contentId)
                 .Build();
 
-            Assert.AreEqual("Content", builder.Configuration.TreeSource.ObjectType);
+            Assert.AreEqual("content", builder.Configuration.TreeSource.ObjectType);
             Assert.AreEqual($"umb://document/{key.ToString().ToLower().Replace("-", "")}", builder.Configuration.TreeSource.StartNodeId.ToString());
             Assert.AreEqual("document", builder.Configuration.TreeSource.StartNodeId.EntityType);
             Assert.IsNull(builder.Configuration.TreeSource.StartNodeQuery);
@@ -121,7 +121,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .StartNodeContent(contentId.ToString())
                 .Build();
 
-            Assert.AreEqual("Content", builder.Configuration.TreeSource.ObjectType);
+            Assert.AreEqual("content", builder.Configuration.TreeSource.ObjectType);
             Assert.AreEqual($"umb://document/{key.ToString().ToLower().Replace("-", "")}", builder.Configuration.TreeSource.StartNodeId.ToString());
             Assert.AreEqual("document", builder.Configuration.TreeSource.StartNodeId.EntityType);
             Assert.IsNull(builder.Configuration.TreeSource.StartNodeQuery);
@@ -143,7 +143,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .StartNodeXpath(filter)
                 .Build();
 
-            Assert.AreEqual("Content", builder.Configuration.TreeSource.ObjectType);
+            Assert.AreEqual("content", builder.Configuration.TreeSource.ObjectType);
             Assert.IsNull(builder.Configuration.TreeSource.StartNodeId);
             Assert.AreEqual(filter, builder.Configuration.TreeSource.StartNodeQuery);
         }
@@ -163,7 +163,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .StartNodeMedia(key)
                 .Build();
 
-            Assert.AreEqual("Media", builder.Configuration.TreeSource.ObjectType);
+            Assert.AreEqual("media", builder.Configuration.TreeSource.ObjectType);
             Assert.AreEqual($"umb://media/{key.ToString().ToLower().Replace("-", "")}", builder.Configuration.TreeSource.StartNodeId.ToString());
             Assert.AreEqual("media", builder.Configuration.TreeSource.StartNodeId.EntityType);
             Assert.IsNull(builder.Configuration.TreeSource.StartNodeQuery);
@@ -184,7 +184,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .StartNodeMedia(contentId)
                 .Build();
 
-            Assert.AreEqual("Media", builder.Configuration.TreeSource.ObjectType);
+            Assert.AreEqual("media", builder.Configuration.TreeSource.ObjectType);
             Assert.AreEqual($"umb://media/{key.ToString().ToLower().Replace("-", "")}", builder.Configuration.TreeSource.StartNodeId.ToString());
             Assert.AreEqual("media", builder.Configuration.TreeSource.StartNodeId.EntityType);
             Assert.IsNull(builder.Configuration.TreeSource.StartNodeQuery);
@@ -205,7 +205,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .StartNodeMedia(contentId.ToString())
                 .Build();
 
-            Assert.AreEqual("Media", builder.Configuration.TreeSource.ObjectType);
+            Assert.AreEqual("media", builder.Configuration.TreeSource.ObjectType);
             Assert.AreEqual($"umb://media/{key.ToString().ToLower().Replace("-", "")}", builder.Configuration.TreeSource.StartNodeId.ToString());
             Assert.AreEqual("media", builder.Configuration.TreeSource.StartNodeId.EntityType);
             Assert.IsNull(builder.Configuration.TreeSource.StartNodeQuery);

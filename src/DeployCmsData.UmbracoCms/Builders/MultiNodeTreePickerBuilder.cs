@@ -2,12 +2,12 @@
 using DeployCmsData.UmbracoCms.Enums;
 using DeployCmsData.UmbracoCms.Models;
 using System;
+using System.Linq;
 using Umbraco.Core;
 using Umbraco.Core.Composing;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web.PropertyEditors;
-using System.Linq;
 
 namespace DeployCmsData.UmbracoCms.Builders
 {
@@ -32,7 +32,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             _contentService = Current.Services.ContentService;
             _mediaService = Current.Services.MediaService;
             KeyValue = key;
-            _startNodeConfiguration = new MultiNodeTreePickerStartNodeConfiguration() { StartNodeType = Enums.StartNodeType.Content };
+            _startNodeConfiguration = new MultiNodeTreePickerStartNodeConfiguration() { StartNodeType = StartNodeType.Content };
         }
 
         public MultiNodeTreePickerBuilder(
@@ -45,7 +45,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             _contentService = contentService;
             _mediaService = mediaService;
             KeyValue = key;
-            _startNodeConfiguration = new MultiNodeTreePickerStartNodeConfiguration() { StartNodeType = Enums.StartNodeType.Content };
+            _startNodeConfiguration = new MultiNodeTreePickerStartNodeConfiguration() { StartNodeType = StartNodeType.Content };
         }
 
         public MultiNodeTreePickerBuilder Name(string multiNodeTreePickerName)
@@ -200,7 +200,7 @@ namespace DeployCmsData.UmbracoCms.Builders
                 Configuration.TreeSource = new MultiNodePickerConfigurationTreeSource
                 {
                     StartNodeId = new GuidUdi(new Uri(_startNodeConfiguration.Id)),
-                    ObjectType = Enum.GetName(typeof(StartNodeType), _startNodeConfiguration.StartNodeType)
+                    ObjectType = Enum.GetName(typeof(StartNodeType), _startNodeConfiguration.StartNodeType).ToLower()
                 };
                 return;
             }
@@ -209,7 +209,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             {
                 Configuration.TreeSource = new MultiNodePickerConfigurationTreeSource
                 {
-                    ObjectType = Enum.GetName(typeof(StartNodeType), _startNodeConfiguration.StartNodeType),
+                    ObjectType = Enum.GetName(typeof(StartNodeType), _startNodeConfiguration.StartNodeType).ToLower(),
                     StartNodeQuery = _startNodeConfiguration.Query
                 };
             }
