@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("DeployCmsData.UmbracoCms")]
-[assembly: AssemblyDescription("Umbraco CMS deployment")]
+[assembly: AssemblyDescription("Create migration scripts for your CI/CD Umbraco CMS deployments.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Programystic")]
 [assembly: AssemblyProduct("DeployCmsData.UmbracoCms")]
