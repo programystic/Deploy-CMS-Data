@@ -1,7 +1,6 @@
-﻿using System;
+﻿using DeployCmsData.Core.Interfaces;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using DeployCmsData.Core.Interfaces;
 
 namespace DeployCmsData.Core.Data
 {
@@ -10,7 +9,28 @@ namespace DeployCmsData.Core.Data
         IEnumerable<Type> IUpgradeScriptRepository.GetTypes =>
             GetTypes;
 
-        public static IEnumerable<Type> GetTypes =>
-            AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes());
+        private IEnumerable<Type> GetTypes
+        {
+            get
+            {
+                var result = new List<Type>();
+                var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+                foreach (var assembly in assemblies)
+                {
+                    try
+                    {
+                        var assemblyTypes = assembly.GetTypes();
+                        result.AddRange(assemblyTypes);
+                    }
+                    catch
+                    {
+                        // there was an error calling assembly.GetTypes() - there's nothing we can do 
+                    }
+                }
+
+                return result;
+            }
+        }
     }
 }
