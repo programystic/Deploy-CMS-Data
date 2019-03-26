@@ -7,6 +7,7 @@ using Umbraco.Core.Composing;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web.PropertyEditors;
+using System.Linq;
 
 namespace DeployCmsData.UmbracoCms.Builders
 {
@@ -55,7 +56,7 @@ namespace DeployCmsData.UmbracoCms.Builders
 
         public MultiNodeTreePickerBuilder AllowItemsOfType(params string[] types)
         {
-            _filter = types;
+            _filter = types.Select(x => x.Trim()).ToArray();
             return this;
         }
 

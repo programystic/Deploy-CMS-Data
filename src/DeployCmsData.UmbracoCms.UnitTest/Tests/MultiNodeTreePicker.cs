@@ -1,5 +1,5 @@
-﻿using DeployCmsData.Core.Extensions;
-using DeployCmsData.UmbracoCms.Builders;
+﻿using DeployCmsData.UmbracoCms.Builders;
+using DeployCmsData.UmbracoCms.UnitTest.Builders;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -14,11 +14,69 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         [Test]
         public static void CreateSimplePicker()
         {
+            var builder = new MultiNodeTreePickerTestBuilder(Guid.NewGuid())
+                .Build();
+
+            builder
+                .Name("My New Tree Picker")
+                .ShowOpenButton()
+                .Build();
+
+            Assert.IsNull(builder.Configuration.TreeSource);
+            Assert.IsTrue(builder.Configuration.ShowOpen);
+            Assert.AreEqual(0, builder.Configuration.MinNumber);
+            Assert.AreEqual(0, builder.Configuration.MaxNumber);
+            Assert.IsNull(builder.Configuration.Filter);
+        }
+
+        [Test]
+        public static void Filter()
+        {
+            var builder = new MultiNodeTreePickerTestBuilder(Guid.NewGuid())
+                .Build();
+
+            builder
+                .Name("My New Tree Picker")
+                .AllowItemsOfType("type1", "type2", " type3", " type4 ")
+                .ShowOpenButton()
+                .Build();
+
+            Assert.IsNull(builder.Configuration.TreeSource);
+            Assert.IsTrue(builder.Configuration.ShowOpen);
+            Assert.AreEqual("type1,type2,type3,type4", builder.Configuration.Filter);
+        }
+
+        [Test]
+        public static void MinAndMaxItems()
+        {
+            const int maxNumber = 5;
+            const int minNumber = 1;
+
+            var builder = new MultiNodeTreePickerTestBuilder(Guid.NewGuid())
+                .Build();
+
+            builder
+                .Name("My New Tree Picker")
+                .MinimumNumberOfItems(minNumber)
+                .MaximumNumberOfItems(maxNumber)
+                .ShowOpenButton()
+                .Build();
+
+            Assert.IsNull(builder.Configuration.TreeSource);
+            Assert.IsTrue(builder.Configuration.ShowOpen);
+            Assert.AreEqual(minNumber, builder.Configuration.MinNumber);
+            Assert.AreEqual(maxNumber, builder.Configuration.MaxNumber);
+            Assert.IsNull(builder.Configuration.Filter);
+        }
+
+
+        public static void CreateSimplePickerOld()
+        {
             const int contentId = 1234;
             const int maxNumber = 5;
             const int minNumber = 1;
 
-            var contentGuid = new Guid("{50CC58EB-19A7-4165-B74F-BD9FA0A4F6BD}");           
+            var contentGuid = new Guid("{50CC58EB-19A7-4165-B74F-BD9FA0A4F6BD}");
 
             var content = new Mock<IContent>();
             content.Setup(x => x.Key).Returns(contentGuid);
@@ -64,7 +122,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             Assert.AreEqual("umb://document/50cc58eb-19a7-4165-b74f-bd9fa0a4f6bd", builder.Configuration.TreeSource.StartNodeQuery);
         }
 
-        [Test]
+
         public static void Xpath()
         {
             const int contentId = 1234;
@@ -105,7 +163,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             //Assert.IsTrue(preValue.Query.EndsWith(xPath, StringComparison.Ordinal));
         }
 
-        [Test]
+
         public static void PickerWithNoValues()
         {
             const int contentId = 1234;
