@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>$description$</description>    
     <copyright>Copyright 2019</copyright>
-    <tags>umbraco deployment startup</tags>
+    <tags>umbraco deployment migration startup</tags>
     <dependencies>
       <dependency id="DeployCmsData.Core" version="2.0.0" />
     </dependencies>

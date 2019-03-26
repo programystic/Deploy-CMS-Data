@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("DeployCmsData.Core")]
-[assembly: AssemblyDescription("Run code on startup")]
+[assembly: AssemblyDescription("Upgrade script management core code for DeployCmsData.UmbracoCms")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Programystic")]
 [assembly: AssemblyProduct("DeployCmsData.Core")]
