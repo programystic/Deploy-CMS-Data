@@ -10,17 +10,18 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
     {
         private readonly MultiNodeTreePickerBuilder _builder;
         private Mock<IContentService> _contentService;
+        private Mock<IMediaService> _mediaService;
 
         public MultiNodeTreePickerTestBuilder(Guid key)
         {
-            var mediaService = new Mock<IMediaService>();
             var dataTypeService = new Mock<IDataTypeService>();
+            _mediaService = new Mock<IMediaService>();
             _contentService = new Mock<IContentService>();
 
             _builder = new MultiNodeTreePickerBuilder(
                 dataTypeService.Object,
                 _contentService.Object,
-                mediaService.Object,
+                _mediaService.Object,
                 key);
         }
 
@@ -28,7 +29,17 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
         {
             var content = new Mock<IContent>();
             content.SetupGet(x => x.Key).Returns(key);
+            content.SetupGet(x => x.Id).Returns(contentId);
+
             _contentService.Setup(x => x.GetById(contentId)).Returns(content.Object);
+            _contentService.Setup(x => x.GetById(key)).Returns(content.Object);
+
+            var media = new Mock<IMedia>();
+            media.SetupGet(x => x.Key).Returns(key);
+            media.SetupGet(x => x.Id).Returns(contentId);
+
+            _mediaService.Setup(x => x.GetById(contentId)).Returns(media.Object);
+            _mediaService.Setup(x => x.GetById(key)).Returns(media.Object);
 
             return this;
         }

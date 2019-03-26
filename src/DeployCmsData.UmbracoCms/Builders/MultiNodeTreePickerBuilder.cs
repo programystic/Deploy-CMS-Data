@@ -31,7 +31,10 @@ namespace DeployCmsData.UmbracoCms.Builders
         private Dictionary<string, PreValue> PreValues { get; }
 
         public int PreValueCount => PreValues.Count;
-        public string PreValue(string key) => PreValues[key].Value;
+        public string PreValue(string key)
+        {
+            return PreValues[key].Value;
+        }
 
         public MultiNodeTreePickerBuilder(Guid key)
         {
@@ -113,7 +116,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             _startNodepreValue = new MultiNodeTreePickerStartNodePreValue()
             {
                 StartNodeType = Enums.StartNodeType.Content,
-                Id = StringFormat.ToInvariant($"umb://document/{contentId}")
+                Id = _contentService.GetById(contentId).Id.ToString()
             };
             return this;
         }
@@ -148,18 +151,8 @@ namespace DeployCmsData.UmbracoCms.Builders
             _startNodepreValue = new MultiNodeTreePickerStartNodePreValue()
             {
                 StartNodeType = Enums.StartNodeType.Media,
-                Id = StringFormat.ToInvariant($"umb://media/{mediaId}"),
+                Id = StringFormat.ToInvariant($"{_mediaService.GetById(mediaId).Id}"),
                 Query = null
-            };
-            return this;
-        }
-
-        public MultiNodeTreePickerBuilder StartNodeMember()
-        {
-            _startNodepreValue = new MultiNodeTreePickerStartNodePreValue()
-            {
-                StartNodeType = Enums.StartNodeType.Member,
-                Id = "-1"
             };
             return this;
         }
@@ -169,7 +162,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             var dataType = _dataTypeService.GetDataTypeDefinitionById(KeyValue);
             if (dataType == null)
             {
-                dataType = new DataTypeDefinition(-1, Umbraco.Core.Constants.PropertyEditors.MultiNodeTreePicker2Alias);
+                dataType = new DataTypeDefinition(Umbraco.Core.Constants.PropertyEditors.MultiNodeTreePickerAlias);
             }
 
             dataType.Name = NameValue;
