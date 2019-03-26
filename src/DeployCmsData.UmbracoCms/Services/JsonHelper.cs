@@ -10,12 +10,12 @@ namespace DeployCmsData.UmbracoCms.Services
         public static string SerializePreValueObject(object value)
         {
             var serializerSettings = new JsonSerializerSettings
-            {                
+            {
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                Converters = new List<JsonConverter> { new StringEnumConverter { CamelCaseText = true } },
-                NullValueHandling = NullValueHandling.Ignore                
+                Converters = new List<JsonConverter> { new StringEnumConverter { CamelCaseText = true } }
+                //NullValueHandling = NullValueHandling.Ignore                 
             };
-            
+
             var jsonString = JsonConvert.SerializeObject(value, serializerSettings);
 
             return jsonString;
