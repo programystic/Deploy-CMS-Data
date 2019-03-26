@@ -1,10 +1,6 @@
-﻿using DeployCmsData.UmbracoCms.Builders;
-using DeployCmsData.UmbracoCms.UnitTest.Builders;
-using Moq;
+﻿using DeployCmsData.UmbracoCms.UnitTest.Builders;
 using NUnit.Framework;
 using System;
-using Umbraco.Core.Models;
-using Umbraco.Core.Services;
 
 namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 {
@@ -19,11 +15,10 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             builder
                 .Name("My New Tree Picker")
-                .ShowOpenButton()
                 .Build();
 
             Assert.IsNull(builder.Configuration.TreeSource);
-            Assert.IsTrue(builder.Configuration.ShowOpen);
+            Assert.IsFalse(builder.Configuration.ShowOpen);
             Assert.AreEqual(0, builder.Configuration.MinNumber);
             Assert.AreEqual(0, builder.Configuration.MaxNumber);
             Assert.IsNull(builder.Configuration.Filter);
@@ -69,124 +64,152 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             Assert.IsNull(builder.Configuration.Filter);
         }
 
-
-        public static void CreateSimplePickerOld()
+        [Test]
+        public static void SetStartNodeContentWithGuidId()
         {
             const int contentId = 1234;
-            const int maxNumber = 5;
-            const int minNumber = 1;
+            Guid key = new Guid("{FD16566D-C9A8-4053-88DF-14EBB3938171}");
 
-            var contentGuid = new Guid("{50CC58EB-19A7-4165-B74F-BD9FA0A4F6BD}");
+            var builder = new MultiNodeTreePickerTestBuilder(Guid.NewGuid())
+                .ContentServiceReturnsContent(contentId, key)
+                .Build();
 
-            var content = new Mock<IContent>();
-            content.Setup(x => x.Key).Returns(contentGuid);
+            var dataType = builder
+                .Name("My New Tree Picker")
+                .StartNodeContent(key)
+                .Build();
+            
+            Assert.AreEqual("Content", builder.Configuration.TreeSource.ObjectType);
+            Assert.AreEqual($"umb://document/{key.ToString().ToLower().Replace("-", "")}", builder.Configuration.TreeSource.StartNodeId.ToString());
+            Assert.AreEqual("document", builder.Configuration.TreeSource.StartNodeId.EntityType);
+            Assert.IsNull(builder.Configuration.TreeSource.StartNodeQuery);
+        }
 
-            var mediaService = new Mock<IMediaService>();
-            var dataTypeService = new Mock<IDataTypeService>();
+        [Test]
+        public static void SetStartNodeContentWithIntId()
+        {
+            const int contentId = 1234;
+            Guid key = new Guid("{FD16566D-C9A8-4053-88DF-14EBB3938171}");
 
-            var contentService = new Mock<IContentService>();
-            contentService.Setup(x => x.GetById(contentId)).Returns(content.Object);
+            var builder = new MultiNodeTreePickerTestBuilder(Guid.NewGuid())
+                .ContentServiceReturnsContent(contentId, key)
+                .Build();
 
-            var builder = new MultiNodeTreePickerBuilder(
-                dataTypeService.Object,
-                contentService.Object,
-                mediaService.Object,
-                Guid.NewGuid());
-
-            builder
+            var dataType = builder
                 .Name("My New Tree Picker")
                 .StartNodeContent(contentId)
-                .AllowItemsOfType("type1", "type2")
-                .MinimumNumberOfItems(minNumber)
-                .MaximumNumberOfItems(maxNumber)
-                .ShowOpenButton()
                 .Build();
 
-            //var preValueJson = builder.PreValue(MultiNodeTreePickerBuilder.PreValueStartNode);
-            //var preValue = JsonConvert.DeserializeObject<MultiNodeTreePickerStartNodePreValue>(preValueJson);
-
-            //Assert.AreEqual(expectedJson, preValueJson);
-            //Assert.AreEqual(5, builder.PreValueCount);
-            //Assert.IsTrue(preValue.Query.EndsWith(contentGuid.ToString(), StringComparison.Ordinal));
-            //Assert.AreEqual(Enums.StartNodeType.Content, preValue.StartNodeType);
-            //Assert.AreEqual(minNumber.ToString(CultureInfo.InvariantCulture), builder.PreValue(MultiNodeTreePickerBuilder.PreValueMinNumber));
-            //Assert.AreEqual(maxNumber.ToString(CultureInfo.InvariantCulture), builder.PreValue(MultiNodeTreePickerBuilder.PreValueMaxNumber));
-            //Assert.AreEqual("1", builder.PreValue(MultiNodeTreePickerBuilder.PreValueShowOpenButton));
-
-            //Assert.IsTrue(builder.Configuration.TreeSource.StartNodeQuery.EndsWith(contentGuid.ToString(), StringComparison.Ordinal));
-            Assert.AreEqual(minNumber, builder.Configuration.MinNumber);
-            Assert.AreEqual(maxNumber, builder.Configuration.MaxNumber);
-            Assert.IsTrue(builder.Configuration.ShowOpen);
-            Assert.AreEqual("type1,type2", builder.Configuration.Filter);
             Assert.AreEqual("Content", builder.Configuration.TreeSource.ObjectType);
-            Assert.AreEqual("umb://document/50cc58eb-19a7-4165-b74f-bd9fa0a4f6bd", builder.Configuration.TreeSource.StartNodeQuery);
+            Assert.AreEqual($"umb://document/{key.ToString().ToLower().Replace("-", "")}", builder.Configuration.TreeSource.StartNodeId.ToString());
+            Assert.AreEqual("document", builder.Configuration.TreeSource.StartNodeId.EntityType);
+            Assert.IsNull(builder.Configuration.TreeSource.StartNodeQuery);
         }
 
-
-        public static void Xpath()
+        [Test]
+        public static void SetStartNodeContentWithStringId()
         {
             const int contentId = 1234;
-            const int maxNumber = 5;
-            const int minNumber = 1;
-            const string xPath = "$parent/newsArticle";
+            Guid key = new Guid("{FD16566D-C9A8-4053-88DF-14EBB3938171}");
 
-            var contentGuid = new Guid("{50CC58EB-19A7-4165-B74F-BD9FA0A4F6BD}");
-            var expectedJson = $"{{\"type\":\"content\",\"query\":\"{xPath}\"}}";
-
-            var content = new Mock<IContent>();
-            content.Setup(x => x.Key).Returns(contentGuid);
-
-            var mediaService = new Mock<IMediaService>();
-            var dataTypeService = new Mock<IDataTypeService>();
-            var contentService = new Mock<IContentService>();
-            contentService.Setup(x => x.GetById(contentId)).Returns(content.Object);
-
-            var builder = new MultiNodeTreePickerBuilder(
-                dataTypeService.Object,
-                contentService.Object,
-                mediaService.Object,
-                Guid.NewGuid());
-
-            builder
-                .Name("My New Tree Picker")
-                .StartNodeXpath(xPath)
-                .AllowItemsOfType("type1", "type2")
-                .MinimumNumberOfItems(minNumber)
-                .MaximumNumberOfItems(maxNumber)
-                .ShowOpenButton()
+            var builder = new MultiNodeTreePickerTestBuilder(Guid.NewGuid())
+                .ContentServiceReturnsContent(contentId, key)
                 .Build();
 
-            //var preValueJson = builder.PreValue(MultiNodeTreePickerBuilder.PreValueStartNode);
-            //var preValue = JsonConvert.DeserializeObject<MultiNodeTreePickerStartNodeConfiguration>(preValueJson);
+            var dataType = builder
+                .Name("My New Tree Picker")
+                .StartNodeContent(contentId.ToString())
+                .Build();
 
-            //Assert.AreEqual(expectedJson, preValueJson);
-            //Assert.IsTrue(preValue.Query.EndsWith(xPath, StringComparison.Ordinal));
+            Assert.AreEqual("Content", builder.Configuration.TreeSource.ObjectType);
+            Assert.AreEqual($"umb://document/{key.ToString().ToLower().Replace("-", "")}", builder.Configuration.TreeSource.StartNodeId.ToString());
+            Assert.AreEqual("document", builder.Configuration.TreeSource.StartNodeId.EntityType);
+            Assert.IsNull(builder.Configuration.TreeSource.StartNodeQuery);
         }
 
-
-        public static void PickerWithNoValues()
+        [Test]
+        public static void SetStartNodeContentWithFilter()
         {
             const int contentId = 1234;
+            Guid key = new Guid("{FD16566D-C9A8-4053-88DF-14EBB3938171}");
+            var filter = "$parent/newsArticle";
 
-            var contentGuid = new Guid("{50CC58EB-19A7-4165-B74F-BD9FA0A4F6BD}");
-
-            var content = new Mock<IContent>();
-            content.Setup(x => x.Key).Returns(contentGuid);
-
-            var mediaService = new Mock<IMediaService>();
-            var dataTypeService = new Mock<IDataTypeService>();
-            var contentService = new Mock<IContentService>();
-            contentService.Setup(x => x.GetById(contentId)).Returns(content.Object);
-
-            var builder = new MultiNodeTreePickerBuilder(
-                dataTypeService.Object,
-                contentService.Object,
-                mediaService.Object,
-                Guid.NewGuid());
-
-            builder
-                .Name("My New Tree Picker")
+            var builder = new MultiNodeTreePickerTestBuilder(Guid.NewGuid())
+                .ContentServiceReturnsContent(contentId, key)
                 .Build();
+
+            var dataType = builder
+                .Name("My New Tree Picker")
+                .StartNodeXpath(filter)
+                .Build();
+
+            Assert.AreEqual("Content", builder.Configuration.TreeSource.ObjectType);
+            Assert.IsNull(builder.Configuration.TreeSource.StartNodeId);
+            Assert.AreEqual(filter, builder.Configuration.TreeSource.StartNodeQuery);
         }
+
+        [Test]
+        public static void SetStartNodeMediaWithGuidId()
+        {
+            const int contentId = 1234;
+            Guid key = new Guid("{FD16566D-C9A8-4053-88DF-14EBB3938171}");
+
+            var builder = new MultiNodeTreePickerTestBuilder(Guid.NewGuid())
+                .ContentServiceReturnsContent(contentId, key)
+                .Build();
+
+            var dataType = builder
+                .Name("My New Tree Picker")
+                .StartNodeMedia(key)
+                .Build();
+
+            Assert.AreEqual("Media", builder.Configuration.TreeSource.ObjectType);
+            Assert.AreEqual($"umb://media/{key.ToString().ToLower().Replace("-", "")}", builder.Configuration.TreeSource.StartNodeId.ToString());
+            Assert.AreEqual("media", builder.Configuration.TreeSource.StartNodeId.EntityType);
+            Assert.IsNull(builder.Configuration.TreeSource.StartNodeQuery);
+        }
+
+        [Test]
+        public static void SetStartNodeMediaWithIntId()
+        {
+            const int contentId = 1234;
+            Guid key = new Guid("{FD16566D-C9A8-4053-88DF-14EBB3938171}");
+
+            var builder = new MultiNodeTreePickerTestBuilder(Guid.NewGuid())
+                .ContentServiceReturnsContent(contentId, key)
+                .Build();
+
+            var dataType = builder
+                .Name("My New Tree Picker")
+                .StartNodeMedia(contentId)
+                .Build();
+
+            Assert.AreEqual("Media", builder.Configuration.TreeSource.ObjectType);
+            Assert.AreEqual($"umb://media/{key.ToString().ToLower().Replace("-", "")}", builder.Configuration.TreeSource.StartNodeId.ToString());
+            Assert.AreEqual("media", builder.Configuration.TreeSource.StartNodeId.EntityType);
+            Assert.IsNull(builder.Configuration.TreeSource.StartNodeQuery);
+        }
+
+        [Test]
+        public static void SetStartNodeMediaWithStringId()
+        {
+            const int contentId = 1234;
+            Guid key = new Guid("{FD16566D-C9A8-4053-88DF-14EBB3938171}");
+
+            var builder = new MultiNodeTreePickerTestBuilder(Guid.NewGuid())
+                .ContentServiceReturnsContent(contentId, key)
+                .Build();
+
+            var dataType = builder
+                .Name("My New Tree Picker")
+                .StartNodeMedia(contentId.ToString())
+                .Build();
+
+            Assert.AreEqual("Media", builder.Configuration.TreeSource.ObjectType);
+            Assert.AreEqual($"umb://media/{key.ToString().ToLower().Replace("-", "")}", builder.Configuration.TreeSource.StartNodeId.ToString());
+            Assert.AreEqual("media", builder.Configuration.TreeSource.StartNodeId.EntityType);
+            Assert.IsNull(builder.Configuration.TreeSource.StartNodeQuery);
+        }
+
     }
 }

@@ -104,7 +104,8 @@ namespace DeployCmsData.UmbracoCms.Builders
             _startNodeConfiguration = new MultiNodeTreePickerStartNodeConfiguration()
             {
                 StartNodeType = StartNodeType.Content,
-                Query = StringFormat.ToInvariant($"umb://document/{contentId}")
+                Id = StringFormat.ToInvariant($"umb://document/{contentId.ToString().ToLower().Replace("-", "")}"),
+                Query = null
             };
             return this;
         }
@@ -139,7 +140,8 @@ namespace DeployCmsData.UmbracoCms.Builders
             _startNodeConfiguration = new MultiNodeTreePickerStartNodeConfiguration()
             {
                 StartNodeType = Enums.StartNodeType.Media,
-                Query = StringFormat.ToInvariant($"umb://media/{mediaId}")
+                Id = StringFormat.ToInvariant($"umb://media/{mediaId.ToString().ToLower().Replace("-", "")}"),
+                Query = null
             };
             return this;
         }
@@ -148,7 +150,7 @@ namespace DeployCmsData.UmbracoCms.Builders
         {
             _startNodeConfiguration = new MultiNodeTreePickerStartNodeConfiguration()
             {
-                StartNodeType = Enums.StartNodeType.Member,
+                StartNodeType = StartNodeType.Member,
                 Id = "-1"
             };
             return this;
