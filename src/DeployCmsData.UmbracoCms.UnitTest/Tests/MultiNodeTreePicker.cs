@@ -18,7 +18,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             var builder = new MultiNodeTreePickerTestBuilder(Guid.NewGuid())
                 .Build();
 
-            builder
+            var dataType = builder
                 .Name("My New Tree Picker")
                 .AllowItemsOfType("type1", "type2")
                 .MinimumNumberOfItems(minNumber)
@@ -30,6 +30,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             Assert.AreEqual(minNumber.ToString(CultureInfo.InvariantCulture), builder.PreValue(MultiNodeTreePickerBuilder.PreValueMinNumber));
             Assert.AreEqual(maxNumber.ToString(CultureInfo.InvariantCulture), builder.PreValue(MultiNodeTreePickerBuilder.PreValueMaxNumber));
             Assert.AreEqual("1", builder.PreValue(MultiNodeTreePickerBuilder.PreValueShowOpenButton));
+            Assert.AreEqual(Umbraco.Core.Constants.PropertyEditors.MultiNodeTreePicker2Alias, dataType.PropertyEditorAlias);            
         }
 
 

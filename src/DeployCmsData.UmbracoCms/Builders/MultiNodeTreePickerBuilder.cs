@@ -163,7 +163,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             var dataType = _dataTypeService.GetDataTypeDefinitionById(KeyValue);
             if (dataType == null)
             {
-                dataType = new DataTypeDefinition(Umbraco.Core.Constants.PropertyEditors.MultiNodeTreePickerAlias);
+                dataType = new DataTypeDefinition(Umbraco.Core.Constants.PropertyEditors.MultiNodeTreePicker2Alias);
             }
 
             dataType.Name = NameValue;
