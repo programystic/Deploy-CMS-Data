@@ -71,8 +71,8 @@
     <Reference Include="DeployCmsData.Core, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DeployCmsData.Core.1.0.2\lib\net461\DeployCmsData.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DeployCmsData.UmbracoCms, Version=7.6.0.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DeployCmsData.UmbracoCms.7.6.0.6\lib\net461\DeployCmsData.UmbracoCms.dll</HintPath>
+    <Reference Include="DeployCmsData.UmbracoCms, Version=7.6.0.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeployCmsData.UmbracoCms.7.6.0.7\lib\net461\DeployCmsData.UmbracoCms.dll</HintPath>
     </Reference>
     <Reference Include="Examine, Version=0.1.82.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Examine.0.1.82\lib\net45\Examine.dll</HintPath>
