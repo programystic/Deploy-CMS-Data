@@ -71,7 +71,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             var preValueStartNode = builder.PreValue(MultiNodeTreePickerBuilder.PreValueStartNode);
 
-            Assert.AreEqual($"{{\"type\":\"content\",\"query\":null,\"id\":\"{contentId.ToString()}\"}}",
+            Assert.AreEqual($"{{\"type\":\"content\",\"query\":null,\"id\":\"umb://document/{key.ToString().ToLower().Replace("-", "")}\"}}",
                 preValueStartNode);
 
             Assert.IsNull(builder.PreValue(MultiNodeTreePickerBuilder.PreValueFilter));
@@ -97,7 +97,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             var preValueStartNode = builder.PreValue(MultiNodeTreePickerBuilder.PreValueStartNode);
 
-            Assert.AreEqual($"{{\"type\":\"content\",\"query\":null,\"id\":\"{contentId.ToString()}\"}}",
+            Assert.AreEqual($"{{\"type\":\"content\",\"query\":null,\"id\":\"umb://document/{key.ToString().ToLower().Replace("-", "")}\"}}",
                 preValueStartNode);
 
             Assert.IsNull(builder.PreValue(MultiNodeTreePickerBuilder.PreValueFilter));
@@ -123,7 +123,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             var preValueStartNode = builder.PreValue(MultiNodeTreePickerBuilder.PreValueStartNode);
 
-            Assert.AreEqual($"{{\"type\":\"content\",\"query\":null,\"id\":\"{contentId.ToString()}\"}}",
+            Assert.AreEqual($"{{\"type\":\"content\",\"query\":null,\"id\":\"umb://document/{key.ToString().ToLower().Replace("-", "")}\"}}",
                 preValueStartNode);
 
             Assert.IsNull(builder.PreValue(MultiNodeTreePickerBuilder.PreValueFilter));
@@ -176,7 +176,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             var preValueStartNode = builder.PreValue(MultiNodeTreePickerBuilder.PreValueStartNode);
 
-            Assert.AreEqual($"{{\"type\":\"media\",\"query\":null,\"id\":\"{contentId}\"}}",
+            Assert.AreEqual($"{{\"type\":\"media\",\"query\":null,\"id\":\"umb://document/{key.ToString().ToLower().Replace("-", "")}\"}}",
                 preValueStartNode);
 
             Assert.IsNull(builder.PreValue(MultiNodeTreePickerBuilder.PreValueFilter));
@@ -202,7 +202,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             var preValueStartNode = builder.PreValue(MultiNodeTreePickerBuilder.PreValueStartNode);
 
-            Assert.AreEqual($"{{\"type\":\"media\",\"query\":null,\"id\":\"{contentId}\"}}",
+            Assert.AreEqual($"{{\"type\":\"media\",\"query\":null,\"id\":\"umb://document/{key.ToString().ToLower().Replace("-", "")}\"}}",
                 preValueStartNode);
 
             Assert.IsNull(builder.PreValue(MultiNodeTreePickerBuilder.PreValueFilter));
@@ -228,7 +228,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             var preValueStartNode = builder.PreValue(MultiNodeTreePickerBuilder.PreValueStartNode);
 
-            Assert.AreEqual($"{{\"type\":\"media\",\"query\":null,\"id\":\"{contentId}\"}}",
+            Assert.AreEqual($"{{\"type\":\"media\",\"query\":null,\"id\":\"umb://document/{key.ToString().ToLower().Replace("-", "")}\"}}",
                 preValueStartNode);
 
             Assert.IsNull(builder.PreValue(MultiNodeTreePickerBuilder.PreValueFilter));
