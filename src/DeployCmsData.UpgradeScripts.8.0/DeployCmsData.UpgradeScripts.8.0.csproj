@@ -250,6 +250,8 @@
     <Compile Include="UpgradeScripts\BuildWebsite.cs" />
     <Compile Include="UpgradeScripts\ClearTheDecks.cs" />
     <Compile Include="UpgradeScripts\CreateContent.cs" />
+    <Compile Include="UpgradeScripts\DocTypeInheritance.cs" />
+    <Compile Include="UpgradeScripts\GridRowConfiguration.cs" />
     <Compile Include="UpgradeScripts\MultiNodeTreePicker.cs" />
     <Compile Include="UpgradeScripts\RemoveAllowedDocType.cs" />
     <Compile Include="UpgradeScripts\Templates.cs" />
