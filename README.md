@@ -12,11 +12,10 @@ This project is working but is still under active development so please raise an
 
 DeployCmsData.UmbracoCms Version|Umbraco Version|Status
 --- | --- | ---
-8.0.0.7 | 8.0.0|Published to Nuget
 7.13.0.5 | 7.13.0|Published to Nuget
 7.6.0.8 | 7.6.0|Published to Nuget
 7.4.0.5 | 7.4.0|Published to Nuget
-
+8.0.0.7 | 8.0.0|Work in progress
 
 ---
 
