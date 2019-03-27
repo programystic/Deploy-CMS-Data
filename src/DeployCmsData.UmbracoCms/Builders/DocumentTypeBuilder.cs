@@ -123,6 +123,7 @@ namespace DeployCmsData.UmbracoCms.Builders
             RemoveFields(documentType);
             documentType.AllowedContentTypes = AllowedChildNodeTypes;
             AddCompositions(documentType);
+            AddInheritedCompositions(documentType);
 
             _contentTypeService.Save(documentType);
 
@@ -134,6 +135,21 @@ namespace DeployCmsData.UmbracoCms.Builders
             foreach (var composition in Compositions)
             {
                 documentType.AddContentType(composition);
+            }
+        }
+
+        private void AddInheritedCompositions(IContentType documentType)
+        {
+            AddInheritedCompositions(documentType, documentType.ParentId);
+        }
+
+        private void AddInheritedCompositions(IContentType documentType, int parentId)
+        {
+            var parent = _contentTypeService.Get(parentId);
+            if (parent != null && parent.Id > 0)
+            {
+                documentType.AddContentType(parent);
+                AddInheritedCompositions(documentType, parent.ParentId);
             }
         }
 

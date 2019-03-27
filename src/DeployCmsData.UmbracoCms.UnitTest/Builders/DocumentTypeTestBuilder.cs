@@ -18,7 +18,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
         private readonly DocumentTypeBuilder _documentTypeBuilder;
         private readonly Mock<IDataTypeService> _dataTypeService;
         private IList<ContentTypeSort> _allowedChildNodeTypes;
-        private IList<PropertyType> _propertyTypes;
+        private readonly IList<PropertyType> _propertyTypes;
 
         public DocumentTypeTestBuilder(string alias)
         {
@@ -71,14 +71,26 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Builders
             return contentType;
         }
 
-        public DocumentTypeTestBuilder ReturnsExistingContentType(string alias, int id = 0)
+        public DocumentTypeTestBuilder ReturnsExistingContentType(string alias)
+        {
+            return ReturnsExistingContentType(alias, 0);
+        }
+
+        public DocumentTypeTestBuilder ReturnsExistingContentType(string alias, int id)
+        {
+            return ReturnsExistingContentType(alias, id, 0);
+        }
+
+        public DocumentTypeTestBuilder ReturnsExistingContentType(string alias, int id, int parentId)
         {
             var contentType = new Mock<IContentType>();
             contentType.SetupAllProperties();
             contentType.SetupGet(x => x.Alias).Returns(alias);
             contentType.SetupGet(x => x.Id).Returns(id);
+            contentType.SetupGet(x => x.ParentId).Returns(parentId);
 
             ContentTypeService.Setup(x => x.Get(alias)).Returns(contentType.Object);
+            ContentTypeService.Setup(x => x.Get(id)).Returns(contentType.Object);
 
             return this;
         }
