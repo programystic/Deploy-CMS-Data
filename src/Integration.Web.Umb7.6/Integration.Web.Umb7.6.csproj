@@ -68,11 +68,11 @@
     <Reference Include="CookComputing.XmlRpcV2, Version=2.5.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
       <HintPath>..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
     </Reference>
-    <Reference Include="DeployCmsData.Core, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DeployCmsData.Core.1.0.2\lib\net461\DeployCmsData.Core.dll</HintPath>
+    <Reference Include="DeployCmsData.Core, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeployCmsData.Core.1.0.3\lib\net461\DeployCmsData.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DeployCmsData.UmbracoCms, Version=7.6.0.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DeployCmsData.UmbracoCms.7.6.0.7\lib\net461\DeployCmsData.UmbracoCms.dll</HintPath>
+    <Reference Include="DeployCmsData.UmbracoCms, Version=7.6.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeployCmsData.UmbracoCms.7.6.0.8\lib\net461\DeployCmsData.UmbracoCms.dll</HintPath>
     </Reference>
     <Reference Include="Examine, Version=0.1.82.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Examine.0.1.82\lib\net45\Examine.dll</HintPath>
