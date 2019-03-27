@@ -20,7 +20,9 @@ namespace DeployCmsData.IntegrationTest.Tests
         [TestCase("MultiNodeTreePicker")]
         [TestCase("AllDataTypes")]
         [TestCase("UpdateHomePage")]
-        [TestCase("RemoveAllowedDocType")]        
+        [TestCase("RemoveAllowedDocType")]   
+        [TestCase("GridRowConfiguration")]
+        [TestCase("DocTypeInheritance")]
         public void CallUpgradeScriptApi(string apiMethodName)
         {
             GetResponse(apiMethodName);
