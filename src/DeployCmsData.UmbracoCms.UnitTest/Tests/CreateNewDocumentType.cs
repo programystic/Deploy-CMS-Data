@@ -247,9 +247,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
         [Test]
         public static void DoNotAllowAtRoot()
         {
-            var setup = new DocumentTypeTestBuilder(Alias);
-
-            var builder = setup
+            var builder = new DocumentTypeTestBuilder(Alias)
                 .SetupNewDocumentType(Alias, Id, ParentFolderId)
                 .ReturnsFolder(ParentFolderName, ParentFolderLevel, ParentFolderId)
                 .Build();
@@ -258,6 +256,23 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
                 .BuildInFolder(ParentFolderName);
 
             Assert.IsFalse(docType.AllowedAsRoot);
+        }
+
+        [Test]
+        public static void AddInheritedCompositions()
+        {
+            var testBuilder = new DocumentTypeTestBuilder(Alias)
+                .SetupNewDocumentType(Alias, Id, 444)
+                .ReturnsExistingContentType("contentType1", 111)
+                .ReturnsExistingContentType("contentType2", 222, 111)
+                .ReturnsExistingContentType("contentType3", 333, 222)
+                .ReturnsExistingContentType("contentType4", 444, 333);
+
+            var builder = testBuilder.Build();
+            var docType = builder.BuildWithParent("contentType4");
+
+            testBuilder.ContentType.Verify(x => 
+                x.AddContentType(It.IsAny<IContentTypeComposition>()), Times.Exactly(4));
         }
     }
 }
