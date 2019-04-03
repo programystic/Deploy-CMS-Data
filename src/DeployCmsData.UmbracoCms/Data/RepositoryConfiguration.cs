@@ -1,7 +1,9 @@
 using DeployCmsData.UmbracoCms.Models;
 using Umbraco.Core;
 using Umbraco.Core.Persistence;
+using Umbraco.Core.Persistence.Migrations.Syntax.Rename;
 using Validation;
+using System.Linq;
 
 namespace DeployCmsData.UmbracoCms.Data
 {
@@ -22,6 +24,9 @@ namespace DeployCmsData.UmbracoCms.Data
             {
                 dbHelper.CreateTable<UmbracoUpgradeLog>();
             }
+
+            var x = applicationContext.DatabaseContext.
+            
         }
     }
 }
