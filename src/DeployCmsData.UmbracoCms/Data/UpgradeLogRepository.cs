@@ -29,6 +29,7 @@ namespace DeployCmsData.UmbracoCms.Data
             using (var scope = Current.ScopeProvider.CreateScope())
             {
                 scope.Database.Insert(umbracoUpgradeLog);
+                scope.Complete();
             }
         }
     }
