@@ -9,7 +9,7 @@ namespace DeployCmsData.Core.Models
         public DateTime Timestamp { get; set; }
         public string UpgradeScriptName { get; set; }
         public bool Success { get; set; }
-        public int RuntTimeMilliseconds { get; set; }
+        public int RunTimeMilliseconds { get; set; }
         public string Exception { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
             {
                 Id = 1,
                 Exception = "My Exception",
-                RuntTimeMilliseconds = 15,
+                RunTimeMilliseconds = 15,
                 Success = true,
                 Timestamp = new DateTime(2018, 10, 24, 22, 08, 15),
                 UpgradeScriptName = "My Script Name"
@@ -24,7 +24,7 @@ namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 
             Assert.AreEqual(log.Id, umbracoUpgradeLog.Id);
             Assert.AreEqual(log.Exception, umbracoUpgradeLog.Exception);
-            Assert.AreEqual(log.RuntTimeMilliseconds, umbracoUpgradeLog.RuntTimeMilliseconds);
+            Assert.AreEqual(log.RunTimeMilliseconds, umbracoUpgradeLog.RunTimeMilliseconds);
             Assert.AreEqual(log.Success, umbracoUpgradeLog.Success);
             Assert.AreEqual(log.Timestamp, umbracoUpgradeLog.Timestamp);
             Assert.AreEqual(log.UpgradeScriptName, umbracoUpgradeLog.UpgradeScriptName);

@@ -180,6 +180,8 @@
     <Compile Include="Extensions\StringHelper.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\IHttpServerUtility.cs" />
+    <Compile Include="Migrations\RenameRunTime.cs" />
+    <Compile Include="Migrations\CreateLogTable.cs" />
     <Compile Include="Models\GridArea.cs" />
     <Compile Include="Models\GridItemsPreValue.cs" />
     <Compile Include="Models\GridLayout.cs" />

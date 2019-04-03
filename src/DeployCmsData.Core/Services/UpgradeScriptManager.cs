@@ -71,7 +71,7 @@ namespace DeployCmsData.Core.Services
                 Console.WriteLine(e);
             }
 
-            upgradeLog.RuntTimeMilliseconds = (DateTime.Now - start).Milliseconds;
+            upgradeLog.RunTimeMilliseconds = (DateTime.Now - start).Milliseconds;
             LogDataStore.SaveLog(upgradeLog);
             return upgradeLog;
         }

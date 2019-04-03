@@ -20,7 +20,7 @@ namespace DeployCmsData.UmbracoCms.Models
         public DateTime Timestamp { get; set; }
         public string UpgradeScriptName { get; set; }
         public bool Success { get; set; }
-        public int RuntTimeMilliseconds { get; set; }
+        public int RunTimeMilliseconds { get; set; }
 
         public UmbracoUpgradeLog()
         {
@@ -35,7 +35,7 @@ namespace DeployCmsData.UmbracoCms.Models
             Timestamp = upgradeLog.Timestamp;
             UpgradeScriptName = upgradeLog.UpgradeScriptName;
             Exception = upgradeLog.Exception;
-            RuntTimeMilliseconds = upgradeLog.RuntTimeMilliseconds;
+            RunTimeMilliseconds = upgradeLog.RunTimeMilliseconds;
         }
     }
 }

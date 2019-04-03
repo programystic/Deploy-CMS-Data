@@ -8,7 +8,7 @@ namespace DeployCmsData.Core.Interfaces
         DateTime Timestamp { get; set; }
         string UpgradeScriptName { get; set; }
         bool Success { get; set; }
-        int RuntTimeMilliseconds { get; set; }
+        int RunTimeMilliseconds { get; set; }
         string Exception { get; set; }
     }
 }

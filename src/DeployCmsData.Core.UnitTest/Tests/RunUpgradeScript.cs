@@ -184,7 +184,7 @@ namespace DeployCmsData.UnitTest.Tests
             Sleeps script = new Sleeps();
             IUpgradeLog log = scriptManager.RunScriptIfNeeded(script);
 
-            Assert.Greater(log.RuntTimeMilliseconds, 0);
+            Assert.Greater(log.RunTimeMilliseconds, 0);
         }
     }
 }
