@@ -19,18 +19,15 @@ namespace DeployCmsData.UmbracoCms.Services
         {
             _webConfigValues = new WebConfigValues(webConfigProvider);
         }
-
-        // TODO - What is the correct event to use that runs when Umbraco is setting up for the first time and fires after the install is fininished>
-        // Because this event didn't fire - I think.
+        
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
-            if (RunAtStartupIsDisabled())
-            {
-                return;
-            }
+            MigrationsRunner.Run();
 
-            RepositoryConfiguration.SetupDatabase(applicationContext);
-            RunAllScripts();
+            if (RunAtStartupIsEnabled())
+            {
+                RunAllScripts();
+            }
         }
 
         private static void RunAllScripts()
@@ -42,9 +39,9 @@ namespace DeployCmsData.UmbracoCms.Services
             upgradeScriptManager.RunAllScriptsIfNeeded();
         }
 
-        private bool RunAtStartupIsDisabled()
+        private bool RunAtStartupIsEnabled()
         {
-            return _webConfigValues.GetAppSetting(Constants.AppSettings.DisableRunAtStartup, false);
+            return !_webConfigValues.GetAppSetting(Constants.AppSettings.DisableRunAtStartup, false);
         }
     }
 }
