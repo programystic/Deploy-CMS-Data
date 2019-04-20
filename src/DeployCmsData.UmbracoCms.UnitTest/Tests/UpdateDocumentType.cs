@@ -1,11 +1,11 @@
-﻿using DeployCmsData.UmbracoCms.Constants;
-using DeployCmsData.UmbracoCms.UnitTest.Builders;
+﻿using DeployCmsData.Umbraco7.Constants;
+using DeployCmsData.Umbraco7.UnitTest.Builders;
 using Moq;
 using NUnit.Framework;
 using System.Linq;
 using Umbraco.Core.Models;
 
-namespace DeployCmsData.UmbracoCms.UnitTest.Tests
+namespace DeployCmsData.Umbraco7.UnitTest.Tests
 {
     [TestFixture()]
     public static class UpdateDocumentType

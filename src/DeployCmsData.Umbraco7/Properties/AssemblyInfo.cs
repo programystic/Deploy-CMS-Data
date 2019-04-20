@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DeployCmsData.Umbraco7.UnitTest")]
+[assembly: AssemblyTitle("DeployCmsData.Umbraco7")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DeployCmsData.Umbraco7.UnitTest")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyProduct("DeployCmsData.Umbraco7")]
+[assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("4983c311-7d2c-4503-9f3a-0d356cde98c7")]
+[assembly: Guid("2ca1d4fa-d7cd-41a6-8cfb-a2675df00c5f")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -1,4 +1,4 @@
-﻿namespace DeployCmsData.UmbracoCms.Constants
+﻿namespace DeployCmsData.Umbraco7.Constants
 {
     internal static class DocumentTypeAlias
     {       

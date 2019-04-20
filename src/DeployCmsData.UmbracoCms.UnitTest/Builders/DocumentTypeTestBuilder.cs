@@ -1,5 +1,5 @@
-﻿using DeployCmsData.UmbracoCms.Builders;
-using DeployCmsData.UmbracoCms.Interfaces;
+﻿using DeployCmsData.Umbraco7.Builders;
+using DeployCmsData.Umbraco7.Interfaces;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using Umbraco.Core.Models;
 using Umbraco.Core.Models.EntityBase;
 using Umbraco.Core.Services;
 
-namespace DeployCmsData.UmbracoCms.UnitTest.Builders
+namespace DeployCmsData.Umbraco7.UnitTest.Builders
 {
     internal class DocumentTypeTestBuilder
     {

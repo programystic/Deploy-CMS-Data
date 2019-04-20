@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <projectUrl>https://github.com/programystic/DeployCmsData</projectUrl>
+    <iconUrl>https://programystic.blob.core.windows.net/images/cog.png</iconUrl>
+    <license type="expression">MIT</license>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>$description$</description>    
+    <copyright>Copyright 2019</copyright>
+    <tags>umbraco deployment migration startup</tags>
+    <dependencies>
+      <dependency id="DeployCmsData.Core" version="1.0.3" />
+    </dependencies>
+  </metadata>
+</package>

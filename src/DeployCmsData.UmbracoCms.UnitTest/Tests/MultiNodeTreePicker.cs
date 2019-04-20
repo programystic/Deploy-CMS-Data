@@ -1,10 +1,10 @@
-﻿using DeployCmsData.UmbracoCms.Builders;
-using DeployCmsData.UmbracoCms.UnitTest.Builders;
+﻿using DeployCmsData.Umbraco7.Builders;
+using DeployCmsData.Umbraco7.UnitTest.Builders;
 using NUnit.Framework;
 using System;
 using System.Globalization;
 
-namespace DeployCmsData.UmbracoCms.UnitTest.Tests
+namespace DeployCmsData.Umbraco7.UnitTest.Tests
 {
     [TestFixture]
     public static class MultiNodeTreePicker

@@ -1,10 +1,10 @@
 ﻿using System;
-using DeployCmsData.UmbracoCms.UnitTest.Builders;
+using DeployCmsData.Umbraco7.UnitTest.Builders;
 using Moq;
 using NUnit.Framework;
 using Umbraco.Core.Models;
 
-namespace DeployCmsData.UmbracoCms.UnitTest.Tests
+namespace DeployCmsData.Umbraco7.UnitTest.Tests
 {
     [TestFixture]
     public static class DeleteDocumentType

@@ -1,11 +1,11 @@
-﻿using DeployCmsData.UmbracoCms.UnitTest.Builders;
+﻿using DeployCmsData.Umbraco7.UnitTest.Builders;
 using Moq;
 using NUnit.Framework;
 using System;
 using System.Linq;
 using Umbraco.Core.Models;
 
-namespace DeployCmsData.UmbracoCms.UnitTest.Tests
+namespace DeployCmsData.Umbraco7.UnitTest.Tests
 {
     public static class CreateNewDocumentType
     {

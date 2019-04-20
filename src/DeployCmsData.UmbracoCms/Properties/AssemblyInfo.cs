@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DeployCmsData.UmbracoCms")]
+[assembly: AssemblyTitle("DeployCmsData.Umbraco7")]
 [assembly: AssemblyDescription("Create migration scripts for your CI/CD Umbraco CMS deployments.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Programystic")]
-[assembly: AssemblyProduct("DeployCmsData.UmbracoCms")]
+[assembly: AssemblyProduct("DeployCmsData.Umbraco7")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

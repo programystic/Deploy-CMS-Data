@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using DeployCmsData.UmbracoCms.Interfaces;
-using DeployCmsData.UmbracoCms.Services;
+using DeployCmsData.Umbraco7.Interfaces;
+using DeployCmsData.Umbraco7.Services;
 using Moq;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
-namespace DeployCmsData.UmbracoCms.UnitTest.Builders
+namespace DeployCmsData.Umbraco7.UnitTest.Builders
 {
     internal class UmbracoLibraryTestBuilder
     {
