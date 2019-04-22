@@ -1,4 +1,4 @@
-﻿using DeployCmsData.Umbraco7.Interfaces;
+﻿using DeployCmsData.UmbracoCms.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using Umbraco.Core.Models.EntityBase;
 using Umbraco.Core.Services;
 
 [assembly: CLSCompliant(true)]
-namespace DeployCmsData.Umbraco7.Services
+namespace DeployCmsData.UmbracoCms.Services
 {
     internal class UmbracoFactory : IUmbracoFactory
     {

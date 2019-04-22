@@ -1,6 +1,6 @@
 ﻿using DeployCmsData.Core.Extensions;
-using DeployCmsData.Umbraco7.Models;
-using DeployCmsData.Umbraco7.Services;
+using DeployCmsData.UmbracoCms.Models;
+using DeployCmsData.UmbracoCms.Services;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -9,7 +9,7 @@ using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
-namespace DeployCmsData.Umbraco7.Builders
+namespace DeployCmsData.UmbracoCms.Builders
 {
     public class MultiNodeTreePickerBuilder
     {

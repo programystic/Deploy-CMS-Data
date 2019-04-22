@@ -1,9 +1,9 @@
 ﻿using System;
-using DeployCmsData.Umbraco7.UnitTest.Builders;
+using DeployCmsData.UmbracoCms.UnitTest.Builders;
 using Moq;
 using NUnit.Framework;
 
-namespace DeployCmsData.Umbraco7.UnitTest.Tests
+namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 {
     [TestFixture]
     public static class CreateNewDocumentTypeFolder

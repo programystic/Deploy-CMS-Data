@@ -3,7 +3,7 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using System.Collections.Generic;
 
-namespace DeployCmsData.Umbraco7.Services
+namespace DeployCmsData.UmbracoCms.Services
 {
     internal static class JsonHelper
     {

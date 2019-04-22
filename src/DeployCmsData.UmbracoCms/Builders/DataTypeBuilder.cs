@@ -2,7 +2,7 @@
 using Umbraco.Core.Services;
 using Validation;
 
-namespace DeployCmsData.Umbraco7.Builders
+namespace DeployCmsData.UmbracoCms.Builders
 {
     public static class DataTypeBuilder
     {

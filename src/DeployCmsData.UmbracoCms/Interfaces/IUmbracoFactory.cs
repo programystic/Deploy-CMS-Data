@@ -2,7 +2,7 @@
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.EntityBase;
 
-namespace DeployCmsData.Umbraco7.Interfaces
+namespace DeployCmsData.UmbracoCms.Interfaces
 {
     public interface IUmbracoFactory
     {

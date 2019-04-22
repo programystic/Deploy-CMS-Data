@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace DeployCmsData.Umbraco7.Models
+namespace DeployCmsData.UmbracoCms.Models
 {
     public class GridLayout
     {

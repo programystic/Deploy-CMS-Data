@@ -1,4 +1,4 @@
-﻿namespace DeployCmsData.Umbraco7.Constants
+﻿namespace DeployCmsData.UmbracoCms.Constants
 {
     public static class ExceptionMessages
     {

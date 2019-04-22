@@ -1,10 +1,10 @@
 ﻿using DeployCmsData.Core.Data;
 using DeployCmsData.Core.Services;
-using DeployCmsData.Umbraco7.Data;
+using DeployCmsData.UmbracoCms.Data;
 using Umbraco.Core;
 using WebConfigHelper;
 
-namespace DeployCmsData.Umbraco7.Services
+namespace DeployCmsData.UmbracoCms.Services
 {
     internal class RunOnStartup : ApplicationEventHandler
     {

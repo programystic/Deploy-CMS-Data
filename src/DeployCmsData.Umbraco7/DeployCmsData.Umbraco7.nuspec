@@ -15,6 +15,7 @@
     <tags>umbraco deployment migration startup</tags>
     <dependencies>
       <dependency id="DeployCmsData.Core" version="1.0.3" />
+      <dependency id="UmbracoCms.Core" version="[7.4.0,8.0.0)" />
     </dependencies>
   </metadata>
 </package>

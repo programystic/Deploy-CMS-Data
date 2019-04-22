@@ -33,8 +33,8 @@ namespace DeployCmsData.IntegrationTest.Tests
             var endPoints = new string[] {                
                 "http://deploycms.umb7.4",
                 "http://deploycms.umb7.6",
-                "http://deploycms.umb7.13",
-                "http://deploycms.umb8.0"
+                "http://deploycms.umb7.13"
+                //,"http://deploycms.umb8.0"
             };
 
             foreach (var endPoint in endPoints)

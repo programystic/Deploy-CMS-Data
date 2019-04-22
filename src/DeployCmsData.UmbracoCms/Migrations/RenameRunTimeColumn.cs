@@ -1,11 +1,11 @@
-﻿using DeployCmsData.Umbraco7.Models;
+﻿using DeployCmsData.UmbracoCms.Models;
 using System.Linq;
 using Umbraco.Core;
 using Umbraco.Core.Logging;
 using Umbraco.Core.Persistence.Migrations;
 using Umbraco.Core.Persistence.SqlSyntax;
 
-namespace DeployCmsData.Umbraco7.Migrations
+namespace DeployCmsData.UmbracoCms.Migrations
 {
     [Migration("1.0.1", 2, "DeployCmsData")]
     public class RenameRunTimeColumn : MigrationBase

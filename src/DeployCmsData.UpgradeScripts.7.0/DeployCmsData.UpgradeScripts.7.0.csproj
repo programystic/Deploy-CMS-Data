@@ -59,9 +59,6 @@
     <Reference Include="DeployCmsData.Core, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DeployCmsData.Core.1.0.3\lib\net461\DeployCmsData.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DeployCmsData.UmbracoCms, Version=7.4.0.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DeployCmsData.UmbracoCms.7.4.0.5\lib\net461\DeployCmsData.UmbracoCms.dll</HintPath>
-    </Reference>
     <Reference Include="Examine, Version=0.1.68.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Examine.0.1.68.0\lib\Examine.dll</HintPath>
     </Reference>
@@ -234,6 +231,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DeployCmsData.Umbraco7\DeployCmsData.Umbraco7.csproj">
+      <Project>{2ca1d4fa-d7cd-41a6-8cfb-a2675df00c5f}</Project>
+      <Name>DeployCmsData.Umbraco7</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

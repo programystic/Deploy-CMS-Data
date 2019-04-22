@@ -1,6 +1,6 @@
 ﻿using Umbraco.Core.Models;
 
-namespace DeployCmsData.Umbraco7.Interfaces
+namespace DeployCmsData.UmbracoCms.Interfaces
 {
     public interface IContentPropertiesService
     {

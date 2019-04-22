@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace DeployCmsData.Umbraco7.Models
+namespace DeployCmsData.UmbracoCms.Models
 {
     public class GridArea
     {

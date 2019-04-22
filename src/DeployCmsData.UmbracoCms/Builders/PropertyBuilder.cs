@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DeployCmsData.Umbraco7.Builders
+namespace DeployCmsData.UmbracoCms.Builders
 {
     public class PropertyBuilder
     {

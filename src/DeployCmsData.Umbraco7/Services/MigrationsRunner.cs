@@ -14,11 +14,10 @@ namespace DeployCmsData.Umbraco7.Services
 
         public static void Run()
         {
-            const string productName = "ProductName";
             var currentVersion = new SemVersion(0, 0, 0);
 
             // get all migrations already executed
-            var migrations = ApplicationContext.Current.Services.MigrationEntryService.GetAll(productName);
+            var migrations = ApplicationContext.Current.Services.MigrationEntryService.GetAll(ProductName);
 
             // get the latest migration executed
             var latestMigration = migrations.OrderByDescending(x => x.Version).FirstOrDefault();
@@ -28,7 +27,7 @@ namespace DeployCmsData.Umbraco7.Services
                 currentVersion = latestMigration.Version;
             }
 
-            var targetVersion = new SemVersion(1, 0, 0);
+            var targetVersion = new SemVersion(1, 0, 1);
             if (targetVersion == currentVersion)
             {
                 return;
@@ -39,15 +38,22 @@ namespace DeployCmsData.Umbraco7.Services
                ApplicationContext.Current.ProfilingLogger.Logger,
                currentVersion,
                targetVersion,
-               productName);
+               ProductName);
 
             try
             {
                 migrationsRunner.Execute(UmbracoContext.Current.Application.DatabaseContext.Database);
             }
+            catch (System.Web.HttpException e)
+            {
+                // because umbraco runs some other migrations after the migration runner 
+                // is executed we get httpexception
+                // catch this error, but don't do anything
+                // fixed in 7.4.2+ see : http://issues.umbraco.org/issue/U4-8077
+            }
             catch (Exception e)
             {
-                LogHelper.Error<MigrationsRunner>("Error running Statistics migration", e);
+                LogHelper.Error<MigrationsRunner>("Error running migrations", e);
             }
         }
     }

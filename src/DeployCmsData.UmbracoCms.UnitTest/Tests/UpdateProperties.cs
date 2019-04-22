@@ -1,10 +1,10 @@
-﻿using DeployCmsData.Umbraco7.Constants;
-using DeployCmsData.Umbraco7.UnitTest.Builders;
+﻿using DeployCmsData.UmbracoCms.Constants;
+using DeployCmsData.UmbracoCms.UnitTest.Builders;
 using Moq;
 using NUnit.Framework;
 using Umbraco.Core.Models;
 
-namespace DeployCmsData.Umbraco7.UnitTest.Tests
+namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 {
     internal class UpdateProperties
     {

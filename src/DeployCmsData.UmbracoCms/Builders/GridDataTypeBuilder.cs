@@ -1,5 +1,5 @@
-﻿using DeployCmsData.Umbraco7.Models;
-using DeployCmsData.Umbraco7.Services;
+﻿using DeployCmsData.UmbracoCms.Models;
+using DeployCmsData.UmbracoCms.Services;
 using System;
 using System.Linq;
 using Umbraco.Core.Models;
@@ -9,7 +9,7 @@ using Validation;
 using ProperyEditors = Umbraco.Core.Constants.PropertyEditors;
 
 
-namespace DeployCmsData.Umbraco7.Builders
+namespace DeployCmsData.UmbracoCms.Builders
 {
     public class GridDataTypeBuilder
     {

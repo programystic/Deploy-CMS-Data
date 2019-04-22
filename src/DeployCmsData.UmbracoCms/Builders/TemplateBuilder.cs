@@ -1,14 +1,14 @@
-﻿using DeployCmsData.Umbraco7.Constants;
-using DeployCmsData.Umbraco7.Extensions;
-using DeployCmsData.Umbraco7.Interfaces;
-using DeployCmsData.Umbraco7.Services;
+﻿using DeployCmsData.UmbracoCms.Constants;
+using DeployCmsData.UmbracoCms.Extensions;
+using DeployCmsData.UmbracoCms.Interfaces;
+using DeployCmsData.UmbracoCms.Services;
 using System.Web;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 using Validation;
 
-namespace DeployCmsData.Umbraco7.Builders
+namespace DeployCmsData.UmbracoCms.Builders
 {
     public class TemplateBuilder
     {

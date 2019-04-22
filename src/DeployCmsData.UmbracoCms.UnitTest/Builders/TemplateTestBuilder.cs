@@ -1,11 +1,11 @@
-﻿using DeployCmsData.Umbraco7.Builders;
-using DeployCmsData.Umbraco7.Interfaces;
+﻿using DeployCmsData.UmbracoCms.Builders;
+using DeployCmsData.UmbracoCms.Interfaces;
 using Moq;
 using System.Web;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
-namespace DeployCmsData.Umbraco7.UnitTest.Builders
+namespace DeployCmsData.UmbracoCms.UnitTest.Builders
 {
 
     internal class TemplateTestBuilder

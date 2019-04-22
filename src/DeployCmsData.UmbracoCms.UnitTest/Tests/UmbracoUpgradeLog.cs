@@ -2,7 +2,7 @@
 using DeployCmsData.Core.Models;
 using NUnit.Framework;
 
-namespace DeployCmsData.Umbraco7.UnitTest.Tests
+namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 {
     [TestFixture]
     public static class UmbracoUpgradeLog

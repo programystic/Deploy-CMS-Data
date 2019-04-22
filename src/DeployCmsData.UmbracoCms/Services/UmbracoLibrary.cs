@@ -1,4 +1,4 @@
-﻿using DeployCmsData.Umbraco7.Interfaces;
+﻿using DeployCmsData.UmbracoCms.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
-namespace DeployCmsData.Umbraco7.Services
+namespace DeployCmsData.UmbracoCms.Services
 {
     public class UmbracoLibrary
     {

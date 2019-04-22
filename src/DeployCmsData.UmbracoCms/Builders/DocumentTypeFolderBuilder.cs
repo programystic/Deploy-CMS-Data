@@ -1,12 +1,12 @@
 ﻿using System;
 using DeployCmsData.Core.Constants;
-using DeployCmsData.Umbraco7.Interfaces;
-using DeployCmsData.Umbraco7.Services;
+using DeployCmsData.UmbracoCms.Interfaces;
+using DeployCmsData.UmbracoCms.Services;
 using Umbraco.Core.Models.EntityBase;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 
-namespace DeployCmsData.Umbraco7.Builders
+namespace DeployCmsData.UmbracoCms.Builders
 {
     public class DocumentTypeFolderBuilder
     {

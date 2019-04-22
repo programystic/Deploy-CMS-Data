@@ -1,10 +1,10 @@
 ﻿using DeployCmsData.Core.Interfaces;
 using DeployCmsData.Core.Models;
-using DeployCmsData.Umbraco7.Models;
+using DeployCmsData.UmbracoCms.Models;
 using System.Collections.Generic;
 using Umbraco.Core;
 
-namespace DeployCmsData.Umbraco7.Data
+namespace DeployCmsData.UmbracoCms.Data
 {
     public class UpgradeLogRepository : IUpgradeLogRepository
     {

@@ -1,7 +1,7 @@
-﻿using DeployCmsData.Umbraco7.Interfaces;
+﻿using DeployCmsData.UmbracoCms.Interfaces;
 using System.Web;
 
-namespace DeployCmsData.Umbraco7.Services
+namespace DeployCmsData.UmbracoCms.Services
 {
     internal class Server : IHttpServerUtility
     {

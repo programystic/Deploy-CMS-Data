@@ -1,7 +1,7 @@
-﻿using DeployCmsData.Umbraco7.Enums;
+﻿using DeployCmsData.UmbracoCms.Enums;
 using Newtonsoft.Json;
 
-namespace DeployCmsData.Umbraco7.Models
+namespace DeployCmsData.UmbracoCms.Models
 {
     public class MultiNodeTreePickerStartNodePreValue
     {

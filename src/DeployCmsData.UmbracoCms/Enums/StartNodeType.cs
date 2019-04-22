@@ -1,4 +1,4 @@
-﻿namespace DeployCmsData.Umbraco7.Enums
+﻿namespace DeployCmsData.UmbracoCms.Enums
 {
     public enum StartNodeType
     {

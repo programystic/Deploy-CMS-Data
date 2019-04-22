@@ -1,10 +1,10 @@
-﻿using DeployCmsData.Umbraco7.UnitTest.Builders;
+﻿using DeployCmsData.UmbracoCms.UnitTest.Builders;
 using Moq;
 using NUnit.Framework;
 using System;
 using Umbraco.Core.Models;
 
-namespace DeployCmsData.Umbraco7.UnitTest.Tests
+namespace DeployCmsData.UmbracoCms.UnitTest.Tests
 {
     public static class Templates
     {

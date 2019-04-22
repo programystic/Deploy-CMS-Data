@@ -4,7 +4,7 @@ using Umbraco.Core.Persistence;
 using Umbraco.Core.Persistence.DatabaseAnnotations;
 using Validation;
 
-namespace DeployCmsData.Umbraco7.Models
+namespace DeployCmsData.UmbracoCms.Models
 {
     [TableName(Constants.Database.LogsTableName)]
     [PrimaryKey(nameof(Id), autoIncrement = true)]

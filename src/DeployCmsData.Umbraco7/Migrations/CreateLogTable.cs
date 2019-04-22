@@ -10,12 +10,11 @@ namespace DeployCmsData.Umbraco7.Migrations
     [Migration("1.0.0", 1, "DeployCmsData")]
     public class CreateLogTable : MigrationBase
     {
-        private readonly UmbracoDatabase _database = ApplicationContext.Current.DatabaseContext.Database;
         private readonly DatabaseSchemaHelper _schemaHelper;
 
         public CreateLogTable(ISqlSyntaxProvider sqlSyntax, ILogger logger) : base(sqlSyntax, logger)
         {
-            _schemaHelper = new DatabaseSchemaHelper(_database, logger, sqlSyntax);
+            _schemaHelper = new DatabaseSchemaHelper(ApplicationContext.Current.DatabaseContext.Database, logger, sqlSyntax);
         }
 
         public override void Up()

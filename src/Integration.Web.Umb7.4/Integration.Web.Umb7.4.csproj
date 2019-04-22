@@ -68,12 +68,6 @@
     <Reference Include="CookComputing.XmlRpcV2, Version=2.5.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
       <HintPath>..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
     </Reference>
-    <Reference Include="DeployCmsData.Core, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DeployCmsData.Core.1.0.3\lib\net461\DeployCmsData.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DeployCmsData.UmbracoCms, Version=7.4.0.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DeployCmsData.UmbracoCms.7.4.0.6\lib\net461\DeployCmsData.UmbracoCms.dll</HintPath>
-    </Reference>
     <Reference Include="Examine, Version=0.1.68.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Examine.0.1.68.0\lib\Examine.dll</HintPath>
     </Reference>
@@ -279,7 +273,9 @@
     <Content Include="Config\Lang\zh-CN.user.xml" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiController\IntegrationTestController.cs" />
@@ -329,6 +325,10 @@
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DeployCmsData.Umbraco7\DeployCmsData.Umbraco7.csproj">
+      <Project>{2ca1d4fa-d7cd-41a6-8cfb-a2675df00c5f}</Project>
+      <Name>DeployCmsData.Umbraco7</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DeployCmsData.UpgradeScripts.7.0\DeployCmsData.UpgradeScripts.7.0.csproj">
       <Project>{882c241d-e682-429c-8ef1-8f0796e6e958}</Project>
       <Name>DeployCmsData.UpgradeScripts.7.0</Name>

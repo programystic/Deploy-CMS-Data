@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using Umbraco.Core;
 
-namespace DeployCmsData.Umbraco7.Extensions
+namespace DeployCmsData.UmbracoCms.Extensions
 {
     public static class StringHelper
     {

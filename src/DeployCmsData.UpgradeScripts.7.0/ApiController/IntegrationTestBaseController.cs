@@ -1,7 +1,7 @@
 ﻿using DeployCmsData.Core.Data;
 using DeployCmsData.Core.Interfaces;
 using DeployCmsData.Core.Services;
-using DeployCmsData.UmbracoCms.Data;
+using DeployCmsData.Umbraco7.Data;
 using System.Reflection;
 using System.Web.Http;
 using Umbraco.Web.WebApi;

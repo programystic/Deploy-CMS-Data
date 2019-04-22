@@ -1,6 +1,6 @@
 ﻿using DeployCmsData.Core.Attributes;
 using DeployCmsData.Core.Interfaces;
-using DeployCmsData.UmbracoCms.Builders;
+using DeployCmsData.Umbraco7.Builders;
 
 namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
 {
