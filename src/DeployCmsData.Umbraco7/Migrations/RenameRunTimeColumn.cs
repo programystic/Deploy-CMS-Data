@@ -23,26 +23,26 @@ namespace DeployCmsData.Umbraco7.Migrations
         {
             const string oldColumnName = "RuntTimeMilliseconds";
 
-            var columns = SqlSyntax.GetColumnsInSchema(Context.Database).ToArray();
-
-            if (columns.Any(x => x.TableName.InvariantEquals("cmsPropertyData") && x.ColumnName.InvariantEquals("dataDecimal")) == false)
-                Create.Column("dataDecimal").OnTable("cmsPropertyData").AsDecimal().Nullable();
-
-            if (!ColumnExistsOnTable(Constants.Database.LogsTableName, nameof(UmbracoUpgradeLog.RunTimeMilliseconds)) &&
-                ColumnExistsOnTable(Constants.Database.LogsTableName, oldColumnName))
-            {
-                Rename
-                    .Column(oldColumnName)
+            Rename
+                    .Column(oldColumnName)                    
                     .OnTable(Constants.Database.LogsTableName)
                     .To(nameof(UmbracoUpgradeLog.RunTimeMilliseconds));
-            }
+
+            //if (!ColumnExistsOnTable(Constants.Database.LogsTableName, nameof(UmbracoUpgradeLog.RunTimeMilliseconds)) &&
+            //    ColumnExistsOnTable(Constants.Database.LogsTableName, oldColumnName))
+            //{
+            //    Rename
+            //        .Column(oldColumnName)
+            //        .OnTable(Constants.Database.LogsTableName)
+            //        .To(nameof(UmbracoUpgradeLog.RunTimeMilliseconds));                    
+            //}
         }
 
         private bool ColumnExistsOnTable(string tableName, string columnName)
         {            
             var columns = SqlSyntax.GetColumnsInSchema(_database).ToArray();
 
-            return !columns.Any(x => x.TableName.InvariantEquals(tableName)
+            return columns.Any(x => x.TableName.InvariantEquals(tableName)
                 && x.ColumnName.InvariantEquals(columnName));
         }
 
