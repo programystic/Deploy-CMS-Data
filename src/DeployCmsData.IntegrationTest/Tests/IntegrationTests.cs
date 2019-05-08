@@ -9,6 +9,22 @@ namespace DeployCmsData.IntegrationTest.Tests
     [Explicit]
     internal class IntegrationTests
     {
+        string[] _endPoints = new string[] {
+                "http://deploycms.umb7.4",
+                "http://deploycms.umb7.6",
+                "http://deploycms.umb7.13"
+                //,"http://deploycms.umb8.0"
+            };
+
+        [OneTimeSetUp]
+        public void Setup()
+        {
+            foreach (var endpoint in _endPoints)
+            {
+                RestExecute(endpoint);
+            }
+        }
+
         [TestCase("ClearTheDecks")]
         [TestCase("Upgrade01")]
         [TestCase("Upgrade02")]
@@ -30,29 +46,32 @@ namespace DeployCmsData.IntegrationTest.Tests
 
         public void GetResponse(string method)
         {
-            var endPoints = new string[] {
-                "http://deploycms.umb7.4",
-                "http://deploycms.umb7.6",
-                "http://deploycms.umb7.13"
-                //,"http://deploycms.umb8.0"
-            };
-
-            foreach (var endPoint in endPoints)
+            foreach (var endPoint in _endPoints)
             {
-                var client = new RestClient(endPoint);
                 var resource = $"/umbraco/api/integrationtest/runscript/?scriptName={method}";
-                var request = new RestRequest(resource, Method.GET);
-
-                Debug.WriteLine($"Calling: {endPoint}{resource}");
-                var response = client.Execute<bool>(request);
+                var response = RestExecute(endPoint, resource);
 
                 if (response.ErrorException != null)
                 {
                     throw new Exception(endPoint + " : " + response.Content, response.ErrorException);
                 }
 
-                Assert.IsTrue(response.Data, endPoint);
+                Assert.IsTrue(response.Data, endPoint + resource);
             }
+        }
+
+        public IRestResponse<bool> RestExecute(string endPoint)
+        {
+            return RestExecute(endPoint, null);
+        }
+
+        public IRestResponse<bool> RestExecute(string endPoint, string resource)
+        {                        
+            var client = new RestClient(endPoint);
+            var request = new RestRequest(resource, Method.GET);
+
+            Debug.WriteLine($"Calling: {endPoint}");
+            return client.Execute<bool>(request);
         }
     }
 }

@@ -15,9 +15,9 @@ namespace DeployCmsData.Umbraco7.Builders
 {
     public class DocumentTypeBuilder
     {
-        private IContentTypeService _contentTypeService;
-        private IDataTypeService _dataTypeService;
-        private IUmbracoFactory _factory;
+        private readonly IContentTypeService _contentTypeService;
+        private readonly IDataTypeService _dataTypeService;
+        private readonly IUmbracoFactory _factory;
         private readonly string _alias;
         private string _name;
         private string _icon;
@@ -25,7 +25,7 @@ namespace DeployCmsData.Umbraco7.Builders
         private string _description;
         private string _tab;
         private ITemplate _defaultTemplate;
-        private Dictionary<string, int> _tabSortOrder = new Dictionary<string, int>();
+        private readonly Dictionary<string, int> _tabSortOrder = new Dictionary<string, int>();
         private bool? _allowAtRoot;
 
         internal readonly IList<string> RemoveFieldList = new List<string>();
@@ -340,6 +340,7 @@ namespace DeployCmsData.Umbraco7.Builders
 
             SetDefaultFieldValues(field);
 
+            //var allDataTypeDefinitions = _dataTypeService.            
             dataTypeDefinition = _dataTypeService.GetDataTypeDefinitionById(field.DataTypeValue);
             Verify.Operation(dataTypeDefinition != null, ExceptionMessages.CannotFindDataType + field.DataTypeValue);
 

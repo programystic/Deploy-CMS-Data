@@ -14,14 +14,12 @@ namespace DeployCmsData.Umbraco7.Migrations
         const string OldColumnName = "RuntTimeMilliseconds";
 
         private readonly UmbracoDatabase _database = ApplicationContext.Current.DatabaseContext.Database;
-        private readonly DatabaseSchemaHelper _schemaHelper;
 
         public RenameRunTimeColumn(ISqlSyntaxProvider sqlSyntax, ILogger logger) : base(sqlSyntax, logger)
         {
-            //_schemaHelper = new DatabaseSchemaHelper(_database, logger, sqlSyntax);
         }
 
-        public override void Up()   
+        public override void Up()
         {
 
             var columns = SqlSyntax.GetColumnsInSchema(_database).ToArray();

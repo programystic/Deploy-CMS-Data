@@ -8,8 +8,8 @@ using  Umbraco.Web;
 using  Umbraco.ModelsBuilder;
 using  Umbraco.ModelsBuilder.Umbraco;
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "34be42f57a10cb74")]
-[assembly:System.Reflection.AssemblyVersion("0.0.0.1")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "16323c943a59363d")]
+[assembly:System.Reflection.AssemblyVersion("0.0.0.2")]
 
 
 // FILE: models.generated.cs
@@ -40,7 +40,7 @@ using  Umbraco.ModelsBuilder.Umbraco;
 
 namespace Umbraco.Web.PublishedContentModels
 {
-	// Mixin content Type 1374 with alias "pageMetaData"
+	// Mixin content Type 1835 with alias "pageMetaData"
 	/// <summary>Page Meta Data</summary>
 	public partial interface IPageMetaData : IPublishedContent
 	{
@@ -72,7 +72,7 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 	}
 
-	// Mixin content Type 1375 with alias "contentBase"
+	// Mixin content Type 1836 with alias "contentBase"
 	/// <summary>Content Base</summary>
 	public partial interface IContentBase : IPublishedContent
 	{
@@ -133,7 +133,7 @@ namespace Umbraco.Web.PublishedContentModels
 		public static string GetPageTitle(IContentBase that) { return that.GetPropertyValue<string>("pageTitle"); }
 	}
 
-	// Mixin content Type 1376 with alias "navigationBase"
+	// Mixin content Type 1837 with alias "navigationBase"
 	/// <summary>Navigation Base</summary>
 	public partial interface INavigationBase : IPublishedContent
 	{
@@ -253,6 +253,15 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
+		/// Multi Node Tree Picker
+		///</summary>
+		[ImplementPropertyType("multiNodeTreePicker")]
+		public IEnumerable<IPublishedContent> MultiNodeTreePicker
+		{
+			get { return this.GetPropertyValue<IEnumerable<IPublishedContent>>("multiNodeTreePicker"); }
+		}
+
+		///<summary>
 		/// Content
 		///</summary>
 		[ImplementPropertyType("bodyText")]
@@ -322,18 +331,27 @@ namespace Umbraco.Web.PublishedContentModels
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}
+
+		///<summary>
+		/// Title
+		///</summary>
+		[ImplementPropertyType("Title")]
+		public string Title
+		{
+			get { return this.GetPropertyValue<string>("Title"); }
+		}
 	}
 
-	/// <summary>All Data Types</summary>
-	[PublishedContentModel("allDataTypes")]
-	public partial class AllDataTypes : PublishedContentModel
+	/// <summary>Allowed Child Node Type1</summary>
+	[PublishedContentModel("allowedChildNodeType1")]
+	public partial class AllowedChildNodeType1 : PublishedContentModel
 	{
 #pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "allDataTypes";
+		public new const string ModelTypeAlias = "allowedChildNodeType1";
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 #pragma warning restore 0109
 
-		public AllDataTypes(IPublishedContent content)
+		public AllowedChildNodeType1(IPublishedContent content)
 			: base(content)
 		{ }
 
@@ -344,198 +362,237 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 #pragma warning restore 0109
 
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<AllDataTypes, TValue>> selector)
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<AllowedChildNodeType1, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>Allowed Child Node Type2</summary>
+	[PublishedContentModel("allowedChildNodeType2")]
+	public partial class AllowedChildNodeType2 : PublishedContentModel
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "allowedChildNodeType2";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public AllowedChildNodeType2(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<AllowedChildNodeType2, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>Allowed Child Node Type3</summary>
+	[PublishedContentModel("allowedChildNodeType3")]
+	public partial class AllowedChildNodeType3 : PublishedContentModel
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "allowedChildNodeType3";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public AllowedChildNodeType3(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<AllowedChildNodeType3, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>Remove Allowed Doc Type</summary>
+	[PublishedContentModel("removeAllowedDocType")]
+	public partial class RemoveAllowedDocType : PublishedContentModel, IContentBase, INavigationBase, IPageMetaData
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "removeAllowedDocType";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public RemoveAllowedDocType(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<RemoveAllowedDocType, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}
 
 		///<summary>
-		/// Check Box
+		/// Main Content
 		///</summary>
-		[ImplementPropertyType("checkBox")]
-		public IEnumerable<string> CheckBox
+		[ImplementPropertyType("mainContent")]
+		public Newtonsoft.Json.Linq.JToken MainContent
 		{
-			get { return this.GetPropertyValue<IEnumerable<string>>("checkBox"); }
+			get { return this.GetPropertyValue<Newtonsoft.Json.Linq.JToken>("mainContent"); }
 		}
 
 		///<summary>
-		/// Content Picker
+		/// Content
 		///</summary>
-		[ImplementPropertyType("contentPicker")]
-		public DateTime ContentPicker
+		[ImplementPropertyType("bodyText")]
+		public IHtmlString BodyText
 		{
-			get { return this.GetPropertyValue<DateTime>("contentPicker"); }
+			get { return Umbraco.Web.PublishedContentModels.ContentBase.GetBodyText(this); }
 		}
 
 		///<summary>
-		/// Date Picker
+		/// Page Title: The title of the page, this is also the first text in a google search result. The ideal length is between 40 and 60 characters
 		///</summary>
-		[ImplementPropertyType("datePicker")]
-		public DateTime DatePicker
+		[ImplementPropertyType("pageTitle")]
+		public string PageTitle
 		{
-			get { return this.GetPropertyValue<DateTime>("datePicker"); }
+			get { return Umbraco.Web.PublishedContentModels.ContentBase.GetPageTitle(this); }
 		}
 
 		///<summary>
-		/// Drop Down
+		/// Keywords: Keywords that describe the content of the page. This is consired optional since most modern search engines don't use this anymore
 		///</summary>
-		[ImplementPropertyType("dropDown")]
-		public string DropDown
+		[ImplementPropertyType("keywords")]
+		public IEnumerable<string> Keywords
 		{
-			get { return this.GetPropertyValue<string>("dropDown"); }
+			get { return Umbraco.Web.PublishedContentModels.NavigationBase.GetKeywords(this); }
 		}
 
 		///<summary>
-		/// Drop Down Multiple
+		/// Description: A brief description of the content on your page. This text is shown below the title in a google search result and also used for Social Sharing Cards. The ideal length is between 130
 		///</summary>
-		[ImplementPropertyType("dropDownMultiple")]
-		public IEnumerable<string> DropDownMultiple
+		[ImplementPropertyType("seoMetaDescription")]
+		public string SeoMetaDescription
 		{
-			get { return this.GetPropertyValue<IEnumerable<string>>("dropDownMultiple"); }
+			get { return Umbraco.Web.PublishedContentModels.NavigationBase.GetSeoMetaDescription(this); }
 		}
 
 		///<summary>
-		/// Image Cropper
+		/// Hide in Navigation: If you don't want this page to appear in the navigation, check this box
 		///</summary>
-		[ImplementPropertyType("imageCropper")]
-		public Umbraco.Web.Models.ImageCropDataSet ImageCropper
+		[ImplementPropertyType("umbracoNavihide")]
+		public bool UmbracoNavihide
 		{
-			get { return this.GetPropertyValue<Umbraco.Web.Models.ImageCropDataSet>("imageCropper"); }
+			get { return Umbraco.Web.PublishedContentModels.NavigationBase.GetUmbracoNavihide(this); }
+		}
+	}
+
+	/// <summary>Website2</summary>
+	[PublishedContentModel("website2")]
+	public partial class Website2 : WebsiteRoot
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "website2";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public Website2(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Website2, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}
 
 		///<summary>
-		/// Label
+		/// Title 2
 		///</summary>
-		[ImplementPropertyType("label")]
-		public string Label
+		[ImplementPropertyType("Title2")]
+		public string Title2
 		{
-			get { return this.GetPropertyValue<string>("label"); }
+			get { return this.GetPropertyValue<string>("Title2"); }
+		}
+	}
+
+	/// <summary>Website3</summary>
+	[PublishedContentModel("website3")]
+	public partial class Website3 : Website2
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "website3";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public Website3(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Website3, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}
 
 		///<summary>
-		/// List View Content
+		/// Title 3
 		///</summary>
-		[ImplementPropertyType("listViewContent")]
-		public object ListViewContent
+		[ImplementPropertyType("Title3")]
+		public string Title3
 		{
-			get { return this.GetPropertyValue("listViewContent"); }
+			get { return this.GetPropertyValue<string>("Title3"); }
 		}
+	}
 
-		///<summary>
-		/// List View Media
-		///</summary>
-		[ImplementPropertyType("listViewMedia")]
-		public object ListViewMedia
+	/// <summary>Inherited Doc Type Test</summary>
+	[PublishedContentModel("inheritedDocTypeTest")]
+	public partial class InheritedDocTypeTest : Website3
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "inheritedDocTypeTest";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public InheritedDocTypeTest(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
 		{
-			get { return this.GetPropertyValue("listViewMedia"); }
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
 		}
+#pragma warning restore 0109
 
-		///<summary>
-		/// List View Members
-		///</summary>
-		[ImplementPropertyType("listViewMembers")]
-		public object ListViewMembers
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<InheritedDocTypeTest, TValue>> selector)
 		{
-			get { return this.GetPropertyValue("listViewMembers"); }
-		}
-
-		///<summary>
-		/// Media Picker
-		///</summary>
-		[ImplementPropertyType("mediaPicker")]
-		public IPublishedContent MediaPicker
-		{
-			get { return this.GetPropertyValue<IPublishedContent>("mediaPicker"); }
-		}
-
-		///<summary>
-		/// Member Picker
-		///</summary>
-		[ImplementPropertyType("memberPicker")]
-		public IPublishedContent MemberPicker
-		{
-			get { return this.GetPropertyValue<IPublishedContent>("memberPicker"); }
-		}
-
-		///<summary>
-		/// Multiple Media Picker
-		///</summary>
-		[ImplementPropertyType("multipleMediaPicker")]
-		public IEnumerable<IPublishedContent> MultipleMediaPicker
-		{
-			get { return this.GetPropertyValue<IEnumerable<IPublishedContent>>("multipleMediaPicker"); }
-		}
-
-		///<summary>
-		/// Numeric
-		///</summary>
-		[ImplementPropertyType("numeric")]
-		public int Numeric
-		{
-			get { return this.GetPropertyValue<int>("numeric"); }
-		}
-
-		///<summary>
-		/// Radio Box
-		///</summary>
-		[ImplementPropertyType("radioBox")]
-		public int RadioBox
-		{
-			get { return this.GetPropertyValue<int>("radioBox"); }
-		}
-
-		///<summary>
-		/// Related Links
-		///</summary>
-		[ImplementPropertyType("relatedLinks")]
-		public Umbraco.Web.Models.RelatedLinks RelatedLinks
-		{
-			get { return this.GetPropertyValue<Umbraco.Web.Models.RelatedLinks>("relatedLinks"); }
-		}
-
-		///<summary>
-		/// Rich Text Editor
-		///</summary>
-		[ImplementPropertyType("richTextEditor")]
-		public IHtmlString RichTextEditor
-		{
-			get { return this.GetPropertyValue<IHtmlString>("richTextEditor"); }
-		}
-
-		///<summary>
-		/// Tags
-		///</summary>
-		[ImplementPropertyType("tags")]
-		public IEnumerable<string> Tags
-		{
-			get { return this.GetPropertyValue<IEnumerable<string>>("tags"); }
-		}
-
-		///<summary>
-		/// Text Area
-		///</summary>
-		[ImplementPropertyType("textArea")]
-		public string TextArea
-		{
-			get { return this.GetPropertyValue<string>("textArea"); }
-		}
-
-		///<summary>
-		/// Text String
-		///</summary>
-		[ImplementPropertyType("textString")]
-		public string TextString
-		{
-			get { return this.GetPropertyValue<string>("textString"); }
-		}
-
-		///<summary>
-		/// Upload
-		///</summary>
-		[ImplementPropertyType("upload")]
-		public string Upload
-		{
-			get { return this.GetPropertyValue<string>("upload"); }
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}
 	}
 
