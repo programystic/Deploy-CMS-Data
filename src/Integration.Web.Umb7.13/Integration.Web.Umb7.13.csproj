@@ -65,12 +65,6 @@
     <Reference Include="controls, Version=1.0.6942.23081, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\UmbracoCms.Core.7.13.0\lib\net45\controls.dll</HintPath>
     </Reference>
-    <Reference Include="DeployCmsData.Core, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DeployCmsData.Core.1.0.3\lib\net461\DeployCmsData.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DeployCmsData.UmbracoCms, Version=7.13.0.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DeployCmsData.UmbracoCms.7.13.0.6\lib\net461\DeployCmsData.UmbracoCms.dll</HintPath>
-    </Reference>
     <Reference Include="Examine, Version=0.1.89.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Examine.0.1.89\lib\net45\Examine.dll</HintPath>
     </Reference>
@@ -254,8 +248,8 @@
     <Reference Include="Validation, Version=2.4.0.0, Culture=neutral, PublicKeyToken=2fc06f0d701809a7, processorArchitecture=MSIL">
       <HintPath>..\packages\Validation.2.4.18\lib\net45\Validation.dll</HintPath>
     </Reference>
-    <Reference Include="WebConfigHelper, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WebConfigHelper.1.0.3\lib\net461\WebConfigHelper.dll</HintPath>
+    <Reference Include="WebConfigHelper, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebConfigHelper.1.0.4\lib\net461\WebConfigHelper.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

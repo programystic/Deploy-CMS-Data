@@ -53,7 +53,7 @@ namespace DeployCmsData.Umbraco7.Services
             }
             catch (Exception e)
             {
-                LogHelper.Error<MigrationsRunner>("Error running migrations", e);
+                LogHelper.Error<MigrationsRunner>($"Error running migrations: {e.Message}", e);
             }
         }
     }

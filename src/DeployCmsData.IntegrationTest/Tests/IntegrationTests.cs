@@ -20,7 +20,7 @@ namespace DeployCmsData.IntegrationTest.Tests
         [TestCase("MultiNodeTreePicker")]
         [TestCase("AllDataTypes")]
         [TestCase("UpdateHomePage")]
-        [TestCase("RemoveAllowedDocType")]   
+        [TestCase("RemoveAllowedDocType")]
         [TestCase("GridRowConfiguration")]
         [TestCase("DocTypeInheritance")]
         public void CallUpgradeScriptApi(string apiMethodName)
@@ -30,7 +30,7 @@ namespace DeployCmsData.IntegrationTest.Tests
 
         public void GetResponse(string method)
         {
-            var endPoints = new string[] {                
+            var endPoints = new string[] {
                 "http://deploycms.umb7.4",
                 "http://deploycms.umb7.6",
                 "http://deploycms.umb7.13"
@@ -45,6 +45,11 @@ namespace DeployCmsData.IntegrationTest.Tests
 
                 Debug.WriteLine($"Calling: {endPoint}{resource}");
                 var response = client.Execute<bool>(request);
+
+                if (response.ErrorException != null)
+                {
+                    throw new Exception(endPoint + " : " + response.Content, response.ErrorException);
+                }
 
                 Assert.IsTrue(response.Data, endPoint);
             }
