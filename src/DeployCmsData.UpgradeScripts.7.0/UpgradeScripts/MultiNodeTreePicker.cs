@@ -2,6 +2,7 @@
 using DeployCmsData.Core.Interfaces;
 using DeployCmsData.Umbraco7.Builders;
 using DeployCmsData.Umbraco7.Services;
+using DeployCmsData.UpgradeScripts_7.Constants;
 using System;
 using Umbraco.Core;
 
@@ -27,7 +28,7 @@ namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
             var builder = new MultiNodeTreePickerBuilder(id);
 
             builder
-                .Name("Another Multi Node Tree Picker")
+                .Name(LocalDataTypes.MultiNodeTreePicker)
                 .AllowItemsOfType("websiteRoot", "homePage")
                 .MinimumNumberOfItems(1)
                 .MaximumNumberOfItems(5)

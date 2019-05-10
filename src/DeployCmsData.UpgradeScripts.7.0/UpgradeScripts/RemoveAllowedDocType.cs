@@ -27,7 +27,7 @@ namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
                 .AddAllowedChildNodeType("allowedChildNodeType3");
 
             builder.AddField("mainContent")
-                .DataType(LocalDataTypes.Grid)
+                .DataTypeAlias(LocalDataTypes.Grid)
                 .Tab("Content");
 
             builder.BuildInFolder("Pages");

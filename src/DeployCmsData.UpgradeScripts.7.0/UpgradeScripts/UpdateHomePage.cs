@@ -2,6 +2,7 @@
 using DeployCmsData.Core.Interfaces;
 using DeployCmsData.Umbraco7.Builders;
 using DeployCmsData.Umbraco7.Constants;
+using DeployCmsData.UpgradeScripts_7.Constants;
 using System;
 
 namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
@@ -14,10 +15,10 @@ namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
             var builder = new DocumentTypeBuilder("homePage");
 
             builder.AddField("additionalContent")
-                .DataType(DataType.RichTextEditor);
+                .DataTypeAlias(DataTypeAlias.Richtexteditor);
 
             builder.AddField("multiNodeTreePicker")
-                .DataType(Guid.Parse("{60FFCA99-3B98-49EA-9F64-E4C69BB00285}"));
+                .DataTypeAlias(LocalDataTypes.MultiNodeTreePicker);
 
             builder
                 .AllowedAsRoot()

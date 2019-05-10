@@ -21,11 +21,11 @@ namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
                 .AddComposition("navigationBase");
 
             builder.AddField("mainContent")
-                .DataType(LocalDataTypes.Grid)
+                .DataTypeAlias(LocalDataTypes.Grid)
                 .Tab("Content");
 
             builder.AddField("additionalContent")
-                .DataType(LocalDataTypes.Grid)
+                .DataTypeAlias(LocalDataTypes.Grid)
                 .Tab("Content 2");
 
             builder.BuildInFolder("Pages");

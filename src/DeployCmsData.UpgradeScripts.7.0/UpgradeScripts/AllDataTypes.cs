@@ -16,30 +16,30 @@ namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
 
             builder.DefaultTab("All The Data Types");
 
-            builder.AddField("textArea").DataType(DataType.ApprovedColor);
-            builder.AddField("checkBox").DataType(DataType.CheckBox);
-            builder.AddField("checkBox").DataType(DataType.CheckBoxList);
-            builder.AddField("contentPicker").DataType(DataType.ContentPicker);
-            builder.AddField("datePicker").DataType(DataType.DatePicker);
-            builder.AddField("contentPicker").DataType(DataType.DatePickerWithTime);
-            builder.AddField("dropDown").DataType(DataType.DropDown);
-            builder.AddField("dropDownMultiple").DataType(DataType.DropDownMultiple);
-            builder.AddField("imageCropper").DataType(DataType.ImageCropper);
-            builder.AddField("label").DataType(DataType.Label);
-            builder.AddField("listViewContent").DataType(DataType.ListViewContent);
-            builder.AddField("listViewMedia").DataType(DataType.ListViewMedia);
-            builder.AddField("listViewMembers").DataType(DataType.ListViewMembers);
-            builder.AddField("mediaPicker").DataType(DataType.MediaPicker);
-            builder.AddField("memberPicker").DataType(DataType.MemberPicker);
-            builder.AddField("multipleMediaPicker").DataType(DataType.MultipleMediaPicker);
-            builder.AddField("numeric").DataType(DataType.Numeric);
-            builder.AddField("radioBox").DataType(DataType.RadioBox);
-            builder.AddField("relatedLinks").DataType(DataType.RelatedLinks);
-            builder.AddField("richTextEditor").DataType(DataType.RichTextEditor);
-            builder.AddField("tags").DataType(DataType.Tags);
-            builder.AddField("textArea").DataType(DataType.TextArea);
-            builder.AddField("textString").DataType(DataType.TextString);
-            builder.AddField("upload").DataType(DataType.Upload);
+            builder.AddField("textArea").DataTypeAlias(DataTypeAlias.Textarea);
+            builder.AddField("checkBox").DataTypeAlias(DataTypeAlias.Truefalse);
+            builder.AddField("checkBoxList").DataTypeAlias(DataTypeAlias.Checkboxlist);
+            builder.AddField("contentPicker").DataTypeAlias(DataTypeAlias.ContentPicker);
+            builder.AddField("datePicker").DataTypeAlias(DataTypeAlias.DatePicker);
+            builder.AddField("datePickerWithTime").DataTypeAlias(DataTypeAlias.DatePickerwithtime);
+            builder.AddField("dropDown").DataTypeAlias(DataTypeAlias.Dropdown);
+            builder.AddField("dropDownMultiple").DataTypeAlias(DataTypeAlias.Dropdownmultiple);
+            builder.AddField("imageCropper").DataTypeAlias(DataTypeAlias.ImageCropper);
+            builder.AddField("label").DataTypeAlias(DataTypeAlias.Label);
+            builder.AddField("listViewContent").DataTypeAlias(DataTypeAlias.ListViewContent);
+            builder.AddField("listViewMedia").DataTypeAlias(DataTypeAlias.ListViewMedia);
+            builder.AddField("listViewMembers").DataTypeAlias(DataTypeAlias.ListViewMembers);
+            builder.AddField("mediaPicker").DataTypeAlias(DataTypeAlias.MediaPicker);
+            builder.AddField("memberPicker").DataTypeAlias(DataTypeAlias.MemberPicker);
+            builder.AddField("multipleMediaPicker").DataTypeAlias(DataTypeAlias.MultipleMediaPicker);
+            builder.AddField("numeric").DataTypeAlias(DataTypeAlias.Numeric);
+            builder.AddField("radioBox").DataTypeAlias(DataTypeAlias.Radiobox);
+            builder.AddField("relatedLinks").DataTypeAlias(DataTypeAlias.RelatedLinks);
+            builder.AddField("richTextEditor").DataTypeAlias(DataTypeAlias.Richtexteditor);
+            builder.AddField("tags").DataTypeAlias(DataTypeAlias.Tags);
+            builder.AddField("textArea").DataTypeAlias(DataTypeAlias.Textarea);
+            builder.AddField("textString").DataTypeAlias(DataTypeAlias.Textstring);
+            builder.AddField("upload").DataTypeAlias(DataTypeAlias.Upload);
 
             builder.BuildInFolder("Testing");
 

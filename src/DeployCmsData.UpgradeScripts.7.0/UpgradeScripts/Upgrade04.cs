@@ -3,6 +3,7 @@ using DeployCmsData.Core.Interfaces;
 using DeployCmsData.Umbraco7.Builders;
 using DeployCmsData.Umbraco7.Services;
 using DeployCmsData.UpgradeScripts_7.Constants;
+using System;
 
 namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
 {
@@ -11,12 +12,14 @@ namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
     {
         public bool RunScript()
         {
+            var gridId = new Guid("{13317E3D-C3F5-408C-9E9A-BC21E45EC8BC}");
+
             var library = new UmbracoLibrary();
-            library.DeleteDataTypeById(LocalDataTypes.Grid);
-            var gridBuilder = new GridDataTypeBuilder(LocalDataTypes.Grid);
+            library.DeleteDataTypeById(gridId);
+            var gridBuilder = new GridDataTypeBuilder(gridId);
 
             gridBuilder
-                .Name("Another Grid View")
+                .Name(LocalDataTypes.Grid)
                 .AddStandardToolBar()
                 .AddStandardRows()
                 .AddLayout("1 column layout", 12)

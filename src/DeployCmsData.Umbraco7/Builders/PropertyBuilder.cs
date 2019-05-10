@@ -7,7 +7,7 @@ namespace DeployCmsData.Umbraco7.Builders
         public string AliasValue { get; set; }
         public string NameValue { get; set; }
         public string TabValue { get; set; }
-        public Guid DataTypeValue { get; set; }
+        public string DataTypeAliasValue { get; set; }
         public string DescriptionValue { get; set; }
         public string RegularExpressionValue { get; set; }
         public bool? MandatoryValue { get; set; }
@@ -18,7 +18,7 @@ namespace DeployCmsData.Umbraco7.Builders
             AliasValue = null;
             NameValue = null;
             TabValue = null;
-            DataTypeValue = Guid.Empty;
+            DataTypeAliasValue = null;
             DescriptionValue = null;
             RegularExpressionValue = null;
             MandatoryValue = null;
@@ -29,9 +29,9 @@ namespace DeployCmsData.Umbraco7.Builders
             AliasValue = alias;
         }
 
-        public PropertyBuilder DataType(Guid propertyDataType)
+        public PropertyBuilder DataTypeAlias(string propertyDataType)
         {
-            DataTypeValue = propertyDataType;
+            DataTypeAliasValue = propertyDataType;
             return this;
         }
 

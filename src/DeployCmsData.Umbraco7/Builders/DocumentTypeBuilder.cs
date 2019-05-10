@@ -313,10 +313,10 @@ namespace DeployCmsData.Umbraco7.Builders
             propertyType.ValidationRegExp = field.RegularExpressionValue ?? propertyType.ValidationRegExp;
             propertyType.Mandatory = field.MandatoryValue ?? propertyType.Mandatory;
 
-            if (field.DataTypeValue != Guid.Empty)
+            if (field.DataTypeAliasValue != null)
             {
-                var dataTypeDefinition = _dataTypeService.GetDataTypeDefinitionById(field.DataTypeValue);
-                Verify.Operation(dataTypeDefinition != null, ExceptionMessages.CannotFindDataType + field.DataTypeValue);
+                var dataTypeDefinition = _dataTypeService.GetDataTypeDefinitionByName(field.DataTypeAliasValue);
+                Verify.Operation(dataTypeDefinition != null, ExceptionMessages.CannotFindDataType + field.DataTypeAliasValue);
 
                 propertyType.DataTypeDefinitionId = dataTypeDefinition.Id;
             }
@@ -340,9 +340,8 @@ namespace DeployCmsData.Umbraco7.Builders
 
             SetDefaultFieldValues(field);
 
-            //var allDataTypeDefinitions = _dataTypeService.            
-            dataTypeDefinition = _dataTypeService.GetDataTypeDefinitionById(field.DataTypeValue);
-            Verify.Operation(dataTypeDefinition != null, ExceptionMessages.CannotFindDataType + field.DataTypeValue);
+            dataTypeDefinition = _dataTypeService.GetDataTypeDefinitionByName(field.DataTypeAliasValue);
+            Verify.Operation(dataTypeDefinition != null, ExceptionMessages.CannotFindDataType + field.DataTypeAliasValue);
 
             propertyType = _factory.NewPropertyType(dataTypeDefinition, field.AliasValue);
             propertyType.Name = field.NameValue;
@@ -364,9 +363,9 @@ namespace DeployCmsData.Umbraco7.Builders
 
         private void SetDefaultFieldValues(PropertyBuilder field)
         {
-            if (field.DataTypeValue == null || field.DataTypeValue == Guid.Empty)
+            if (string.IsNullOrEmpty(field.DataTypeAliasValue))
             {
-                field.DataTypeValue = Constants.DataType.TextString;
+                field.DataTypeAliasValue = Constants.DataTypeAlias.Textstring;
             }
 
             if (string.IsNullOrEmpty(field.NameValue))

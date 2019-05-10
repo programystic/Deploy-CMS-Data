@@ -4,6 +4,7 @@ namespace DeployCmsData.UpgradeScripts_7.Constants
 {
     public static class LocalDataTypes
     {
-        public static Guid Grid = Guid.Parse("{3B7F4064-E61E-4937-BFE8-3FFF0C71977A}");
+        public const string Grid = "My Local Grid";
+        public const string MultiNodeTreePicker = "Yet Another Multi Node Tree Picker";
     }
 }
