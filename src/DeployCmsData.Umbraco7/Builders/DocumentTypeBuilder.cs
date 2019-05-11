@@ -365,7 +365,7 @@ namespace DeployCmsData.Umbraco7.Builders
         {
             if (string.IsNullOrEmpty(field.DataTypeAliasValue))
             {
-                field.DataTypeAliasValue = Constants.DataTypeAlias.Textstring;
+                field.DataTypeAliasValue = Constants.DataTypeAlias.TextString;
             }
 
             if (string.IsNullOrEmpty(field.NameValue))

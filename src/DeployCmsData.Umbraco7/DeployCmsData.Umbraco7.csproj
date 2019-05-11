@@ -260,6 +260,7 @@
     <Compile Include="Services\Server.cs" />
     <Compile Include="Services\UmbracoFactory.cs" />
     <Compile Include="Services\UmbracoLibrary.cs" />
+    <Compile Include="UpgradeScripts\AddTrueFalseDataType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

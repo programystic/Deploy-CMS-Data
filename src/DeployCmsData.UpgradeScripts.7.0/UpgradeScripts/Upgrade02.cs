@@ -32,7 +32,7 @@ namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
 
             builder.AddField("bodyText")
                 .Name("Content")
-                .DataTypeAlias(DataTypeAlias.Richtexteditor)
+                .DataTypeAlias(DataTypeAlias.RichTextEditor)
                 .Tab("Content");
 
             builder.BuildInFolder("Compositions");
@@ -49,7 +49,7 @@ namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
             builder.AddField("seoMetaDescription")
                 .Name("Description")
                 .Description("A brief description of the content on your page. This text is shown below the title in a google search result and also used for Social Sharing Cards. The ideal length is between 130")
-                .DataTypeAlias(DataTypeAlias.Textarea)
+                .DataTypeAlias(DataTypeAlias.TextArea)
                 .Tab("Navigation & SEO");
 
             builder.AddField("keywords")
@@ -61,7 +61,7 @@ namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
             builder.AddField("umbracoNavihide")
                 .Name("Hide in Navigation")
                 .Description("If you don't want this page to appear in the navigation, check this box")
-                .DataTypeAlias(DataTypeAlias.Truefalse)
+                .DataTypeAlias(DataTypeAlias.TrueFalse)
                 .Tab("Navigation & SEO");
 
             builder.BuildInFolder("Compositions");

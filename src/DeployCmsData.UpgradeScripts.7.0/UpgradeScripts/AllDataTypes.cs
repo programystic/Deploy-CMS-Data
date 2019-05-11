@@ -16,14 +16,14 @@ namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
 
             builder.DefaultTab("All The Data Types");
 
-            builder.AddField("textArea").DataTypeAlias(DataTypeAlias.Textarea);
-            builder.AddField("checkBox").DataTypeAlias(DataTypeAlias.Truefalse);
-            builder.AddField("checkBoxList").DataTypeAlias(DataTypeAlias.Checkboxlist);
+            builder.AddField("textArea").DataTypeAlias(DataTypeAlias.TextArea);
+            builder.AddField("checkBox").DataTypeAlias(DataTypeAlias.TrueFalse);
+            builder.AddField("checkBoxList").DataTypeAlias(DataTypeAlias.CheckBoxList);
             builder.AddField("contentPicker").DataTypeAlias(DataTypeAlias.ContentPicker);
             builder.AddField("datePicker").DataTypeAlias(DataTypeAlias.DatePicker);
-            builder.AddField("datePickerWithTime").DataTypeAlias(DataTypeAlias.DatePickerwithtime);
-            builder.AddField("dropDown").DataTypeAlias(DataTypeAlias.Dropdown);
-            builder.AddField("dropDownMultiple").DataTypeAlias(DataTypeAlias.Dropdownmultiple);
+            builder.AddField("datePickerWithTime").DataTypeAlias(DataTypeAlias.DatePickerWithTime);
+            builder.AddField("dropDown").DataTypeAlias(DataTypeAlias.DropDown);
+            builder.AddField("dropDownMultiple").DataTypeAlias(DataTypeAlias.DropDownMultiple);
             builder.AddField("imageCropper").DataTypeAlias(DataTypeAlias.ImageCropper);
             builder.AddField("label").DataTypeAlias(DataTypeAlias.Label);
             builder.AddField("listViewContent").DataTypeAlias(DataTypeAlias.ListViewContent);
@@ -33,12 +33,12 @@ namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
             builder.AddField("memberPicker").DataTypeAlias(DataTypeAlias.MemberPicker);
             builder.AddField("multipleMediaPicker").DataTypeAlias(DataTypeAlias.MultipleMediaPicker);
             builder.AddField("numeric").DataTypeAlias(DataTypeAlias.Numeric);
-            builder.AddField("radioBox").DataTypeAlias(DataTypeAlias.Radiobox);
+            builder.AddField("radioBox").DataTypeAlias(DataTypeAlias.RadioBox);
             builder.AddField("relatedLinks").DataTypeAlias(DataTypeAlias.RelatedLinks);
-            builder.AddField("richTextEditor").DataTypeAlias(DataTypeAlias.Richtexteditor);
+            builder.AddField("richTextEditor").DataTypeAlias(DataTypeAlias.RichTextEditor);
             builder.AddField("tags").DataTypeAlias(DataTypeAlias.Tags);
-            builder.AddField("textArea").DataTypeAlias(DataTypeAlias.Textarea);
-            builder.AddField("textString").DataTypeAlias(DataTypeAlias.Textstring);
+            builder.AddField("textArea").DataTypeAlias(DataTypeAlias.TextArea);
+            builder.AddField("textString").DataTypeAlias(DataTypeAlias.TextString);
             builder.AddField("upload").DataTypeAlias(DataTypeAlias.Upload);
 
             builder.BuildInFolder("Testing");

@@ -15,7 +15,7 @@ namespace DeployCmsData.UpgradeScripts_7.UpgradeScripts
             var builder = new DocumentTypeBuilder("homePage");
 
             builder.AddField("additionalContent")
-                .DataTypeAlias(DataTypeAlias.Richtexteditor);
+                .DataTypeAlias(DataTypeAlias.RichTextEditor);
 
             builder.AddField("multiNodeTreePicker")
                 .DataTypeAlias(LocalDataTypes.MultiNodeTreePicker);

@@ -4,8 +4,19 @@ using Validation;
 
 namespace DeployCmsData.Umbraco7.Builders
 {
-    public static class DataTypeBuilder
+    public class DataTypeBuilder
     {
+        public string DataTypeAlias { get; private set; }
+        public DataTypeBuilder(string dataTypeAlias)
+        {
+            DataTypeAlias = dataTypeAlias;
+        }
+
+        public void Build()
+        {
+
+        }
+
         public static void DeleteDataTypeByName(string dataTypeName, IDataTypeService dataTypeService)
         {
             Requires.NotNull(dataTypeService, nameof(dataTypeService));

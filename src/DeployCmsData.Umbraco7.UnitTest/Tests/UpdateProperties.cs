@@ -51,14 +51,14 @@ namespace DeployCmsData.Umbraco7.UnitTest.Tests
                 .AddField("field2")
                 .AddField("field3")
                 .AddField("field4")
-                .ReturnsDataType(DataType.TextArea, 1)
+                .ReturnsDataType(DataTypeAlias.TextArea, 1)
                 .Build();
 
             builder.AddField("field1")
-                .DataType(DataType.TextArea);
+                .DataTypeAlias(DataTypeAlias.TextArea);
 
             builder.AddField("field4")
-                .DataType(DataType.TextArea);
+                .DataTypeAlias(DataTypeAlias.TextArea);
 
             var docType = builder.Update();
 
@@ -80,7 +80,7 @@ namespace DeployCmsData.Umbraco7.UnitTest.Tests
                 .AddField("field2")
                 .AddField("field3")
                 .AddField("field4")
-                .ReturnsDataType(DataType.TextArea, 1)
+                .ReturnsDataType(DataTypeAlias.TextArea, 1)
                 .Build();
 
             builder.AddField("field1")
@@ -108,16 +108,16 @@ namespace DeployCmsData.Umbraco7.UnitTest.Tests
                 .AddField("field2")
                 .AddField("field3")
                 .AddField("field4")
-                .ReturnsDataType(DataType.TextArea, 1)
-                .ReturnsDataType(DataType.CheckBox, 2)
-                .ReturnsDataType(DataType.DropDown, 3)
+                .ReturnsDataType(DataTypeAlias.TextArea, 1)
+                .ReturnsDataType(DataTypeAlias.TrueFalse, 2)
+                .ReturnsDataType(DataTypeAlias.DropDown, 3)
                 .Build();
 
             builder.AddField("field1")
-                .DataType(DataType.CheckBox);
+                .DataTypeAlias(DataTypeAlias.TrueFalse);
 
             builder.AddField("field4")
-                .DataType(DataType.DropDown);
+                .DataTypeAlias(DataTypeAlias.DropDown);
 
             var docType = builder.Update();
 

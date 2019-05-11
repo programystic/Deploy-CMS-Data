@@ -24,8 +24,8 @@ namespace DeployCmsData.Umbraco7.UnitTest.Tests
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
                 .SetupExistingDocumentType(Alias, Id, ParentId)
-                .ReturnsDataType(DataType.TextString, 1)
-                .ReturnsDataType(DataType.Numeric, 2)
+                .ReturnsDataType(DataTypeAlias.TextString, 1)
+                .ReturnsDataType(DataTypeAlias.Numeric, 2)
                 .Build();
 
             builder
@@ -35,12 +35,12 @@ namespace DeployCmsData.Umbraco7.UnitTest.Tests
 
             builder.AddField("name")
                 .Name("The Name")
-                .DataType(DataType.TextString)
+                .DataTypeAlias(DataTypeAlias.TextString)
                 .Tab("The First 1");
 
             builder.AddField("theNumber")
                 .Name("The Number")
-                .DataType(DataType.Numeric)
+                .DataTypeAlias(DataTypeAlias.Numeric)
                 .IsMandatory();
 
             builder.Update();
@@ -54,8 +54,8 @@ namespace DeployCmsData.Umbraco7.UnitTest.Tests
             var setup = new DocumentTypeTestBuilder(Alias);
             var builder = setup
                 .SetupExistingDocumentType(Alias, Id, ParentId)
-                .ReturnsDataType(DataType.TextString, 1)
-                .ReturnsDataType(DataType.Numeric, 2)
+                .ReturnsDataType(DataTypeAlias.TextString, 1)
+                .ReturnsDataType(DataTypeAlias.Numeric, 2)
                 .Build();
 
             builder
@@ -64,7 +64,7 @@ namespace DeployCmsData.Umbraco7.UnitTest.Tests
             builder.Update();
 
             var field = builder.FieldList.FirstOrDefault(x => x.AliasValue == fieldAlias);
-            Assert.AreEqual(DataType.TextString, field.DataTypeValue);
+            Assert.AreEqual(DataTypeAlias.TextString, field.DataTypeAliasValue);
         }
 
         [Test]
@@ -77,8 +77,8 @@ namespace DeployCmsData.Umbraco7.UnitTest.Tests
             var builder = setup
                 .SetupExistingDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType(Alias, Id)
-                .ReturnsDataType(DataType.TextString, 1)
-                .ReturnsDataType(DataType.Numeric, 2)
+                .ReturnsDataType(DataTypeAlias.TextString, 1)
+                .ReturnsDataType(DataTypeAlias.Numeric, 2)
                 .Build();
 
             builder.AddField(fieldAlias);

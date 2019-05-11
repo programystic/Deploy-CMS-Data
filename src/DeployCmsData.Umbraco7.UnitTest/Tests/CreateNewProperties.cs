@@ -25,8 +25,8 @@ namespace DeployCmsData.Umbraco7.UnitTest.Tests
             var builder = setup
                 .SetupNewDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
-                .ReturnsDataType(DataType.TextString, 1)
-                .ReturnsDataType(DataType.Numeric, 2)
+                .ReturnsDataType(DataTypeAlias.TextString, 1)
+                .ReturnsDataType(DataTypeAlias.Numeric, 2)
                 .Build();
 
             builder
@@ -36,12 +36,12 @@ namespace DeployCmsData.Umbraco7.UnitTest.Tests
 
             builder.AddField("name")
                 .Name("The Name")
-                .DataType(DataType.TextString)
+                .DataTypeAlias(DataTypeAlias.TextString)
                 .Tab("The First 1");
 
             builder.AddField("theNumber")
                 .Name("The Number")
-                .DataType(DataType.Numeric)
+                .DataTypeAlias(DataTypeAlias.Numeric)
                 .IsMandatory()
                 .Tab("The Second 1");
 
@@ -59,8 +59,8 @@ namespace DeployCmsData.Umbraco7.UnitTest.Tests
             var builder = setup
                 .SetupNewDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
-                .ReturnsDataType(DataType.TextString, 1)
-                .ReturnsDataType(DataType.Numeric, 2)
+                .ReturnsDataType(DataTypeAlias.TextString, 1)
+                .ReturnsDataType(DataTypeAlias.Numeric, 2)
                 .Build();
 
             builder
@@ -70,11 +70,11 @@ namespace DeployCmsData.Umbraco7.UnitTest.Tests
 
             builder.AddField("name")
                 .Name("The Name")
-                .DataType(DataType.TextString);
+                .DataTypeAlias(DataTypeAlias.TextString);
 
             builder.AddField("theNumber")
                 .Name("The Number")
-                .DataType(DataType.Numeric)
+                .DataTypeAlias(DataTypeAlias.Numeric)
                 .IsMandatory();
 
             builder.BuildWithParent(ParentAlias);
@@ -91,8 +91,8 @@ namespace DeployCmsData.Umbraco7.UnitTest.Tests
             var builder = setup
                 .SetupNewDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
-                .ReturnsDataType(DataType.TextString, 1)
-                .ReturnsDataType(DataType.Numeric, 2)
+                .ReturnsDataType(DataTypeAlias.TextString, 1)
+                .ReturnsDataType(DataTypeAlias.Numeric, 2)
                 .Build();
 
             builder
@@ -118,8 +118,8 @@ namespace DeployCmsData.Umbraco7.UnitTest.Tests
             var builder = setup
                 .SetupNewDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
-                .ReturnsDataType(DataType.TextString, 1)
-                .ReturnsDataType(DataType.Numeric, 2)
+                .ReturnsDataType(DataTypeAlias.TextString, 1)
+                .ReturnsDataType(DataTypeAlias.Numeric, 2)
                 .Build();
 
             builder
@@ -142,8 +142,8 @@ namespace DeployCmsData.Umbraco7.UnitTest.Tests
             var builder = setup
                 .SetupNewDocumentType(Alias, Id, ParentId)
                 .ReturnsExistingContentType(ParentAlias, ParentId)
-                .ReturnsDataType(DataType.TextString, 1)
-                .ReturnsDataType(DataType.Numeric, 2)
+                .ReturnsDataType(DataTypeAlias.TextString, 1)
+                .ReturnsDataType(DataTypeAlias.Numeric, 2)
                 .Build();
 
             builder
