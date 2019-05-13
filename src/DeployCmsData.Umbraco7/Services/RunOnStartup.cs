@@ -1,6 +1,7 @@
 ﻿using DeployCmsData.Core.Data;
 using DeployCmsData.Core.Services;
 using DeployCmsData.Umbraco7.Data;
+using DeployCmsData.Umbraco7.UpgradeScripts;
 using Umbraco.Core;
 using WebConfigHelper;
 
@@ -36,6 +37,7 @@ namespace DeployCmsData.Umbraco7.Services
             var scriptRepository = new UpgradeScriptRepository();
             var upgradeScriptManager = new UpgradeScriptManager(logRepository, scriptRepository);
 
+            upgradeScriptManager.RunScriptIfNeeded(new AddTrueFalseDataType());
             upgradeScriptManager.RunAllScriptsIfNeeded();
         }
 
