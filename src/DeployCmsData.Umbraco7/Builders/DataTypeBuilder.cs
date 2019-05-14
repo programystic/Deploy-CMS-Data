@@ -1,7 +1,4 @@
-﻿using DeployCmsData.Umbraco7.Models;
-using DeployCmsData.Umbraco7.Services;
-using System;
-using System.Linq;
+﻿using System;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
@@ -50,7 +47,7 @@ namespace DeployCmsData.Umbraco7.Builders
 
         public void Build()
         {
-            var dataType = DataTypeService.GetDataTypeDefinitionByName(DataTypeAlias);
+            var dataType = FindExistingDataType();
 
             if (dataType == null)
             {
@@ -58,10 +55,40 @@ namespace DeployCmsData.Umbraco7.Builders
             }
             else
             {
-                dataType.PropertyEditorAlias = PropertyEditorAliasValue;
+                UpdateExistingDataType(dataType);
             }
 
             DataTypeService.Save(dataType);
+        }
+
+        private void UpdateExistingDataType(IDataTypeDefinition dataType)
+        {
+            dataType.PropertyEditorAlias = PropertyEditorAliasValue;
+
+            if (KeyValue != null && KeyValue != Guid.Empty && dataType.Key != KeyValue)
+            {
+                dataType.Key = KeyValue;
+            }
+
+            if (!string.IsNullOrEmpty(DataTypeAlias) && DataTypeAlias != dataType.Name)
+            {
+                dataType.Name = DataTypeAlias;
+            }
+        }
+
+        private IDataTypeDefinition FindExistingDataType()
+        {
+            if (KeyValue != null && KeyValue != Guid.Empty)
+            {
+                return DataTypeService.GetDataTypeDefinitionById(KeyValue);
+            }
+
+            if (string.IsNullOrEmpty(DataTypeAlias))
+            {
+                return DataTypeService.GetDataTypeDefinitionByName(DataTypeAlias);
+            }
+
+            return null;
         }
 
         private IDataTypeDefinition CreateNewDataType()

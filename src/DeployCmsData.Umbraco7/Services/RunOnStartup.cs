@@ -37,7 +37,7 @@ namespace DeployCmsData.Umbraco7.Services
             var scriptRepository = new UpgradeScriptRepository();
             var upgradeScriptManager = new UpgradeScriptManager(logRepository, scriptRepository);
 
-            upgradeScriptManager.RunScriptIfNeeded(new AddTrueFalseDataType());
+            upgradeScriptManager.RunScriptIfNeeded(new AddLegacyDataTypes());
             upgradeScriptManager.RunAllScriptsIfNeeded();
         }
 

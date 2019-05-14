@@ -210,7 +210,8 @@
     <Compile Include="ApiController\IntegrationTestBaseController.cs" />
     <Compile Include="Constants\LocalDataTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UpgradeScripts\AllDataTypes.cs" />
+    <Compile Include="UpgradeScripts\AllDataTypeAliases.cs" />
+    <Compile Include="UpgradeScripts\AllDataTypeIds.cs" />
     <Compile Include="UpgradeScripts\BuildHomePage.cs" />
     <Compile Include="UpgradeScripts\BuildWebsite.cs" />
     <Compile Include="UpgradeScripts\ClearTheDecks.cs" />

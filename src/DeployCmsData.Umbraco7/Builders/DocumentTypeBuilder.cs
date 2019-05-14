@@ -321,6 +321,14 @@ namespace DeployCmsData.Umbraco7.Builders
                 propertyType.DataTypeDefinitionId = dataTypeDefinition.Id;
             }
 
+            if (field.DataTypeIdValue != null && field.DataTypeIdValue != Guid.Empty)
+            {
+                var dataTypeDefinition = _dataTypeService.GetDataTypeDefinitionById(field.DataTypeIdValue);
+                Verify.Operation(dataTypeDefinition != null, ExceptionMessages.CannotFindDataType + field.DataTypeIdValue);
+
+                propertyType.DataTypeDefinitionId = dataTypeDefinition.Id;
+            }
+
             if (field.TabValue != null)
             {
                 documentType.MovePropertyType(field.AliasValue, field.TabValue);

@@ -234,6 +234,7 @@
     <Compile Include="Constants\AppSettings.cs" />
     <Compile Include="Constants\Database.cs" />
     <Compile Include="Constants\DataTypeAlias.cs" />
+    <Compile Include="Constants\DataTypeId.cs" />
     <Compile Include="Constants\ExceptionMessages.cs" />
     <Compile Include="Constants\IconColour.cs" />
     <Compile Include="Constants\Icons.cs" />
@@ -260,7 +261,7 @@
     <Compile Include="Services\Server.cs" />
     <Compile Include="Services\UmbracoFactory.cs" />
     <Compile Include="Services\UmbracoLibrary.cs" />
-    <Compile Include="UpgradeScripts\AddTrueFalseDataType.cs" />
+    <Compile Include="UpgradeScripts\AddLegacyDataTypes.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

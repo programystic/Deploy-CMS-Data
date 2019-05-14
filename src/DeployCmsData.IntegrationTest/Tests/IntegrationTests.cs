@@ -12,6 +12,7 @@ namespace DeployCmsData.IntegrationTest.Tests
         string[] _endPoints = new string[] {
                 "http://deploycms.umb7.4",
                 "http://deploycms.umb7.6",
+                "http://deploycms.umb7.8",
                 "http://deploycms.umb7.13"
                 //,"http://deploycms.umb8.0"
             };
@@ -35,6 +36,7 @@ namespace DeployCmsData.IntegrationTest.Tests
         [TestCase("CreateContent")]
         [TestCase("MultiNodeTreePicker")]
         [TestCase("AllDataTypes")]
+        //[TestCase("AllDataTypeIds")]
         [TestCase("UpdateHomePage")]
         [TestCase("RemoveAllowedDocType")]
         [TestCase("GridRowConfiguration")]
